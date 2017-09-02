@@ -1,0 +1,316 @@
+#!/bin/bash
+
+# OS: Solaris
+# Version: 11
+# Severity: CAT-II
+# Class: UNCLASSIFIED
+# VulnID: V0059835
+
+
+# Array of init script locations
+declare -a inits
+inits+=("/etc/rc*")
+inits+=("/etc/init.d")
+inits+=("/lib/svc")
+
+# Pattern to match *possible* binaries
+pattern="/[a-z0-9A-Z._-]+"
+
+# Disable changes for offending inodes found on remote shares
+disable_remote=1
+
+
+# Global defaults for tool
+author=
+verbose=0
+change=0
+restore=0
+interactive=0
+
+# Working directory
+cwd="$(dirname $0)"
+
+# Tool name
+prog="$(basename $0)"
+
+
+# Copy ${prog} to DISA STIG ID this tool handles
+stigid="$(echo "${prog}" | cut -d. -f1)"
+
+
+# Ensure path is robust
+PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+
+
+# Define the library include path
+lib_path=${cwd}/../../../libs
+
+# Define the tools include path
+tools_path=${cwd}/../../../stigs
+
+# Define the system backup path
+backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
+
+
+# Robot, do work
+
+
+# Error if the ${inc_path} doesn't exist
+if [ ! -d ${lib_path} ] ; then
+  echo "Defined library path doesn't exist (${lib_path})" && exit 1
+fi
+
+
+# Include all .sh files found in ${lib_path}
+incs=($(ls ${lib_path}/*.sh))
+
+# Exit if nothing is found
+if [ ${#incs[@]} -eq 0 ]; then
+  echo "'${#incs[@]}' libraries found in '${lib_path}'" && exit 1
+fi
+
+
+# Iterate ${incs[@]}
+for src in ${incs[@]}; do
+
+  # Make sure ${src} exists
+  if [ ! -f ${src} ]; then
+    echo "Skipping '$(basename ${src})'; not a real file (block device, symlink etc)"
+    continue
+  fi
+
+  # Include $[src} making any defined functions available
+  source ${src}
+
+done
+
+
+# Ensure we have permissions
+if [ $UID -ne 0 ] ; then
+  usage "Requires root privileges" && exit 1
+fi
+
+
+# Set variables
+while getopts "ha:cvri" OPTION ; do
+  case $OPTION in
+    h) usage && exit 1 ;;
+    a) author=$OPTARG ;;
+    c) change=1 ;;
+    v) verbose=1 ;;
+    r) restore=1 ;;
+    i) interactive=1 ;;
+    ?) usage && exit 1 ;;
+  esac
+done
+
+
+# Make sure we have an author if we are not restoring or validating
+if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
+  usage "Must specify an author name (use -a <initials>)" && exit 1
+fi
+
+
+# If ${restore} = 1 go to restoration mode
+if [ ${restore} -eq 1 ]; then
+
+  # If ${interactive} = 1 go to interactive restoration mode
+  if [ ${interactive} -eq 1 ]; then
+  
+    # Print friendly message regarding restoration mode
+    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
+
+  fi
+
+  # Print friendly message regarding restoration mode
+  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
+
+  exit 0
+fi
+
+
+# Make sure ${#inits[@]} is > 0
+if [ ${#inits[@]} -eq 0 ]; then
+  usage "A list of profile configuration files to examine must be defined" && exit 1
+fi
+
+
+# Get all remote mount points
+remotes=( $(mount | awk '$3 ~ /.*\:.*/{print $1}') )
+
+# Get list of init scripts to examine
+files=( $(find ${inits[@]} -type f -ls | awk '{print $11}') )
+
+# Exit if ${#files[@]} is 0
+if [ ${#files[@]} -eq 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "'${#files[@]}' init scripts found to examine; exiting" && exit 0
+fi
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Got list of init scripts to examine; ${#files[@]}"
+
+
+# Define an empty array
+declare -a tmp_files
+
+# Iterate ${files[@]}
+for file in ${files[@]}; do
+
+  # Handle symlinks
+  file="$(get_inode ${file})"
+
+  # Use extract_filenames() to obtain array of binaries from ${file}
+  tmp_files+=( $(extract_filenames ${file}) )
+done
+
+# If ${#tmp_files[@]} = 0 then we are done
+if [ ${#tmp_files[@]} -eq 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "'${#tmp_files[@]}' called file(s) found from init scripts; exiting" 1 && exit 0
+fi
+
+# Remove duplicates from ${tmp_files[@]}
+tmp_files=( $(remove_duplicates "${tmp_files[@]}") )
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Extracted list of possible binary paths to examine; ${#tmp_files[@]}"
+
+
+# Define an empty array for errors
+declare -a errs
+
+# Define an empty array for validated files
+declare -a vals
+
+
+# Iterate ${tmp_files[@]}
+for inode in ${tmp_files[@]}; do
+
+  # Handle symlinks
+  inode="$(get_inode ${inode})"
+
+  # Skip ${inode} if it's not a file OR executable
+  [ ! -x ${inode} ] && continue
+
+
+  # Extract PATH from ${inode}
+  thaystack=( $(nawk '$0 ~ /LD_PRELOAD=[a-zA-Z0-9:\/]+/{split($0, obj, "=");if(obj[2] ~ /;/){split(obj[2], fin, ";")}else{fin[2]=obj[2]}print fin[2]}' ${inode} | \
+    grep -v "export") )
+
+  # Skip ${inode} if PATH not found
+  [ ${#thaystack[@]} -eq 0 ] && continue
+
+  # Remove duplicates from ${thaystack[@]}
+  haystack=( $(remove_duplicates "${thaystack[@]}") )
+
+
+  # Iterate ${haystack[@]}
+  for haybail in ${haystack[@]}; do
+  
+    # Examine ${haybail} for invalid path
+    chk=$(echo "${haybail}" | egrep -c '^:|::|:$|:[a-zA-Z0-9-_~.]+')
+
+    # Add ${inode} to ${errs[@]} array if ${chk} > 0 OR add it to ${vals[@]} array
+    [ ${chk} -gt 0 ] && errs+=("${inode}") || vals+=("${inode}")
+
+
+    # If ${change} > 0
+    if [[ ${change} -ne 0 ]] && [[ $(in_array "${inode}" "${errs[@]}") -gt 0 ]]; then
+
+      # Create the backup env
+      backup_setup_env "${backup_path}"
+
+      # Create a backup of ${file}
+      bu_file "${author}" "${inode}"
+      if [ $? -ne 0 ]; then
+
+        # Print friendly message
+        [ ${verbose} -eq 1 ] && print "Could not create a backup of '${inode}', exiting..." 1
+
+        # Stop, we require a backup
+        exit 1
+      fi
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "Created backup of '${inode}'"
+    
+      # Get the last backup file
+      tfile="$(bu_file_last "$(dirname ${inode})" "${author}")"
+      if [ ! -f ${tfile} ]; then
+
+        # Print friendly message
+        [ ${verbose} -eq 1 ] && print "An error occurred getting temporary file for changes"
+        exit 1
+      fi
+    
+      # Strip out invalid PATH entries from ${tfile}; 
+      #   ugly... re factoring a more robust BRE pattern would be preferred
+      sed -e "s/=://g" \
+          -e "s/=~.*$//g" \
+          -e "s/=~.*://g" \
+          -e "s/=\..*://g" \
+          -e "s/=\..*$//g" \
+          -e "s/=\.\..*://g" \
+          -e "s/=\.\..*$//g" \
+          -e "s/:://g" \
+          -e "s/:$//g" \
+          -e "s/:~.*$//g" \
+          -e "s/:~.*://g" \
+          -e "s/:\..*://g" \
+          -e "s/:\..*$//g" \
+          -e "s/:\.\..*://g" \
+          -e "s/:\.\..*$//g" ${tfile} > ${inode}
+    fi
+  done
+done
+
+
+# If ${#errs[@]} > 0
+if [ ${#errs[@]} -gt 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "List of inodes with invalid PATH(s) defined" 1
+
+  # Iterate ${errs[@]}
+  for err in ${errs[@]}; do
+
+    # Look in ${remotes[@]} to determine possible remote share
+    if [ $(in_array_fuzzy "${err}" "${remotes[@]}") -eq 0 ]; then
+      efile="[Remote/NFS] ${err}"
+    fi
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "  - ${err}" 1
+  done
+
+  exit 1
+fi
+
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "'${#vals[@]}/${#tmp_files[@]}' referenced from '${#files[@]}' init scripts validated"
+
+# If ${#validated[@]} > 0
+if [ ${#vals[@]} -gt 0 ]; then
+
+  # Iterate ${vals[@]}
+  for val in ${vals[@]}; do
+
+    # Assign ${inode} to ${validated[@]}
+    if [ $(in_array_fuzzy "${val}" "${remotes[@]}") -eq 0 ]; then
+      efile="[Remote/NFS] ${val}"
+    fi
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "  - ${val}"
+  done
+fi
+
+
+# Print friendly success
+[ ${verbose} -eq 1 ] && print "Success, system conforms to '${stigid}'"
+
+exit 0

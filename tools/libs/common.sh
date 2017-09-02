@@ -1,0 +1,172 @@
+#!/bin/bash
+
+# Displays available arg list
+# Arguments:
+#  [String] (Optional): Error to display regarding usage of invoked tool
+function usage()
+{
+  # Handle error if present
+  [ "${1}" != "" ] && error="$(print "${1}" 1)"
+
+  # Print a friendly menu
+  cat <<EOF
+${error}
+
+Handles DISA STIG ${stigid}
+
+Usage ./${prog} [options]
+
+  Options:
+    -h  Show this message
+    -v  Enable verbosity mode
+
+  Required:
+    -c  Make the change
+    -a  Author name (required when making change)
+
+  Restoration options:
+    -r  Perform rollback of changes
+    -i  Interactive mode, to be used with -r
+
+EOF
+}
+
+
+# Get the current hostname
+function get_hostname()
+{
+  local host="$(hostname)"
+  
+  if [[ "${host}" == "" ]] || [[ "${host}" =~ localhost ]]; then
+    return 1
+  fi
+  
+  echo "${host}" && return 0
+}
+
+
+# Function truncate output
+# Arguments:
+#  str [String]: String that requires truncation
+#  count [Integer] (Optional): Number of columns (characters) to limit
+function truncate_cols()
+{
+  local str="${1}"
+  local count=$([ ! -x ${2} ] && echo ${2} || echo 80)
+
+  echo "${str:0:${count}}..."
+}
+
+
+# Function to determine if path is on an NFS share
+# Arguments:
+#  str [String]: Path to validate as an NFS share
+function is_nfs_path()
+{
+  local path="${1}"
+
+  mounts=($(mount | nawk -v pat="${path}" '$1 ~ pat && $3 ~ /:/{split($3, obj, ":"); print obj[1]}'))
+  echo ${#mounts[@]}
+}
+
+
+# Function to get list of Operating systems supported
+function get_os()
+{
+  # Re-assign all arguments
+  local obj=( ${@} )
+
+  # If element 0 is = to 1 then change the return type from string to array
+  if [ "${obj[0]}" == 1 ]; then
+    retval=${obj[0]}
+    path="${obj[@]:1}"
+  else
+    retval=0
+    path="${obj[@]}"
+  fi
+  
+  # Create a local array to handle directory list
+  local -a dirs
+  dirs=( $(ls ${path}) )
+
+  if [ ${#dirs[@]} -eq 0 ]; then
+    echo "undefined"
+    return
+  fi
+
+  if [ ${retval} -eq 1 ]; then
+    echo "${dirs[@]}"
+    return 0
+  fi
+
+  echo "${dirs[@]}" | tr ' ' '|'
+}
+
+
+# Function to get list of versions (per os)
+function get_version()
+{
+  # Re-assign all arguments
+  local obj=( ${@} )
+
+  # If element 0 is = to 1 then change the return type from string to array
+  if [ "${obj[0]}" == 1 ]; then
+    retval=${obj[0]}
+    path="${obj[@]:1}"
+  else
+    retval=0
+    path="${obj[@]}"
+  fi
+
+  
+  # Create a local array to handle directory list
+  local -a versions
+  versions=( $(ls ${path} | grep -v "/") )
+
+  if [ ${#versions[@]} -eq 0 ]; then
+    echo "undefined"
+    return
+  fi
+
+  if [ ${retval} -eq 1 ]; then
+    echo "${versions[@]}"
+    return 0
+  fi
+
+  echo "${versions[@]}" | tr ' ' '|'
+}
+
+
+# Function to get list of available severity levels
+function get_classification()
+{
+  # Re-assign all arguments
+  local obj=( ${@} )
+
+  # If element 0 is = to 1 then change the return type from string to array
+  if [ "${obj[0]}" == 1 ]; then
+    retval=${obj[0]}
+    path="${obj[@]:1}"
+  else
+    retval=0
+    path="${obj[@]}"
+  fi
+
+  
+  # Create a local array to handle directory list
+  local -a classes
+  classes=( $(find ${path} -type f -prune -name "*.sh" -exec grep -i "^# severity:" {} \; | cut -d" " -f3 | sort -u) )
+
+  if [ ${#classes[@]} -eq 0 ]; then
+    echo "undefined"
+    return
+  fi
+
+  if [ ${retval} -eq 1 ]; then
+    echo "${classes[@]}"
+    return 0
+  fi
+
+  echo "${classes[@]}" | tr ' ' '|'
+}
+

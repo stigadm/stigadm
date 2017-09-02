@@ -1,0 +1,309 @@
+#!/bin/bash
+
+# OS: Solaris
+# Version: 11
+# Severity: CAT-II
+# Class: UNCLASSIFIED
+# VulnID: V-47943
+# Name: SV-60815r1
+
+
+# Define a minimum weeks range for changing passwords
+minweeks=1
+
+# Define the configuration file for handling the default maxweeks value
+file=/etc/default/passwd
+
+
+# Define a default of current MAXWEEKS value (in case it is not defined)
+mweeks=0
+
+# UID minimum as exclusionary for system/service accounts
+uid_min=1000
+
+declare -a exceptions
+exceptions+=('nobody')
+exceptions+=('nobody4')
+exceptions+=('noaccess')
+exceptions+=('ldap-bind')
+exceptions+=('oracle')
+exceptions+=('ctm')
+exceptions+=('sdb')
+exceptions+=('aabadm')
+exceptions+=('lcbadm')
+exceptions+=('CMacct1')
+exceptions+=('CMacct2')
+
+
+# Global defaults for tool
+author=
+verbose=0
+change=0
+restore=0
+interactive=0
+
+# Working directory
+cwd="$(dirname $0)"
+
+# Tool name
+prog="$(basename $0)"
+
+
+# Copy ${prog} to DISA STIG ID this tool handles
+stigid="$(echo "${prog}" | cut -d. -f1)"
+
+
+# Ensure path is robust
+PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+
+
+# Define the library include path
+lib_path=${cwd}/../../../libs
+
+# Define the tools include path
+tools_path=${cwd}/../../../stigs
+
+# Define the system backup path
+backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
+
+
+# Robot, do work
+
+
+# Error if the ${inc_path} doesn't exist
+if [ ! -d ${lib_path} ] ; then
+  echo "Defined library path doesn't exist (${lib_path})" && exit 1
+fi
+
+
+# Include all .sh files found in ${lib_path}
+incs=($(ls ${lib_path}/*.sh))
+
+# Exit if nothing is found
+if [ ${#incs[@]} -eq 0 ]; then
+  echo "'${#incs[@]}' libraries found in '${lib_path}'" && exit 1
+fi
+
+
+# Iterate ${incs[@]}
+for src in ${incs[@]}; do
+
+  # Make sure ${src} exists
+  if [ ! -f ${src} ]; then
+    echo "Skipping '$(basename ${src})'; not a real file (block device, symlink etc)"
+    continue
+  fi
+
+  # Include $[src} making any defined functions available
+  source ${src}
+
+done
+
+
+# Ensure we have permissions
+if [ $UID -ne 0 ] ; then
+  usage "Requires root privileges" && exit 1
+fi
+
+
+# Set variables
+while getopts "ha:cvri" OPTION ; do
+  case $OPTION in
+    h) usage && exit 1 ;;
+    a) author=$OPTARG ;;
+    c) change=1 ;;
+    v) verbose=1 ;;
+    r) restore=1 ;;
+    i) interactive=1 ;;
+    ?) usage && exit 1 ;;
+  esac
+done
+
+
+# Make sure we have an author if we are not restoring or validating
+if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
+  usage "Must specify an author name (use -a <initials>)" && exit 1
+fi
+
+
+# Handle symlinks
+file="$(get_inode ${file})"
+
+# Exit if ${file} isn't a file
+if [ ! -f ${file} ]; then
+  usage "The file; '${file}' configured is not a real file" && exit 1
+fi
+
+# If ${restore} = 1 go to restoration mode
+if [ ${restore} -eq 1 ]; then
+
+  # If ${interactive} = 1 go to interactive restoration mode
+  if [ ${interactive} -eq 1 ]; then
+  
+    # Print friendly message regarding restoration mode
+    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
+
+  fi
+
+  # Print friendly message regarding restoration mode
+  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
+
+  exit 0
+fi
+
+
+# If ${change} = 1
+if [ ${change} -eq 1 ]; then
+
+  # Create a backup of the passwd database
+  bu_passwd_db "${author}"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Backup of passwd database failed, exiting..." 1
+
+    # Stop, we require a backup of the passwd database for changes
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created backup of passwd database file(s)"
+
+
+  # Create a backup of ${file}
+  bu_file "${author}" "${file}"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Could not create a backup of '${file}', exiting..." 1
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created backup of '${file}'"
+fi
+
+
+# Get current 'MAXWEEKS' configuration
+mweeks=$(grep -i ^MINWEEKS ${file} | cut -d= -f2)
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Obtained current MINWEEKS value from '${file}' (${mweeks})"
+
+
+# If ${mweeks} > ${maxweeks}
+if [ ${mweeks} -gt ${minweeks} ]; then
+  
+  # If ${change} set
+  if [ ${change} -eq 1 ]; then
+
+    # Get the last backup file
+    tfile="$(bu_file_last "$(dirname ${file})" "${author}")"
+    if [ ! -f ${tfile} ]; then
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "An error occurred getting temporary file for changes"
+      exit 1
+    fi
+
+    # Make change for ${maxweeks} from ${tfile} into ${file}
+    sed -e "s/^MINWEEKS=.*/MINWEEKS=${maxweeks}/g" ${tfile} > ${file}
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Made changes to '${file}' reflecting 'MINWEEKS=${minweeks}'"
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Obtained current MINWEEKS value from '${file}' (${mweeks})"
+
+  # Get current 'MINWEEKS' configuration
+  tmweeks=$(grep -i ^MINWEEKS ${file} | cut -d= -f2)
+
+  # If ${tmweeks} > ${maxweeks}
+  if [ ${tmweeks} -gt ${maxweeks} ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "'${file}' does not reflect 'MINWEEKS=${minweeks}'; does not conform to '${stigid}'" 1
+  fi
+else
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "'${file}' conforms to '${stigid}'"
+fi
+
+# If ${#exceptions[@]} > 0 create a pattern
+pattern="$(echo "${exceptions[@]}" | tr ' ' '|')"
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Created exclude pattern ($(truncate_cols "${pattern}" 20))"
+
+# Get an array of logins 
+accounts=( $(logins -ox | nawk -F: -v minw="${minweeks}" -v min="${uid_min}" -v pat="${pattern}" '$2 >= min && $1 !~ pat && $8 ~ /^PS|UP|LK$/ && ($10 > minw || $10 < minw){print $1}' 2>/dev/null | sort -u) )
+
+# If ${#accounts[@]} = 0 exit
+if [ ${#accounts[@]} -eq 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "'${#accounts[@]}' accounts found, system conforms to '${stigid}'"
+  exit 0
+fi
+
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Found '${#accounts[@]}' with an incorrect configuration according to '${stigid}'"
+
+
+# Iterate ${accounts[@]}
+for user in ${accounts[@]}; do
+
+  # If ${change} = 1
+  if [ ${change} -eq 1 ]; then
+
+    # Lock account for ${user}
+    passwd -n ${minweeks} ${user} &> /dev/null
+
+    # IF an error occurred locking ${user} handle it
+    if [ $? -ne 0 ]; then
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "An error occurred setting minimum weeks for '${user}' to '${minweeks}'" 1
+    fi
+
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Set minimum weeks between password changes for '${user}' to '${minweeks}'"
+
+  fi
+
+
+  # Get current status of ${user}
+  status="$(logins -oxl ${user} | nawk -F: -v min="${minweeks}" '$10 > min || $10 < 1{print $1}')"
+
+  # If ${status} isn't empty then the user doesn't conform to ${stigid}
+  if [ "${status}" != "" ]; then
+
+    errlgn+=("${user}")
+  fi
+done
+
+
+# Check to see if ${#errlgn[@]} > 0
+if [ ${#errlgn[@]} -gt 0 ]; then
+
+  # Print friendly success
+  [ ${verbose} -eq 1 ] && print "Host does not conform to '${stigid}'" 1
+
+  # Iterate ${errlgn[@]}
+  for nme in ${errlgn[@]}; do
+
+    # Print friendly success
+    [ ${verbose} -eq 1 ] && print "  '${nme}' weeks between password changes exceeds '${minweeks}'" 1
+  done
+  exit 1
+fi
+
+
+# Print friendly success
+[ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
+
+exit 0
