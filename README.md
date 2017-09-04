@@ -86,6 +86,27 @@ stigadm] Ok: Built list of STIG modules: 74/74
 ...
 ```
 
+### Classification targeting
+Targeting the STIG classification can be used to filter tests
+
+```sh
+$ ./stigadm.sh -vO Solaris -V 11 -C CAT-II
+stigadm] Ok: Built list of STIG modules: 23/74
+[stigadm] Ok:   OS: Solaris Version: 11 Classification: CAT-II
+
+...
+```
+
+### Vulnability targeting
+Providing a comma separated list of VMS ID's can also assist with filtering tests
+
+```sh
+$ ./stigadm.sh -vO Solaris -V 11 -L V0047799,V0048211,V0048189
+stigadm] Ok: Built list of STIG modules: 3/74
+[stigadm] Ok:   OS: Solaris Version: 11 Classification: ALL
+
+...
+```
 
 ## contributing ##
 
