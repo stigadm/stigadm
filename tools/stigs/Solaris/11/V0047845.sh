@@ -13,11 +13,7 @@ file=/etc/mail/aliases
 
 # Array of aliases
 declare -a aliases
-aliases+=("sec:disa.hill.eis.list.cybersecurity-site-issm@mail.mil,disa.hill.eis.mbx.cybersecurity-server-alerts@mail.mil")
-aliases+=("security:disa.hill.eis.list.cybersecurity-site-issm@mail.mil,disa.hill.eis.mbx.cybersecurity-server-alerts@mail.mil")
-aliases+=("shark:disa.hill.eis.mbx.cybersecurity-server-alerts@mail.mil")
-aliases+=("iao:disa.hill.eis.mbx.cybersecurity-server-alerts@mail.mil")
-aliases+=("webiao:disa.hill.eis.list.cybersecurity-web-database@mail.mil")
+aliases+=("")
 
 
 # Global defaults for tool
@@ -117,14 +113,14 @@ file="$(get_inode ${file})"
 if [ ! -f ${file} ]; then
   usage "'${file}' does not exist at specified location" && exit 1
 fi
-  
+
 
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -180,7 +176,7 @@ if [ ${change} -eq 1 ]; then
 
     # Get alias keyword from ${talias}
     palias="$(echo "${talias}" | cut -d: -f1)"
-    
+
     # Get the current list of emails from ${talias}
     IFS="," read -p lemails <<< "$(echo "${talias}" | cut -d: -f2)"
 
@@ -196,7 +192,7 @@ if [ ${change} -eq 1 ]; then
 
       # Since ${tmp} is not empty get list of emails
       IFS="," read -p cemails <<< "$(echo "${tmp}" | cut -d: -f2)"
-      
+
       # Perform intersection of ${lemails[@]} with ${cemails[@]}
       temails=($(comm -13 <(printf "%s\n" "$(echo "${lemails[@]}" | sort -u)") \
                   <(printf "%s\n" "$(echo "${cemails[@]}" | sort -u)")))
@@ -269,7 +265,7 @@ if [ ${#errs[@]} -gt 0 ]; then
   exit 1
 fi
 
-  
+
 # Print friendly success
 [ ${verbose} -eq 1 ] && print "Success, '${file}' conforms to '${stigid}'"
 

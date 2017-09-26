@@ -14,25 +14,6 @@ declare -a allowed
 # Allow loop back service binds
 allowed+=('127.0.0.1')
 
-# Allow OOB subnet service binds
-allowed+=('2.0.0.0/24')
-
-# Allow EBN subnet service binds
-allowed+=('1.214.208.0/24')
-allowed+=('1.214.209.0/24')
-allowed+=('1.214.210.0/24')
-allowed+=('1.214.211.0/24')
-allowed+=('1.214.213.0/24')
-allowed+=('1.214.214.0/24')
-
-# Allow production service binds 
-allowed+=('144.251.23.0/24')
-allowed+=('144.251.126.0/24')
-allowed+=('144.251.127.0/24')
-allowed+=('144.251.187.0/24')
-allowed+=('214.6.32.0/24')
-allowed+=('214.6.34.0/24')
-
 
 # Global defaults for tool
 author=
@@ -172,7 +153,7 @@ if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -219,7 +200,7 @@ for cpid in ${procs[@]}; do
       fi
       continue
     fi
-    
+
     # Update ${binary} @ ${procs[${x}]}
     procs[${x}]="${pid}:${binary}"
 
@@ -348,7 +329,7 @@ if [ ${#failed[@]} -gt 0 ]; then
       [ ${verbose} -eq 1 ] && print "    ${fl}" 1
     done | sort -u
   done
-  
+
   exit 1
 fi
 
