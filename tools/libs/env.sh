@@ -3,7 +3,7 @@
 # Determine OS type
 function os()
 {
-  uname -s
+  uname -s | sed -e 's/SunOS/Solaris/g'
 }
 
 
@@ -26,10 +26,12 @@ get_path()
 {
   local cwd="${1}"
   local dir="${2}"
+
+  local cur="$(pwd)"
+
   local path
-  
-  path="$(find ${cwd} -type d -name ${dir} | head -1)"
-  
+
+  path="$(find ${cwd:=${cur}} -type d -name ${dir} | head -1)"
+
   echo "${path}"
 }
-

@@ -17,7 +17,7 @@ function select_os()
   # Gather list of available supported OS's
   local -a os_list
   os_list=( $(get_os 1 ${path}) )
-  
+
   # If ${#os_list[@]} = 0 abort
   if [ ${#os_list[@]} -eq 0 ]; then
     print "  Could not determine a valid list of target Operating Systems, aborting" 1
@@ -29,6 +29,7 @@ function select_os()
 
   # Force selection of OS target
   while [ $(in_array "${os}" "${os_list[@]}") -eq 1 ]; do
+    echo $(in_array "${os}" "${os_list[@]}")
     read -p "  Target OS [${os_list_str}]: " os
   done
 
@@ -103,17 +104,17 @@ function select_modules()
   # Obtain an array of modules based on args
   local -a modules
   modules=( $(find ${path}/${os}/${verson} -type f -name "*.sh" -grep -il "${classificiation}" {} +) )
-  
+
   # Return 1 if ${#modules[@]} == 0
   [ ${#modules[@]} -eq 0 ] && return 0
 
   # Add 'All' wildcard option & 'Done' elements to ${modules[@]} array
   modules+=('All' 'Done')
-  
+
   # Define PS3
   PS3="Select module(s): "
 
-  # Create menu 
+  # Create menu
   select ${file} in ${modules[@]}; do
 
     # Handle results selected for ${file}
@@ -140,7 +141,7 @@ function select_mode()
   # Define some default modes
   local -a modes
   modes=("Change" "Validate" "Restore")
-  
+
   # Convert ${modes[@]} into a string
   local modes_str="$(echo "${modes[@]}" | tr ' ' '|')"
 
@@ -149,18 +150,18 @@ function select_mode()
     read -p "  Mode [${modes_str}]: " mode
     mode="${mode:=Validate}"
   done
-  
+
   # Since we expect an integer later
   [ "${mode}" == "Change" ] && change=1
   [ "${mode}" == "Restore" ] && restore=1
-  
+
   # If ${change} = 1 make sure the user provides an author value
   if [ ${change} -ne 0 ]; then
     while [ "${author}" == "" ]; do
       read -p "  Author Initials (Required for changes): " author
     done
   fi
-  
+
   # If ${restore} = 1 ask about interactive mode
   if [ ${restore} -eq 1 ]; then
 
@@ -219,7 +220,7 @@ function wizard()
 
   # Get value for globally scoped ${os} & new value for ${path}
   select_os "${path}"
-  
+
   # Get value for globally scoped ${version} & new value for ${path}
   select_version "${path}/${os}"
 

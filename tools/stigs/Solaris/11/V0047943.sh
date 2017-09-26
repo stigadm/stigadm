@@ -142,7 +142,7 @@ if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -153,6 +153,7 @@ if [ ${restore} -eq 1 ]; then
 
   exit 0
 fi
+
 
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
@@ -189,13 +190,20 @@ fi
 # Get current 'MAXWEEKS' configuration
 mweeks=$(grep -i ^MAXWEEKS ${file} | cut -d= -f2)
 
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtained current MAXWEEKS value from '${file}' (${mweeks})"
+# Exit if value isn't set as an error
+if [ "${mweeks}" == "" ]; then
+
+  err=1
+else
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Obtained current MAXWEEKS value from '${file}' (${mweeks})"
+fi
+
 
 
 # If ${mweeks} > ${maxweeks}
-if [ ${mweeks} -gt ${maxweeks} ]; then
-  
+if [ ${mweeks:=0} -gt ${maxweeks} ]; then
+
   # If ${change} set
   if [ ${change} -eq 1 ]; then
 
@@ -227,10 +235,6 @@ if [ ${mweeks} -gt ${maxweeks} ]; then
     # Print friendly message
     [ ${verbose} -eq 1 ] && print "'${file}' does not reflect 'MAXWEEKS=${maxweeks}'; does not conform to '${stigid}'" 1
   fi
-else
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "'${file}' conforms to '${stigid}'"
 fi
 
 
@@ -249,13 +253,12 @@ user_list=($(nawk -F: -v min="${uid_min}" -v pat="${pattern}" '$3 >= min && $1 !
 if [ ${#user_list[@]} -eq 0 ]; then
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "'${#user_list[@]}' users found meeting criteria for examination; exiting" 1
+  [ ${verbose} -eq 1 ] && print "'${#user_list[@]}' users found meeting criteria for examination" 1
 
-  exit 1
+else
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Obtained list of users to examine (Total: ${#user_list[@]})"
 fi
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtained list of users to examine (Total: ${#user_list[@]})"
 
 
 # Apply a filter of users to limit results to
@@ -273,12 +276,11 @@ if [ ${#accounts[@]} -eq 0 ]; then
 
   # Print friendly message
   [ ${verbose} -eq 1 ] && print "'${#accounts[@]}' accounts found, system conforms to '${stigid}'"
-  exit 0
+else
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Obtained filtered list of accounts '${#accounts[@]}'"
 fi
-
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtained filtered list of accounts '${#accounts[@]}'"
 
 
 declare -a errlgn
@@ -343,6 +345,13 @@ if [ ${#errlgn[@]} -gt 0 ]; then
     # Print friendly success
     [ ${verbose} -eq 1 ] && print "  ${nme}" 1
   done
+fi
+
+# If ${err} is set then exit & show error
+if [ ${err:=0} -eq 1 ]; then
+
+  # Print friendly success
+  [ ${verbose} -eq 1 ] && print "Host does not conform to '${stigid}'" 1
   exit 1
 fi
 
