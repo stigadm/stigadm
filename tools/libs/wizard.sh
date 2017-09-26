@@ -29,8 +29,10 @@ function select_os()
 
   # Force selection of OS target
   while [ $(in_array "${os}" "${os_list[@]}") -eq 1 ]; do
-    echo $(in_array "${os}" "${os_list[@]}")
     read -p "  Target OS [${os_list_str}]: " os
+
+    # If nothing selected detect OS and use it
+    [ "${os}" == "" ] && os="$(os)"
   done
 
   # Ask about new boot environment if solaris
@@ -64,6 +66,9 @@ function select_version()
   # Force selection of OS version
   while [ $(in_array "${version}" "${version_list[@]}") -eq 1 ]; do
     read -p "  OS Version [${version_list_str}]: " version
+
+    # If nothing selected detect OS version and use it
+    [ "${version}" == "" ] && version="$(version)"
   done
 }
 
@@ -84,7 +89,9 @@ function select_classification()
   # Optional selection of severity level(s)
   while [ $(in_array "${classification}" "${classification_list[@]}") -eq 1 ]; do
     read -p "  Severity [${classification_list_str}]: " classification
-    classification="${classification:=False}"
+
+    # If nothing selected use 'ALL'
+    [ "${classification}" == "" ] && classification="ALL"
   done
 }
 
@@ -98,37 +105,39 @@ function select_modules()
   local version="${3}"
   local classification="${4}"
 
+  [ "${classification}" == "ALL" ] && classification="\# Severity: "
+
   # Define a local array of return modules
   local -a selected
 
   # Obtain an array of modules based on args
   local -a modules
-  modules=( $(find ${path}/${os}/${verson} -type f -name "*.sh" -grep -il "${classificiation}" {} +) )
+  modules=( $(find ${path}/${os}/${verson} -type f -name "*.sh" -exec grep -l "${classification}" {} \;) )
 
   # Return 1 if ${#modules[@]} == 0
   [ ${#modules[@]} -eq 0 ] && return 0
 
   # Add 'All' wildcard option & 'Done' elements to ${modules[@]} array
-  modules+=('All' 'Done')
+#  modules+=('All' 'Done')
 
   # Define PS3
-  PS3="Select module(s): "
+#  PS3="Select module(s): "
 
   # Create menu
-  select ${file} in ${modules[@]}; do
+#  select module in ${modules[@]}; do
 
     # Handle results selected for ${file}
-    case ${file} in
-      'All')
-        selected=("*")
-        break ;;
-      'Done')
-        break ;;
-      *)
-        selected+=("${file}")
-        ;;
-    esac
-  done
+#    case ${file} in
+#      'All')
+#        selected="${modules[@]}"
+#        break ;;
+#      'Done')
+#        break ;;
+#      *)
+#        selected+=("${file}")
+#        ;;
+#    esac
+#  done
 
   # Return ${selected[@]}
   echo "$(remove_duplicates "${selected[@]}")"
@@ -194,7 +203,7 @@ function set_options()
   # Make sure user is prompted for the debug option
   while [ $(in_array "${debug}" "${booleans[@]}") -eq 1 ]; do
     read -p "  Enable debug [${booleans_str}]: " debug
-    debug="${debug:False}"
+    debug="${debug:=False}"
   done
 
   # Since we expect an integer later
@@ -210,7 +219,7 @@ function wizard()
   local path="${1}"
 
   # Be nice & friendly
-  echo "[${appname}]: Wizard mode for ${appname}"
+  echo "[${appname}]: Hello, let me help by asking some questions..."
 
   # Make sure ${path} is a directory
   if [ ! -d ${path} ]; then
@@ -228,6 +237,7 @@ function wizard()
   select_classification "${path}/${os}/${version}"
 
   # Select modules to apply
+  select_modules "${path}" "${os}" "${version}" "${classification}"
   stigs=( $(select_modules "${path}" "${os}" "${version}" "${classification}") )
 
   # Get globally scoped mode; i.e. validate, change or restore

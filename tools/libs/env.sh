@@ -10,7 +10,7 @@ function os()
 # Determine OS version
 function version()
 {
-  uname -v
+  uname -v | cut -d. -f1
 }
 
 
