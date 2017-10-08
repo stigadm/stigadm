@@ -198,13 +198,15 @@ for cpid in ${procs[@]}; do
       else
         failed['Missing']="${failed['Missing']}:${binary}"
       fi
-      continue
+
+      #continue
     fi
 
     # Update ${binary} @ ${procs[${x}]}
     procs[${x}]="${pid}:${binary}"
 
   fi
+
 
   # Increment ${x}
   x=$(( ${x} + 1 ))
@@ -238,13 +240,13 @@ for cpid in ${procs[@]}; do
   if [ ${examine} -eq 1 ]; then
 
     # Get any functions calls from ${pid} that match 'crypt'
-    calls=($(dtrace -qln 'pid$target:::entry' -p ${pid} | grep -i crypt))
+    calls=( $(dtrace -qln 'pid$target:::entry' -p ${pid} | grep -i crypt | gawk '{print $4}') )
 
     # If ${#calls[@]} = 0
     if [ ${#calls[@]} -eq 0 ]; then
 
       # Create an entry for ${binary} in ${failed['Functions']}
-      if [ -z ${failed['Missing']} ]; then
+      if [ -z ${failed['Functions']} ]; then
         failed['Functions']="${binary}"
       else
         failed['Functions']="${failed['Functions']}:${binary}"
@@ -254,7 +256,7 @@ for cpid in ${procs[@]}; do
     fi
 
     # Create an entry for ${binary} in ${passed['Functions']}
-    if [ -z ${passed['Missing']} ]; then
+    if [ -z ${passed['Functions']} ]; then
       passed['Functions']="${binary}"
     else
       passed['Functions']="${passed['Functions']}:${binary}"
@@ -264,7 +266,7 @@ done
 
 
 # Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtained & examined '${#procs[@]}' network service PID(s) & associated binaries"
+[ ${verbose} -eq 1 ] && print "Obtained & examined '${#procs[@]}' network service(s)"
 
 if [ ${#failed[@]} -eq 0 ]; then
 
@@ -278,7 +280,7 @@ if [ ${#failed[@]} -eq 0 ]; then
     ibin="$(echo "${p}" | cut -d: -f2)"
 
     [ ${verbose} -eq 1 ] && print "  [${ipid}] ${ibin}"
-  done | sort -ut: -k1
+  done
 fi
 
 
@@ -286,7 +288,7 @@ fi
 if [ ${#passed[@]} -gt 0 ]; then
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Network services were found using cryptographic libraries / functions"
+  [ ${verbose} -eq 1 ] && print "Validated cryptographic communications"
 
   # Iterate ${passed[@]}
   for pass in ${!passed[@]}; do
@@ -311,7 +313,7 @@ fi
 if [ ${#failed[@]} -gt 0 ]; then
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Issues regarding network services using cryptographic libraries / functions" 1
+  [ ${verbose} -eq 1 ] && print "Unable to validate cryptographic communications" 1
 
   # Iterate ${failed[@]}
   for fail in ${!failed[@]}; do
@@ -320,7 +322,7 @@ if [ ${#failed[@]} -gt 0 ]; then
     fails=($(echo "${failed[${fail}]}" | tr ':' ' '))
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  '${fail}' (${#fails[@]}/${#procs[@]}) Items Found (no links to crypto libraries/functions):" 1
+    [ ${verbose} -eq 1 ] && print "  '${fail}' (${#fails[@]}/${#procs[@]}):" 1
 
     # Iterate ${fails[@]}
     for fl in ${fails[@]}; do
