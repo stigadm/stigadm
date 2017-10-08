@@ -199,7 +199,7 @@ for cpid in ${procs[@]}; do
         failed['Missing']="${failed['Missing']}:${binary}"
       fi
 
-      #continue
+      continue
     fi
 
     # Update ${binary} @ ${procs[${x}]}

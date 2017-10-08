@@ -152,7 +152,7 @@ if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -199,7 +199,7 @@ for cpid in ${procs[@]}; do
       fi
       continue
     fi
-    
+
     # Update ${binary} @ ${procs[${x}]}
     procs[${x}]="${pid}:${binary}"
 
@@ -243,7 +243,7 @@ for cpid in ${procs[@]}; do
     if [ ${#calls[@]} -eq 0 ]; then
 
       # Create an entry for ${binary} in ${failed['Functions']}
-      if [ -z ${failed['Missing']} ]; then
+      if [ -z ${failed['Functions']} ]; then
         failed['Functions']="${binary}"
       else
         failed['Functions']="${failed['Functions']}:${binary}"
@@ -253,7 +253,7 @@ for cpid in ${procs[@]}; do
     fi
 
     # Create an entry for ${binary} in ${passed['Functions']}
-    if [ -z ${passed['Missing']} ]; then
+    if [ -z ${passed['Functions']} ]; then
       passed['Functions']="${binary}"
     else
       passed['Functions']="${passed['Functions']}:${binary}"
@@ -263,7 +263,7 @@ done
 
 
 # Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtained & examined '${#procs[@]}' network service PID(s) & associated binaries"
+[ ${verbose} -eq 1 ] && print "Obtained & examined '${#procs[@]}' network service(s)"
 
 if [ ${#failed[@]} -eq 0 ]; then
 
@@ -277,7 +277,7 @@ if [ ${#failed[@]} -eq 0 ]; then
     ibin="$(echo "${p}" | cut -d: -f2)"
 
     [ ${verbose} -eq 1 ] && print "  [${ipid}] ${ibin}"
-  done | sort -ut: -k1
+  done
 fi
 
 
@@ -285,7 +285,7 @@ fi
 if [ ${#passed[@]} -gt 0 ]; then
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Network services were found using cryptographic libraries / functions"
+  [ ${verbose} -eq 1 ] && print "Validated cryptographic communications"
 
   # Iterate ${passed[@]}
   for pass in ${!passed[@]}; do
@@ -310,7 +310,7 @@ fi
 if [ ${#failed[@]} -gt 0 ]; then
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Issues regarding network services using cryptographic libraries / functions" 1
+  [ ${verbose} -eq 1 ] && print "Unable to validate cryptographic communications" 1
 
   # Iterate ${failed[@]}
   for fail in ${!failed[@]}; do
@@ -319,7 +319,7 @@ if [ ${#failed[@]} -gt 0 ]; then
     fails=($(echo "${failed[${fail}]}" | tr ':' ' '))
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  '${fail}' (${#fails[@]}/${#procs[@]}) Items Found (no links to crypto libraries/functions):" 1
+    [ ${verbose} -eq 1 ] && print "  '${fail}' (${#fails[@]}/${#procs[@]}):" 1
 
     # Iterate ${fails[@]}
     for fl in ${fails[@]}; do
@@ -328,7 +328,7 @@ if [ ${#failed[@]} -gt 0 ]; then
       [ ${verbose} -eq 1 ] && print "    ${fl}" 1
     done | sort -u
   done
-  
+
   exit 1
 fi
 
