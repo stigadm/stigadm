@@ -170,12 +170,6 @@ for inode in ${files[@]}; do
     grep -v "export") )
 
 
-echo "FILE: ${inode}"
-echo "HAYSTACK:"
-echo "${haystack[@]}" | tr ' ' '\n'
-nawk '$0 ~ /LD_PRELOAD=[a-zA-Z0-9:\/]+/{print}' ${inode}
-echo "=============================" && continue
-
   # Skip ${inode} if LD_LIBRARY_PATH not found
   [ ${#haystack[@]} -eq 0 ] && continue
 
