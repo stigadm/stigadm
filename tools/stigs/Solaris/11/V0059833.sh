@@ -239,7 +239,7 @@ done
 if [ ${#errs[@]} -gt 0 ]; then
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "List of inodes with invalid PATH(s) defined" 1
+  [ ${verbose} -eq 1 ] && print "List of inodes with invalid LD_LIBRARY_PATH(s) defined" 1
 
   # Iterate ${errs[@]}
   for err in ${errs[@]}; do
