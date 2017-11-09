@@ -116,7 +116,7 @@ if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -152,33 +152,6 @@ fi
 [ ${verbose} -eq 1 ] && print "Got list of init scripts to examine; ${#files[@]}"
 
 
-# Define an empty array
-declare -a tmp_files
-
-# Iterate ${files[@]}
-for file in ${files[@]}; do
-
-  # Handle symlinks
-  file="$(get_inode ${file})"
-
-  # Use extract_filenames() to obtain array of binaries from ${file}
-  tmp_files+=( $(extract_filenames ${file}) )
-done
-
-# If ${#tmp_files[@]} = 0 then we are done
-if [ ${#tmp_files[@]} -eq 0 ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "'${#tmp_files[@]}' called file(s) found from init scripts; exiting" 1 && exit 0
-fi
-
-# Remove duplicates from ${tmp_files[@]}
-tmp_files=( $(remove_duplicates "${tmp_files[@]}") )
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Extracted list of possible binary paths to examine; ${#tmp_files[@]}"
-
-
 # Define an empty array for errors
 declare -a errs
 
@@ -186,30 +159,24 @@ declare -a errs
 declare -a vals
 
 
-# Iterate ${tmp_files[@]}
-for inode in ${tmp_files[@]}; do
+# Iterate ${files[@]}
+for inode in ${files[@]}; do
 
   # Handle symlinks
   inode="$(get_inode ${inode})"
 
-  # Skip ${inode} if it's not a file OR executable
-  [ ! -x ${inode} ] && continue
-
-
   # Extract PATH from ${inode}
-  thaystack=( $(nawk '$0 ~ /LD_LIBRARY_PATH=[a-zA-Z0-9:\/]+/{split($0, obj, "=");if(obj[2] ~ /;/){split(obj[2], fin, ";")}else{fin[2]=obj[2]}print fin[2]}' ${inode} | \
+  haystack=( $(nawk '$0 ~ /LD_LIBRARY_PATH=[a-zA-Z0-9:\/]+/{split($0, obj, "=");if(obj[2] ~ /;/){split(obj[2], fin, ";");res=fin[1]}else{res=obj[2]}print res}' ${inode} | \
     grep -v "export") )
 
-  # Skip ${inode} if PATH not found
-  [ ${#thaystack[@]} -eq 0 ] && continue
 
-  # Remove duplicates from ${thaystack[@]}
-  haystack=( $(remove_duplicates "${thaystack[@]}") )
+  # Skip ${inode} if LD_LIBRARY_PATH not found
+  [ ${#haystack[@]} -eq 0 ] && continue
 
 
   # Iterate ${haystack[@]}
   for haybail in ${haystack[@]}; do
-  
+
     # Examine ${haybail} for invalid path
     chk=$(echo "${haybail}" | egrep -c '^:|::|:$|:[a-zA-Z0-9-_~.]+')
 
@@ -236,7 +203,7 @@ for inode in ${tmp_files[@]}; do
 
       # Print friendly message
       [ ${verbose} -eq 1 ] && print "Created backup of '${inode}'"
-    
+
       # Get the last backup file
       tfile="$(bu_file_last "$(dirname ${inode})" "${author}")"
       if [ ! -f ${tfile} ]; then
@@ -245,8 +212,8 @@ for inode in ${tmp_files[@]}; do
         [ ${verbose} -eq 1 ] && print "An error occurred getting temporary file for changes"
         exit 1
       fi
-    
-      # Strip out invalid PATH entries from ${tfile}; 
+
+      # Strip out invalid PATH entries from ${tfile};
       #   ugly... re factoring a more robust BRE pattern would be preferred
       sed -e "s/=://g" \
           -e "s/=~.*$//g" \
@@ -291,7 +258,7 @@ fi
 
 
 # Print friendly message
-[ ${verbose} -eq 1 ] && print "'${#vals[@]}/${#tmp_files[@]}' referenced from '${#files[@]}' init scripts validated"
+[ ${verbose} -eq 1 ] && print "'${#haystack[@]}/${#files[@]}' LD_LIBRARY_PATH(s) from init scripts validated"
 
 # If ${#validated[@]} > 0
 if [ ${#vals[@]} -gt 0 ]; then
