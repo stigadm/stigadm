@@ -287,7 +287,7 @@ fi
 
 
 # Print friendly message
-[ ${verbose} -eq 1 ] && print "'${#haystack[@]}/${#files[@]}' LD_PRELOAD(s) from init scripts validated"
+[ ${verbose} -eq 1 ] && print "'${#vals[@]}/${#files[@]}' LD_PRELOAD(s) from init scripts validated"
 
 # If ${#validated[@]} > 0
 if [ ${#vals[@]} -gt 0 ]; then
