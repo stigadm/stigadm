@@ -7,16 +7,16 @@ function create_dir()
 {
   local dir="${1}"
   local ret=0
-  
+
   if [ "${dir}" == "" ]; then
     ret=1
   fi
-  
+
   if [ ! -d "${dir}" ]; then
     mkdir -p "${dir}"
     ret=$?
   fi
-  
+
   return ${ret}
 }
 

@@ -165,8 +165,39 @@ for inode in ${files[@]}; do
   # Handle symlinks
   inode="$(get_inode ${inode})"
 
+  # Skip if ${inode} == 1
+  [ "${inode}" == 1 ] && continue
+
+  # Use extract_filenames() to obtain array of binaries from ${inode}
+  tmp_files+=( $(extract_filenames ${inode}) )
+done
+
+
+# If $tmp_files[@]} > 0
+if [ ${#tmp_files[@]} -gt 0 ]; then
+
+  # Merge ${files[@]} with ${tmp_files[@]}
+  files=( ${files[@]} ${tmp_files[@]} )
+fi
+
+# Discard duplicates from ${files}
+files=( $(remove_duplicates "${files[@]}") )
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Found ${#files[@]} referenced files from init scripts to process"
+
+
+# Iterate ${files[@]}
+for inode in ${files[@]}; do
+
+  # Handle symlinks
+  inode="$(get_inode ${inode})"
+
+  # Skip if ${inode} == 1
+  [ "${inode}" == 1 ] && continue
+
   # Extract possible PATH from ${inode} to an array as ${haystack[@]}
-  haystack=( $(nawk '$0 ~ /PATH=[a-zA-Z0-9:\/]+/{if ($0 ~ /^PATH=/){split($0, obj, "=");if(obj[2] ~ /;/){split(obj[2], fin, ";")}else{fin[2]=obj[2]}print fin[2]}}' ${inode} | \
+  haystack=( $(nawk '$0 ~ /PATH=[a-zA-Z0-9:\/]+/{if ($0 ~ /^PATH=/){split($0, obj, "=");if(obj[2] ~ /;/){split(obj[2], fin, ";")}else{fin[2]=obj[2]}print fin[2]}}' ${inode} 2>/dev/null | \
     grep -v "export") )
 
   # Skip ${inode} if PATH not found

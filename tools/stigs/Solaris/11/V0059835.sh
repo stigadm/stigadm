@@ -158,6 +158,33 @@ declare -a errs
 # Define an empty array for validated files
 declare -a vals
 
+# Iterate ${files[@]}
+for inode in ${files[@]}; do
+
+  # Handle symlinks
+  inode="$(get_inode ${inode})"
+
+  # Skip if ${inode} == 1
+  [ "${inode}" == 1 ] && continue
+
+  # Use extract_filenames() to obtain array of binaries from ${inode}
+  tmp_files+=( $(extract_filenames ${inode}) )
+done
+
+
+# If $tmp_files[@]} > 0
+if [ ${#tmp_files[@]} -gt 0 ]; then
+
+  # Merge ${files[@]} with ${tmp_files[@]}
+  files=( ${files[@]} ${tmp_files[@]} )
+fi
+
+# Discard duplicates from ${files}
+files=( $(remove_duplicates "${files[@]}") )
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Found ${#files[@]} referenced files from init scripts to process"
+
 
 # Iterate ${files[@]}
 for inode in ${files[@]}; do
@@ -165,14 +192,16 @@ for inode in ${files[@]}; do
   # Handle symlinks
   inode="$(get_inode ${inode})"
 
-  # Extract PATH from ${inode}
-  haystack=( $(nawk '$0 ~ /LD_PRELOAD=[a-zA-Z0-9:\/]+/{split($0, obj, "=");if(obj[2] ~ /;/){split(obj[2], fin, ";");res=fin[1]}else{res=obj[2]}print res}' ${inode} | \
-    grep -v "export") )
+  # Skip if ${inode} == 1
+  [ "${inode}" == 1 ] && continue
 
+
+  # Extract PATH from ${inode}
+  haystack=( $(nawk '$0 ~ /LD_PRELOAD=[a-zA-Z0-9:\/]+/{split($0, obj, "=");if(obj[2] ~ /;/){split(obj[2], fin, ";");res=fin[1]}else{res=obj[2]}print res}' ${inode} 2>/dev/null | \
+    grep -v "export") )
 
   # Skip ${inode} if LD_LIBRARY_PATH not found
   [ ${#haystack[@]} -eq 0 ] && continue
-
 
   # Iterate ${haystack[@]}
   for haybail in ${haystack[@]}; do
