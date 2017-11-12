@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 11
-# Severity: CAT-III
-# Class: UNCLASSIFIED
-# VulnID: V-48189
-# Name: SRG-OS-999999
-
-
 # Global defaults for tool
 author=
 verbose=0
@@ -93,6 +85,12 @@ while getopts "ha:cvri" OPTION ; do
 done
 
 
+cat <<EOF
+${prog} not yet implemented...
+
+$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${prog})
+EOF
+
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
@@ -104,7 +102,7 @@ if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
