@@ -23,6 +23,7 @@ Usage ./${prog} [options]
   Required:
     -c  Make the change
     -a  Author name (required when making change)
+    -m  Display meta data associated with module
 
   Restoration options:
     -r  Perform rollback of changes
@@ -36,11 +37,11 @@ EOF
 function get_hostname()
 {
   local host="$(hostname)"
-  
+
   if [[ "${host}" == "" ]] || [[ "${host}" =~ localhost ]]; then
     return 1
   fi
-  
+
   echo "${host}" && return 0
 }
 
@@ -84,7 +85,7 @@ function get_os()
     retval=0
     path="${obj[@]}"
   fi
-  
+
   # Create a local array to handle directory list
   local -a dirs
   dirs=( $(ls ${path}) )
@@ -118,7 +119,7 @@ function get_version()
     path="${obj[@]}"
   fi
 
-  
+
   # Create a local array to handle directory list
   local -a versions
   versions=( $(ls ${path} | grep -v "/") )
@@ -152,7 +153,7 @@ function get_classification()
     path="${obj[@]}"
   fi
 
-  
+
   # Create a local array to handle directory list
   local -a classes
   classes=( $(find ${path} -type f -prune -name "*.sh" -exec grep -i "^# severity:" {} \; | cut -d" " -f3 | sort -u) )
@@ -169,4 +170,3 @@ function get_classification()
 
   echo "${classes[@]}" | tr ' ' '|'
 }
-

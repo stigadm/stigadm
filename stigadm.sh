@@ -57,6 +57,7 @@ classification=
 flags=
 debug=0
 interactive=0
+meta=0
 os=
 restore=0
 version=
@@ -95,7 +96,7 @@ function usage()
   # Gather list of available supported severity (non-os dependent)
   local classificication_list="$(get_classification ${assets})"
 
-  
+
   # Handle error if present
   [ "${1}" != "" ] && error="$(print "${1}" 1)"
 
@@ -123,7 +124,7 @@ Usage ./${appname} [options]
 
     -C  Classification
       Supported: [${classificication_list}]
-      
+
     -L  VMS ID List - A comma separated list VMS ID's
       Example: V0047799,V0048211,V0048189
 
@@ -132,6 +133,7 @@ Usage ./${appname} [options]
     -b  Use new boot environment (Solaris only)
     -c  Make the change
     -d  Debug mode
+    -m  Display meta data only
     -v  Enable verbosity mode
 
   Restoration:
@@ -152,7 +154,7 @@ fi
 
 
 # Set variables
-while getopts "a:bcdhirvC:O:L:V:" OPTION ; do
+while getopts "a:bcdhimrvC:O:L:V:" OPTION ; do
   case $OPTION in
     a) author=$OPTARG ;;
     b) bootenv=1 ;;
@@ -160,6 +162,7 @@ while getopts "a:bcdhirvC:O:L:V:" OPTION ; do
     d) debug=1 && set +x ;;
     h) usage && exit 1 ;;
     i) interactive=1 ;;
+    m) meta=1 ;;
     r) restore=1 ;;
     v) verbose=1 ;;
     C) classification=$OPTARG ;;
@@ -173,10 +176,10 @@ done
 
 # Make sure we have the necessary OS & Version
 if [[ "${os}" == "" ]] && [[ "${version}" == "" ]]; then
-  
+
   # Run the wizard to walk the user through a target STIG
   wizard "${assets}"
-  
+
   # Handle return
   if [ $? -ne 0 ]; then
     print "An occurred with wizard implementation, exiting"
@@ -210,6 +213,13 @@ if [ ${restore} -eq 1 ]; then
   [ ${interative} -eq 1 ] && flags="${flags} -i"
 fi
 
+# Enable meta data in the output
+if [ ${meta} -eq 1 ]; then
+  flags="${flags} -m"
+fi
+
+
+
 # Set a default value for classification if null
 classificiation="${classification:=ALL}"
 
@@ -222,25 +232,25 @@ if [ ${#stigs[@]} -eq 0 ]; then
 
   # If ${classification} != ALL then filter ${stigs[@]} by ${classification}
   if [ "${classification}" != "ALL" ]; then
-  
+
     # Filter ${stigs[@]} array
     stigs=( $(echo "${stigs[@]}" | xargs grep -il "Severity: ${classification}$") )
   fi
 
   # If ${list} is not NULL create a filter & whittle down ${stigs[@]} with it
   if [ "${list}" != "" ]; then
-  
+
     # Convert ${list} to an array
     list=( $(echo "${list}" | tr ',' ' ') )
 
     # Create a filter for egrep with ${list}
     filter="$(echo "${list[@]}" | tr ' ' '|')"
-  
+
     # Replace ${stigs[@]} with filtered results
     stigs=( $(echo "${stigs[@]}" | tr ' ' '\n' | egrep -i "${filter}") )
   fi
 fi
-  
+
 # If ${#stigs[@]} = 0 exit
 if [ ${#stigs[@]} -eq 0 ]; then
 
@@ -253,10 +263,10 @@ stigs=( $(remove_duplicates "${stigs[@]}") )
 
 # If ${#stigs[@]} != ${list[@]} get missing module(s)
 if [ ${#stigs[@]} -ne ${#list[@]} ]; then
-  
+
   # Define an array for missing modules
   declare -a missing
-  
+
   # Get intersection from ${list[@]} & ${stigs[@]}
   missing=( $(comm -3 <(printf '%s\n' "${list[@]}" | sort -u) <(printf '%s\n' "$(echo "${stigs[@]}" | tr ' ' '\n' | nawk '{system("basename " $0)}' | cut -d. -f1 | tr '\n' ' ')" | sort -u) ) )
 fi
@@ -268,11 +278,11 @@ fi
 [ ${verbose} -eq 1 ] && echo
 
 # Provide list from ${missing[@]}
-if [[ ${verbose} -eq 1 ]] && [[ ${#missing[@]} -gt 0 ]]; then
-  print "Missing modules:" 1
-  print "  $(echo "${missing[@]}")" 1
-  echo
-fi
+#if [[ ${verbose} -eq 1 ]] && [[ ${#missing[@]} -gt 0 ]]; then
+#  print "Missing modules:" 1
+#  print "  $(echo "${missing[@]}")" 1
+#  echo
+#fi
 
 
 # If ${change} = 1, ${os} is Solaris & ${bootenv} = 1 setup a new BE
@@ -301,7 +311,7 @@ fi
 for stig in ${stigs[@]}; do
 
   if [ ! -f ${stig} ]; then
-  
+
     # Let the user know what is happening
     print "'$(basename ${stig})' is not a valid VMS ID or has not yet been implemented" 1
     continue
