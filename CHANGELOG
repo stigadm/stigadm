@@ -1,3 +1,105 @@
+commit d1080dfdef65a1b69bfe46f180668c484ae76bad
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 12 06:31:50 2017 -0700
+
+    Script permission changes
+
+commit 8789602edfe73384bca6f058272a672fa4a16295
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 12 06:27:38 2017 -0700
+
+    v0.0.5: Templates for all STIG modules created
+
+commit 76645bcec06a4ce05c7041a04e67d518a3a0c353
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 12 05:19:49 2017 -0700
+
+    v0.0.4: Build tools to populate meta data per STIG module
+
+commit 726265da01eadb26b03e5529341f3b9306e62afe
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sat Nov 11 09:50:38 2017 -0700
+
+    V0047807-V0047825: Fixes for audit config implementation
+
+commit 4c614f38df176fc168273742403a01881d4e723c
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Fri Nov 10 23:09:55 2017 -0700
+
+    V0059831,V0059833,V0059835: Fix for report verbage regarding validated file(s)
+
+commit 9ebf451dc9355074cfa1aa5058f6c08aae34e7a3
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Fri Nov 10 23:02:40 2017 -0700
+
+    V0059831,V0059833,V0059835: Expanded to address referenced file(s) from all init, xinit, systemd & SMF startup file(s)
+
+commit 952077697b41a8f530f2365a279e7775ef568ad6
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 9 09:44:34 2017 -0700
+
+    V0059835: Removed debugging output
+
+commit 5ee55fe4b1f54065ac8289297766194cb4fcb2a8
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 9 09:37:09 2017 -0700
+
+    V0059833: Fix for report verbage. V0059835: Fix for LD_PRELOAD processing of init scripts
+
+commit e29e11f86217413163c33c279dfa86983dc3cb27
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 9 09:29:48 2017 -0700
+
+    V0059831 & V0059833; fixes for PATH & LD_LIBRARY_PATH processing
+
+commit 42ca6f69bd69a77dd0570b245cb6daff253456da
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sat Oct 7 21:26:19 2017 -0600
+
+    Applied fixes for reporting & associative array;
+
+commit 05323d78eac4a6544f29b989047df5cd13a80dcd
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sat Oct 7 21:08:35 2017 -0600
+
+    V0048179 readability & bug fixes for associative array names
+
+commit 7907cfd0487d50f1abd373cdddfb29da54419faf
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Sep 26 09:48:05 2017 -0600
+
+    Removed some IP's
+
+commit e878e450e3a0efa603a5a08aafebe3a5c913c3fe
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Sep 26 09:34:37 2017 -0600
+
+    Fixes for wizard mode
+
+commit a0728bb3b6daaa1654cd2915913c6de67d75433c
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Sep 26 08:31:06 2017 -0600
+
+    Auto OS detection for SunOS
+
+commit 99191634994b17e67635af78743afbf2cbca8ca9
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Mon Sep 4 10:28:43 2017 -0600
+
+    Updates to CONTRIBUTING documentation with regards to API & code contribution requirements
+
+commit 453d4eaacce61958ca5fcab5213988ecdc05d4ed
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Mon Sep 4 10:14:35 2017 -0600
+
+    Updates to README use cases
+
+commit b416f2980a191cab95590e547bb0cb8202a37856
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Mon Sep 4 10:04:37 2017 -0600
+
+    Added changelog
+
 commit 96b52d345109588498e064a0b2fdc414942e8836
 Author: Jas <jason.gerfen@gmail.com>
 Date:   Fri Sep 1 19:52:06 2017 -0600
