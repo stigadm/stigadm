@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# OS: Solaris 
+# OS: Solaris
 # Version: 11
 # Severity: CAT-II
 # Class: UNCLASSIFIED

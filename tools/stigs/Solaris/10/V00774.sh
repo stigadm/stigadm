@@ -2,7 +2,7 @@
 
 # OS: Solaris
 # Version: 10
-# Severity: CAT-II
+# Severity: CAT-III
 # Class: UNCLASSIFIED
 # VulnID: V-774
 # Name: SV-774r2

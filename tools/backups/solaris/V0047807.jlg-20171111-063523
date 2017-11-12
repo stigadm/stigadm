@@ -1,0 +1,3 @@
+setpolicy:argv,cnt
+setflags:ex,xa,ps,ua,as,ss,ap,lo,ft,fd,fm,-fa
+setnaflags:ex,xa,ps,ua,as,ss,ap,lo,ft,fd,fm,-fa

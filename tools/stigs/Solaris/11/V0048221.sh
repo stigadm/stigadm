@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# OS: Solaris 
+# OS: Solaris
 # Version: 11
-# Severity: CAT-II
+# Severity: CAT-III
 # Class: UNCLASSIFIED
 # VulnID: V-48221
 # Name: SV-61093r1

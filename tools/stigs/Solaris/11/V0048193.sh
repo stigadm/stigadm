@@ -2,7 +2,7 @@
 
 # OS: Solaris
 # Version: 11
-# Severity: CAT-III
+# Severity: CAT-II
 # Class: UNCLASSIFIED
 # VulnID: V0048193
 # Name: SRG-OS-999999

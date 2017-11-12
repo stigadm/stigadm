@@ -85,11 +85,14 @@ while getopts "ha:cvri" OPTION ; do
 done
 
 
+# Remove once work is complete on module
 cat <<EOF
-${prog} not yet implemented...
+[${stigid}] Warning: Not yet implemented...
 
 $(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${prog})
+
 EOF
+exit 1
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
@@ -122,6 +125,7 @@ if [ ${change} -eq 1 ]; then
   # (see existing facilities in ${lib_path}/backup.sh)
 
   # Make change according to ${stigid}
+  [ ${verbose} -eq 1 ] && print "Make change here"
 fi
 
 

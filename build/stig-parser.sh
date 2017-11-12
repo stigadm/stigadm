@@ -253,21 +253,22 @@ for stig in ${stigs[@]}; do
 
 
       cat <<EOF
-# Output: ${full_path}
-# File: ${full_path}/${stigid}.sh
-#
-# Severity: ${cat}
-# Classification: UNCLASSIFIED
-# STIG_ID: ${stigid}
-# STIG_Version: ${stigver}
-# Rule_ID: ${ruleid}
-#
-# OS: ${os}
-# Version: ${version}
-# Architecture: ${arch}
-#
-# Title: ${title}
-# Description: ${description}
+STIG Module meta data details
+Output: ${full_path}
+File: ${full_path}/${stigid}.sh
+
+Severity: ${cat}
+Classification: UNCLASSIFIED
+STIG_ID: ${stigid}
+STIG_Version: ${stigver}
+Rule_ID: ${ruleid}
+
+OS: ${os}
+Version: ${version}
+Architecture: ${arch}
+
+Title: ${title}
+Description: ${description}
 
 EOF
 

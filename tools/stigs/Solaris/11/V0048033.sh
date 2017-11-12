@@ -2,7 +2,7 @@
 
 # OS: Solaris
 # Version: 11
-# Severity: CAT-II
+# Severity: CAT-III
 # Class: UNCLASSIFIED
 # VulnID: V-48033
 # Name: SV-60905r2

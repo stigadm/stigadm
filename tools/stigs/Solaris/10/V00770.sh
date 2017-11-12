@@ -2,7 +2,7 @@
 
 # OS: Solaris
 # Version: 10
-# Severity: CAT-II
+# Severity: CAT-I
 # Class: UNCLASSIFIED
 # VulnID: V-770
 # Name: SV-27105r1
