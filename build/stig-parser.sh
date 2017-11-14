@@ -53,6 +53,10 @@ fi
 # Define an array for all STIG documents
 declare -a stigs
 
+# Define an array for all STIG modules
+declare -a stig_modules
+
+
 # Seek out all STIG XML documents
 stigs=( $(find ${cwd} -type f -name "U_*-xccdf.xml" -ls | awk '{print $11}') )
 
@@ -112,136 +116,105 @@ for stig in ${stigs[@]}; do
     # Since there are version discrepencies that affect formatting & column counts
     fields=$(echo "${blob}" | awk -F: '{print NF}')
 
-    # Descision tree based on ${fields} count
-    [ ${fields} -gt 10 ] && continue
 
-    # Normal (modern) values
-    if [ ${fields} -eq 9 ]; then
+    # Get the STIG accepted date
+    stigdate="$(echo "${blob}" | cut -d: -f1)"
 
-
-      # Aqcuire the STIG ID from ${blob}
-      stigid="$(echo "${blob}" | cut -d: -f1)"
-
-      # Aqcuire the category from ${blob}
-      cat="$(echo "${blob}" | cut -d: -f2)"
-
-      # Handle the effed up Oracle STIG item
-      if [ $(echo "${cat}" | grep -ic "CAT") -eq 0 ]; then
-
-        # Aqcuire the category from ${blob}
-        cat="$(echo "${blob}" | cut -d: -f3)"
-
-        # Aqcuire the STIG Version from ${blob}
-        stigver="$(echo "${blob}" | cut -d: -f4)"
-
-        # Aqcuire the rule id from ${blob}
-        ruleid="$(echo "${blob}" | cut -d: -f5)"
-
-        # Aqcuire the title from ${blob}
-        title="$(echo "${blob}" | cut -d: -f6 | tr '~' ' ')"
-
-        # Aqcuire the description from ${blob}
-        description="$(echo "${blob}" | cut -d: -f7 | tr '~' ' ')"
-
-        # Aqcuire the OS from ${blob}
-        os="$(echo "${blob}" | cut -d: -f8)"
-
-        # Aqcuire the version from ${blob}
-        version="$(echo "${blob}" | cut -d: -f9)"
-
-        # Aqcuire the arch from ${blob}
-        arch="$(echo "${blob}" | cut -d: -f10)"
-      else
-
-        # Aqcuire the STIG Version from ${blob}
-        stigver="$(echo "${blob}" | cut -d: -f3)"
-
-        # Aqcuire the rule id from ${blob}
-        ruleid="$(echo "${blob}" | cut -d: -f4 | tr '~' ' ')"
-
-        # Aqcuire the title from ${blob}
-        title="$(echo "${blob}" | cut -d: -f5 | tr '~' ' ')"
-
-        # Aqcuire the description from ${blob}
-        description="$(echo "${blob}" | cut -d: -f6 | tr '~' ' ')"
-
-        # Aqcuire the OS from ${blob}
-        os="$(echo "${blob}" | cut -d: -f7)"
-
-        # Aqcuire the version from ${blob}
-        version="$(echo "${blob}" | cut -d: -f8)"
-
-        # Aqcuire the arch from ${blob}
-        arch="$(echo "${blob}" | cut -d: -f9)"
-      fi
+    # Skip if ${stigdate} is not a valid date
+    if [ $(echo "${stigdate}" | awk '{if($0 !~ /^[0-9]+-[0-9]+-[0-9]+$/){print 1}else{print 0}}') -eq 1 ]; then
+      continue
     fi
 
-    # Deal with older missing title values
-    if [ ${fields} -eq 8 ]; then
 
-      # Aqcuire the STIG ID from ${blob}
-      stigid="$(echo "${blob}" | cut -d: -f1)"
+    # Cut out the STIG ID
+    stigid="$(echo "${blob}" | cut -d: -f2)"
 
-      # Aqcuire the category from ${blob}
-      cat="$(echo "${blob}" | cut -d: -f2)"
-
-      # Aqcuire the STIG Version from ${blob}
-      stigver="$(echo "${blob}" | cut -d: -f3)"
-
-      # Aqcuire the rule id from ${blob}
-      ruleid="$(echo "${blob}" | cut -d: -f4 | tr '~' ' ')"
-
-      # Aqcuire the title from ${blob}
-      title="${stigid}"
-
-      # Aqcuire the description from ${blob}
-      description="$(echo "${blob}" | cut -d: -f5 | tr '~' ' ')"
-
-      # Aqcuire the OS from ${blob}
-      os="$(echo "${blob}" | cut -d: -f6)"
-
-      # Aqcuire the version from ${blob}
-      version="$(echo "${blob}" | cut -d: -f7)"
-
-      # Aqcuire the arch from ${blob}
-      arch="$(echo "${blob}" | cut -d: -f8)"
+    # Skip if ${stigid} is not a valid STIG ID
+    if [ $(echo "${stigid}" | awk '{if($0 !~ /^V[0-9]+$/){print 1}else{print 0}}') -eq 1 ]; then
+      continue
     fi
 
-    # Deal with older extra rule meta data
-    if [ ${fields} -eq 10 ]; then
 
-      # Aqcuire the STIG ID from ${blob}
-      stigid="$(echo "${blob}" | cut -d: -f1)"
+    # Cut out the category/classification of STIG ID
+    cat="$(echo "${blob}" | cut -d: -f3)"
 
-      # Aqcuire the category from ${blob}
+    # Fix ${blob} if the ${cat} isn't right & cut again
+    if [ $(echo "${cat}" | awk '{if($0 !~ /^CAT-.*$/){print 1}else{print 0}}') -eq 1 ]; then
+
+      blob="$(echo "${blob}" | sed -e "s|\(.*:\)$(echo "${blob}" | cut -d: -f3):\(.*\)|\1\2|g")"
+
+      # Cut out the category/classification of STIG ID
       cat="$(echo "${blob}" | cut -d: -f3)"
-
-      # Aqcuire the STIG Version from ${blob}
-      stigver="$(echo "${blob}" | cut -d: -f4)"
-
-      # Aqcuire the rule id from ${blob}
-      ruleid="$(echo "${blob}" | cut -d: -f5)"
-
-      # Aqcuire the title from ${blob}
-      title="$(echo "${blob}" | cut -d: -f6 | tr '~' ' ')"
-
-      # Aqcuire the description from ${blob}
-      description="$(echo "${blob}" | cut -d: -f7 | tr '~' ' ')"
-
-      # Aqcuire the OS from ${blob}
-      os="$(echo "${blob}" | cut -d: -f8)"
-
-      # Aqcuire the version from ${blob}
-      version="$(echo "${blob}" | cut -d: -f9)"
-
-      # Aqcuire the arch from ${blob}
-      arch="$(echo "${blob}" | cut -d: -f10)"
     fi
 
+
+    # Cut out the STIG version from ${blob}
+    stigver="$(echo "${blob}" | cut -d: -f4)"
+
+    # Skip if ${stigid} is not a valid STIG version
+    if [ $(echo "${stigver}" | awk '{if($0 !~ /^SV-/){print 1}else{print 0}}') -eq 1 ]; then
+      continue
+    fi
+
+    # Cut out the Rule ID from ${blob}
+    ruleid="$(echo "${blob}" | cut -d: -f5)"
+
+    # Make sure we got something
+    if [ "${ruleid}" == "" ]; then
+      continue
+    fi
+
+
+    # Cut out the ${title} from ${blob}
+    title="$(echo "${blob}" | cut -d: -f6 | tr '~' ' ')"
+
+    # Make sure we got something
+    if [ "${title}" == "" ]; then
+      continue
+    fi
+
+
+    # Cut out the ${description} from ${blob}
+    description="$(echo "${blob}" | cut -d: -f7 | tr '~' ' ')"
+
+    # If ${description} matches an OS use ${title} as the ${description}
+    if [ $(echo "${os}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris') -eq 1 ]; then
+      description="${title}"
+    fi
+
+    # Make sure we got something
+    if [ "${description}" == "" ]; then
+      continue
+    fi
+
+    # Set the ${os} from ${blob}
+    os="$(echo "${blob}" | cut -d: -f8)"
+    col=9
+
+    # If ${os} doesn't matche an OS use column 7
+    if [ $(echo "${os}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris') -eq 0 ]; then
+
+      # Set the ${os} from ${blob}
+      os="$(echo "${blob}" | cut -d: -f7)"
+      col=8
+    fi
 
     # Skip if ${os} or ${version} aren't right
     [ $(echo "${os}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris') -eq 0 ] && continue
 
+
+    # Get the OS version from ${blob}
+    version="$(echo "${blob}" | cut -d: -f${col})"
+
+    # Skip if ${version} isn't a number
+    [ $(echo "${version}" | awk '{if($0 !~ /^[0-9]+/){print 1}else{print 0}}') -eq 1 ] && continue
+
+    # Get the architecture if it exists
+    arch="$(echo "${blob}" | cut -d: -f$(( ${col} + 1)))"
+
+
+    # Add ${stigid} to ${stig_modules[@]} array
+    stig_modules+=("${f}:${cat}:${stigid}:${stigver}:${ruleid}:${os}:${version}")
 
     # Create full path from ${output}, ${os} & ${version}
     full_path="${output}/${os}/${version}"
@@ -254,8 +227,11 @@ for stig in ${stigs[@]}; do
 
       cat <<EOF
 STIG Module meta data details
+Blob: $(echo "${blob}" | awk -F: '{print NF}') ${blob}
 Output: ${full_path}
 File: ${full_path}/${stigid}.sh
+
+Date: ${stigdate}
 
 Severity: ${cat}
 Classification: UNCLASSIFIED
@@ -276,19 +252,48 @@ EOF
     # Test for existence of ${full_path}/${stigid}.sh
     if [ -f ${full_path}/${stigid}.sh ]; then
 
-      # Try to replace meta data in ${full_path}/${stigid}.sh
-      sed -e "s|^\(# Severity: \).*$|\1${cat}|g" \
-          -e "s|^\(# Class: \).*$|\1UNCLASSIFIED|g" \
-          -e "s|^\(# STIG_ID: \).*$|\1${stigid}|g" \
-          -e "s|^\(# STIG_Version: \).*$|\1${stigver}|g" \
-          -e "s|^\(# OS: \).*$|\1${os}|g" \
-          -e "s|^\(# Version: \).*$|\1${version}|g" \
-          -e "s|^\(# Architecture: \).*$|\1${arch}|g" \
-          -e "s|^\(# Title: \).*$|\1${title}|g" \
-          -e "s|^\(# Description: \).*$|\1${description}|g" ${full_path}/${stigid}.sh > ${full_path}/${stigid}-${ts}.sh
+      # Get a 'blob' of current meta data (if any)
+      blob="$(sed -n '/^# Severity/,/^# Description/p' ${full_path}/${stigid}.sh)"
 
-      # Copy ${full_path}/${stigid}-${ts}.sh into ${full_path}/${stigid}.sh
-      mv -f ${full_path}/${stigid}-${ts}.sh ${full_path}/${stigid}.sh
+      # If 12 lines returned per ${blob} assume all necessary meta data exists
+      if [ $(echo "${blob}" | wc -l | awk '{print $1}') -eq 12 ]; then
+
+        # Try to replace meta data in ${full_path}/${stigid}.sh
+        sed -e "s|^\(# Date: \).*$|\1${stigdate}|g" \
+            -e "s|^\(# Severity: \).*$|\1${cat}|g" \
+            -e "s|^\(# Class: \).*$|\1UNCLASSIFIED|g" \
+            -e "s|^\(# STIG_ID: \).*$|\1${stigid}|g" \
+            -e "s|^\(# STIG_Version: \).*$|\1${stigver}|g" \
+            -e "s|^\(# OS: \).*$|\1${os}|g" \
+            -e "s|^\(# Version: \).*$|\1${version}|g" \
+            -e "s|^\(# Architecture: \).*$|\1${arch}|g" \
+            -e "s|^\(# Title: \).*$|\1${title}|g" \
+            -e "s|^\(# Description: \).*$|\1${description}|g" ${full_path}/${stigid}.sh > ${full_path}/${stigid}-${ts}.sh
+
+        # Copy ${full_path}/${stigid}-${ts}.sh into ${full_path}/${stigid}.sh
+        mv -f ${full_path}/${stigid}-${ts}.sh ${full_path}/${stigid}.sh
+      else
+
+        # Add meta data to end of file
+        cat <<EOF >> ${full_path}/${stigid}.sh
+
+# Date: ${stigdate}
+#
+# Severity: ${cat}
+# Classification: UNCLASSIFIED
+# STIG_ID: ${stigid}
+# STIG_Version: ${stigver}
+# Rule_ID: ${ruleid}
+#
+# OS: ${os}
+# Version: ${version}
+# Architecture: ${arch}
+#
+# Title: ${title}
+# Description: ${description}
+
+EOF
+      fi
     else
 
       # Copy ${template} to ${full_path}/${stigid}.sh
@@ -297,6 +302,8 @@ EOF
       # Add meta data to end of file
       cat <<EOF >> ${full_path}/${stigid}.sh
 
+# Date: ${stigdate}
+#
 # Severity: ${cat}
 # Classification: UNCLASSIFIED
 # STIG_ID: ${stigid}
@@ -314,3 +321,22 @@ EOF
     fi
   done
 done
+
+# Print a summary of processing
+# ${f}:${cat}:${stigid}:${stigver}:${ruleid}:${os}:${version}
+cat <<EOF
+
+STIG parsing summary
+
+STIG file(s): ${#stigs[@]}
+STIG ID(s): $(echo "${stig_modules[@]}" | tr ' ' '\n' | cut -d: -f3 | sort -u | wc -l)/$(echo "${blobs[@]}" | tr ' ' '\n' | cut -d: -f2 | wc -l)
+STIG ID Versions: $(echo "${stig_modules[@]}" | tr ' ' '\n' | cut -d: -f4 | sort -u | wc -l)
+
+STIG Rule(s): $(echo "${stig_modules[@]}" | tr ' ' '\n' | cut -d: -f5 | sort -u | wc -l)
+STIG Category(s): $(echo "${stig_modules[@]}" | tr ' ' '\n' | cut -d: -f2 | sort -u | wc -l)
+
+Operating System(s) details
+OS: $(echo "${stig_modules[@]}" | tr ' ' '\n' | cut -d: -f6 | sort -u | wc -l)
+$(for os in $(echo "${stig_modules[@]}" | tr ' ' '\n' | cut -d: -f6 | sort -u); do echo "  ${os}"; for ver in $(echo "${stig_modules[@]}" | tr ' ' '\n' | grep "${os}" | cut -d: -f7 | sort -u); do echo "   ${ver}: $(echo "${stig_modules[@]}" | tr ' ' '\n' | grep "${os}" | grep "${ver}" | cut -d: -f3 | sort -u | wc -l)"; done; done)
+
+EOF

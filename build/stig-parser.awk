@@ -1,5 +1,14 @@
 #!/usr/bin/awk
 
+# Get the STIG accepted date
+$0 ~ /<status date=/{
+  gsub(/<status date=/, "", $0);
+  gsub(/"/, "", $0);
+  gsub(/>accepted.*$/, "", $0);
+  gsub(/  /, "", $0);
+  stigdate=$0
+}
+
 # Get the stig id
 $0 ~ /<Group id=".*">/{
   gsub(/<Group id=/, "", $0);
@@ -8,7 +17,7 @@ $0 ~ /<Group id=".*">/{
   gsub(/-/, "00", $0);
   gsub(/  /, "", $0);
   stigid=$0;
-  printf("%s:", stigid);
+  printf("%s:%s:", stigdate, stigid);
 }
 
 # Convert the classification
@@ -49,6 +58,7 @@ $0 ~ /<title>.*<\/title>$/ && $0 !~ /SRG/ {
   gsub(/      /, "", blob);
   gsub(/    /, "", $0);
   gsub(/ /, "~", blob);
+  title=blob;
   printf("%s:", blob);
 }
 
@@ -59,6 +69,7 @@ $0 ~ /<description>.*<\/description>$/ && $0 !~ /GroupDescription/{
   gsub(/&gt;/, "", blob);
   gsub(/      /, "", blob);
   gsub(/ /, "~", blob);
+  description=blob;
   printf("%s:", blob);
 }
 
@@ -67,5 +78,12 @@ $0 ~ /<dc:subject>.*<*dc:subject>$/{
   gsub(/<\/dc:subject>/, "", $0);
   gsub(/Red Hat/, "Red_Hat", $0);
   gsub(/Oracle Linux/, "Oracle_Linux", $0);
+  os=$1;
+  version=$2;
+  arch=$3;
   printf("%s:%s:%s\n", $1, $2, $3);
 }
+
+#if (stigdate != "" && stigid != "" && cat != "" && ruleid != "" && title != "" && description != "" && os != "" && version != "" && arch != "") {
+#  printf("%s:%s:%s:%s:%s:%s:%s:%s:%s:%s\n", stigdate, stigid, cat, ruleid, title, description, os, version, arch);
+#}
