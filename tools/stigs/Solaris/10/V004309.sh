@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: If the system is a firewall, ASET must be used on the system, and the firewall parameters must be set in /usr/aset/asetenv.
-# Description: ASET will not perform firewall tasks if it is not listed as a parameter in /usr/aset/asetenv.
+# Description: If the system is a firewall, ASET must be used on the system, and the firewall parameters must be set in /usr/aset/asetenv.
 

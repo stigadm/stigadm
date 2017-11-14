@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: There must be no user .rhosts files.
-# Description: Even though the .rhosts files are ineffective if support is disabled in /etc/pam.conf, they may have been brought over from other systems and could contain information useful to an attacker for those other systems.
+# Description: There must be no user .rhosts files.
 

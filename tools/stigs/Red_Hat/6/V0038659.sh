@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must employ cryptographic mechanisms to protect information in storage.
-# Description: The risk of a system's physical compromise, particularly mobile systems such as laptops, places its data at risk of compromise. Encrypting this data mitigates the risk of its loss if the system is lost.
+# Description: The operating system must employ cryptographic mechanisms to protect information in storage.
 

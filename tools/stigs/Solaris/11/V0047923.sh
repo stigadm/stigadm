@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must employ automated mechanisms, per organization-defined frequency, to detect the addition of unauthorized components/devices into the operating system.
-# Description: Addition of unauthorized code or packages may result in data corruption or theft.
+# Description: The operating system must employ automated mechanisms, per organization-defined frequency, to detect the addition of unauthorized components/devices into the operating system.
 

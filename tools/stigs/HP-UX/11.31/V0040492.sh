@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: During a password change, the system must determine if password aging attributes are inherited from the /etc/default/security file attributes when no password aging is specified in the shadow file for local users.
-# Description: Password aging attributes are stored in /etc/default/security and /etc/shadow. Anytime a password aging policy is changed, policy requirements are updated in /etc/default/security. If the system is allowed to override or ignore updates made to /etc/default/security, deprecated password aging policies will remain intact and never enforce newer requirements.
+# Description: During a password change, the system must determine if password aging attributes are inherited from the /etc/default/security file attributes when no password aging is specified in the shadow file for local users.
 

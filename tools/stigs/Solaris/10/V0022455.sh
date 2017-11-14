@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system must use a remote syslog server (log host).
-# Description: A syslog server (log host) receives syslog messages from one or more systems.  This data can be used as an authoritative log source in the event a system is compromised and its local logs are suspect.
+# Description: The system must use a remote syslog server (log host).
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not forward Internet Protocol version 4 (IPv4) source-routed packets.
-# Description: Source-routed packets allow the source of the packet to suggest that routers forward the packet along a different path than configured on the router, which can be used to bypass network security measures. This requirement applies only to the forwarding of source-routed traffic, such as when IPv4 forwarding is enabled and the system is functioning as a router.
+# Description: The system must not forward Internet Protocol version 4 (IPv4) source-routed packets.
 

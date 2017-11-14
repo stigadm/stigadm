@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The TFTP daemon must have mode 0755 or less permissive.
-# Description: If TFTP runs with the setuid or setgid bit set, it may be able to write to any file or directory and may seriously impair system integrity, confidentiality, and availability.
+# Description: The TFTP daemon must have mode 0755 or less permissive.
 

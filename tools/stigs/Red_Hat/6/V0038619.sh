@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: There must be no .netrc files on the system.
-# Description: Unencrypted passwords for remote FTP servers may be stored in ".netrc" files. DoD policy requires passwords be encrypted in storage and not used in access scripts.
+# Description: There must be no .netrc files on the system.
 

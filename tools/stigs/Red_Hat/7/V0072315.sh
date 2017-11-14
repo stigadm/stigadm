@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system access control program must be configured to grant or deny system access to specific hosts and services.
-# Description: If the systems access control program is not configured with appropriate rules for allowing and denying access to system network resources, services may be accessible to unauthorized hosts.
+# Description: The system access control program must be configured to grant or deny system access to specific hosts and services.
 

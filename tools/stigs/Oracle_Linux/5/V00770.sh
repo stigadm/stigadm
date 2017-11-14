@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have accounts configured with blank or null passwords.
-# Description: If an account is configured for password authentication but does not have an assigned password, it may be possible to log into the account without authentication.  If the root user is configured without a password, the entire system may be compromised.  For user accounts not using password authentication, the account must be configured with a password lock value instead of a blank or null value.  
+# Description: The system must not have accounts configured with blank or null passwords.
 

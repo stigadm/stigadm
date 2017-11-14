@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: User and group account administration utilities must be configured to store only encrypted representations of passwords.
-# Description: Passwords need to be protected at all times, and encryption is the standard method for protecting passwords. If passwords are not encrypted, they can be plainly read (i.e., clear text) and easily compromised. Passwords encrypted with a weak algorithm are no more protected than if they are kept in plain text.
+# Description: User and group account administration utilities must be configured to store only encrypted representations of passwords.
 

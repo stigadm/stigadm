@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the systat service active.
-# Description: The systat daemon allows remote users to see the running process and who is running them.  This may aid in information collection for an attack and weaken the security posture of the system.
+# Description: The system must not have the systat service active.
 

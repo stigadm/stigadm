@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must employ FIPS-validate or NSA-approved cryptography to implement digital signatures.
-# Description: FIPS 140-2 is the current standard for validating cryptographic modules, and NSA Type-X (where X=1, 2, 3, 4) products are NSA-certified hardware based encryption modules.
+# Description: The operating system must employ FIPS-validate or NSA-approved cryptography to implement digital signatures.
 

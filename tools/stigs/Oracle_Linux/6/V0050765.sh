@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/gshadow file must have mode 0000.
-# Description: The /etc/gshadow file contains group password hashes. Protection of this file is critical for system security.
+# Description: The /etc/gshadow file must have mode 0000.
 

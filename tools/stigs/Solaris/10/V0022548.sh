@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The DHCP client must be disabled if not needed.
-# Description: DHCP allows for the unauthenticated configuration of network parameters on the system by exchanging information with a DHCP server.
+# Description: The DHCP client must be disabled if not needed.
 

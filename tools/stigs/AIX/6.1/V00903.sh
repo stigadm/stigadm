@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All interactive users' home directories must be group-owned by the home directory owner's primary group.
-# Description: If the GID of the home directory is not the same as the GID of the user, this would allow unauthorized access to files.
+# Description: All interactive users' home directories must be group-owned by the home directory owner's primary group.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The cron service must be running.
-# Description: Due to its usage for maintenance and security-supporting tasks, enabling the cron daemon is essential.
+# Description: The cron service must be running.
 

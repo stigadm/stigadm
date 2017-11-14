@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The ftpusers file must not have an extended ACL.
-# Description: Excessive permissions on the ftpusers file could permit unauthorized modification.  Unauthorized modification could result in Denial of Service to authorized FTP users or permit unauthorized users to access the FTP service.
+# Description: The ftpusers file must not have an extended ACL.
 

@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072143
+# Title: The operating system must generate audit records for all successful/unsuccessful account access count events.
 # Description: The operating system must generate audit records for all successful/unsuccessful account access count events.
 

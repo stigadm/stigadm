@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Files executed through a mail aliases file must be group-owned by root, bin, sys, or other, and must reside within a directory group-owned by root, bin, sys, or other.
-# Description: If a file executed through a mail aliases file is not group-owned by root or a system group, it may be subject to unauthorized modification.  Unauthorized modification of files executed through aliases may allow unauthorized users to attain root privileges.
+# Description: Files executed through a mail aliases file must be group-owned by root, bin, sys, or other, and must reside within a directory group-owned by root, bin, sys, or other.
 

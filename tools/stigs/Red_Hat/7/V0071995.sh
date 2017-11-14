@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must define default permissions for all authenticated users in such a way that the user can only read and modify their own files.
-# Description: Setting the most restrictive default permissions ensures that when new accounts are created, they do not have unnecessary access.
+# Description: The operating system must define default permissions for all authenticated users in such a way that the user can only read and modify their own files.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Users must not be able to change passwords more than once every 24 hours.
-# Description: Setting the minimum password age protects against users cycling back to a favorite password after satisfying the password reuse requirement.
+# Description: Users must not be able to change passwords more than once every 24 hours.
 

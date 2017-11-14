@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072221
+# Title: A FIPS 140-2 approved cryptographic algorithm must be used for SSH communications.
 # Description: A FIPS 140-2 approved cryptographic algorithm must be used for SSH communications.
 

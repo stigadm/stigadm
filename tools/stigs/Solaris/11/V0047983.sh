@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Direct logins must not be permitted to shared, default, application, or utility accounts.
-# Description: Shared accounts (accounts where two or more people log in with the same user identification) do not provide identification and authentication. There is no way to provide for non-repudiation or individual accountability.
+# Description: Direct logins must not be permitted to shared, default, application, or utility accounts.
 

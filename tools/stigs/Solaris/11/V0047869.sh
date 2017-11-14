@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0047869
+# Title: The operating system must protect audit information from unauthorized read access.
 # Description: The operating system must protect audit information from unauthorized read access.
 

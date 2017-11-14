@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SMTP service must not have a uudecode alias active.
-# Description: A common configuration for older Mail Transfer Agents (MTAs) includes an alias for the decode user.  All mail sent to this user is sent to the uudecode program, which automatically converts and stores files.  By sending mail to decode or uudecode aliases present on some systems, a remote attacker may be able to create or overwrite files on the remote host.  This could possibly be used to gain remote access.
+# Description: The SMTP service must not have a uudecode alias active.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Samba must be configured to use an authentication mechanism other than "share."
-# Description: Samba share authentication does not provide for individual user identification and must not be used.
+# Description: Samba must be configured to use an authentication mechanism other than "share."
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system boot loader must require authentication.
-# Description: Password protection on the boot loader configuration ensures users with physical access cannot trivially alter important bootloader settings. These include which kernel to use, and whether to enter single-user mode.
+# Description: The system boot loader must require authentication.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /etc/passwd file must be group-owned by root, bin, or sys.
-# Description: The /etc/passwd file contains the list of local system accounts.  It is vital to system security and must be protected from unauthorized modification.
+# Description: The /etc/passwd file must be group-owned by root, bin, or sys.
 

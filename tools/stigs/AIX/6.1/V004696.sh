@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the UUCP service active.
-# Description: The UUCP utility is designed to assist in transferring files, executing remote commands, and sending e-mail between UNIX systems over phone lines and direct connections between systems. The UUCP utility is a primitive and arcane system with many security issues. There are alternate data transfer utilities/products that can be configured to more securely transfer data by providing for authentication as well as encryption.
+# Description: The system must not have the UUCP service active.
 

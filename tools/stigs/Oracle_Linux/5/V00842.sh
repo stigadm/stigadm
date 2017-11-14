@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The ftpusers file must be owned by root.
-# Description: If the file ftpusers is not owned by root, an unauthorized user may modify the file to allow unauthorized accounts to use FTP.
+# Description: The ftpusers file must be owned by root.
 

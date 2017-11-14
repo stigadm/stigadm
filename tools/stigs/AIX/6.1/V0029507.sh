@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the echo service active.
-# Description: The echo service can be used in Denial of Service or SMURF attacks.  It can also used at someone else to get through a firewall or start a data storm.  The echo service is unnecessary and it increases the attack vector of the system.
+# Description: The system must not have the echo service active.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: A baseline of AIX files with the TCB bit set must be checked weekly.
-# Description: If a baseline of files with the TCB bit set is not kept and checked weekly, the system could be compromised without the knowledge of any authority.
+# Description: A baseline of AIX files with the TCB bit set must be checked weekly.
 

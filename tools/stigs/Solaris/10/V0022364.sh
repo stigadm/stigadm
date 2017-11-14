@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Local initialization files lists of preloaded libraries must contain only authorized paths.
-# Description: The library preload list environment variable contains a list of libraries for the dynamic linker to load before loading the libraries required by the binary If this list contains paths to libraries to the current working directory that have not been authorized, unintended libraries may be preloaded. This variable is formatted as a space-separated list of libraries. Paths starting with a slash (/) are absolute paths.
+# Description: Local initialization files lists of preloaded libraries must contain only authorized paths.
 

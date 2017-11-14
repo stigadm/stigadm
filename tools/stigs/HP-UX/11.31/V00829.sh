@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The hosts.lpd (or equivalent) must have mode 0644 or less permissive.
-# Description: Excessive permissions on the hosts.lpd (or equivalent) file may permit unauthorized modification. Unauthorized modifications could disrupt access to local printers from authorized remote hosts or permit unauthorized remote access to local printers.
+# Description: The hosts.lpd (or equivalent) must have mode 0644 or less permissive.
 

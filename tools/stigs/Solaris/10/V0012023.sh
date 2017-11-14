@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: IP forwarding for IPv4 must not be enabled, unless the system is a router.
-# Description: If the system is configured for IP forwarding and is not a designated router, it could be used to bypass network security by providing a path for communication not filtered by network devices.
+# Description: IP forwarding for IPv4 must not be enabled, unless the system is a router.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/group file must be group-owned by root.
-# Description: The "/etc/group" file contains information regarding groups that are configured on the system. Protection of this file is important for system security.
+# Description: The /etc/group file must be group-owned by root.
 

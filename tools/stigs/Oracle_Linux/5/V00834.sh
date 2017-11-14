@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Files executed through a mail aliases file must have mode 0755 or less permissive.
-# Description: If a file executed through a mail aliases file has permissions greater than 0755, it can be modified by an unauthorized user and may contain malicious code or instructions potentially compromising the system.
+# Description: Files executed through a mail aliases file must have mode 0755 or less permissive.
 

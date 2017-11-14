@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system must not use removable media as the boot loader.
-# Description: Malicious users with removable boot media can gain access to a system configured to use removable media as the boot loader.
+# Description: The system must not use removable media as the boot loader.
 

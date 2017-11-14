@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: System audit logs must have mode 0640 or less permissive.
-# Description: If a user can write to the audit logs, audit trails can be modified or destroyed and system intrusion may not be detected.  System audit logs are those files generated from the audit system and do not include activity, error, or other log files created by application software.
+# Description: System audit logs must have mode 0640 or less permissive.
 

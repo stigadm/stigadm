@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The graphical login service provides the capability of logging into the system using an X-Windows type interface from the console. If graphical login access for the console is required, the service must be in local-only mode.
-# Description: Externally accessible graphical desktop software may open the system to remote attacks.
+# Description: The graphical login service provides the capability of logging into the system using an X-Windows type interface from the console. If graphical login access for the console is required, the service must be in local-only mode.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Remote X connections for interactive users must be encrypted.
-# Description: Open X displays allow an attacker to capture keystrokes and execute commands remotely.
+# Description: Remote X connections for interactive users must be encrypted.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Global initialization files must contain the mesg -n or mesg n commands.
-# Description: If the mesg -n or mesg n command is not placed into the system profile, messaging can be used to cause a Denial of Service attack.
+# Description: Global initialization files must contain the mesg -n or mesg n commands.
 

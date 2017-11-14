@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system, upon successful logon, must display to the user the date and time of the last logon (access).
-# Description: Users need to be aware of activity that occurs regarding their account. Providing users with information regarding the date and time of their last successful login allows the user to determine if any unauthorized activity has occurred and gives them an opportunity to notify administrators.
+# Description: The operating system, upon successful logon, must display to the user the date and time of the last logon (access).
 

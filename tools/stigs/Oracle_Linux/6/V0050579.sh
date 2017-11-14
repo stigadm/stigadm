@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must ignore .rhosts files.
-# Description: SSH trust relationships mean a compromise on one host can allow an attacker to move trivially to other hosts.
+# Description: The SSH daemon must ignore .rhosts files.
 

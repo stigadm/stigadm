@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The root account's home directory must not have an extended ACL.
-# Description: File system extended ACLs provide access to files beyond what is allowed by the mode numbers of the files.
+# Description: The root account's home directory must not have an extended ACL.
 

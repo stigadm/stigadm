@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Removable media, remote file systems, and any file system that does not contain approved setuid files must be mounted with the "nosuid" option.
-# Description: The "nosuid" mount option causes the system to not execute setuid files with owner privileges.  This option must be used for mounting any file system that does not contain approved setuid files.  Executing setuid files from untrusted file systems, or file systems that do not contain approved setuid files, increases the opportunity for unprivileged users to attain unauthorized administrative access.
+# Description: Removable media, remote file systems, and any file system that does not contain approved setuid files must be mounted with the "nosuid" option.
 

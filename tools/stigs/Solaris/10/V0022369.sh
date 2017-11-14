@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: All system audit files must not have extended ACLs.
-# Description: If a user can write to the audit logs, then audit trails can be modified or destroyed and system intrusion may not be detected.
+# Description: All system audit files must not have extended ACLs.
 

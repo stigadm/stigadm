@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Mail relaying must be restricted.
-# Description: If unrestricted mail relaying is permitted, unauthorized senders could use this host as a mail relay for the purpose of sending SPAM or other unauthorized activity.
+# Description: Mail relaying must be restricted.
 

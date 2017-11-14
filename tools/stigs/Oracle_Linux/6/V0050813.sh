@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system clock must be synchronized to an authoritative DoD time source.
-# Description: Synchronizing with an NTP server makes it possible to collate system logs from multiple sources or correlate computer events with real time events. Using a trusted NTP server provided by your organization is recommended.
+# Description: The system clock must be synchronized to an authoritative DoD time source.
 

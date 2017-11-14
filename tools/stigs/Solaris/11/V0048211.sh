@@ -227,3 +227,35 @@ done
 
 [ ${verbose} -eq 1 ] && print "Failed conformity to '${stigid}'" 1
 exit 1
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048211
+# STIG_Version: SV-61083r1
+# Rule_ID: SOL-11.1-050120
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The system must set maximum number of incoming connections to 1024.
+# Description: The system must set maximum number of incoming connections to 1024.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048211
+# STIG_Version: SV-61083r1
+# Rule_ID: SOL-11.1-050120
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The system must set maximum number of incoming connections to 1024.
+# Description: The system must set maximum number of incoming connections to 1024.
+

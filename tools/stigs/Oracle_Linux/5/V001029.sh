@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/smbpasswd file must be owned by root.
-# Description: If the "smbpasswd" file is not owned by root, it may be maliciously accessed or modified, potentially resulting in the compromise of Samba accounts.
+# Description: The /etc/smbpasswd file must be owned by root.
 

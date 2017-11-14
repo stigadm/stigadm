@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The inetd time service must not be active on the system on the inetd daemon.
-# Description: The time service is an internal inetd function is used by the rdate command.  This service is sometimes used to synchronize clocks at boot time.   The service is outdated.   Use the ntpdate command instead.
+# Description: The inetd time service must not be active on the system on the inetd daemon.
 

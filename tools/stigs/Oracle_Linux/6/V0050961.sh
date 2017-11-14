@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not send ICMPv4 redirects by default.
-# Description: Sending ICMP redirects permits the system to instruct other systems to update their routing information. The ability to send ICMP redirects is only appropriate for systems acting as routers.
+# Description: The system must not send ICMPv4 redirects by default.
 

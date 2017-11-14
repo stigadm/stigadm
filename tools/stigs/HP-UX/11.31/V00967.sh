@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/securetty file must have mode 0640 or less permissive.
-# Description: Excessive permissions on the /etc/securetty file could result in unauthorized modification of the file.  Changes to the file could reduce the system's security by specifying additional terminals permitted to accept root logins, or deny service by preventing root logins on authorized terminals.
+# Description: The /etc/securetty file must have mode 0640 or less permissive.
 

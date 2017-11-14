@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: There must be no world-writable files on the system.
-# Description: Data in world-writable files can be modified by any user on the system. In almost all circumstances, files can be configured using a combination of user and group permissions to support whatever legitimate access is needed without the risk caused by world-writable files.
+# Description: There must be no world-writable files on the system.
 

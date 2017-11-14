@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The NFS server must have logging implemented.
-# Description: Filesystem logging, especially for NFS exported file systems, can be critical to detecting data misuse and possible hardware/system errors that may, otherwise, go unnoticed.
+# Description: The NFS server must have logging implemented.
 

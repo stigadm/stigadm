@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The ypbind service must not be running.
-# Description: Disabling the "ypbind" service ensures the system is not acting as a client in a NIS or NIS+ domain.
+# Description: The ypbind service must not be running.
 

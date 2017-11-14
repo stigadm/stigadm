@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /etc/nsswitch.conf file must have mode 0644 or less permissive.
-# Description: The nsswitch.conf file (or equivalent) configures the source of a variety of system security information including account, group, and host lookups.  Malicious changes could prevent the system from functioning or compromise system security.
+# Description: The /etc/nsswitch.conf file must have mode 0644 or less permissive.
 

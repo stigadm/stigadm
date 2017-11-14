@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: All .rhosts, .shosts, or host.equiv files must only contain trusted host-user pairs.
-# Description: If these files are not properly configured, they could allow malicious access by unknown malicious users from untrusted hosts who could compromise the system.
+# Description: All .rhosts, .shosts, or host.equiv files must only contain trusted host-user pairs.
 

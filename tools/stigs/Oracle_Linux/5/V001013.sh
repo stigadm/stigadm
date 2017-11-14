@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must be configured to only boot from the system boot device.
-# Description: The ability to boot from removable media is the same as being able to boot into single user, or maintenance, mode without a password. This ability could allow a malicious user to boot the system and perform changes with the potential to compromise or damage the system. It could also allow the system to be used for malicious purposes by a malicious anonymous user.
+# Description: The system must be configured to only boot from the system boot device.
 

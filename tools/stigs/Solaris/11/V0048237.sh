@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must use organization-defined replay-resistant authentication mechanisms for network access to non-privileged accounts.
-# Description: Non-local maintenance and diagnostic communications often contain sensitive information and must be protected. The security of these remote accesses can be ensured by sending non-local maintenance and diagnostic communications through encrypted channels enforced via firewall configurations.
+# Description: The operating system must use organization-defined replay-resistant authentication mechanisms for network access to non-privileged accounts.
 

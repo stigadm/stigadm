@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071901
+# Title: The operating system must initiate a session lock for graphical user interfaces when the screensaver is activated.
 # Description: The operating system must initiate a session lock for graphical user interfaces when the screensaver is activated.
 

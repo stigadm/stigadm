@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Access to a domain console via telnet must be restricted to the local host.
-# Description: Telnet is an insecure protocol.
+# Description: Access to a domain console via telnet must be restricted to the local host.
 

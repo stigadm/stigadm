@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must disable accounts after excessive login failures within a 15-minute interval.
-# Description: Locking out user accounts after a number of incorrect attempts within a specific period of time prevents direct password guessing attacks.
+# Description: The system must disable accounts after excessive login failures within a 15-minute interval.
 

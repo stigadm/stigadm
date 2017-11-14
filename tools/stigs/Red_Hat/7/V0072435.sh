@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072435
+# Title: The operating system must implement smart card logons for multifactor authentication for access to privileged accounts.
 # Description: The operating system must implement smart card logons for multifactor authentication for access to privileged accounts.
 

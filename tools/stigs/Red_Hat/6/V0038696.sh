@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must employ automated mechanisms, per organization defined frequency, to detect the addition of unauthorized components/devices into the operating system.
-# Description: By default, AIDE does not install itself for periodic execution. Periodically running AIDE may reveal unexpected changes in installed files.
+# Description: The operating system must employ automated mechanisms, per organization defined frequency, to detect the addition of unauthorized components/devices into the operating system.
 

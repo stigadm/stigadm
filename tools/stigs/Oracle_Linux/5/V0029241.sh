@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must be configured to audit all administrative, privileged, and security actions.
-# Description: If the system is not configured to audit certain activities and write them to an audit log, it is more difficult to detect and track system compromises and damages incurred during a system compromise.
+# Description: The audit system must be configured to audit all administrative, privileged, and security actions.
 

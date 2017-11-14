@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Duplicate group names must not exist.
-# Description: If a group is assigned a duplicate group name, it will create and have access to files with the first GID for that group in group. Effectively, the GID is shared, which is a security risk.
+# Description: Duplicate group names must not exist.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SMTP service log file must not have an extended ACL.
-# Description: If the SMTP service log file has an extended ACL, unauthorized users may be allowed to access or to modify the log file.
+# Description: The SMTP service log file must not have an extended ACL.
 

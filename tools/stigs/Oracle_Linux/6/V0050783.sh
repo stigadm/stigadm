@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Library files must have mode 0755 or less permissive.
-# Description: Files from shared library directories are loaded into the address space of processes (including privileged ones) or of the kernel itself at runtime. Restrictive permissions are necessary to protect the integrity of the system.
+# Description: Library files must have mode 0755 or less permissive.
 

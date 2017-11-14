@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must not allow autologin capabilities from the GNOME desktop.
-# Description: As automatic logins are a known security risk for other than "kiosk" types of systems, GNOME automatic login should be disabled in pam.conf.
+# Description: The system must not allow autologin capabilities from the GNOME desktop.
 

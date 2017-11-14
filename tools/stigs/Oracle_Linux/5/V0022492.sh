@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Network File System (NFS) export configuration file must be group-owned by root, bin, sys, or system.
-# Description: Failure to give group-ownership of the NFS export configuration file to root or a system group provides the designated group-owner and possible unauthorized users with the potential to change system configuration which could weaken the system's security posture.
+# Description: The Network File System (NFS) export configuration file must be group-owned by root, bin, sys, or system.
 

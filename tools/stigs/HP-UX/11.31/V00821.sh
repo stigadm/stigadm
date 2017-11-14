@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The inetd.conf file, xinetd.conf file, and the xinetd.d directory must be owned by root or bin.
-# Description: Failure to give ownership of sensitive files or utilities to root provides the designated owner and unauthorized users with the potential to access sensitive information or change the system configuration which could weaken the system's security posture.
+# Description: The inetd.conf file, xinetd.conf file, and the xinetd.d directory must be owned by root or bin.
 

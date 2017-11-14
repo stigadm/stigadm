@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All local interactive user home directories defined in the /etc/passwd file must exist.
-# Description: If a local interactive user has a home directory defined that does not exist, the user may be given access to the / directory as the current working directory upon logon. This could create a Denial of Service because the user would not be able to access their logon configuration files, and it may give them visibility to system files they normally would not be able to access.
+# Description: All local interactive user home directories defined in the /etc/passwd file must exist.
 

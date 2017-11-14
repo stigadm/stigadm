@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Default system accounts must be disabled or removed.
-# Description: Vendor accounts and software may contain backdoors allowing unauthorized access to the system.  These backdoors are common knowledge and present a threat to system security if the account is not disabled.
+# Description: Default system accounts must be disabled or removed.
 

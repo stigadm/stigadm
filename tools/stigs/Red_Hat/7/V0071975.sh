@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071975
+# Title: Designated personnel must be notified if baseline configurations are changed in an unauthorized manner.
 # Description: Designated personnel must be notified if baseline configurations are changed in an unauthorized manner.
 

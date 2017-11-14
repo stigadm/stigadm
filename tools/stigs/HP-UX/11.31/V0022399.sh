@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must be configured to store any process core dumps in a specific, centralized directory.
-# Description: Specifying a centralized location for core file creation allows for the centralized protection of core files. Process core dumps contain the memory in use by the process when it crashed. Any data the process was handling may be contained in the core file, and it must be protected accordingly. If process core dump creation is not configured to use a centralized directory, core dumps may be created in a directory without appropriate ownership or permissions configured, which could result in unauthorized access to the core dumps.
+# Description: The system must be configured to store any process core dumps in a specific, centralized directory.
 

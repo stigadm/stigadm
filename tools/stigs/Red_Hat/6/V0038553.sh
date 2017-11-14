@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must prevent public IPv6 access into an organizations internal networks, except as appropriately mediated by managed interfaces employing boundary protection devices.
-# Description: The "ip6tables" service provides the system's host-based firewalling capability for IPv6 and ICMPv6.
+# Description: The operating system must prevent public IPv6 access into an organizations internal networks, except as appropriately mediated by managed interfaces employing boundary protection devices.
 

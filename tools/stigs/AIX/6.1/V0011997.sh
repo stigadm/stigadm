@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The kernel core dump data directory must be owned by root.
-# Description: Kernel core dumps may contain the full contents of system memory at the time of the crash.  As the system memory may contain sensitive information, it must be protected accordingly. If the kernel core dump data directory is not owned by root, the core dumps contained in the directory may be subject to unauthorized access.
+# Description: The kernel core dump data directory must be owned by root.
 

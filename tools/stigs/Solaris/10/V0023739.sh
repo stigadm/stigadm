@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system must use a separate filesystem for /tmp (or equivalent).
-# Description: The use of separate filesystems for different paths can protect the system from failures resulting from a filesystem becoming full or failing.
+# Description: The system must use a separate filesystem for /tmp (or equivalent).
 

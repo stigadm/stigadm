@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not send IPv6 ICMP redirects.
-# Description: ICMP redirect messages are used by routers to inform hosts of a more direct route existing for a particular destination. These messages contain information from the system's route table possibly revealing portions of the network topology.
+# Description: The system must not send IPv6 ICMP redirects.
 

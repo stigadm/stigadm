@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must implement host-based boundary protection mechanisms for servers, workstations, and mobile devices.
-# Description: A host-based boundary protection mechanism is a host-based firewall.
+# Description: The operating system must implement host-based boundary protection mechanisms for servers, workstations, and mobile devices.
 

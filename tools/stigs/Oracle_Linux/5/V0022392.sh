@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The at.deny file must have mode 0600 or less permissive.
-# Description: The "at" daemon control files restrict access to scheduled job manipulation and must be protected.  Unauthorized modification of the at.deny file could result in Denial of Service to authorized "at" users or provide unauthorized users with the ability to run "at" jobs.
+# Description: The at.deny file must have mode 0600 or less permissive.
 

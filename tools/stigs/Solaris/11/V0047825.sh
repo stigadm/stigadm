@@ -327,3 +327,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047825
+# STIG_Version: SV-60701r1
+# Rule_ID: SOL-11.1-010340
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The audit system must be configured to audit failed attempts to access files and programs.
+# Description: The audit system must be configured to audit failed attempts to access files and programs.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047825
+# STIG_Version: SV-60701r1
+# Rule_ID: SOL-11.1-010340
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The audit system must be configured to audit failed attempts to access files and programs.
+# Description: The audit system must be configured to audit failed attempts to access files and programs.
+

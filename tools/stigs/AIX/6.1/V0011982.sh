@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All global initialization files must be owned by root.
-# Description: Global initialization files are used to configure the user's shell environment upon login.  Malicious modification of these files could compromise accounts upon logon.  Failure to give ownership of sensitive files or utilities to root or bin provides the designated owner and unauthorized users with the potential to access sensitive information or change the system configuration which could weaken the system's security posture.
+# Description: All global initialization files must be owned by root.
 

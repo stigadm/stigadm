@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The boundary protection system (firewall) must be configured to only allow encrypted protocols to ensure that passwords are transmitted via encryption.
-# Description: Proper configuration of the firewall will only allow encrypted, authenticated protocols such as SSHv2. Stateful packet filtering and logging must also be enabled.
+# Description: The boundary protection system (firewall) must be configured to only allow encrypted protocols to ensure that passwords are transmitted via encryption.
 

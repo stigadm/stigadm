@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/security/access.conf file must have a privileged group owner.
-# Description: Depending on the access restrictions of the /etc/security/access.conf file, if the group owner were not a privileged group, it could endanger system security.
+# Description: The /etc/security/access.conf file must have a privileged group owner.
 

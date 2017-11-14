@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Vendor packaged system security patches and updates must be installed and up to date.
-# Description: Timely patching is critical for maintaining the operational availability, confidentiality, and integrity of information technology (IT) systems. However, failure to keep operating system and application software patched is a common mistake made by IT professionals. New patches are released daily, and it is often difficult for even experienced System Administrators to keep abreast of all the new patches. When new weaknesses in an operating system exist, patches are usually made available by the vendor to resolve the problems. If the most recent security patches and updates are not installed, unauthorized users may take advantage of weaknesses in the unpatched software. The lack of prompt attention to patching could result in a system compromise.
+# Description: Vendor packaged system security patches and updates must be installed and up to date.
 

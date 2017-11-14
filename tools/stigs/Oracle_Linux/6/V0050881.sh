@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The sendmail package must be removed.
-# Description: The sendmail software was not developed with security in mind and its design prevents it from being effectively contained by SELinux. Postfix should be used instead.
+# Description: The sendmail package must be removed.
 

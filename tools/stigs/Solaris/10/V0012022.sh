@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The SSH daemon must be configured for IP filtering.
-# Description: The SSH daemon must be configured for IP filtering to provide a layered defense against connection attempts from unauthorized addresses.
+# Description: The SSH daemon must be configured for IP filtering.
 

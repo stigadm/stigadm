@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have 6to4 enabled.
-# Description: 6to4 is an IPv6 transition mechanism involving tunneling IPv6 packets encapsulated in IPv4 packets on an ad-hoc basis.  This is not a preferred transition strategy and increases the attack surface of the system.
+# Description: The system must not have 6to4 enabled.
 

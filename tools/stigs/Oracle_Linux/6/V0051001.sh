@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Reliable Datagram Sockets (RDS) protocol must be disabled unless required.
-# Description: Disabling RDS protects the system against exploitation of any flaws in its implementation.
+# Description: The Reliable Datagram Sockets (RDS) protocol must be disabled unless required.
 

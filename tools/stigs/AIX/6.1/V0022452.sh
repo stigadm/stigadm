@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The snmpd.conf file must not have an extended ACL.
-# Description: The snmpd.conf file contains authenticators and must be protected from unauthorized access and modification.
+# Description: The snmpd.conf file must not have an extended ACL.
 

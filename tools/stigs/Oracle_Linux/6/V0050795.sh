@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: User passwords must be changed at least every 60 days.
-# Description: Setting the password maximum age ensures users are required to periodically change their passwords. This could possibly decrease the utility of a stolen password. Requiring shorter password lifetimes increases the risk of users writing down the password in a convenient location subject to physical compromise.
+# Description: User passwords must be changed at least every 60 days.
 

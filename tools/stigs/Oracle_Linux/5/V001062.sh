@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The root shell must be located in the / file system.
-# Description: To ensure the root shell is available in repair and administrative modes, the root shell must be located in the / file system.
+# Description: The root shell must be located in the / file system.
 

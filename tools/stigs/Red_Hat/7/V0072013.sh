@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All local interactive user accounts, upon creation, must be assigned a home directory.
-# Description: If local interactive users are not assigned a valid home directory, there is no place for the storage and control of files they should own.
+# Description: All local interactive user accounts, upon creation, must be assigned a home directory.
 

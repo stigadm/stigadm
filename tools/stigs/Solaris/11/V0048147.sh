@@ -289,3 +289,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048147
+# STIG_Version: SV-61019r1
+# Rule_ID: SOL-11.1-040490
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must prevent remote devices that have established a non-remote connection with the system from communicating outside of the communication path with resources in external networks.
+# Description: The operating system must prevent remote devices that have established a non-remote connection with the system from communicating outside of the communication path with resources in external networks.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048147
+# STIG_Version: SV-61019r1
+# Rule_ID: SOL-11.1-040490
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The operating system must prevent remote devices that have established a non-remote connection with the system from communicating outside of the communication path with resources in external networks.
+# Description: The operating system must prevent remote devices that have established a non-remote connection with the system from communicating outside of the communication path with resources in external networks.
+

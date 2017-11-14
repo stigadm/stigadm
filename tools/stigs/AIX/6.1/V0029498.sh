@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must provide protection against IP fragmentation attacks.
-# Description: The parameter ip_nfrag provides an additional layer of protection against IP fragmentation attacks.  The value the ip_nfrag specifies is the maximum number of fragments of an IP packet that can be kept in the IP reassembly queue at any time. The default value of this network option is 200.  This is a reasonable value for most environments and offers protection from IP fragmentation attacks. 
+# Description: The system must provide protection against IP fragmentation attacks.
 

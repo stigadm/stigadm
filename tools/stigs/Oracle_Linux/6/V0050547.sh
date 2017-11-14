@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The xinetd service must be disabled if no network services utilizing it are enabled.
-# Description: The xinetd service provides a dedicated listener service for some programs, which is no longer necessary for commonly-used network services. Disabling it ensures that these uncommon services are not running, and also prevents attacks against xinetd itself.
+# Description: The xinetd service must be disabled if no network services utilizing it are enabled.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not process ICMP timestamp requests.
-# Description: The processing of Internet Control Message Protocol (ICMP) timestamp requests increases the attack surface of the system.
+# Description: The system must not process ICMP timestamp requests.
 

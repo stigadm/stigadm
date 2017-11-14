@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must be configured to audit changes to the /etc/sudoers file.
-# Description: The actions taken by system administrators should be audited to keep a record of what was executed on the system, as well as, for accountability purposes.
+# Description: The audit system must be configured to audit changes to the /etc/sudoers file.
 

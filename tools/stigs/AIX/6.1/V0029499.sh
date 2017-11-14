@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the bootp service active.
-# Description: The bootp service is used for Network Installation Management (NIM) and remote booting of systems.  The bootp service should not be active unless it is needed for NIM servers or booting remote systems.  Running unnecessary services increases the attack vector of the system.
+# Description: The system must not have the bootp service active.
 

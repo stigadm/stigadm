@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Red Hat Network Service (rhnsd) service must not be running, unless it is being used to query the Oracle Unbreakable Linux Network for updates and information.
-# Description: Although systems management and patching is extremely important to system security, management by a system outside the enterprise enclave is not desirable for some environments. However, if the system needs to communicate with the Oracle Unbreakable Linux Network for updates or information, then the "rhnsd" daemon can remain on.
+# Description: The Red Hat Network Service (rhnsd) service must not be running, unless it is being used to query the Oracle Unbreakable Linux Network for updates and information.
 

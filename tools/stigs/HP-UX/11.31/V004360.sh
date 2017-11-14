@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Cron programs must not set the umask to a value less restrictive than 077.
-# Description: The umask controls the default access mode assigned to newly created files. An umask of 077 limits new files to mode 700 or less permissive. Although umask is often represented as a 4-digit octal number, the first digit representing special access modes is typically ignored or required to be 0.
+# Description: Cron programs must not set the umask to a value less restrictive than 077.
 

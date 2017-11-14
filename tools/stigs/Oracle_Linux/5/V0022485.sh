@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must perform strict mode checking of home directory configuration files.
-# Description: If other users have access to modify user-specific SSH configuration files, they may be able to log into the system as another user.
+# Description: The SSH daemon must perform strict mode checking of home directory configuration files.
 

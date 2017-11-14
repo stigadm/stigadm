@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The cron.deny file must be owned by root, bin, or sys.
-# Description: Cron daemon control files restrict the scheduling of automated tasks and must be protected.
+# Description: The cron.deny file must be owned by root, bin, or sys.
 

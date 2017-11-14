@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: AIX Trusted Computing Base (TCB) software must be implemented.
-# Description: The AIX Trusted Computing Base (TCB) software provides protection from the unauthorized modification of core system files.
+# Description: AIX Trusted Computing Base (TCB) software must be implemented.
 

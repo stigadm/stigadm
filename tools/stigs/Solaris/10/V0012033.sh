@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The root account must be the only account with GID of 0.
-# Description: Accounts with a GID of 0 have root group privileges.
+# Description: The root account must be the only account with GID of 0.
 

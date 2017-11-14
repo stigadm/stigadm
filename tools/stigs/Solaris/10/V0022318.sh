@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: NIS/NIS+/yp command files must not have extended ACLs.
-# Description: NIS/NIS+/yp files are part of the system's identification and authentication processes and are, therefore, critical to system security.  ACLs on these files could result in unauthorized modification, which could compromise these processes and the system.  
+# Description: NIS/NIS+/yp command files must not have extended ACLs.
 

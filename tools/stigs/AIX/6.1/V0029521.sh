@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/ftpaccess.ctl file must be group-owned by bin, sys, or system.
-# Description: If the ftpaccess.ctl file is not group-owned by a system group, an unauthorized user may modify the file to allow unauthorized access to modify the file. Unauthorized modification could result in Denial of Service to authorized FTP users or permit unauthorized access to system information.
+# Description: The /etc/ftpaccess.ctl file must be group-owned by bin, sys, or system.
 

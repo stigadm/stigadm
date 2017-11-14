@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must limit the ability of processes to have simultaneous write and execute access to memory.
-# Description: ExecShield uses the segmentation feature on all x86 systems to prevent execution in memory higher than a certain address. It writes an address as a limit in the code segment descriptor, to control where code can be executed, on a per-process basis. When the kernel places a process's memory regions such as the stack and heap higher than this address, the hardware prevents execution in that address range.
+# Description: The system must limit the ability of processes to have simultaneous write and execute access to memory.
 

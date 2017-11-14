@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Department of Defense (DoD) login banner must be displayed immediately prior to, or as part of, console login prompts.
-# Description: Failure to display the login banner prior to a logon attempt will negate legal proceedings resulting from unauthorized access to system resources.
+# Description: The Department of Defense (DoD) login banner must be displayed immediately prior to, or as part of, console login prompts.
 

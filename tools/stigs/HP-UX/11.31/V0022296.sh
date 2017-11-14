@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The time synchronization configuration file (such as /etc/ntp.conf) must have mode 0640 or less permissive.
-# Description: A synchronized system clock is critical for the enforcement of time-based policies and the correlation of logs and audit records with other systems.  If an illicit time source is used for synchronization, the integrity of system logs and the security of the system could be compromised.  If the configuration files controlling time synchronization are not protected, unauthorized modifications could result in the failure of time synchronization.
+# Description: The time synchronization configuration file (such as /etc/ntp.conf) must have mode 0640 or less permissive.
 

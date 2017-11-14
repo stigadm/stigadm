@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The pidgin IM client package must not be installed.
-# Description: Instant messaging is an insecure protocol.
+# Description: The pidgin IM client package must not be installed.
 

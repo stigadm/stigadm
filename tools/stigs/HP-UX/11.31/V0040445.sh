@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must impose the same restrictions on root logins that are already applied to non-root users.
-# Description: Best practices standard operating procedures for computing systems includes account management. If the root account is allowed to be configured without a password, or not configured to lock if there have been no logins to the root account for an organization defined time interval, the entire system can be compromised.
+# Description: The system must impose the same restrictions on root logins that are already applied to non-root users.
 

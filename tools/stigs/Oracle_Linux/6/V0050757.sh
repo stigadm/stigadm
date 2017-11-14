@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/shadow file must have mode 0000.
-# Description: The "/etc/shadow" file contains the list of local system accounts and stores password hashes. Protection of this file is critical for system security. Failure to give ownership of this file to root provides the designated owner with access to sensitive information which could weaken the system security posture.
+# Description: The /etc/shadow file must have mode 0000.
 

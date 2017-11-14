@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use a Linux Security Module configured to limit the privileges of system services.
-# Description: Setting the SELinux policy to "targeted" or a more specialized policy ensures the system will confine processes that are likely to be targeted for exploitation, such as network or system services. 
+# Description: The system must use a Linux Security Module configured to limit the privileges of system services.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The delay between login prompts following a failed login attempt must be at least 4 seconds.
-# Description: As an immediate return of an error message, coupled with the capability to try again, may facilitate automatic and rapid-fire brute-force password attacks by a malicious user.
+# Description: The delay between login prompts following a failed login attempt must be at least 4 seconds.
 

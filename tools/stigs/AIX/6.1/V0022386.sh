@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Crontab files must not have extended ACLs.
-# Description: To protect the integrity of scheduled system jobs and to prevent malicious modification to these jobs, crontab files must be secured.  ACLs on crontab files may provide unauthorized access to the files.
+# Description: Crontab files must not have extended ACLs.
 

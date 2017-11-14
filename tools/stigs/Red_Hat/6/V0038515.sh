@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Stream Control Transmission Protocol (SCTP) must be disabled unless required.
-# Description: Disabling SCTP protects the system against exploitation of any flaws in its implementation.
+# Description: The Stream Control Transmission Protocol (SCTP) must be disabled unless required.
 

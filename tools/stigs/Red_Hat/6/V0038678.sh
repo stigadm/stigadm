@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must provide a warning when allocated audit record storage volume reaches a documented percentage of maximum audit record storage capacity.
-# Description: Notifying administrators of an impending disk space problem may allow them to take corrective action prior to any disruption.
+# Description: The audit system must provide a warning when allocated audit record storage volume reaches a documented percentage of maximum audit record storage capacity.
 

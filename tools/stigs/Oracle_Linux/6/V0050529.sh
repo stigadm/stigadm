@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use a separate file system for /var/log.
-# Description: Placing "/var/log" in its own partition enables better separation between log files and other files in "/var/".
+# Description: The system must use a separate file system for /var/log.
 

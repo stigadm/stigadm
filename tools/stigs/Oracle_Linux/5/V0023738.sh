@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use a separate file system for the system audit data path.
-# Description: The use of separate file systems for different paths can protect the system from failures resulting from a file system becoming full or failing.
+# Description: The system must use a separate file system for the system audit data path.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the Calendar Manager Service Daemon (CMSD) service active.
-# Description: The CMSD service for CDE is an unnecessary process that  runs a root and increases attack vector of the system.  Buffer overflow attacks against the CMSD process can potentially give access to the system.
+# Description: The system must not have the Calendar Manager Service Daemon (CMSD) service active.
 

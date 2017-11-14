@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must block both inbound and outbound traffic between instant messaging clients, independently configured by end users and external service providers.
-# Description: Proper configuration of the firewall will deny instant messaging clients which will reduce a user's ability to relay sensitive information.
+# Description: The operating system must block both inbound and outbound traffic between instant messaging clients, independently configured by end users and external service providers.
 

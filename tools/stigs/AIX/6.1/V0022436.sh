@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The hosts.lpd (or equivalent) file must not have an extended ACL.
-# Description: Excessive permissions on the hosts.lpd (or equivalent) file may permit unauthorized modification.  Unauthorized modifications could disrupt access to local printers from authorized remote hosts or permit unauthorized remote access to local printers.
+# Description: The hosts.lpd (or equivalent) file must not have an extended ACL.
 

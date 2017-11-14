@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system default umask in /etc/login.defs must be 077.
-# Description: The umask value influences the permissions assigned to files when they are created. A misconfigured umask value could result in files with excessive permissions that can be read and/or written to by unauthorized users.
+# Description: The system default umask in /etc/login.defs must be 077.
 

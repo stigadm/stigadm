@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0049635
+# Title: The operating system must monitor for unauthorized connections of mobile devices to organizational information systems.
 # Description: The operating system must monitor for unauthorized connections of mobile devices to organizational information systems.
 

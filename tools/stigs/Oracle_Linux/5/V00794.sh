@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All system command files must have mode 0755 or less permissive.
-# Description: Restricting permissions will protect system command files from unauthorized modification.  System command files include files present in directories used by the operating system for storing default system executables and files present in directories included in the system's default executable search paths.
+# Description: All system command files must have mode 0755 or less permissive.
 

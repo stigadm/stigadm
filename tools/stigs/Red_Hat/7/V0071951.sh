@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071951
+# Title: The delay between logon prompts following a failed console logon attempt must be at least four seconds.
 # Description: The delay between logon prompts following a failed console logon attempt must be at least four seconds.
 

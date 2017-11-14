@@ -149,6 +149,6 @@ exit 0
 # Version: 6
 # Architecture: 
 #
-# Title: V0050791
+# Title: The system must require passwords to contain a minimum of 15 characters.
 # Description: The system must require passwords to contain a minimum of 15 characters.
 

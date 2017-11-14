@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Accounts must be locked upon 35 days of inactivity.
-# Description: Disabling inactive accounts ensures that accounts which may not have been responsibly removed are not available to attackers who may have compromised their credentials.
+# Description: Accounts must be locked upon 35 days of inactivity.
 

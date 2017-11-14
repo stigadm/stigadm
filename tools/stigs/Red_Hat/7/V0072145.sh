@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072145
+# Title: The operating system must generate audit records for all unsuccessful account access events.
 # Description: The operating system must generate audit records for all unsuccessful account access events.
 

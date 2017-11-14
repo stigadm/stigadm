@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The ASET master files must be located in the /usr/aset/masters directory.
-# Description: If ASET is used and the master files (tune.high, tune.med, tune.low, and uid_aliases) are not located in the proper place, ASET cannot operate correctly and valuable security findings could be lost. 
+# Description: The ASET master files must be located in the /usr/aset/masters directory.
 

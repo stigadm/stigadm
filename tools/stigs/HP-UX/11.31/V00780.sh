@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: GIDs reserved for system accounts must not be assigned to non-system groups.
-# Description: Reserved GIDs are typically used by system software packages. If non-system groups have GIDs in this range, they may conflict with system software, possibly leading to the group having permissions to modify system files.
+# Description: GIDs reserved for system accounts must not be assigned to non-system groups.
 

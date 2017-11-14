@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must not permit user environment settings.
-# Description: SSH environment options potentially allow users to bypass access restriction in some configurations.
+# Description: The SSH daemon must not permit user environment settings.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: All manual editing of system-relevant files shall be done using the pfedit command, which logs changes made to the files.
-# Description: Editing a system file with common tools such as vi, emacs, or gedit does not allow the auditing of changes made by an operator. This reduces the capability of determining which operator made security-relevant changes to the system.
+# Description: All manual editing of system-relevant files shall be done using the pfedit command, which logs changes made to the files.
 

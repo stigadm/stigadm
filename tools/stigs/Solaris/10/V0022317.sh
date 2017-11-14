@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: All library files must not have extended ACLs.
-# Description: Unauthorized access could destroy the integrity of the library files.
+# Description: All library files must not have extended ACLs.
 

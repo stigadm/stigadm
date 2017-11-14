@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Cron logging must be implemented.
-# Description: Cron logging can be used to trace the successful or unsuccessful execution of cron jobs.  It can also be used to spot intrusions into the use of the cron facility by unauthorized and malicious users.
+# Description: Cron logging must be implemented.
 

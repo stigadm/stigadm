@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All local interactive user initialization files executable search paths must contain only paths that resolve to the users home directory.
-# Description: The executable search path (typically the PATH environment variable) contains a list of directories for the shell to search to find executables. If this path includes the current working directory (other than the user’s home directory), executables in these directories may be executed instead of system commands. This variable is formatted as a colon-separated list of directories. If there is an empty entry, such as a leading or trailing colon or two consecutive colons, this is interpreted as the current working directory. If deviations from the default system search path for the local interactive user are required, they must be documented with the Information System Security Officer (ISSO).
+# Description: All local interactive user initialization files executable search paths must contain only paths that resolve to the users home directory.
 

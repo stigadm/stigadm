@@ -149,6 +149,6 @@ exit 0
 # Version: 6
 # Architecture: 
 #
-# Title: V0051133
+# Title: The sticky bit must be set on all public directories.
 # Description: The sticky bit must be set on all public directories.
 

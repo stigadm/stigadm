@@ -202,3 +202,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, '${file}' conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00808
+# STIG_Version: SV-28641r3
+# Rule_ID: GEN002560
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: The system and user default umask must be 077.
+# Description: The system and user default umask must be 077.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00808
+# STIG_Version: SV-28641r3
+# Rule_ID: GEN002560
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: The system and user default umask must be 077.
+# Description: The system and user default umask must be 077.
+

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system package management tool must not automatically obtain updates.
-# Description: System package management tools can obtain a list of updates and patches from a package repository and make this information available to the SA for review and action. Using a package repository outside of the organization's control presents a risk of malicious packages being introduced.
+# Description: The system package management tool must not automatically obtain updates.
 

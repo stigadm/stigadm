@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The cronlog file must have mode 0600 or less permissive.
-# Description: Cron logs contain reports of scheduled system activities and must be protected from unauthorized access or manipulation.
+# Description: The cronlog file must have mode 0600 or less permissive.
 

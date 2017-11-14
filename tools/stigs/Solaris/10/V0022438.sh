@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The aliases file must be group-owned by root, sys, smmsp, or bin.
-# Description: If the alias file is not group-owned by root or a system group, an unauthorized user may modify the file to add aliases to run malicious code or redirect email.
+# Description: The aliases file must be group-owned by root, sys, smmsp, or bin.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must log authentication informational data.
-# Description: Monitoring and recording successful and unsuccessful logins assists in tracking unauthorized access to the system.
+# Description: The system must log authentication informational data.
 

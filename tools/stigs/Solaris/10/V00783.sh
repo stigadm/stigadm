@@ -162,3 +162,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, system is running an IDS on allowed list conforming to STIG ID '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00783
+# STIG_Version: SV-40813r2
+# Rule_ID: GEN000120
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: System security patches and updates must be installed and up-to-date.
+# Description: System security patches and updates must be installed and up-to-date.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00783
+# STIG_Version: SV-40813r2
+# Rule_ID: GEN000120
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: System security patches and updates must be installed and up-to-date.
+# Description: System security patches and updates must be installed and up-to-date.
+

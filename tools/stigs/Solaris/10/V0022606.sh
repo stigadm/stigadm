@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /etc/zones directory, and its contents, must not have an extended ACL.
-# Description: Solaris zones configuration files must be protected against illicit creation, modification, and deletion.
+# Description: The /etc/zones directory, and its contents, must not have an extended ACL.
 

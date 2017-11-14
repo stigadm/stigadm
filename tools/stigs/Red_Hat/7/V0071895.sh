@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071895
+# Title: The operating system must set the idle delay setting for all connection types.
 # Description: The operating system must set the idle delay setting for all connection types.
 

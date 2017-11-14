@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Audio devices must be group-owned by root, sys, bin, or system.
-# Description: Without privileged group owners, audio devices will be vulnerable to being used as eaves-dropping devices by malicious users or intruders to possibly listen to conversations containing sensitive information.
+# Description: Audio devices must be group-owned by root, sys, bin, or system.
 

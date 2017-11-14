@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0047969
+# Title: The operating system must prevent the execution of prohibited mobile code.
 # Description: The operating system must prevent the execution of prohibited mobile code.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The nosuid option must be enabled on all Network File System (NFS) client mounts.
-# Description: Enabling the nosuid mount option prevents the system from granting owner or group-owner privileges to programs with the suid or sgid bit set.  If the system does not restrict this access, users with unprivileged access to the local system may be able to acquire privileged access by executing suid or sgid files located on the mounted NFS file system.
+# Description: The nosuid option must be enabled on all Network File System (NFS) client mounts.
 

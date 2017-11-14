@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: All run control scripts must have mode 0755 or less permissive.
-# Description: If the startup files are writable by other users, these users could modify the startup files to insert malicious commands into the startup files.
+# Description: All run control scripts must have mode 0755 or less permissive.
 

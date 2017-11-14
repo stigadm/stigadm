@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must be configured to prevent unrestricted mail relaying.
-# Description: If unrestricted mail relaying is permitted, unauthorized senders could use this host as a mail relay for the purpose of sending spam or other unauthorized activity.
+# Description: The system must be configured to prevent unrestricted mail relaying.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system must require passwords contain a minimum of 15 characters.
-# Description: The use of longer passwords reduces the ability of attackers to successfully obtain valid passwords using guessing or exhaustive search techniques by increasing the password search space.
+# Description: The system must require passwords contain a minimum of 15 characters.
 

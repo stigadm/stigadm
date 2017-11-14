@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The cron.allow file must not have an extended ACL.
-# Description: A cron.allow file that is readable and/or writable by other than root could allow potential intruders and malicious users to use the file contents to help discern information, such as who is allowed to execute cron programs, which could be harmful to overall system and network security.
+# Description: The cron.allow file must not have an extended ACL.
 

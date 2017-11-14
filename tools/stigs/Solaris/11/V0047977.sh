@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0047977
+# Title: The operating system must conduct backups of user-level information contained in the operating system per organization-defined frequency to conduct backups consistent with recovery time and recovery point objectives.
 # Description: The operating system must conduct backups of user-level information contained in the operating system per organization-defined frequency to conduct backups consistent with recovery time and recovery point objectives.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must display a publicly-viewable pattern during a graphical desktop environment session lock.
-# Description: Setting the screensaver mode to blank-only conceals the contents of the display from passersby.
+# Description: The system must display a publicly-viewable pattern during a graphical desktop environment session lock.
 

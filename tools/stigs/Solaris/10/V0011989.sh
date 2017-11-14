@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The .rhosts file must not be supported in PAM.
-# Description: The .rhosts files are used to specify a list of hosts that are permitted remote access to a particular account without authenticating.  The use of such a mechanism defeats strong identification and authentication requirements.
+# Description: The .rhosts file must not be supported in PAM.
 

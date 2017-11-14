@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071855
+# Title: The cryptographic hash of system files and commands must match vendor values.
 # Description: The cryptographic hash of system files and commands must match vendor values.
 

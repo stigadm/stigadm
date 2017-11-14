@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The login user list must be disabled.
-# Description: Leaving the user list enabled is a security risk since it allows anyone with physical access to the system to quickly enumerate known user accounts without logging in.
+# Description: The login user list must be disabled.
 

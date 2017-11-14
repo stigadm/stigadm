@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must require passwords to contain no more than three consecutive repeating characters.
-# Description: Passwords with excessive repeating characters may be more vulnerable to password-guessing attacks.
+# Description: The system must require passwords to contain no more than three consecutive repeating characters.
 

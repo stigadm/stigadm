@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Files executed through a mail aliases file must not have extended ACLs.
-# Description: Excessive permissions on files executed through a mail alias file could result in modification by an unauthorized user, execution of malicious code, and/or system compromise.
+# Description: Files executed through a mail aliases file must not have extended ACLs.
 

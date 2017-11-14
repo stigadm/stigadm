@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Network File System (NFS) anonymous UID and GID must be configured to values that have no permissions.
-# Description: When an NFS server is configured to deny remote root access, a selected UID and GID are used to handle requests from the remote root user.  The UID and GID should be chosen from the system to provide the appropriate level of non-privileged access.
+# Description: The Network File System (NFS) anonymous UID and GID must be configured to values that have no permissions.
 

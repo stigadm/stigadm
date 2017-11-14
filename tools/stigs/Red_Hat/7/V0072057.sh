@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Kernel core dumps must be disabled unless needed.
-# Description: Kernel core dumps may contain the full contents of system memory at the time of the crash. Kernel core dumps may consume a considerable amount of disk space and may result in denial of service by exhausting the available space on the target file system partition.
+# Description: Kernel core dumps must be disabled unless needed.
 

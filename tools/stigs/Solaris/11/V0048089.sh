@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The nobody access for RPC encryption key storage service must be disabled.
-# Description: If login by the user "nobody" is allowed for secure RPC, there is an increased risk of system compromise. If keyserv holds a private key for the "nobody" user, it will be used by key_encryptsession to compute a magic phrase which can be easily recovered by a malicious user.
+# Description: The nobody access for RPC encryption key storage service must be disabled.
 

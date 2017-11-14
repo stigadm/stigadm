@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: An X Windows display manager must not be installed unless approved.
-# Description: Internet services that are not required for system or application processes must not be active to decrease the attack surface of the system. X Windows has a long history of security vulnerabilities and will not be used unless approved and documented.
+# Description: An X Windows display manager must not be installed unless approved.
 

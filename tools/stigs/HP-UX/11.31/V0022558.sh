@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: If the system is using LDAP for authentication or account information, the system must verify the LDAP server's certificate has not been revoked.
-# Description: LDAP can be used to provide user authentication and account information, which are vital to system security. Communication between an LDAP server and a host using LDAP requires authentication.
+# Description: If the system is using LDAP for authentication or account information, the system must verify the LDAP server's certificate has not been revoked.
 

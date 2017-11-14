@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must log Martian packets.
-# Description: The presence of "martian" packets (which have impossible addresses) as well as spoofed packets, source-routed packets, and redirects could be a sign of nefarious network activity. Logging these packets enables this activity to be detected.
+# Description: The system must log Martian packets.
 

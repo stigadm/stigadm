@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Access to a logical domain console must be restricted to authorized users.
-# Description: A logical domain is a discrete, logical grouping with its own operating system, resources, and identity within a single computer system.  Access to the logical domain console provides system-level access to the OBP of the domain.
+# Description: Access to a logical domain console must be restricted to authorized users.
 

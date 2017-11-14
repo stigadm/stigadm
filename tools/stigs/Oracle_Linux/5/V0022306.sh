@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must require at least eight characters be changed between the old and new passwords during a password change.
-# Description: To ensure password changes are effective in their goals, the system must ensure that old and new passwords have significant differences.  Without significant changes, new passwords may be easily guessed based on the value of a previously compromised password.
+# Description: The system must require at least eight characters be changed between the old and new passwords during a password change.
 

@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072077
+# Title: The telnet-server package must not be installed.
 # Description: The telnet-server package must not be installed.
 

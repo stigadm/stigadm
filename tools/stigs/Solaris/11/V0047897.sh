@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The /etc/zones directory, and its contents, must have the vendor default owner, group, and permissions.
-# Description: Incorrect ownership can result in unauthorized changes or theft of data.
+# Description: The /etc/zones directory, and its contents, must have the vendor default owner, group, and permissions.
 

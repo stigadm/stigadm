@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The inetd.conf file must be group-owned by root, bin, or sys.
-# Description: Failure to give ownership of sensitive files or utilities to system groups may provide unauthorized users with the potential to access sensitive information or change the system configuration which could weaken the system's security posture.
+# Description: The inetd.conf file must be group-owned by root, bin, or sys.
 

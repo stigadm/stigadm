@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071911
+# Title: When passwords are changed a minimum of eight of the total number of characters must be changed.
 # Description: When passwords are changed a minimum of eight of the total number of characters must be changed.
 

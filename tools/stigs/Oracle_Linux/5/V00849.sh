@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The TFTP daemon must be configured to vendor specifications, including a dedicated TFTP user account, a non-login shell such as /bin/false, and a home directory owned by the TFTP user.
-# Description: If TFTP has a valid shell, it increases the likelihood someone could log on to the TFTP account and compromise the system.
+# Description: The TFTP daemon must be configured to vendor specifications, including a dedicated TFTP user account, a non-login shell such as /bin/false, and a home directory owned by the TFTP user.
 

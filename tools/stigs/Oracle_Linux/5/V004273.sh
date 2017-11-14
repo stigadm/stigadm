@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/news/incoming.conf (or equivalent) must have mode 0600 or less permissive.
-# Description: Excessive permissions on the "incoming.conf" file may allow unauthorized modification which could lead to Denial-of-Service to authorized users or provide access to unauthorized users.
+# Description: The /etc/news/incoming.conf (or equivalent) must have mode 0600 or less permissive.
 

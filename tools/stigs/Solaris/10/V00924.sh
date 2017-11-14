@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Device files and directories must only be writable by users with a system account or as configured by the vendor.
-# Description: System device files in writable directories could be modified, removed, or used by an unprivileged user to control system hardware.
+# Description: Device files and directories must only be writable by users with a system account or as configured by the vendor.
 

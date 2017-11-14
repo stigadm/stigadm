@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The services file must be owned by root or bin.
-# Description: Failure to give ownership of sensitive files or utilities to root or bin provides the designated owner and unauthorized users with the potential to access sensitive information or change the system configuration which could weaken the system's security posture.
+# Description: The services file must be owned by root or bin.
 

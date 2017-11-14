@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The HP-UX AUDOMON_ARGS attribute must be explicitly initialized.
-# Description: The minimal set of auditing requirements necessary to collect useful forensics data and provide user help when violations are detected must be configured.
+# Description: The HP-UX AUDOMON_ARGS attribute must be explicitly initialized.
 

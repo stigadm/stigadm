@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Mail relaying must be restricted.
-# Description: This ensures "postfix" accepts mail messages (such as cron job reports) from the local system only, and not from the network, which protects it from network attack.
+# Description: Mail relaying must be restricted.
 

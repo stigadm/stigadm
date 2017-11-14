@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must be a supported release.
-# Description: An operating system release is considered "supported" if the vendor continues to provide security patches for the product.  With an unsupported release, it will not be possible to resolve security issues discovered in the system software.
+# Description: The operating system must be a supported release.
 

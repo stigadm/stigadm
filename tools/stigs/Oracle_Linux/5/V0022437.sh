@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The traceroute file must not have an extended ACL.
-# Description: If an extended ACL exists on the traceroute executable file, it may provide unauthorized users with access to the file.  Malicious code could be inserted by an attacker and triggered whenever the traceroute command is executed by authorized users.  Additionally, if an unauthorized user is granted executable permissions to the traceroute command, it could be used to gain information about the network topology behind the firewall.  This information may allow an attacker to determine trusted routers and other network information potentially leading to system and network compromise.
+# Description: The traceroute file must not have an extended ACL.
 

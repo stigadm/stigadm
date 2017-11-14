@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The HP-UX /etc/securetty must be group-owned by root, sys, or bin.
-# Description: Root, sys, and bin are the most privileged group accounts, by default, for most UNIX systems.  If a file as sensitive as /etc/securetty is not group-owned by a privileged group, it could lead to system compromise.
+# Description: The HP-UX /etc/securetty must be group-owned by root, sys, or bin.
 

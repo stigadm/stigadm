@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072211
+# Title: The rsyslog daemon must not accept log messages from other servers unless the server is being used for log aggregation.
 # Description: The rsyslog daemon must not accept log messages from other servers unless the server is being used for log aggregation.
 

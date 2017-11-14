@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the finger service active.
-# Description: The finger service provides information about the system's users to network clients. This could expose information that could be used in subsequent attacks.
+# Description: The system must not have the finger service active.
 

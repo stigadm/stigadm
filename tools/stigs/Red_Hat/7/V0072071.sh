@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The file integrity tool must be configured to verify extended attributes.
-# Description: Extended attributes in file systems are used to contain arbitrary data and file metadata with security implications.
+# Description: The file integrity tool must be configured to verify extended attributes.
 

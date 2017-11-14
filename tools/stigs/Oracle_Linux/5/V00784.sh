@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: System files and directories must not have uneven access permissions.
-# Description: Discretionary access control is undermined if users, other than a file owner, have greater access permissions to system files and directories than the owner.
+# Description: System files and directories must not have uneven access permissions.
 

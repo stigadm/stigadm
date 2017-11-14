@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must be configured to audit failed attempts to access files and programs.
-# Description: Unsuccessful attempts to access files could be an indicator of malicious activity on a system. Auditing these events could serve as evidence of potential system compromise.
+# Description: The audit system must be configured to audit failed attempts to access files and programs.
 

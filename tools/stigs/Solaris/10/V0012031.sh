@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The nosuid option must be configured in the /etc/rmmount.conf file.
-# Description: The rmmount.conf file controls the mounting of removable media on a Solaris system. Removable media is not to be trusted with privileged access, and therefore the filesystems must be mounted with the nosuid option, which prevents any executables with the setuid bit set on this filesystem from running with owner privileges.
+# Description: The nosuid option must be configured in the /etc/rmmount.conf file.
 

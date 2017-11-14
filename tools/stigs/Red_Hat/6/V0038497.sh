@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have accounts configured with blank or null passwords.
-# Description: If an account has an empty password, anyone could log in and run commands with the privileges of that account. Accounts with empty passwords should never be used in operational environments.
+# Description: The system must not have accounts configured with blank or null passwords.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All GIDs referenced in /etc/passwd must be defined in /etc/group.
-# Description: Inconsistency in GIDs between /etc/passwd and /etc/group could lead to a user having unintended rights.
+# Description: All GIDs referenced in /etc/passwd must be defined in /etc/group.
 

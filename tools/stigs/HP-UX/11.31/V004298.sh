@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Remote consoles must be disabled or protected from unauthorized access.
-# Description: The remote console feature provides an additional means of access to the system which could allow unauthorized access if not disabled or properly secured.  With virtualization technologies, remote console access is essential as there is no physical console for virtual machines.  Remote console access must be protected in the same manner as any other remote privileged access method.
+# Description: Remote consoles must be disabled or protected from unauthorized access.
 

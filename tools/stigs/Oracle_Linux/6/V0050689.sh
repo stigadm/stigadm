@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Vendor-provided cryptographic certificates must be installed to verify the integrity of system software.
-# Description: This key is necessary to cryptographically verify packages that packages are from the operating system vendor.
+# Description: Vendor-provided cryptographic certificates must be installed to verify the integrity of system software.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have special privilege accounts, such as shutdown and halt.
-# Description: If special privilege accounts are compromised, the accounts could provide privileges to execute malicious commands on a system.
+# Description: The system must not have special privilege accounts, such as shutdown and halt.
 

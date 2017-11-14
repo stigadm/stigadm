@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The Solaris system EEPROM security-mode parameter must be set to full or command mode.
-# Description: If the EEPROM security-mode parameter is not set to full or command, then unauthorized access to system EEPROM can take place.  In normal situations, when the system is in a controlled access area and it is desirable to have it automatically reboot upon loss of and restoring of power, for instance, then command mode with the autoboot parameter set to true is recommended.
+# Description: The Solaris system EEPROM security-mode parameter must be set to full or command mode.
 

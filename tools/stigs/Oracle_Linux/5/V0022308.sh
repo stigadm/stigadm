@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must restrict the ability to switch to the root user to members of a defined group.
-# Description: Configuring a supplemental group for users permitted to switch to the root user prevents unauthorized users from accessing the root account, even with knowledge of the root credentials.
+# Description: The system must restrict the ability to switch to the root user to members of a defined group.
 

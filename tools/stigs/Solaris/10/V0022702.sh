@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: System audit logs must be group-owned by root, bin, or sys.
-# Description: Sensitive system and user information could provide a malicious user with enough information to penetrate further into the system.
+# Description: System audit logs must be group-owned by root, bin, or sys.
 

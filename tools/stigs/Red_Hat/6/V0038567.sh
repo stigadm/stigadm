@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must be configured to audit all use of setuid and setgid programs.
-# Description: Privileged programs are subject to escalation-of-privilege attacks, which attempt to subvert their normal role of providing some necessary but limited capability. As such, motivation exists to monitor these programs for unusual activity.
+# Description: The audit system must be configured to audit all use of setuid and setgid programs.
 

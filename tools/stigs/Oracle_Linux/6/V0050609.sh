@@ -149,6 +149,6 @@ exit 0
 # Version: 6
 # Architecture: 
 #
-# Title: V0050609
+# Title: The operating system, upon successful logon, must display to the user the date and time of the last logon or access via ssh.
 # Description: The operating system, upon successful logon, must display to the user the date and time of the last logon or access via ssh.
 

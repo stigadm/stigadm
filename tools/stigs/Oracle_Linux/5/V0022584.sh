@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use a Linux Security Module configured to limit the privileges of system services.
-# Description: Linux Security Modules such as SELinux and AppArmor can be used to provide protection from software exploits by explicitly defining the privileges permitted to each software package.
+# Description: The system must use a Linux Security Module configured to limit the privileges of system services.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The snmpd.conf file must be owned by root.
-# Description: The snmpd.conf file contains authenticators and must be protected from unauthorized access and modification.  If the file is not owned by root, it may be subject to access and modification from unauthorized users.
+# Description: The snmpd.conf file must be owned by root.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must be configured to audit the loading and unloading of dynamic kernel modules.
-# Description: The addition/removal of kernel modules can be used to alter the behavior of the kernel and potentially introduce malicious code into kernel space. It is important to have an audit trail of modules that have been introduced into the kernel.
+# Description: The audit system must be configured to audit the loading and unloading of dynamic kernel modules.
 

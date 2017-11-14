@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system default umask for daemons must be 027 or 022.
-# Description: The umask influences the permissions assigned to files created by a process at run time. An unnecessarily permissive umask could result in files being created with insecure permissions.
+# Description: The system default umask for daemons must be 027 or 022.
 

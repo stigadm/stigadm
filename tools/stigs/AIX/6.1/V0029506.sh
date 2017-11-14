@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the dtspc service active.
-# Description: This service is started automatically by the inetd daemon with root permission in response to a CDE client requesting a process to be started on the daemon’s host system.   Running the dtscp service is unnecessary and it increases the attack vector of the system.
+# Description: The system must not have the dtspc service active.
 

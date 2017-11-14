@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Consecutive login attempts for SSH must be limited to 3.
-# Description: Setting the authentication login limit to a low value will disconnect the attacker and force a reconnect, which severely limits the speed of such brute-force attacks.
+# Description: Consecutive login attempts for SSH must be limited to 3.
 

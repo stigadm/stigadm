@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: If the system boots from removable media, it must be stored in a safe or similarly secured container.
-# Description: Storing the boot loader on removable media in an insecure location could allow a malicious user to modify the systems boot instructions or boot to an insecure operating system.
+# Description: If the system boots from removable media, it must be stored in a safe or similarly secured container.
 

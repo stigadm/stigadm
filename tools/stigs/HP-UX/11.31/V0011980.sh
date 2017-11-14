@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must log successful and unsuccessful access to the root account.
-# Description: If successful and unsuccessful logins and logouts are not monitored or recorded, access attempts cannot be tracked.  Without this logging, it may be impossible to track unauthorized access to the system.
+# Description: The system must log successful and unsuccessful access to the root account.
 

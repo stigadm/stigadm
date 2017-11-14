@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All skeleton files (typically in /etc/skel) must be group-owned by root, bin, sys, system, or other.
-# Description: If the skeleton files are not protected, unauthorized personnel could change user startup parameters and possibly jeopardize user files.
+# Description: All skeleton files (typically in /etc/skel) must be group-owned by root, bin, sys, system, or other.
 

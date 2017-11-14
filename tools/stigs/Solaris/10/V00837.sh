@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The SMTP service log file must be owned by root.
-# Description: If the SMTP service log file is not owned by root, then unauthorized personnel may modify or delete the file to hide a system compromise.
+# Description: The SMTP service log file must be owned by root.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The smb.conf file must use the hosts option to restrict access to Samba.
-# Description: Samba increases the attack surface of the system and must be restricted to communicate only with systems requiring access.
+# Description: The smb.conf file must use the hosts option to restrict access to Samba.
 

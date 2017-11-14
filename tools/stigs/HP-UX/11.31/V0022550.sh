@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must ignore IPv6 Internet Control Message Protocol (ICMP ) redirect messages.
-# Description: ICMP redirect messages are used by routers to inform hosts of a more direct route existing for a particular destination. These messages modify the host's route table and are unauthenticated. An illicit ICMP redirect message could result in a man-in-the-middle attack.
+# Description: The system must ignore IPv6 Internet Control Message Protocol (ICMP ) redirect messages.
 

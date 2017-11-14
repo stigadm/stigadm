@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Skeleton files must not have extended ACLs.
-# Description: If the skeleton files are not protected, unauthorized personnel could change user startup parameters and possibly jeopardize user files.
+# Description: Skeleton files must not have extended ACLs.
 

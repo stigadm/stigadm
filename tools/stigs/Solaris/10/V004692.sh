@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The SMTP service must not have the EXPN feature active.
-# Description: The SMTP EXPN function allows an attacker to determine if an account exists on a system, providing significant assistance to a brute-force attack on user accounts. EXPN may also provide additional information concerning users on the system, such as the full names of account owners.
+# Description: The SMTP service must not have the EXPN feature active.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must have a host-based intrusion detection tool installed.
-# Description: Adding host-based intrusion detection tools can provide the capability to automatically take actions in response to malicious behavior, which can provide additional agility in reacting to network threats. These tools also often include a reporting capability to provide network awareness of system, which may not otherwise exist in an organization's systems management regime.
+# Description: The system must have a host-based intrusion detection tool installed.
 

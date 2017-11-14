@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not run Samba unless needed.
-# Description: Samba is a tool used for the sharing of files and printers between Windows and UNIX operating systems.  It provides access to sensitive files and, therefore, poses a security risk if compromised.
+# Description: The system must not run Samba unless needed.
 

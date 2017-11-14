@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must be configured to only use Message Authentication Codes (MACs) employing FIPS 140-2 approved cryptographic hash algorithms.
-# Description: DoD information systems are required to use FIPS 140-2 approved cryptographic hash functions.
+# Description: The SSH daemon must be configured to only use Message Authentication Codes (MACs) employing FIPS 140-2 approved cryptographic hash algorithms.
 

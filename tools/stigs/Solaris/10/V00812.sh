@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: System audit logs must be owned by root.
-# Description: Failure to give ownership of system audit log files to root provides the designated owner and unauthorized users with the potential to access sensitive information.
+# Description: System audit logs must be owned by root.
 

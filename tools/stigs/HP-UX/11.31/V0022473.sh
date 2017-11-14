@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must not permit GSSAPI authentication unless needed.
-# Description: GSSAPI authentication is used to provide additional authentication mechanisms to applications. Allowing GSSAPI authentication through SSH exposes the system’s GSSAPI to remote hosts, increasing the attack surface of the system.  GSSAPI authentication must be disabled unless needed.
+# Description: The SSH daemon must not permit GSSAPI authentication unless needed.
 

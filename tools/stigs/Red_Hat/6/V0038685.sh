@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Temporary accounts must be provisioned with an expiration date.
-# Description: When temporary accounts are created, there is a risk they may remain in place and active after the need for them no longer exists. Account expiration greatly reduces the risk of accounts being misused or hijacked.
+# Description: Temporary accounts must be provisioned with an expiration date.
 

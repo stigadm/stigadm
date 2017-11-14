@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The password hashes stored on the system must have been generated using a FIPS 140-2 approved cryptographic hashing algorithm.
-# Description: Systems must employ cryptographic hashes for passwords using the SHA-2 family of algorithms or FIPS 140-2 approved successors.  The use of unapproved algorithms may result in weak password hashes that are more vulnerable to compromise.
+# Description: The password hashes stored on the system must have been generated using a FIPS 140-2 approved cryptographic hashing algorithm.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The finger daemon package must not be installed.
-# Description: Finger is an insecure protocol.
+# Description: The finger daemon package must not be installed.
 

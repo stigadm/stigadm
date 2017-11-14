@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/group file must be owned by bin.
-# Description: The /etc/group file is critical to system security and must be owned by a privileged user.  The group file contains a list of system groups and associated information.
+# Description: The /etc/group file must be owned by bin.
 

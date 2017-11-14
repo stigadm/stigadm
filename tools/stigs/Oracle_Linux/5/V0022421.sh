@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not be configured for network bridging.
-# Description: Some systems have the ability to bridge or switch frames (link-layer forwarding) between multiple interfaces.  This can be useful in a variety of situations but, if enabled when not needed, has the potential to bypass network partitioning and security.
+# Description: The system must not be configured for network bridging.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must not respond to ICMP broadcast netmask requests.
-# Description: By determining the netmasks of various computers in your network, an attacker can better map your subnet structure and infer trust relationships.
+# Description: The system must not respond to ICMP broadcast netmask requests.
 

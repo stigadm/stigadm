@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Existing passwords must be restricted to a 60-day maximum lifetime.
-# Description: Any password, no matter how complex, can eventually be cracked. Therefore, passwords need to be changed periodically. If the operating system does not limit the lifetime of passwords and force users to change their passwords, there is the risk that the operating system passwords could be compromised.
+# Description: Existing passwords must be restricted to a 60-day maximum lifetime.
 

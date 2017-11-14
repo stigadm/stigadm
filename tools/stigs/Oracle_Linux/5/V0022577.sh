@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Automated file system mounting tools must not be enabled unless needed.
-# Description: Automated file system mounting tools may provide unprivileged users with the ability to access local media and network shares. If this access is not necessary for the system's operation, it must be disabled to reduce the risk of unauthorized access to these resources.
+# Description: Automated file system mounting tools must not be enabled unless needed.
 

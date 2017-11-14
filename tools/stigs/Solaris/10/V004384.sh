@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The SMTP services SMTP greeting must not provide version information.
-# Description: The version of the SMTP service can be used by attackers to plan an attack based on vulnerabilities present in the specific version.
+# Description: The SMTP services SMTP greeting must not provide version information.
 

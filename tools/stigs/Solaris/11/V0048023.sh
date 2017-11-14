@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Address Space Layout Randomization (ASLR) must be enabled.
-# Description: Modification of memory area can result in executable code vulnerabilities. ASLR can reduce the likelihood of these attacks. ASLR activates the randomization of key areas of the process such as stack, brk-based heap, memory mappings, and so forth.
+# Description: Address Space Layout Randomization (ASLR) must be enabled.
 

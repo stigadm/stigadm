@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All shell files must be group-owned by root, bin, sys, or system.
-# Description: If shell files are group-owned by users other than root or a system group, they could be modified by intruders or malicious users to perform unauthorized actions.
+# Description: All shell files must be group-owned by root, bin, sys, or system.
 

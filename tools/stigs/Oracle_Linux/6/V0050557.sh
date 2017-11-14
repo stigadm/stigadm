@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The rshd service must not be running.
-# Description: The rsh service uses unencrypted network communications, which means that data from the login session, including passwords and all other information transmitted during the session, can be stolen by eavesdroppers on the network.
+# Description: The rshd service must not be running.
 

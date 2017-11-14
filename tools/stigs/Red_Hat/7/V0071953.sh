@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must not allow an unattended or automatic logon to the system via a graphical user interface.
-# Description: Failure to restrict system access to authenticated users negatively impacts operating system security.
+# Description: The operating system must not allow an unattended or automatic logon to the system via a graphical user interface.
 

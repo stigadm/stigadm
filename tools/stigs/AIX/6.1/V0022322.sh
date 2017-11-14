@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/resolv.conf file must not have an extended ACL.
-# Description: The resolv.conf (or equivalent) file configures the system's DNS resolver.  DNS is used to resolve host names to IP addresses.  If DNS configuration is modified maliciously, host name resolution may fail or return incorrect information.  DNS may be used by a variety of system security functions such as time synchronization, centralized authentication, and remote system logging.
+# Description: The /etc/resolv.conf file must not have an extended ACL.
 

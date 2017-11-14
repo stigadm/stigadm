@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Network interfaces must not be configured to allow user control.
-# Description: Configuration of network interfaces should be limited to privileged users.  Manipulation of network interfaces may result in a Denial of Service or bypass of network security mechanisms.
+# Description: Network interfaces must not be configured to allow user control.
 

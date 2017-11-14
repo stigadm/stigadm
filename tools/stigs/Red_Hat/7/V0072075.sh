@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not allow removable media to be used as the boot loader unless approved.
-# Description: Malicious users with removable boot media can gain access to a system configured to use removable media as the boot loader. If removable media is designed to be used as the boot loader, the requirement must be documented with the Information System Security Officer (ISSO).
+# Description: The system must not allow removable media to be used as the boot loader unless approved.
 

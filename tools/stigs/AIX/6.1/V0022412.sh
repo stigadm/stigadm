@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not apply reversed source routing to TCP responses.
-# Description: Source-routed packets allow the source of the packet to suggest routers forward the packet along a different path than configured on the router, which can be used to bypass network security measures.
+# Description: The system must not apply reversed source routing to TCP responses.
 

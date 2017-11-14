@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0073171
+# Title: The operating system must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/shadow.
 # Description: The operating system must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/shadow.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the comsat service active.
-# Description: The comsat daemon notifies users on incoming email.  This is an unnecessary service and is vulnerable to a flood attack.  Running unnecessary services increases the attack vector of the system.
+# Description: The system must not have the comsat service active.
 

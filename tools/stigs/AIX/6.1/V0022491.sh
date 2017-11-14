@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have IP forwarding for IPv6 enabled, unless the system is an IPv6 router.
-# Description: If the system is configured for IP forwarding and is not a designated router, it could be used to bypass network security by providing a path for communication not filtered by network devices.
+# Description: The system must not have IP forwarding for IPv6 enabled, unless the system is an IPv6 router.
 

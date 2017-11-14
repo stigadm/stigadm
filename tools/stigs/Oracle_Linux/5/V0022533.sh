@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Transparent Inter-Process Communication (TIPC) protocol must be disabled or uninstalled.
-# Description: The TIPC protocol is a relatively new cluster communications protocol developed by Ericsson.  Binding this protocol to the network stack increases the attack surface of the host.   Unprivileged local processes may be able to cause the system to dynamically load a protocol handler by opening a socket using the protocol.
+# Description: The Transparent Inter-Process Communication (TIPC) protocol must be disabled or uninstalled.
 

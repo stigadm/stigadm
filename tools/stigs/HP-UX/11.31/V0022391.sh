@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The cron.allow file must be group-owned by root, bin, sys or other.
-# Description: If the group of the cron.allow is not set to root, bin, sys or other, the possibility exists for an unauthorized user to view or edit the list of users permitted to use cron. Unauthorized modification of this file could cause Denial of Service to authorized cron users or provide unauthorized users with the ability to run cron jobs.
+# Description: The cron.allow file must be group-owned by root, bin, sys or other.
 

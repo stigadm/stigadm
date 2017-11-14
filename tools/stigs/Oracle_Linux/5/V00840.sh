@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The ftpusers file must exist.
-# Description: The ftpusers file contains a list of accounts not allowed to use FTP to transfer files. If this file does not exist, then unauthorized accounts can utilize FTP.
+# Description: The ftpusers file must exist.
 

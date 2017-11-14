@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: TCP Wrappers must be enabled and configured per site policy to only allow access by approved hosts and services.
-# Description: TCP Wrappers are a host-based access control system that allows administrators to control who has access to various network services based on the IP address of the remote end of the connection. TCP Wrappers also provide logging information via syslog about both successful and unsuccessful connections.
+# Description: TCP Wrappers must be enabled and configured per site policy to only allow access by approved hosts and services.
 

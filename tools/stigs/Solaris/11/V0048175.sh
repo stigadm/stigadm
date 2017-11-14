@@ -337,3 +337,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048175
+# STIG_Version: SV-61047r1
+# Rule_ID: SOL-11.1-060080
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must employ cryptographic mechanisms to recognize changes to information during transmission unless otherwise protected by alternative physical measures.
+# Description: The operating system must employ cryptographic mechanisms to recognize changes to information during transmission unless otherwise protected by alternative physical measures.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048175
+# STIG_Version: SV-61047r1
+# Rule_ID: SOL-11.1-060080
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The operating system must employ cryptographic mechanisms to recognize changes to information during transmission unless otherwise protected by alternative physical measures.
+# Description: The operating system must employ cryptographic mechanisms to recognize changes to information during transmission unless otherwise protected by alternative physical measures.
+

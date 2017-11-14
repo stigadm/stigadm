@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All Group Identifiers (GIDs) referenced in the /etc/passwd file must be defined in the /etc/group file.
-# Description: If a user is assigned the GID of a group not existing on the system, and a group with the GID is subsequently created, the user may have unintended rights to any files associated with the group.
+# Description: All Group Identifiers (GIDs) referenced in the /etc/passwd file must be defined in the /etc/group file.
 

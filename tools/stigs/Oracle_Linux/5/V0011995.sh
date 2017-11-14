@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Default system accounts (with the exception of root) must not be listed in the cron.allow file or must be included in the cron.deny file, if cron.allow does not exist.
-# Description: To centralize the management of privileged account crontabs, of the default system accounts, only root may have a crontab.
+# Description: Default system accounts (with the exception of root) must not be listed in the cron.allow file or must be included in the cron.deny file, if cron.allow does not exist.
 

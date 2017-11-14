@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system must display the date and time of the last successful account login upon login.
-# Description: Providing users with feedback on when account accesses last occurred facilitates user recognition and reporting of unauthorized account use.
+# Description: The system must display the date and time of the last successful account login upon login.
 

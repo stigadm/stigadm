@@ -307,3 +307,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047953
+# STIG_Version: SV-60825r2
+# Rule_ID: SOL-11.1-040030
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must enforce minimum password lifetime restrictions.
+# Description: The operating system must enforce minimum password lifetime restrictions.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047953
+# STIG_Version: SV-60825r2
+# Rule_ID: SOL-11.1-040030
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The operating system must enforce minimum password lifetime restrictions.
+# Description: The operating system must enforce minimum password lifetime restrictions.
+

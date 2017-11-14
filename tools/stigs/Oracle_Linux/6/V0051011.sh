@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: A file integrity tool must be used at least weekly to check for unauthorized file changes, particularly the addition of unauthorized system libraries or binaries, or for unauthorized modification to authorized system libraries or binaries.
-# Description: By default, AIDE does not install itself for periodic execution. Periodically running AIDE may reveal unexpected changes in installed files.
+# Description: A file integrity tool must be used at least weekly to check for unauthorized file changes, particularly the addition of unauthorized system libraries or binaries, or for unauthorized modification to authorized system libraries or binaries.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Red Hat Network Service (rhnsd) service must not be running, unless using RHN or an RHN Satellite.
-# Description: Although systems management and patching is extremely important to system security, management by a system outside the enterprise enclave is not desirable for some environments. However, if the system is being managed by RHN or RHN Satellite Server the "rhnsd" daemon can remain on.
+# Description: The Red Hat Network Service (rhnsd) service must not be running, unless using RHN or an RHN Satellite.
 

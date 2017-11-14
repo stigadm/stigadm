@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must not have accounts configured with blank or null passwords.
-# Description: Complex passwords can reduce the likelihood of success of automated password-guessing attacks.
+# Description: The system must not have accounts configured with blank or null passwords.
 

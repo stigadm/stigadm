@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: All shell files must not have extended ACLs.
-# Description: Shells with world/group write permissions give the ability to maliciously modify the shell to obtain unauthorized access.
+# Description: All shell files must not have extended ACLs.
 

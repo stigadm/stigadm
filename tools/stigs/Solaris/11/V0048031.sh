@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must protect the audit records resulting from non-local accesses to privileged accounts and the execution of privileged functions.
-# Description: Protection of audit records and audit data is of critical importance. Care must be taken to ensure privileged users cannot circumvent audit protections put in place. Auditing might not be reliable when performed by an operating system which the user being audited has privileged access to. The privileged user could inhibit auditing or directly modify audit records. To prevent this from occurring, privileged access shall be further defined between audit-related privileges and other privileges, thus limiting the users with audit-related privileges.
+# Description: The operating system must protect the audit records resulting from non-local accesses to privileged accounts and the execution of privileged functions.
 

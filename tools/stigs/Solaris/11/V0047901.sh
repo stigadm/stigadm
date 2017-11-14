@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The legacy remote network access utilities daemons must not be installed.
-# Description: Legacy remote access utilities allow remote control of a system without proper authentication.
+# Description: The legacy remote network access utilities daemons must not be installed.
 

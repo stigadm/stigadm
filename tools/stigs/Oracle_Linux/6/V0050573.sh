@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must be configured to use only the SSHv2 protocol.
-# Description: SSH protocol version 1 suffers from design flaws that result in security vulnerabilities and should not be used.
+# Description: The SSH daemon must be configured to use only the SSHv2 protocol.
 

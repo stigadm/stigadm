@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071945
+# Title: If three unsuccessful root logon attempts within 15 minutes occur the associated account must be locked.
 # Description: If three unsuccessful root logon attempts within 15 minutes occur the associated account must be locked.
 

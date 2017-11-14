@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must detect unauthorized changes to software and information.
-# Description: By default, AIDE does not install itself for periodic execution. Periodically running AIDE may reveal unexpected changes in installed files.
+# Description: The operating system must detect unauthorized changes to software and information.
 

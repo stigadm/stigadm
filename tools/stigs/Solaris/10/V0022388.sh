@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The cron log files must not have extended ACLs.
-# Description: Cron logs contain reports of scheduled system activities and must be protected from unauthorized access or manipulation.
+# Description: The cron log files must not have extended ACLs.
 

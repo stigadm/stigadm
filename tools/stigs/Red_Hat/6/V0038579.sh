@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system boot loader configuration file(s) must be owned by root.
-# Description: Only root should be able to modify important boot parameters.
+# Description: The system boot loader configuration file(s) must be owned by root.
 

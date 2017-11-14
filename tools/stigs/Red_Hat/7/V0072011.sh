@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All local interactive users must have a home directory assigned in the /etc/passwd file.
-# Description: If local interactive users are not assigned a valid home directory, there is no place for the storage and control of files they should own.
+# Description: All local interactive users must have a home directory assigned in the /etc/passwd file.
 

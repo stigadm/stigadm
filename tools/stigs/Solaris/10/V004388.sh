@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The anonymous FTP account must be configured to use chroot or a similarly isolated environment.
-# Description: If an anonymous FTP account does not use a chroot or similarly isolated environment,  the system may be more vulnerable to exploits against the FTP service.  Such exploits could allow an attacker to gain shell access to the system and view, edit, or remove sensitive files.
+# Description: The anonymous FTP account must be configured to use chroot or a similarly isolated environment.
 

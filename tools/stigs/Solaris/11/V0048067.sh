@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: User .netrc files must not exist.
-# Description: The .netrc file presents a significant security risk since it stores passwords in unencrypted form.
+# Description: User .netrc files must not exist.
 

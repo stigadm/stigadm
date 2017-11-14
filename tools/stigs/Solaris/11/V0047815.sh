@@ -328,3 +328,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047815
+# STIG_Version: SV-60691r1
+# Rule_ID: SOL-11.1-010290
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must ensure unauthorized, security-relevant configuration changes detected are tracked.
+# Description: The operating system must ensure unauthorized, security-relevant configuration changes detected are tracked.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047815
+# STIG_Version: SV-60691r1
+# Rule_ID: SOL-11.1-010290
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The operating system must ensure unauthorized, security-relevant configuration changes detected are tracked.
+# Description: The operating system must ensure unauthorized, security-relevant configuration changes detected are tracked.
+

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The snmpd service must not use a default password.
-# Description: Presence of the default SNMP password enables querying of different system aspects and could result in unauthorized knowledge of the system.
+# Description: The snmpd service must not use a default password.
 

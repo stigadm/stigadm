@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0048155
+# Title: The operating system must employ cryptographic mechanisms to protect information in storage.
 # Description: The operating system must employ cryptographic mechanisms to protect information in storage.
 

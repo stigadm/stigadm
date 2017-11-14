@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must remove all software components after updated versions have been installed.
-# Description: Previous versions of software components that are not removed from the information system after updates have been installed may be exploited by adversaries. Some information technology products may remove older versions of software automatically from the information system.
+# Description: The operating system must remove all software components after updated versions have been installed.
 

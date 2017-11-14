@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SNMP service must require the use of a FIPS 140-2 approved encryption algorithm for protecting the privacy of SNMP messages.
-# Description: The SNMP service must use AES or a FIPS 140-2 approved successor algorithm for protecting the privacy of communications.
+# Description: The SNMP service must require the use of a FIPS 140-2 approved encryption algorithm for protecting the privacy of SNMP messages.
 

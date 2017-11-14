@@ -335,3 +335,35 @@ done
 [ ${verbose} -eq 1 ] && print "Success, system conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0059839
+# STIG_Version: SV-74269r1
+# Rule_ID: SOL-11.1-020360
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: All system start-up files must be owned by root.
+# Description: All system start-up files must be owned by root.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0059839
+# STIG_Version: SV-74269r1
+# Rule_ID: SOL-11.1-020360
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: All system start-up files must be owned by root.
+# Description: All system start-up files must be owned by root.
+

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system must be configured with a default gateway for IPv4 if the system uses IPv4, unless the system is a router.
-# Description: If a system has no default gateway defined, the system is at increased risk of man-in-the-middle, monitoring, and Denial of Service attacks.
+# Description: The system must be configured with a default gateway for IPv4 if the system uses IPv4, unless the system is a router.
 

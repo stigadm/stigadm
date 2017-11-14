@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The traceroute command owner must be root.
-# Description: If the traceroute command owner has not been set to root, an unauthorized user could use this command to obtain knowledge of the network topology inside the firewall.  This information may allow an attacker to determine trusted routers and other network information possibly leading to system and network compromise.
+# Description: The traceroute command owner must be root.
 

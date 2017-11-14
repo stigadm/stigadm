@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Samba must be configured to not allow guest access to shares.
-# Description: Guest access to shares permits anonymous access and is not permitted.
+# Description: Samba must be configured to not allow guest access to shares.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Groups assigned to users must exist in the /etc/group file.
-# Description: Groups defined in passwd but not in group file pose a threat to system security since group permissions are not properly managed.
+# Description: Groups assigned to users must exist in the /etc/group file.
 

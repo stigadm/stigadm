@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: userdb database must not be used to override the system-wide variables in the security file, unless required.
-# Description: The user database stores per-user information. It consists of the /var/adm/userdb directory and the files within it. A per-user value in /var/adm/userdb will override any corresponding system-wide default configured in the /etc/default/security file. Allowing per-user files to relax system-wide security settings creates potential security gaps that can compromise overall system security.
+# Description: userdb database must not be used to override the system-wide variables in the security file, unless required.
 

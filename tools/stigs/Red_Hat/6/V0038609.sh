@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The TFTP service must not be running.
-# Description: Disabling the "tftp" service ensures the system is not acting as a tftp server, which does not provide encryption or authentication.
+# Description: The TFTP service must not be running.
 

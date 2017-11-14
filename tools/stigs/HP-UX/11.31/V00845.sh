@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The FTP daemon must be configured for logging or verbose mode.
-# Description: The -l option allows basic logging of connections.  The verbose (on HP) and the debug (on Solaris) allow logging of what files the ftp session transferred.  This extra logging makes it possible to easily track which files are being transferred onto or from a system.  If they are not configured, the only option for tracking is the audit files.  The audit files are much harder to read.  If auditing is not properly configured, then there would be no record at all of the file transfer transactions.
+# Description: The FTP daemon must be configured for logging or verbose mode.
 

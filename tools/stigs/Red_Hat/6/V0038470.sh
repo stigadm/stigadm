@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must alert designated staff members when the audit storage volume approaches capacity.
-# Description: Notifying administrators of an impending disk space problem may allow them to take corrective action prior to any disruption.
+# Description: The audit system must alert designated staff members when the audit storage volume approaches capacity.
 

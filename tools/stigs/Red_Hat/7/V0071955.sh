@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must not allow an unrestricted logon to the system.
-# Description: Failure to restrict system access to authenticated users negatively impacts operating system security.
+# Description: The operating system must not allow an unrestricted logon to the system.
 

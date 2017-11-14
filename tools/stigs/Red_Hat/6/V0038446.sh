@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The mail system must forward all mail for root to one or more system administrators.
-# Description: A number of system services utilize email messages sent to the root user to notify system administrators of active or impending issues.  These messages must be forwarded to at least one monitored email address.
+# Description: The mail system must forward all mail for root to one or more system administrators.
 

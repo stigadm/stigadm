@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must be configured to audit modifications to the systems network configuration.
-# Description: The network environment should not be modified by anything other than administrator action. Any change to network parameters should be audited.
+# Description: The audit system must be configured to audit modifications to the systems network configuration.
 

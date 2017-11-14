@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/news/passwd.nntp file (or equivalent) must have mode 0600 or less permissive.
-# Description: File permissions more permissive than 0600 for /etc/news/passwd.nntp may allow access to privileged information by system intruders or malicious users.
+# Description: The /etc/news/passwd.nntp file (or equivalent) must have mode 0600 or less permissive.
 

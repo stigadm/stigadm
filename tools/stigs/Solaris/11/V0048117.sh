@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The use of FTP must be restricted.
-# Description: FTP is an insecure protocol that transfers files and credentials in clear text, and can be replaced by using SFTP. However, if FTP is permitted for use in the environment, it is important to ensure that the default "system" accounts are not permitted to transfer files via FTP, especially the root role. Consider also adding the names of other privileged or shared accounts that may exist on the system such as user "oracle" and the account which the web server process runs under.
+# Description: The use of FTP must be restricted.
 

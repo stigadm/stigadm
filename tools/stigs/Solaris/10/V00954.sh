@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The asetenv file YPCHECK variable must be set to true when NIS+ is configured.
-# Description: If YPCHECK is not set to true in asetenv, then ypfiles may not be checked.
+# Description: The asetenv file YPCHECK variable must be set to true when NIS+ is configured.
 

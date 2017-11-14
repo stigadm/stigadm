@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system's NFS export configuration must not have the sec option set to none (or equivalent); additionally, the default authentication must not to be set to none.
-# Description: If sec=none on Solaris, all NFS requests are mapped to an unknown/common user instead of being processed according to the provided UID.
+# Description: The system's NFS export configuration must not have the sec option set to none (or equivalent); additionally, the default authentication must not to be set to none.
 

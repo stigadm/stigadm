@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Anonymous FTP must not be active on the system unless authorized.
-# Description: Due to the numerous vulnerabilities inherent in anonymous FTP, it is not recommended for use.  If anonymous FTP must be used on a system, the requirement must be authorized and approved in the system accreditation package.
+# Description: Anonymous FTP must not be active on the system unless authorized.
 

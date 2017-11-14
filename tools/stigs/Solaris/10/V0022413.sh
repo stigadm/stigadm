@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system must prevent local applications from generating source-routed packets.
-# Description: Source-routed packets allow the source of the packet to suggest that routers forward the packet along a different path than configured on the router, which can be used to bypass network security measures.
+# Description: The system must prevent local applications from generating source-routed packets.
 

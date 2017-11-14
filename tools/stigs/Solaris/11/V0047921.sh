@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The VNC server package must not be installed unless required.
-# Description: The VNC service uses weak authentication capabilities and provides the user complete graphical system access.
+# Description: The VNC server package must not be installed unless required.
 

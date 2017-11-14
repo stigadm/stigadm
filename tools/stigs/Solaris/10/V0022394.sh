@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The cron.deny file must be group-owned by root, bin, or sys.
-# Description: Cron daemon control files restrict the scheduling of automated tasks and must be protected.  Unauthorized modification of the cron.deny file could result in Denial of Service to authorized cron users or could provide unauthorized users with the ability to run cron jobs.
+# Description: The cron.deny file must be group-owned by root, bin, or sys.
 

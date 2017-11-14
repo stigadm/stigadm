@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must take appropriate action when there are disk errors on the audit storage volume.
-# Description: Taking appropriate action in case of disk errors will minimize the possibility of losing audit records.
+# Description: The audit system must take appropriate action when there are disk errors on the audit storage volume.
 

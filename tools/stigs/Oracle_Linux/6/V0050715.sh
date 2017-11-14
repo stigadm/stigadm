@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: A file integrity tool must be installed.
-# Description: The AIDE package must be installed if it is to be available for integrity checking.
+# Description: A file integrity tool must be installed.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system boot loader configuration file(s) must be group-owned by root.
-# Description: The "root" group is a highly-privileged group. Furthermore, the group-owner of this file should not have any access privileges anyway.
+# Description: The system boot loader configuration file(s) must be group-owned by root.
 

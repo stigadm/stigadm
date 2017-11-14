@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/sysctl.conf file must not have an extended ACL.
-# Description: The sysctl.conf file specifies the values for kernel parameters to be set on boot.  These settings can affect the system's security.
+# Description: The /etc/sysctl.conf file must not have an extended ACL.
 

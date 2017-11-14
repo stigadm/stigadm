@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /etc/news/hosts.nntp.nolimit (or equivalent) must have mode 0600 or less permissive.
-# Description: Excessive permissions on the hosts.nntp.nolimit file may allow unauthorized modification which could lead to Denial-of-Service to authorized users or provide access to unauthorized users.
+# Description: The /etc/news/hosts.nntp.nolimit (or equivalent) must have mode 0600 or less permissive.
 

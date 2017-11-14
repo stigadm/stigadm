@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The at.deny file must not be empty if it exists.
-# Description: On some systems, if there is no at.allow file and there is an empty at.deny file, then the system assumes everyone has permission to use the at facility. This could create an insecure setting in the case of malicious users or system intruders.
+# Description: The at.deny file must not be empty if it exists.
 

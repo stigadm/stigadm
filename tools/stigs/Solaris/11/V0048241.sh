@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must employ cryptographic mechanisms to protect the integrity and confidentiality of non-local maintenance and diagnostic communications.
-# Description: Non-local maintenance and diagnostic communications often contain sensitive information and must be protected. This data's integrity and confidentiality can be ensured by sending non-local maintenance and diagnostic communications through encrypted channels enforced via firewall configurations.
+# Description: The operating system must employ cryptographic mechanisms to protect the integrity and confidentiality of non-local maintenance and diagnostic communications.
 

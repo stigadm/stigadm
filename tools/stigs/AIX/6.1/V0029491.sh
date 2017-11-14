@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/netsvc.conf file must be root owned.
-# Description: The /etc/netsvc.conf file is used to specify the ordering of name resolution for the sendmail command,  alias resolution for the sendmail command, and host name resolution routines.    Malicious changes could prevent the system from functioning correctly or compromise system security.
+# Description: The /etc/netsvc.conf file must be root owned.
 

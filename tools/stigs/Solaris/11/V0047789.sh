@@ -167,3 +167,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047789
+# STIG_Version: SV-60665r1
+# Rule_ID: SOL-11.1-010100
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The audit records must provide data for all auditable events defined at the organizational level for the organization-defined information system components.
+# Description: The audit records must provide data for all auditable events defined at the organizational level for the organization-defined information system components.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047789
+# STIG_Version: SV-60665r1
+# Rule_ID: SOL-11.1-010100
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The audit records must provide data for all auditable events defined at the organizational level for the organization-defined information system components.
+# Description: The audit records must provide data for all auditable events defined at the organizational level for the organization-defined information system components.
+

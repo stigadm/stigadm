@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /etc/syslog.conf file must have mode 0640 or less permissive.
-# Description: Unauthorized users must not be allowed to access or modify the /etc/syslog.conf file.
+# Description: The /etc/syslog.conf file must have mode 0640 or less permissive.
 

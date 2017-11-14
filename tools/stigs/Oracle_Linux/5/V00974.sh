@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Access to the cron utility must be controlled using the cron.allow and/or cron.deny file(s).
-# Description: The cron facility allows users to execute recurring jobs on a regular and unattended basis. The cron.allow file designates accounts allowed to enter and execute jobs using the cron facility. If the cron.allow file is not present, users listed in the cron.deny file are not allowed to use the cron facility. Improper configuration of cron may open the facility up for abuse by system intruders and malicious users.
+# Description: Access to the cron utility must be controlled using the cron.allow and/or cron.deny file(s).
 

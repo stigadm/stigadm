@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071893
+# Title: The operating system must initiate a screensaver after a 15-minute period of inactivity for graphical user interfaces.
 # Description: The operating system must initiate a screensaver after a 15-minute period of inactivity for graphical user interfaces.
 

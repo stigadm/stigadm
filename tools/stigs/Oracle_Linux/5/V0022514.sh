@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Datagram Congestion Control Protocol (DCCP) must be disabled unless required.
-# Description: The DCCP is a proposed transport layer protocol.  This protocol is not yet widely used.  Binding this protocol to the network stack increases the attack surface of the host.  Unprivileged local processes may be able to cause the system to dynamically load a protocol handler by opening a socket using the protocol.
+# Description: The Datagram Congestion Control Protocol (DCCP) must be disabled unless required.
 

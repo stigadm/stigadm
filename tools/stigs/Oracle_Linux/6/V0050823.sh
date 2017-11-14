@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The graphical desktop environment must set the idle timeout to no more than 15 minutes.
-# Description: Setting the idle delay controls when the screensaver will start, and can be combined with screen locking to prevent access from passersby.
+# Description: The graphical desktop environment must set the idle timeout to no more than 15 minutes.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must manage information system identifiers for users and devices by disabling the user identifier after an organization defined time period of inactivity.
-# Description: Disabling inactive accounts ensures that accounts which may not have been responsibly removed are not available to attackers who may have compromised their credentials.
+# Description: The operating system must manage information system identifiers for users and devices by disabling the user identifier after an organization defined time period of inactivity.
 

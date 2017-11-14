@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The systems boot loader configuration file(s) must be group-owned by root, bin, sys, or system.
-# Description: The system's boot loader configuration files are critical to the integrity of the system and must be protected.  Unauthorized modifications resulting from improper group ownership may compromise the boot loader configuration.
+# Description: The systems boot loader configuration file(s) must be group-owned by root, bin, sys, or system.
 

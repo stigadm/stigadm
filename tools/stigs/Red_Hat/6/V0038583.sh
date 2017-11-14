@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system boot loader configuration file(s) must have mode 0600 or less permissive.
-# Description: Proper permissions ensure that only the root user can modify important boot parameters.
+# Description: The system boot loader configuration file(s) must have mode 0600 or less permissive.
 

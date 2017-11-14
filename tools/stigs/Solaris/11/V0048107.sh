@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Login must not be permitted with empty/null passwords for SSH.
-# Description: Permitting login without a password is inherently risky.
+# Description: Login must not be permitted with empty/null passwords for SSH.
 

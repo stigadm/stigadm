@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The cron.deny file must have mode 0600 or less permissive.
-# Description: If file permissions for cron.deny are more permissive than 0600, sensitive information could be viewed or edited by unauthorized users.
+# Description: The cron.deny file must have mode 0600 or less permissive.
 

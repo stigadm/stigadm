@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /var/private/smbpasswd file must be group-owned by sys or system.
-# Description: If the smbpasswd file is not group-owned by root, the smbpasswd file may be maliciously accessed or modified, potentially resulting in the compromise of Samba accounts.
+# Description: The /var/private/smbpasswd file must be group-owned by sys or system.
 

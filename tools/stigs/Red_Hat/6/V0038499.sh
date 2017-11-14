@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/passwd file must not contain password hashes.
-# Description: The hashes for all user account passwords should be stored in the file "/etc/shadow" and never in "/etc/passwd", which is readable by all users.
+# Description: The /etc/passwd file must not contain password hashes.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: For systems capable of using GRUB, the system must be configured with GRUB as the default boot loader unless another boot loader has been authorized, justified, and documented using site-defined procedures.
-# Description: GRUB is a versatile boot loader used by several platforms that can provide authentication for access to the system or boot loader.
+# Description: For systems capable of using GRUB, the system must be configured with GRUB as the default boot loader unless another boot loader has been authorized, justified, and documented using site-defined procedures.
 

@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072203
+# Title: All uses of the rmdir command must be audited.
 # Description: All uses of the rmdir command must be audited.
 

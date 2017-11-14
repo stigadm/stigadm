@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071913
+# Title: When passwords are changed a minimum of four character classes must be changed.
 # Description: When passwords are changed a minimum of four character classes must be changed.
 

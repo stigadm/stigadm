@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The at.allow file must be group-owned by root, sys, bin or other.
-# Description: If the group-owner of the at.allow file is not set to root, sys, bin or other, unauthorized users could be allowed to view or edit the list of users permitted to run at jobs. Unauthorized modification could result in Denial of Service to authorized at users or provide unauthorized users with the ability to run at jobs.
+# Description: The at.allow file must be group-owned by root, sys, bin or other.
 

@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071989
+# Title: The operating system must enable SELinux.
 # Description: The operating system must enable SELinux.
 

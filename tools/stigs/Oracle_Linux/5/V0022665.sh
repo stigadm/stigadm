@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not be running any routing protocol daemons, unless the system is a router.
-# Description: Routing protocol daemons are typically used on routers to exchange network topology information with other routers.  If this software is used when not required, system network information may be unnecessarily transmitted across the network.
+# Description: The system must not be running any routing protocol daemons, unless the system is a router.
 

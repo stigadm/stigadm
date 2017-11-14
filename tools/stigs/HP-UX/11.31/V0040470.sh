@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/security.dsc file must not have an extended ACL.
-# Description: The /etc/security.dsc file is the system description file that contains all attributes and default values that are configurable on a per user basis in /var/adm/userdb. If the description file is modified maliciously, users may gain unauthorized system access. 
+# Description: The /etc/security.dsc file must not have an extended ACL.
 

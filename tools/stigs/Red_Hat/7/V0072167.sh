@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072167
+# Title: All uses of the chsh command must be audited.
 # Description: All uses of the chsh command must be audited.
 

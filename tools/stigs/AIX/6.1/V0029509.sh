@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the PostOffice Protocol (POP3) service active.
-# Description: The POP3 service is only needed if the server is acting as a mail server and clients are using applications that only support POP3.  Users' ids and passwords are sent in plain text to the POP3 service.  If mail client access is needed,  consider using IMAP or SSL enabled POP3.
+# Description: The system must not have the PostOffice Protocol (POP3) service active.
 

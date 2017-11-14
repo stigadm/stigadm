@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072427
+# Title: The operating system must implement multifactor authentication for access to privileged accounts via pluggable authentication modules (PAM).
 # Description: The operating system must implement multifactor authentication for access to privileged accounts via pluggable authentication modules (PAM).
 

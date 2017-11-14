@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The alias file must be owned by root.
-# Description: If the alias file is not owned by root, an unauthorized user may modify the file to add aliases to run malicious code or redirect email.
+# Description: The alias file must be owned by root.
 

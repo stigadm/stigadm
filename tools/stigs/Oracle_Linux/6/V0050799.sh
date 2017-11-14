@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not permit root logins using remote access programs such as ssh.
-# Description: Permitting direct root login reduces auditable information about who ran privileged commands on the system and also allows direct attack attempts on root's password.
+# Description: The system must not permit root logins using remote access programs such as ssh.
 

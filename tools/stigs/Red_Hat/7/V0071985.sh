@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071985
+# Title: File system automounter must be disabled unless required.
 # Description: File system automounter must be disabled unless required.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The SSH public host key files must have mode 0644 or less permissive.
-# Description: If a public host key file is modified by an unauthorized user, the SSH service may be compromised.
+# Description: The SSH public host key files must have mode 0644 or less permissive.
 

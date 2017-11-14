@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must have USB disabled unless needed.
-# Description: USB is a common computer peripheral interface. USB devices may include storage devices that could be used to install malicious software on a system or exfiltrate data.
+# Description: The system must have USB disabled unless needed.
 

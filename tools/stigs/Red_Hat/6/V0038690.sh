@@ -149,6 +149,6 @@ exit 0
 # Version: 6
 # Architecture: 
 #
-# Title: V0038690
+# Title: When emergency accounts are created, there is a risk they may remain in place and active after the need for them no longer exists. Account expiration greatly reduces the risk of accounts being misused or hijacked.
 # Description: When emergency accounts are created, there is a risk they may remain in place and active after the need for them no longer exists. Account expiration greatly reduces the risk of accounts being misused or hijacked.
 

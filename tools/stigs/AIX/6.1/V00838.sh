@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SMTP service log file must have mode 0644 or less permissive.
-# Description: If the SMTP service log file is more permissive than 0644, unauthorized users may be allowed to change the log file.
+# Description: The SMTP service log file must have mode 0644 or less permissive.
 

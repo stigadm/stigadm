@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All system device files must be correctly labeled to prevent unauthorized modification.
-# Description: If an unauthorized or modified device is allowed to exist on the system, there is the possibility the system may perform unintended or unauthorized operations.
+# Description: All system device files must be correctly labeled to prevent unauthorized modification.
 

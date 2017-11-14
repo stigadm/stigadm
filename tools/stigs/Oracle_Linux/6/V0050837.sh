@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The ntpdate service must not be running.
-# Description: The "ntpdate" service may only be suitable for systems which are rebooted frequently enough that clock drift does not cause problems between reboots. In any event, the functionality of the ntpdate service is now available in the ntpd program and should be considered deprecated.
+# Description: The ntpdate service must not be running.
 

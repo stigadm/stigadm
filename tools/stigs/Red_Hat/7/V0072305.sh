@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: If the Trivial File Transfer Protocol (TFTP) server is required, the TFTP daemon must be configured to operate in secure mode.
-# Description: Restricting TFTP to a specific directory prevents remote users from copying, transferring, or overwriting system files.
+# Description: If the Trivial File Transfer Protocol (TFTP) server is required, the TFTP daemon must be configured to operate in secure mode.
 

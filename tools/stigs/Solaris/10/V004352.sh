@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /etc/security/audit_user file must be owned by root.
-# Description: The /etc/security/audit_user is a sensitive file and must be owned by root to prevent possible system compromise.
+# Description: The /etc/security/audit_user file must be owned by root.
 

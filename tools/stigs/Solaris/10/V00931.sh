@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: All NFS-exported system files and system directories must be owned by root.
-# Description: Failure to give ownership of sensitive files or directories  to root provides the designated owner and possible unauthorized users with the potential to access sensitive information or change system configuration which could weaken the system's security posture.
+# Description: All NFS-exported system files and system directories must be owned by root.
 

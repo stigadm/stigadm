@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All device files must be monitored by the system Linux Security Module.
-# Description: If a device file carries the SELinux type "unlabeled_t", then SELinux cannot properly restrict access to the device file. 
+# Description: All device files must be monitored by the system Linux Security Module.
 

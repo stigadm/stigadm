@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must enforce compliance of the entire password during authentication.
-# Description: Some common password hashing schemes only process the first eight characters of a user's password, which reduces the effective strength of the password.
+# Description: The system must enforce compliance of the entire password during authentication.
 

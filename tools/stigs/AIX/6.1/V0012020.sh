@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not be used as a syslog server (loghost) for systems external to the enclave.
-# Description: Syslog messages are typically unencrypted and may contain sensitive information and are, therefore, restricted to the enclave.
+# Description: The system must not be used as a syslog server (loghost) for systems external to the enclave.
 

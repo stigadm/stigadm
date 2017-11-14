@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Cron and crontab directories must be group-owned by root, sys, bin or cron.
-# Description: To protect the integrity of scheduled system jobs and to prevent malicious modification to these jobs, crontab files must be secured.  Failure to give group-ownership of cron or crontab directories to a system group provides the designated group and unauthorized users with the potential to access sensitive information or change the system configuration which could weaken the system's security posture.
+# Description: Cron and crontab directories must be group-owned by root, sys, bin or cron.
 

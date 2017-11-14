@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Cron must not execute group-writable or world-writable programs.
-# Description: If cron executes group-writable or world-writable programs, there is a possibility that unauthorized users could manipulate the programs with malicious intent.  This could compromise system and network security.
+# Description: Cron must not execute group-writable or world-writable programs.
 

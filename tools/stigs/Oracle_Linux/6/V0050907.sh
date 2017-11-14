@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Users must be warned 7 days in advance of password expiration.
-# Description: Setting the password warning age enables users to make the change at a practical time.
+# Description: Users must be warned 7 days in advance of password expiration.
 

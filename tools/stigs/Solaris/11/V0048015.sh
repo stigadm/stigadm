@@ -180,3 +180,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048015
+# STIG_Version: SV-60887r1
+# Rule_ID: SOL-11.1-080070
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The centralized process core dump data directory must have mode 0700 or less permissive.
+# Description: The centralized process core dump data directory must have mode 0700 or less permissive.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048015
+# STIG_Version: SV-60887r1
+# Rule_ID: SOL-11.1-080070
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The centralized process core dump data directory must have mode 0700 or less permissive.
+# Description: The centralized process core dump data directory must have mode 0700 or less permissive.
+

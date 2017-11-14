@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Passwords for new users must be restricted to a 24 hours/1 day minimum lifetime.
-# Description: Enforcing a minimum password lifetime helps to prevent repeated password changes to defeat the password reuse or history enforcement requirement. If users are allowed to immediately and continually change their password, the password could be repeatedly changed in a short period of time to defeat the organization's policy regarding password reuse.
+# Description: Passwords for new users must be restricted to a 24 hours/1 day minimum lifetime.
 

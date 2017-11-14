@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The FTP daemon must be configured for logging or verbose mode.
-# Description: To trace malicious activity facilitated by the FTP service, it must be configured to ensure that all commands sent to the ftp server are logged using the verbose vsftpd log format. The default vsftpd log file is /var/log/vsftpd.log.
+# Description: The FTP daemon must be configured for logging or verbose mode.
 

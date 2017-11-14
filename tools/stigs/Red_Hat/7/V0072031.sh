@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Local initialization files for local interactive users must be group-owned by the users primary group or root.
-# Description: Local initialization files for interactive users are used to configure the user's shell environment upon logon. Malicious modification of these files could compromise accounts upon logon.
+# Description: Local initialization files for local interactive users must be group-owned by the users primary group or root.
 

@@ -167,3 +167,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047797
+# STIG_Version: SV-60673r1
+# Rule_ID: SOL-11.1-010150
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: Audit records must include when (date and time) the events occurred.
+# Description: Audit records must include when (date and time) the events occurred.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047797
+# STIG_Version: SV-60673r1
+# Rule_ID: SOL-11.1-010150
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: Audit records must include when (date and time) the events occurred.
+# Description: Audit records must include when (date and time) the events occurred.
+

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: If the system is using LDAP for authentication or account information, the /etc/ldap.conf file (or equivalent) must not contain passwords.
-# Description: The authentication of automated LDAP connections between systems must not use passwords since more secure methods are available, such as PKI and Kerberos. Additionally, the storage of unencrypted passwords on the system is not permitted.
+# Description: If the system is using LDAP for authentication or account information, the /etc/ldap.conf file (or equivalent) must not contain passwords.
 

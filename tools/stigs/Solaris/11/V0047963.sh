@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0047963
+# Title: The operating system must prevent non-privileged users from circumventing malicious code protection capabilities.
 # Description: The operating system must prevent non-privileged users from circumventing malicious code protection capabilities.
 

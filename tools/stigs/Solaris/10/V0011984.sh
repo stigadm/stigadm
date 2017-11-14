@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: All skeleton files and directories (typically in /etc/skel) must be owned by bin.
-# Description: If the skeleton files are not protected, unauthorized personnel could change user startup parameters and possibly jeopardize user files.  Failure to give ownership of sensitive files or utilities to bin provides the designated owner and unauthorized users with the potential to access sensitive information or change the system configuration which could weaken the system's security posture.
+# Description: All skeleton files and directories (typically in /etc/skel) must be owned by bin.
 

@@ -259,3 +259,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00918
+# STIG_Version: SV-39824r1
+# Rule_ID: GEN000760
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: Accounts must be locked upon 35 days of inactivity.
+# Description: Accounts must be locked upon 35 days of inactivity.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00918
+# STIG_Version: SV-39824r1
+# Rule_ID: GEN000760
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: Accounts must be locked upon 35 days of inactivity.
+# Description: Accounts must be locked upon 35 days of inactivity.
+

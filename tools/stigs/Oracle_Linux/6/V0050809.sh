@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The avahi service must be disabled.
-# Description: Because the Avahi daemon service keeps an open network port, it is subject to network attacks. Its functionality is convenient but is only appropriate if the local network can be trusted.
+# Description: The avahi service must be disabled.
 

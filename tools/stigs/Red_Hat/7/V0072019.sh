@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All local interactive user home directories must be owned by their respective users.
-# Description: If a local interactive user does not own their home directory, unauthorized users could access or modify the user's files, and the users may not be able to access their own files.
+# Description: All local interactive user home directories must be owned by their respective users.
 

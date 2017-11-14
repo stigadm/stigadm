@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system boot loader must protect passwords using an MD5 or stronger cryptographic hash.
-# Description: If system boot loader passwords are compromised, users with console access to the system may be able to alter the system boot configuration or boot the system into single user or maintenance mode, which could result in Denial of Service or unauthorized privileged access to the system.
+# Description: The system boot loader must protect passwords using an MD5 or stronger cryptographic hash.
 

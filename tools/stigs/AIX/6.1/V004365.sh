@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The at directory must be owned by root, bin, sys, daemon, or cron.
-# Description: If the owner of the at directory is not root, bin, sys, daemon, or cron unauthorized users could be allowed to view or edit files containing sensitive information within the directory.
+# Description: The at directory must be owned by root, bin, sys, daemon, or cron.
 

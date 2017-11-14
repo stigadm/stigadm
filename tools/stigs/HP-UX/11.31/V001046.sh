@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Root passwords must never be passed over a network in clear text form.
-# Description: If a user accesses the root account (or any account) using an unencrypted connection, the password is passed over the network in clear text form and is subject to interception and misuse.  This is true even if recommended procedures are followed by logging on to a named account and using the su command to access root.
+# Description: Root passwords must never be passed over a network in clear text form.
 

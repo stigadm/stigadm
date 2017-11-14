@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The Solaris system Automated Security Enhancement Tool (ASET) configurable parameters in the asetenv file must be correct.
-# Description: If settings in the asetenv file have been modified, then system vulnerabilities may not be detected.
+# Description: The Solaris system Automated Security Enhancement Tool (ASET) configurable parameters in the asetenv file must be correct.
 

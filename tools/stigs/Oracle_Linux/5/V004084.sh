@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must prohibit the reuse of passwords within five iterations.
-# Description: If a user, or root, used the same password continuously or was allowed to change it back shortly after being forced to change it to something else, it would provide a potential intruder with the opportunity to keep guessing at one user's password until it was guessed correctly.
+# Description: The system must prohibit the reuse of passwords within five iterations.
 

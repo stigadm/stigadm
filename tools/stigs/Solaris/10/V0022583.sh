@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system's local firewall must implement a deny-all, allow-by-exception policy.
-# Description: A local firewall protects the system from exposing unnecessary or undocumented network services to the local enclave.  If a system within the enclave is compromised, firewall protection on an individual system continues to protect it from attack.
+# Description: The system's local firewall must implement a deny-all, allow-by-exception policy.
 

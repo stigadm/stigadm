@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must configure auditing to reduce the likelihood of storage capacity being exceeded.
-# Description: Overflowing the audit storage area can result in a denial of service or system outage.
+# Description: The operating system must configure auditing to reduce the likelihood of storage capacity being exceeded.
 

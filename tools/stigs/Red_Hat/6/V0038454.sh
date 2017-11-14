@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system package management tool must verify ownership on all files and directories associated with packages.
-# Description: Ownership of system binaries and configuration files that is incorrect could allow an unauthorized user to gain privileges that they should not have. The ownership set by the vendor should be maintained. Any deviations from this baseline should be investigated.
+# Description: The system package management tool must verify ownership on all files and directories associated with packages.
 

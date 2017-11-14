@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0047939
+# Title: The operating system must disable information system functionality that provides the capability for automatic execution of code on mobile devices without user direction.
 # Description: The operating system must disable information system functionality that provides the capability for automatic execution of code on mobile devices without user direction.
 

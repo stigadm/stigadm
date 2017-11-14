@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /etc/syslog.conf file must be owned by root.
-# Description: If the /etc/syslog.conf file is not owned by root, unauthorized users could be allowed to view, edit, or delete important system messages handled by the syslog facility.
+# Description: The /etc/syslog.conf file must be owned by root.
 

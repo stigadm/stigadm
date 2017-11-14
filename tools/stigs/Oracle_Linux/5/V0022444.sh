@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The ftpusers file must be group-owned by root, bin, sys, or system.
-# Description: If the ftpusers file is not group-owned by root or a system group, an unauthorized user may modify the file to allow unauthorized accounts to use FTP.
+# Description: The ftpusers file must be group-owned by root, bin, sys, or system.
 

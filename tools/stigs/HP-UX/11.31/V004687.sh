@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The remsh daemon must not be running.
-# Description: The remshd process provides a typically unencrypted, host-authenticated remote access service.  SSH should be used in place of this service.
+# Description: The remsh daemon must not be running.
 

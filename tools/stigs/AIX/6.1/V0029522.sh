@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/ftpaccess.ctl file must have mode 0640 or less permissive.
-# Description: Excessive permissions on the ftpaccess.ctl file could permit unauthorized modification. Unauthorized modification could result in Denial of Service to authorized FTP users or permit unauthorized access to system information.
+# Description: The /etc/ftpaccess.ctl file must have mode 0640 or less permissive.
 

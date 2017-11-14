@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The sendmail service must not have the wizard backdoor active.
-# Description: Very old installations of the Sendmail mailing system contained a feature whereby a remote user connecting to the SMTP port can enter the WIZ command and be given an interactive shell with root privileges.
+# Description: The sendmail service must not have the wizard backdoor active.
 

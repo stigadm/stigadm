@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system package management tool must cryptographically verify the authenticity of all software packages during installation.
-# Description: Ensuring all packages' cryptographic signatures are valid prior to installation ensures the provenance of the software and protects against malicious tampering.
+# Description: The system package management tool must cryptographically verify the authenticity of all software packages during installation.
 

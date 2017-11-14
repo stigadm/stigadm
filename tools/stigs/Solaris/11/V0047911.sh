@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The FTP daemon must not be installed unless required.
-# Description: FTP is an insecure protocol.
+# Description: The FTP daemon must not be installed unless required.
 

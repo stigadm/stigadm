@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must implement NIST FIPS-validated cryptography for the following
-# Description:  to provision digital signatures, to generate cryptographic hashes, and to protect data requiring data-at-rest protections in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards.
+# Description: The operating system must implement NIST FIPS-validated cryptography for the following
 

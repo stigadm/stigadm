@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not accept ICMPv4 secure redirect packets by default.
-# Description: Accepting "secure" ICMP redirects (from those gateways listed as default gateways) has few legitimate uses. It should be disabled unless it is absolutely required.
+# Description: The system must not accept ICMPv4 secure redirect packets by default.
 

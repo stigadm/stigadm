@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072213
+# Title: The system must use a DoD-approved virus scan program.
 # Description: The system must use a DoD-approved virus scan program.
 

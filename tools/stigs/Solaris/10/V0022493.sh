@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The NFS exports configuration file must not have an extended ACL.
-# Description: File system extended ACLs provide access to files beyond what is allowed by the mode numbers of the files.  Excessive permissions on the NFS export configuration file could allow unauthorized modification of the file, which could result in Denial of Service to authorized NFS exports and the creation of additional unauthorized exports.
+# Description: The NFS exports configuration file must not have an extended ACL.
 

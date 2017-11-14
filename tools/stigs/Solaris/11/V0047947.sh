@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0047947
+# Title: The operating system must protect information obtained from intrusion-monitoring tools from unauthorized access, modification, and deletion.
 # Description: The operating system must protect information obtained from intrusion-monitoring tools from unauthorized access, modification, and deletion.
 

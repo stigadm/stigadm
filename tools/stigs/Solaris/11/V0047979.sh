@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must not have any unnecessary accounts.
-# Description: Accounts providing no operational purpose provide additional opportunities for system compromise. Unnecessary accounts include user accounts for individuals not requiring access to the system and application accounts for applications not installed on the system.
+# Description: The system must not have any unnecessary accounts.
 

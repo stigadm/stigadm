@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must back up audit records on an organization defined frequency onto a different system or media than the system being audited.
-# Description: A log server (loghost) receives syslog messages from one or more systems. This data can be used as an additional log source in the event a system is compromised and its local logs are suspect. Forwarding log messages to a remote loghost also provides system administrators with a centralized place to view the status of multiple hosts within the enterprise.
+# Description: The operating system must back up audit records on an organization defined frequency onto a different system or media than the system being audited.
 

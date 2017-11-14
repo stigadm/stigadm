@@ -340,3 +340,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048179
+# STIG_Version: SV-61051r1
+# Rule_ID: SOL-11.1-060070
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must protect the integrity of transmitted information.
+# Description: The operating system must protect the integrity of transmitted information.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048179
+# STIG_Version: SV-61051r1
+# Rule_ID: SOL-11.1-060070
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The operating system must protect the integrity of transmitted information.
+# Description: The operating system must protect the integrity of transmitted information.
+

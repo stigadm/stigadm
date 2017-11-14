@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Graphical desktop environments provided by the system must automatically lock after 15 minutes of inactivity.
-# Description: Allowing access to a graphical environment when the user is not attending the system can allow unauthorized users access to the system.
+# Description: Graphical desktop environments provided by the system must automatically lock after 15 minutes of inactivity.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must not allow logins for users with blank passwords.
-# Description: If the password field is blank and the system does not enforce a policy that passwords are required, it could allow login without proper authentication of a user.
+# Description: The operating system must not allow logins for users with blank passwords.
 

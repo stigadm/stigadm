@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must prevent public IPv4 access into an organizations internal networks, except as appropriately mediated by managed interfaces employing boundary protection devices.
-# Description: The "iptables" service provides the system's host-based firewalling capability for IPv4 and ICMP.
+# Description: The operating system must prevent public IPv4 access into an organizations internal networks, except as appropriately mediated by managed interfaces employing boundary protection devices.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must require passwords contain at least one lowercase alphabetic character.
-# Description: To enforce the use of complex passwords, minimum numbers of characters of different classes are mandated. The use of complex passwords reduces the ability of attackers to successfully obtain valid passwords using guessing or exhaustive search techniques. Complexity requirements increase the password search space by requiring users to construct passwords from a larger character set than they may otherwise use.
+# Description: The system must require passwords contain at least one lowercase alphabetic character.
 

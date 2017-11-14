@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Generic Security Services (GSS) must be disabled.
-# Description: This service should be disabled if it is not required.
+# Description: Generic Security Services (GSS) must be disabled.
 

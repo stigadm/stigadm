@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SMTP service HELP command must not be enabled.
-# Description: The HELP command should be disabled to mask version information.  The version of the SMTP service software could be used by attackers to target vulnerabilities present in specific software versions.
+# Description: The SMTP service HELP command must not be enabled.
 

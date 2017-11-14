@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: All .Xauthority files must have mode 0600 or less permissive.
-# Description: .Xauthority files ensure the user is authorized to access the specific X Windows host.  Excessive permissions may permit unauthorized modification of these files, which could lead to Denial of Service to authorized access or allow unauthorized access to be obtained.
+# Description: All .Xauthority files must have mode 0600 or less permissive.
 

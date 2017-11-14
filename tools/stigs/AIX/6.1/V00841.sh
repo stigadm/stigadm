@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The ftpusers file must contain account names not allowed to use FTP.
-# Description: The ftpusers file contains a list of accounts not allowed to use FTP to transfer files. If the file does not contain the names of all accounts not authorized to use FTP, then unauthorized use of FTP may take place.
+# Description: The ftpusers file must contain account names not allowed to use FTP.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Device files used for backup must only be readable and/or writable by root or the backup user.
-# Description: System backups could be accidentally or maliciously overwritten and destroy the ability to recover the system if a compromise should occur.  Unauthorized users could also copy system files.
+# Description: Device files used for backup must only be readable and/or writable by root or the backup user.
 

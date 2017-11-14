@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the discard service active.
-# Description: The discard service runs as root from the inetd server and can be used in Denial of Service attacks.   The discard  service is unnecessary and it increases the attack vector of the system.
+# Description: The system must not have the discard service active.
 

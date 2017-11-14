@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072273
+# Title: The operating system must enable an application firewall, if available.
 # Description: The operating system must enable an application firewall, if available.
 

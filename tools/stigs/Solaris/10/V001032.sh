@@ -232,3 +232,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V001032
+# STIG_Version: SV-39809r1
+# Rule_ID: GEN000540
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: Users must not be able to change passwords more than once every 24 hours.
+# Description: Users must not be able to change passwords more than once every 24 hours.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V001032
+# STIG_Version: SV-39809r1
+# Rule_ID: GEN000540
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: Users must not be able to change passwords more than once every 24 hours.
+# Description: Users must not be able to change passwords more than once every 24 hours.
+

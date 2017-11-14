@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The rsh-server package must not be installed.
-# Description: The "rsh-server" package provides several obsolete and insecure network services. Removing it decreases the risk of those services' accidental (or intentional) activation.
+# Description: The rsh-server package must not be installed.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Cron and crontab directories must have mode 0755 or less permissive.
-# Description: To protect the integrity of scheduled system jobs and to prevent malicious modification to these jobs, crontab files must be secured.
+# Description: Cron and crontab directories must have mode 0755 or less permissive.
 

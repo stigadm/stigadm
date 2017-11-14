@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system must require passwords to change the boot device settings. (SPARC)
-# Description: Setting the EEPROM password helps prevent attackers who gain physical access to the system console from booting from an external device (such as a CD-ROM or floppy).
+# Description: The system must require passwords to change the boot device settings. (SPARC)
 

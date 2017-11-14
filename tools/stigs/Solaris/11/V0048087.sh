@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Login services for serial ports must be disabled.
-# Description: Login services should not be enabled on any serial ports that are not strictly required to support the mission of the system. This action can be safely performed even when console access is provided using a serial port.
+# Description: Login services for serial ports must be disabled.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/smbpasswd file must not have an extended ACL.
-# Description: If the permissions of the "smbpasswd" file are too permissive, it may be maliciously accessed or modified, potentially resulting in the compromise of Samba accounts.
+# Description: The /etc/smbpasswd file must not have an extended ACL.
 

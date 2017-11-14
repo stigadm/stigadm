@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /usr/lib/smb.conf file must be owned by root.
-# Description: The /usr/lib/smb.conf file allows access to other machines on the network and grants permissions to certain users.  If it is owned by another user, the file may be maliciously modified and the Samba configuration could be compromised.
+# Description: The /usr/lib/smb.conf file must be owned by root.
 

@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071891
+# Title: The operating system must enable a user session lock until that user re-establishes access using established identification and authentication procedures.
 # Description: The operating system must enable a user session lock until that user re-establishes access using established identification and authentication procedures.
 

@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0048157
+# Title: The operating system must use cryptographic mechanisms to protect and restrict access to information on portable digital media.
 # Description: The operating system must use cryptographic mechanisms to protect and restrict access to information on portable digital media.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must log martian packets.
-# Description: Martian packets are packets containing addresses known by the system to be invalid. Logging these messages allows the SA to identify misconfigurations or attacks in progress.
+# Description: The system must log martian packets.
 

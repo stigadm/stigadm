@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use and update a DoD-approved virus scan program.
-# Description: Virus scanning software can be used to detect if a system has been compromised by computer viruses, as well as to limit their spread to other systems.
+# Description: The system must use and update a DoD-approved virus scan program.
 

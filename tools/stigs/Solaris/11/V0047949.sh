@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0047949
+# Title: The operating system must automatically terminate temporary accounts within 72 hours.
 # Description: The operating system must automatically terminate temporary accounts within 72 hours.
 

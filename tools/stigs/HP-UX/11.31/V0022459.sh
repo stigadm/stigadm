@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must be configured to not use Cipher-Block Chaining (CBC) ciphers.
-# Description: The CBC mode of encryption as implemented in the SSHv2 protocol is vulnerable to chosen plaintext attacks and must not be used.
+# Description: The SSH daemon must be configured to not use Cipher-Block Chaining (CBC) ciphers.
 

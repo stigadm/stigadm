@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The root account must be the only account having an UID of 0.
-# Description: If an account has an UID of 0, it has root authority. Multiple accounts with an UID of 0 afford more opportunity for potential intruders to compromise a privileged account.
+# Description: The root account must be the only account having an UID of 0.
 

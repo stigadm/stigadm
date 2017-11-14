@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the netstat service active on the inetd process.
-# Description: The netstat service can potentially give out network information on active connections if it is running.  The information given out can aid in an attack and weaken the systems defensive posture.
+# Description: The system must not have the netstat service active on the inetd process.
 

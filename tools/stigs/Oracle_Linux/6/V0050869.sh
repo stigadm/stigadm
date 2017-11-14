@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system package management tool must verify contents of all files associated with the audit package.
-# Description: The hash on important files like audit system executables should match the information given by the RPM database. Audit executables  with erroneous hashes could be a sign of nefarious activity on the system.
+# Description: The system package management tool must verify contents of all files associated with the audit package.
 

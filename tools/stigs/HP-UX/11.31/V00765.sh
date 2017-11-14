@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Successful and unsuccessful logins and logouts must be logged.
-# Description: Monitoring and recording successful and unsuccessful logins assists in tracking unauthorized access to the system.  Without this logging, the ability to track unauthorized activity to specific user accounts may be diminished.
+# Description: Successful and unsuccessful logins and logouts must be logged.
 

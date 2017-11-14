@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must be configured to audit modifications to the systems Mandatory Access Control (MAC) configuration (SELinux).
-# Description: The system's mandatory access policy (SELinux) should not be arbitrarily changed by anything other than administrator action. All changes to MAC policy should be audited.
+# Description: The audit system must be configured to audit modifications to the systems Mandatory Access Control (MAC) configuration (SELinux).
 

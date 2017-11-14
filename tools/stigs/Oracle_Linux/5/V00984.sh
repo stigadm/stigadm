@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Access to the at utility must be controlled via the at.allow and/or at.deny file(s).
-# Description: The "at" facility selectively allows users to execute jobs at deferred times.  It is usually used for one-time jobs. The at.allow file selectively allows access to the "at" facility.  If there is no at.allow file, there is no ready documentation of who is allowed to submit "at" jobs.
+# Description: Access to the at utility must be controlled via the at.allow and/or at.deny file(s).
 

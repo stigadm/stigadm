@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The smb.conf file must not have an extended ACL.
-# Description: Excessive permissions could endanger the security of the Samba configuration file and, ultimately, the system and network.
+# Description: The smb.conf file must not have an extended ACL.
 

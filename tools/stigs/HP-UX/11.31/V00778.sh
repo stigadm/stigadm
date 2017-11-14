@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must prevent the root account from directly logging in except from the system console.
-# Description: Limiting the root account direct logins to only system consoles protects the root account from direct unauthorized access from a non-console device.
+# Description: The system must prevent the root account from directly logging in except from the system console.
 

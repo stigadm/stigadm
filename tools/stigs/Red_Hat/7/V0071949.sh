@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071949
+# Title: Users must re-authenticate for privilege escalation.
 # Description: Users must re-authenticate for privilege escalation.
 

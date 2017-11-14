@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must implement virtual address space randomization.
-# Description: Address space layout randomization (ASLR) makes it more difficult for an attacker to predict the location of attack code he or she has introduced into a process's address space during an attempt at exploitation. Additionally, ASLR also makes it more difficult for an attacker to know the location of existing code in order to repurpose it using return oriented programming (ROP) techniques.
+# Description: The system must implement virtual address space randomization.
 

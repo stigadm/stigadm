@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Manual page files must have mode 0644 or less permissive.
-# Description: If manual pages are compromised, misleading information could be inserted, causing actions that may compromise the system.
+# Description: Manual page files must have mode 0644 or less permissive.
 

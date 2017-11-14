@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071897
+# Title: The operating system must have the screen package installed.
 # Description: The operating system must have the screen package installed.
 

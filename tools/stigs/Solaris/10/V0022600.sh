@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /usr/aset/userlist file must be group-owned by root.
-# Description: The /usr/aset/userlist file is critical to system security and must be protected from unauthorized access.
+# Description: The /usr/aset/userlist file must be group-owned by root.
 

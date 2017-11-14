@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system package management tool must verify permissions on all files and directories associated with the audit package.
-# Description: Permissions on audit binaries and configuration files that are too generous could allow an unauthorized user to gain privileges that they should not have. The permissions set by the vendor should be maintained. Any deviations from this baseline should be investigated.
+# Description: The system package management tool must verify permissions on all files and directories associated with the audit package.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The root account's home directory (other than /) must have mode 0700.
-# Description: Permissions greater than 0700 could allow unauthorized users access to the root home directory.
+# Description: The root account's home directory (other than /) must have mode 0700.
 

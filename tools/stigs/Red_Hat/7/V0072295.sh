@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072295
+# Title: Network interfaces must not be in promiscuous mode.
 # Description: Network interfaces must not be in promiscuous mode.
 

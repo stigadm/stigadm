@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072241
+# Title: All network connections associated with SSH traffic must terminate after a period of inactivity.
 # Description: All network connections associated with SSH traffic must terminate after a period of inactivity.
 

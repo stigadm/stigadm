@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The owner, group owner, mode, ACL, and location of files with the setuid bit set must be documented using site-defined procedures.
-# Description: All files with the setuid bit set will allow anyone running these files to be temporarily assigned the UID of the file. While many system files depend on these attributes for proper operation, security problems can result if setuid is assigned to programs that allow reading and writing of files, or shell escapes.  Only default vendor-supplied executables should have the setuid bit set.
+# Description: The owner, group owner, mode, ACL, and location of files with the setuid bit set must be documented using site-defined procedures.
 

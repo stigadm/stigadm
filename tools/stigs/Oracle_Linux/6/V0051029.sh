@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must provide a near real-time alert when any of the organization defined list of compromise or potential compromise indicators occurs.
-# Description: By default, AIDE does not install itself for periodic execution. Periodically running AIDE may reveal unexpected changes in installed files.
+# Description: The operating system must provide a near real-time alert when any of the organization defined list of compromise or potential compromise indicators occurs.
 

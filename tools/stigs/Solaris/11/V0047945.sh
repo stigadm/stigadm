@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must employ automated mechanisms to alert security personnel of any organization-defined inappropriate or unusual activities with security implications.
-# Description: Intrusion detection and prevention capabilities must be architected and implemented to prevent non-privileged users from circumventing such protections. This can be accomplished through the use of user roles, use of proper systems permissions, auditing, logging, etc.
+# Description: The operating system must employ automated mechanisms to alert security personnel of any organization-defined inappropriate or unusual activities with security implications.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The .rhosts, .shosts, hosts.equiv, shosts.equiv, /etc/passwd, /etc/shadow, and/or /etc/group files must not contain a plus (+) without defining entries for NIS+ netgroups.
-# Description: A plus (+) in system accounts' files causes the system to lookup the specified entry using NIS.  If the system is not using NIS, no such entries should exist.
+# Description: The .rhosts, .shosts, hosts.equiv, shosts.equiv, /etc/passwd, /etc/shadow, and/or /etc/group files must not contain a plus (+) without defining entries for NIS+ netgroups.
 

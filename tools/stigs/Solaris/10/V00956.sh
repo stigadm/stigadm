@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /usr/aset/userlist file must be owned by root.
-# Description: If the userlist file is not owned by root, then an unauthorized user can modify the file and enter an unauthorized user.
+# Description: The /usr/aset/userlist file must be owned by root.
 

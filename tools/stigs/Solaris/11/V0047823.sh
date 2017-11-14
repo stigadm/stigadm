@@ -328,3 +328,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047823
+# STIG_Version: SV-60699r1
+# Rule_ID: SOL-11.1-010330
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The audit system must be configured to audit the loading and unloading of dynamic kernel modules.
+# Description: The audit system must be configured to audit the loading and unloading of dynamic kernel modules.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047823
+# STIG_Version: SV-60699r1
+# Rule_ID: SOL-11.1-010330
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The audit system must be configured to audit the loading and unloading of dynamic kernel modules.
+# Description: The audit system must be configured to audit the loading and unloading of dynamic kernel modules.
+

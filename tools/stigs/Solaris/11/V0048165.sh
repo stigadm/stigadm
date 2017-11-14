@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must disable directed broadcast packet forwarding.
-# Description: This parameter must be disabled to reduce the risk of denial of service attacks.
+# Description: The system must disable directed broadcast packet forwarding.
 

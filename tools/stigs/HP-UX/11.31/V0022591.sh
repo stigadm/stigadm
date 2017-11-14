@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The HP-UX /etc/securetty file must not have an extended ACL.
-# Description: File system extended ACLs provide access to files beyond what is allowed by the mode numbers of the files. Unauthorized modification of the /etc/securetty file could cause Denial of Service to authorized system consoles or add unauthorized system consoles.
+# Description: The HP-UX /etc/securetty file must not have an extended ACL.
 

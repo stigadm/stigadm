@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Datagram Congestion Control Protocol (DCCP) must be disabled unless required.
-# Description: Disabling DCCP protects the system against exploitation of any flaws in its implementation.
+# Description: The Datagram Congestion Control Protocol (DCCP) must be disabled unless required.
 

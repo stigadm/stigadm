@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must employ a local IPv4 firewall.
-# Description: The "iptables" service provides the system's host-based firewalling capability for IPv4 and ICMP.
+# Description: The system must employ a local IPv4 firewall.
 

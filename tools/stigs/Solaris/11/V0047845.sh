@@ -270,3 +270,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, '${file}' conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-I
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047845
+# STIG_Version: SV-60719r1
+# Rule_ID: SOL-11.1-010390
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must alert designated organizational officials in the event of an audit processing failure.
+# Description: The operating system must alert designated organizational officials in the event of an audit processing failure.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-I
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047845
+# STIG_Version: SV-60719r1
+# Rule_ID: SOL-11.1-010390
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The operating system must alert designated organizational officials in the event of an audit processing failure.
+# Description: The operating system must alert designated organizational officials in the event of an audit processing failure.
+

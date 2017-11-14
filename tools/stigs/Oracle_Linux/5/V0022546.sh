@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have Teredo enabled.
-# Description: Teredo is an IPv6 transition mechanism involving tunneling IPv6 packets encapsulated in IPv4 packets. Unauthorized tunneling may circumvent network security.
+# Description: The system must not have Teredo enabled.
 

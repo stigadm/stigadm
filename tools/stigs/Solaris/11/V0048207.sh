@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0048207
+# Title: The system must set maximum number of half-open TCP connections to 4096.
 # Description: The system must set maximum number of half-open TCP connections to 4096.
 

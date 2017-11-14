@@ -159,3 +159,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, all user GID's conform to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V00781
+# STIG_Version: SV-27069r1
+# Rule_ID: GEN000380
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: All GIDs referenced in the /etc/passwd file must be defined in the /etc/group file.
+# Description: All GIDs referenced in the /etc/passwd file must be defined in the /etc/group file.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V00781
+# STIG_Version: SV-27069r1
+# Rule_ID: GEN000380
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: All GIDs referenced in the /etc/passwd file must be defined in the /etc/group file.
+# Description: All GIDs referenced in the /etc/passwd file must be defined in the /etc/group file.
+

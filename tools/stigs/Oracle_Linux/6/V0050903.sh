@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must connect to external networks or information systems only through managed IPv4 interfaces consisting of boundary protection devices arranged in accordance with an organizational security architecture.
-# Description: The "iptables" service provides the system's host-based firewalling capability for IPv4 and ICMP.
+# Description: The operating system must connect to external networks or information systems only through managed IPv4 interfaces consisting of boundary protection devices arranged in accordance with an organizational security architecture.
 

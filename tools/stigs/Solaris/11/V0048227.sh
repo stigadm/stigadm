@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must disable the use of organization-defined networking protocols within the operating system deemed to be nonsecure except for explicitly identified components in support of specific operational requirements.
-# Description: Organization-defined networking protocols can be limited through the use of the host-based firewall.
+# Description: The operating system must disable the use of organization-defined networking protocols within the operating system deemed to be nonsecure except for explicitly identified components in support of specific operational requirements.
 

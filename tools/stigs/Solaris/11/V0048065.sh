@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must not allow users to configure .forward files.
-# Description: Use of the .forward file poses a security risk in that sensitive data may be inadvertently transferred outside the organization. The .forward file also poses a secondary risk as it can be used to execute commands that may perform unintended actions.
+# Description: The system must not allow users to configure .forward files.
 

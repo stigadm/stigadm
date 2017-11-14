@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must allocate audit record storage capacity.
-# Description: Proper audit storage capacity is crucial to ensuring the ongoing logging of critical events.
+# Description: The operating system must allocate audit record storage capacity.
 

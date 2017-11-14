@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Duplicate Group IDs (GIDs) must not exist for multiple groups.
-# Description: User groups must be assigned unique GIDs for accountability and to ensure appropriate access protections.
+# Description: Duplicate Group IDs (GIDs) must not exist for multiple groups.
 

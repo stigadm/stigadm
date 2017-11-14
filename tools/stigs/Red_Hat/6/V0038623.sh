@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All rsyslog-generated log files must have mode 0600 or less permissive.
-# Description: Log files can contain valuable information regarding system configuration. If the system log files are not protected, unauthorized users could change the logged data, eliminating their forensic value.
+# Description: All rsyslog-generated log files must have mode 0600 or less permissive.
 

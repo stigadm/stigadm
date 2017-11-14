@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Proxy Address Resolution Protocol (Proxy ARP) must not be enabled on the system.
-# Description: Proxy ARP allows a system to respond to ARP requests on one interface on behalf of hosts connected to another interface.  If this function is enabled when not required, addressing information may be leaked between the attached network segments.
+# Description: Proxy Address Resolution Protocol (Proxy ARP) must not be enabled on the system.
 

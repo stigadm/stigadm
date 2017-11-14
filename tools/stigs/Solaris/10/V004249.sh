@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system boot loader must require authentication.
-# Description: If the system's boot loader does not require authentication, users with console access to the system may be able to alter the system boot configuration or boot the system into single user or maintenance mode, which could result in Denial-of-Service or unauthorized privileged access to the system.
+# Description: The system boot loader must require authentication.
 

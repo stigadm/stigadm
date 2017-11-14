@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /var/adm/userdb directory must have mode 0700 or less permissive.
-# Description: The /var/adm/userdb directory is the system user database repository used for storing per-user security configuration information. If the configuration is modified maliciously, individual users may gain unauthorized system access. 
+# Description: The /var/adm/userdb directory must have mode 0700 or less permissive.
 

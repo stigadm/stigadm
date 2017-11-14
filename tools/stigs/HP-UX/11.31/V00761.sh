@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All accounts on the system must have unique user or account names.
-# Description: A unique user name is the first part of the identification and authentication process. If user names are not unique, there can be no accountability on the system for auditing purposes. Multiple accounts sharing the same name could result in the Denial of Service to one or both of the accounts or unauthorized access to files or privileges.
+# Description: All accounts on the system must have unique user or account names.
 

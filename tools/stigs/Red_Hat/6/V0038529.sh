@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not accept IPv4 source-routed packets by default.
-# Description: Accepting source-routed packets in the IPv4 protocol has few legitimate uses. It should be disabled unless it is absolutely required.
+# Description: The system must not accept IPv4 source-routed packets by default.
 

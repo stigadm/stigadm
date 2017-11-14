@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: There must be no .rhosts, .shosts, hosts.equiv, or shosts.equiv files on the system.
-# Description: The .rhosts, .shosts, hosts.equiv, and shosts.equiv files are used to configure host-based authentication for individual users or the system.  Host-based authentication is not sufficient for preventing unauthorized access to the system.
+# Description: There must be no .rhosts, .shosts, hosts.equiv, or shosts.equiv files on the system.
 

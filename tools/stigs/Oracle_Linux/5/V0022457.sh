@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must only listen on management network addresses unless authorized for uses other than management.
-# Description: The SSH daemon should only listen on network addresses designated for management traffic.  If the system has multiple network interfaces and SSH listens on addresses not designated for management traffic, the SSH service could be subject to unauthorized access.  If SSH is used for purposes other than management, such as providing an SFTP service, the list of approved listening addresses may be documented.
+# Description: The SSH daemon must only listen on management network addresses unless authorized for uses other than management.
 

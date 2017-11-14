@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All network services daemon files must not have extended ACLs.
-# Description: Restricting permission on daemons will protect them from unauthorized modification and possible system compromise.
+# Description: All network services daemon files must not have extended ACLs.
 

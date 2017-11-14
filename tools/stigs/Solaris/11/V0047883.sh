@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must verify that package updates are digitally signed.
-# Description: Digitally signed packages ensure that the source of the package can be identified.
+# Description: The system must verify that package updates are digitally signed.
 

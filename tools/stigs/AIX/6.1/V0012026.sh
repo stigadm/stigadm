@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: NIS maps must be protected through hard-to-guess domain names.
-# Description: The use of hard-to-guess NIS domain names provides additional protection from unauthorized access to the NIS directory information.
+# Description: NIS maps must be protected through hard-to-guess domain names.
 

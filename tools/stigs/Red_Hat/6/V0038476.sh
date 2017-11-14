@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Vendor-provided cryptographic certificates must be installed to verify the integrity of system software.
-# Description: The Red Hat GPG keys are necessary to cryptographically verify packages are from Red Hat. 
+# Description: Vendor-provided cryptographic certificates must be installed to verify the integrity of system software.
 

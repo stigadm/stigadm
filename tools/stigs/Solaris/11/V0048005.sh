@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: System BIOS or system controllers supporting password protection must have administrator accounts/passwords configured, and no others. (Intel)
-# Description: A system's BIOS or system controller handles the initial startup of a system and its configuration must be protected from unauthorized modification. When the BIOS or system controller supports the creation of user accounts or passwords, such protections must be used and accounts/passwords only assigned to system administrators. Failure to protect BIOS or system controller settings could result in denial of service or compromise of the system resulting from unauthorized configuration changes.
+# Description: System BIOS or system controllers supporting password protection must have administrator accounts/passwords configured, and no others. (Intel)
 

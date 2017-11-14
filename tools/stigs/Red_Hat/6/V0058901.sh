@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The sudo command must require authentication.
-# Description: The "sudo" command allows authorized users to run programs (including shells) as other users, system users, and root. The "/etc/sudoers" file is used to configure authorized "sudo" users as well as the programs they are allowed to run. Some configuration options in the "/etc/sudoers" file allow configured users to run programs without re-authenticating. Use of these configuration options makes it easier for one compromised account to be used to compromise other accounts.
+# Description: The sudo command must require authentication.
 

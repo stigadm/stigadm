@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Department of Defense (DoD) login banner must be displayed immediately prior to, or as part of, graphical desktop environment login prompts.
-# Description: An appropriate warning message reinforces policy awareness during the logon process and facilitates possible legal action against attackers.
+# Description: The Department of Defense (DoD) login banner must be displayed immediately prior to, or as part of, graphical desktop environment login prompts.
 

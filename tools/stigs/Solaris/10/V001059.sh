@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The smbpasswd file must have mode 0600 or less permissive.
-# Description: If the smbpasswd file has a mode more permissive than 0600, the smbpasswd file may be maliciously accessed or modified, potentially resulting in the compromise of Samba accounts.
+# Description: The smbpasswd file must have mode 0600 or less permissive.
 

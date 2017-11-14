@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not use UDP for Network Information System (NIS/NIS+).
-# Description: Implementing NIS or NIS+ under UDP may make the system more susceptible to a Denial of Service attack and does not provide the same quality of service as TCP.
+# Description: The system must not use UDP for Network Information System (NIS/NIS+).
 

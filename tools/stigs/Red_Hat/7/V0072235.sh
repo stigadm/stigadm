@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072235
+# Title: All networked systems must use SSH for confidentiality and integrity of transmitted and received information as well as information during preparation for transmission.
 # Description: All networked systems must use SSH for confidentiality and integrity of transmitted and received information as well as information during preparation for transmission.
 

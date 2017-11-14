@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Process core dumps must be disabled unless needed.
-# Description: A core dump includes a memory image taken at the time the operating system terminates an application. The memory image could contain sensitive data and is generally useful only for developers trying to debug problems.
+# Description: Process core dumps must be disabled unless needed.
 

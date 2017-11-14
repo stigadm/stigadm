@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The ability to boot the system into single user mode must be restricted to root.
-# Description: Single user mode access must be strictly limited to the privileged user root. The ability to boot to single user mode allows a malicious user the opportunity to modify, compromise, or otherwise damage the system.
+# Description: The ability to boot the system into single user mode must be restricted to root.
 

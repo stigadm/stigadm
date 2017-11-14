@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The traceroute command must be group-owned by sys, bin, or system.
-# Description: If the group owner of the traceroute command has not been set to a system group, unauthorized users could have access to the command and use it to gain information regarding a network's topology inside of the firewall.  This information may allow an attacker to determine trusted routers and other network information possibly leading to system and network compromise.
+# Description: The traceroute command must be group-owned by sys, bin, or system.
 

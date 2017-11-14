@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: SNMP communities, users, and passphrases must be changed from the default.
-# Description: Whether active or not, default SNMP passwords, users, and passphrases must be changed to maintain security. If the service is running with the default authenticators, then anyone can gather data about the system and the network and use the information to potentially compromise the integrity of the system or network(s).
+# Description: SNMP communities, users, and passphrases must be changed from the default.
 

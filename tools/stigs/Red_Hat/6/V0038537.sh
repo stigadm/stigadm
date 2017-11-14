@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must ignore ICMPv4 bogus error responses.
-# Description: Ignoring bogus ICMP error responses reduces log size, although some activity would not be logged.
+# Description: The system must ignore ICMPv4 bogus error responses.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not allow directed broadcasts to gateway.
-# Description: Disabling directed broadcast prevents packets directed to a gateway to be broadcasted on a remote network.
+# Description: The system must not allow directed broadcasts to gateway.
 

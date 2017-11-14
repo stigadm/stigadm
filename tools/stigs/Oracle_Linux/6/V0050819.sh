@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The LDAP client must use a TLS connection using trust certificates signed by the site CA.
-# Description: The tls_cacertdir or tls_cacertfile directives are required when tls_checkpeer is configured (which is the default for openldap versions 2.1 and up). These directives define the path to the trust certificates signed by the site CA.
+# Description: The LDAP client must use a TLS connection using trust certificates signed by the site CA.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Library files must be owned by a system account.
-# Description: Files from shared library directories are loaded into the address space of processes (including privileged ones) or of the kernel itself at runtime. Proper ownership is necessary to protect the integrity of the system.
+# Description: Library files must be owned by a system account.
 

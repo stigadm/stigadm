@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The owner, group-owner, mode, ACL, and location of files with the setgid bit set must be documented using site-defined procedures.
-# Description: All files with the setgid bit set will allow anyone running these files to be temporarily assigned the GID of the file. While many system files depend on these attributes for proper operation, security problems can result if setgid is assigned to programs that allow reading and writing of files, or shell escapes.
+# Description: The owner, group-owner, mode, ACL, and location of files with the setgid bit set must be documented using site-defined procedures.
 

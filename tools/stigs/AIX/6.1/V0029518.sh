@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Xserver login managers must not be running unless needed for X11 session management.
-# Description: Running Xservers and X-login managers when not needed for X11 session management increases the attack vector of the system by running unnecessary services.
+# Description: Xserver login managers must not be running unless needed for X11 session management.
 

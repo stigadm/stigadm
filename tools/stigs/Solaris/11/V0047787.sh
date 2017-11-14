@@ -167,3 +167,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047787
+# STIG_Version: SV-60663r1
+# Rule_ID: SOL-11.1-010080
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must provide the capability to automatically process audit records for events of interest based upon selectable, event criteria.
+# Description: The operating system must provide the capability to automatically process audit records for events of interest based upon selectable, event criteria.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047787
+# STIG_Version: SV-60663r1
+# Rule_ID: SOL-11.1-010080
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The operating system must provide the capability to automatically process audit records for events of interest based upon selectable, event criteria.
+# Description: The operating system must provide the capability to automatically process audit records for events of interest based upon selectable, event criteria.
+

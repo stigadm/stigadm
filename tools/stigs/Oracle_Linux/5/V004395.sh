@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must only use remote syslog servers (log hosts) that is justified and documented using site-defined procedures.
-# Description: If a remote log host is in use and it has not been justified and documented with the IAO, sensitive information could be obtained by unauthorized users without the SA's knowledge.  A remote log host is any host to which the system is sending syslog messages over a network.
+# Description: The system must only use remote syslog servers (log hosts) that is justified and documented using site-defined procedures.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All local file systems must employ journaling or another mechanism ensuring file system consistency.
-# Description: File system journaling, or logging, can allow reconstruction of file system data after a system crash, thus preserving the integrity of data that may have otherwise been lost.  Journaling file systems typically do not require consistency checks upon booting after a crash, which can improve system availability.  Some file systems employ other mechanisms to ensure consistency which also satisfy this requirement.
+# Description: All local file systems must employ journaling or another mechanism ensuring file system consistency.
 

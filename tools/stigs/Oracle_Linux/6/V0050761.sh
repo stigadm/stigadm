@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must employ a local IPv6 firewall.
-# Description: The "ip6tables" service provides the system's host-based firewalling capability for IPv6 and ICMPv6.
+# Description: The system must employ a local IPv6 firewall.
 

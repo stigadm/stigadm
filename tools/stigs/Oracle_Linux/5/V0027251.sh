@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: A file integrity baseline including cryptographic hashes must be maintained.
-# Description: A file integrity baseline is a collection of file metadata which is to evaluate the integrity of the system. A minimal baseline must contain metadata for all device files, setuid files, setgid files, system libraries, system binaries, and system configuration files. The minimal metadata must consist of the mode, owner, group owner, and modification times. For regular files, metadata must also include file size and a cryptographic hash of the file's contents.
+# Description: A file integrity baseline including cryptographic hashes must be maintained.
 

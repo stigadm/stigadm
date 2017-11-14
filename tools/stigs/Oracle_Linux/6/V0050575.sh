@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must set a timeout interval on idle sessions.
-# Description: Causing idle users to be automatically logged out guards against compromises one system leading trivially to compromises on another.
+# Description: The SSH daemon must set a timeout interval on idle sessions.
 

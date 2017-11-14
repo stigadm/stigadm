@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The .Xauthority utility must only permit access to authorized hosts.
-# Description: If unauthorized clients are permitted access to the X server, a user's X session may be compromised.
+# Description: The .Xauthority utility must only permit access to authorized hosts.
 

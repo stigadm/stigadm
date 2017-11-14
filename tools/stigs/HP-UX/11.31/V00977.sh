@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Cron must not execute programs in, or subordinate to, world-writable directories.
-# Description: If cron programs are located in or subordinate to world-writable directories, they become vulnerable to removal and replacement by malicious users or system intruders.
+# Description: Cron must not execute programs in, or subordinate to, world-writable directories.
 

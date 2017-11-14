@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must shut down by default upon audit failure (unless availability is an overriding concern).
-# Description: Continuing to operate a system without auditing working properly can result in undocumented access or system changes.
+# Description: The operating system must shut down by default upon audit failure (unless availability is an overriding concern).
 

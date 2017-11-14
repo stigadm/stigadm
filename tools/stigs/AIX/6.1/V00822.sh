@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The inetd.conf and xinetd.conf files must have mode 0440 or less permissive.
-# Description: The Internet service daemon configuration files must be protected as malicious modification could cause Denial of Service or increase the attack surface of the system.
+# Description: The inetd.conf and xinetd.conf files must have mode 0440 or less permissive.
 

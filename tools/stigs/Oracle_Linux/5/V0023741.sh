@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: TCP backlog queue sizes must be set appropriately.
-# Description: To provide some mitigation to TCP Denial of Service attacks, the TCP backlog queue sizes must be set to at least 1280 or in accordance with product-specific guidelines.
+# Description: TCP backlog queue sizes must be set appropriately.
 

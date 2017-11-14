@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use a separate file system for the system audit data path.
-# Description: Placing "/var/log/audit" in its own partition enables better separation between audit files and other files, and helps ensure that auditing cannot be halted due to the partition running out of space.
+# Description: The system must use a separate file system for the system audit data path.
 

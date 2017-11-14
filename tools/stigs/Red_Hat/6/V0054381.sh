@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must switch the system to single-user mode when available audit storage volume becomes dangerously low.
-# Description: Administrators should be made aware of an inability to record audit records. If a separate partition or logical volume of adequate size is used, running low on space for audit records should never occur. 
+# Description: The audit system must switch the system to single-user mode when available audit storage volume becomes dangerously low.
 

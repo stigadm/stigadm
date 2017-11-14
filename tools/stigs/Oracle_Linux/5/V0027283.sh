@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The graphical desktop environment must set the idle timeout to no more than 15 minutes.
-# Description: If graphical desktop sessions do not lock the session after 15 minutes of inactivity, requiring re-authentication to resume operations, the system or individual data could be compromised by an alert intruder who could exploit the oversight. This requirement applies to graphical desktop environments provided by the system to locally attached displays and input devices as well as to graphical desktop environments provided to remote systems, including thin clients.
+# Description: The graphical desktop environment must set the idle timeout to no more than 15 minutes.
 

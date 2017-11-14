@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The umask must be set to 077 for all local interactive user accounts.
-# Description: The umask controls the default access mode assigned to newly created files. A umask of 077 limits new files to mode 700 or less permissive. Although umask can be represented as a four-digit number, the first digit representing special access modes is typically ignored or required to be "0". This requirement applies to the globally configured system defaults and the local interactive user defaults for each account on the system.
+# Description: The umask must be set to 077 for all local interactive user accounts.
 

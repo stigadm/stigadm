@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not respond to ICMPv4 sent to a broadcast address.
-# Description: Ignoring ICMP echo requests (pings) sent to broadcast or multicast addresses makes the system slightly more difficult to enumerate on the network.
+# Description: The system must not respond to ICMPv4 sent to a broadcast address.
 

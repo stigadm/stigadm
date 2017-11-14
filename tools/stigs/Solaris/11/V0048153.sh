@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0048153
+# Title: The operating system must protect the confidentiality and integrity of information at rest.
 # Description: The operating system must protect the confidentiality and integrity of information at rest.
 

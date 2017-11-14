@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All shell files must have mode 0755 or less permissive.
-# Description: Shells with world/group write permissions give the ability to maliciously modify the shell to obtain unauthorized access.
+# Description: All shell files must have mode 0755 or less permissive.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The per user PAM configuration file (/etc/pam_user.conf) must not be used to override the system-wide PAM configuration file (/etc/pam.conf) unless it is required.
-# Description: The per user PAM configuration file (/etc/pam_user.conf) allows individual users to be assigned options that differ from those of the general computing community. This file is optional and should only be used if PAM applications are required to operate differently for specific users, i.e., to isolate the administrative user accounts.
+# Description: The per user PAM configuration file (/etc/pam_user.conf) must not be used to override the system-wide PAM configuration file (/etc/pam.conf) unless it is required.
 

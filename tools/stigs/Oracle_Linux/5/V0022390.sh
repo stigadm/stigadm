@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The at.allow file must not have an extended ACL.
-# Description: File system extended ACLs provide access to files beyond what is allowed by the mode numbers of the files.  Unauthorized modification of the at.allow file could result in Denial of Service to authorized "at" users and the granting of the ability to run "at" jobs to unauthorized users.
+# Description: The at.allow file must not have an extended ACL.
 

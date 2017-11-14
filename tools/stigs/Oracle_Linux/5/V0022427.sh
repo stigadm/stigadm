@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The services file must be group-owned by root or bin.
-# Description: Failure to give ownership of system configuration files to root or a system group provides the designated owner and unauthorized users with the potential to change the system configuration possibly weakening the system's security posture.
+# Description: The services file must be group-owned by root or bin.
 

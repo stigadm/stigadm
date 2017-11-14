@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All accounts must be assigned unique User Identification Numbers (UIDs).
-# Description: Accounts that share a UID have full access to each others' files.  This has the same effect as sharing a login.  There is no way to assure identification, authentication, and accountability because the system sees them as the same user. If the duplicate UID is 0, this gives potential intruders another privileged account to attack.
+# Description: All accounts must be assigned unique User Identification Numbers (UIDs).
 

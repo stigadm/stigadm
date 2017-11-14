@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The audit system must maintain a central audit trail for all zones.
-# Description: Centralized auditing simplifies the investigative process to determine the cause of a security event.
+# Description: The audit system must maintain a central audit trail for all zones.
 

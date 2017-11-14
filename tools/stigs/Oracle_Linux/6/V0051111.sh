@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Bluetooth kernel module must be disabled.
-# Description: If Bluetooth functionality must be disabled, preventing the kernel from loading the kernel module provides an additional safeguard against its activation.
+# Description: The Bluetooth kernel module must be disabled.
 

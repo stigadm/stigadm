@@ -167,3 +167,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047791
+# STIG_Version: SV-60667r1
+# Rule_ID: SOL-11.1-010120
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must generate audit records for the selected list of auditable events as defined in DoD list of events.
+# Description: The operating system must generate audit records for the selected list of auditable events as defined in DoD list of events.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047791
+# STIG_Version: SV-60667r1
+# Rule_ID: SOL-11.1-010120
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The operating system must generate audit records for the selected list of auditable events as defined in DoD list of events.
+# Description: The operating system must generate audit records for the selected list of auditable events as defined in DoD list of events.
+

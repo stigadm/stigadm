@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The boundary protection system (firewall) must be configured to deny network traffic by default and must allow network traffic by exception (i.e., deny all, permit by exception).
-# Description: A firewall that relies on a deny all, permit by exception strategy requires all traffic to have explicit permission before traversing an interface on the host.
+# Description: The boundary protection system (firewall) must be configured to deny network traffic by default and must allow network traffic by exception (i.e., deny all, permit by exception).
 

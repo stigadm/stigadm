@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Cron and crontab directories must be owned by root or bin.
-# Description: Incorrect ownership of the cron or crontab directories could permit unauthorized users the ability to alter cron jobs and run automated jobs as privileged users.  Failure to give ownership of cron or crontab directories to root or to bin provides the designated owner and unauthorized users with the potential to access sensitive information or change the system configuration which could weaken the system's security posture.
+# Description: Cron and crontab directories must be owned by root or bin.
 

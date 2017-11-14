@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system's boot loader configuration files must be owned by root.
-# Description: The system's boot loader configuration files are critical to the integrity of the system and must be protected.  Unauthorized modification of these files resulting from improper ownership could compromise the system's boot loader configuration.
+# Description: The system's boot loader configuration files must be owned by root.
 

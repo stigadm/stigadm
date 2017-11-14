@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: TCP backlog queue sizes must be set appropriately.
-# Description: To provide some mitigation to TCP DoS attacks, the clear_partial_conns parameter must be enabled.
+# Description: TCP backlog queue sizes must be set appropriately.
 

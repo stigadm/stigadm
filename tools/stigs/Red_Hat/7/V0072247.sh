@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not permit direct logons to the root account using remote access via SSH.
-# Description: Even though the communications channel may be encrypted, an additional layer of security is gained by extending the policy of not logging on directly as root. In addition, logging on with a user-specific account provides individual accountability of actions performed on the system.
+# Description: The system must not permit direct logons to the root account using remote access via SSH.
 

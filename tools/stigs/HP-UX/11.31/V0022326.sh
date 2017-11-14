@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/hosts file must not have an extended ACL.
-# Description: The /etc/hosts file (or equivalent) configures local host name to IP address mappings typically take precedence over DNS resolution. If this file is maliciously modified, it could cause the failure or compromise of security functions requiring name resolution, which may include time synchronization, centralized authentication, and remote system logging.
+# Description: The /etc/hosts file must not have an extended ACL.
 

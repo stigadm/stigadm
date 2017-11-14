@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The NIS/NIS+/yp command files must have mode 0755 or less permissive.
-# Description: NIS/NIS+/yp files are part of the system's identification and authentication processes and are, therefore, critical to system security.  Unauthorized modification of these files could compromise these processes and the system.
+# Description: The NIS/NIS+/yp command files must have mode 0755 or less permissive.
 

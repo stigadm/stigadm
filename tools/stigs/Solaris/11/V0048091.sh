@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Duplicate UIDs must not exist for multiple non-organizational users.
-# Description: Non-organizational users must be assigned unique UIDs for accountability and to ensure appropriate access protections.
+# Description: Duplicate UIDs must not exist for multiple non-organizational users.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The root account must be the only account having a UID of 0.
-# Description: An account has root authority if it has a UID of 0. Multiple accounts with a UID of 0 afford more opportunity for potential intruders to guess a password for a privileged account. Proper configuration of sudo is recommended to afford multiple system administrators access to root privileges in an accountable manner.
+# Description: The root account must be the only account having a UID of 0.
 

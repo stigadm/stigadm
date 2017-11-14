@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The value mesg n must be configured as the default setting for all users.
-# Description: The "mesg n" command blocks attempts to use the "write" or "talk" commands to contact users at their terminals, but has the side effect of slightly strengthening permissions on the user's TTY device.
+# Description: The value mesg n must be configured as the default setting for all users.
 

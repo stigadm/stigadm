@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must require passwords to contain no more than three consecutive repeating characters.
-# Description: Complex passwords can reduce the likelihood of success of automated password-guessing attacks.
+# Description: The system must require passwords to contain no more than three consecutive repeating characters.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must be checked for extraneous device files at least weekly.
-# Description: If an unauthorized device is allowed to exist on the system, there is the possibility the system may perform unauthorized operations.
+# Description: The system must be checked for extraneous device files at least weekly.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Remote file systems must be mounted with the nosuid option.
-# Description: NFS mounts should not present suid binaries to users. Only vendor-supplied suid executables should be installed to their default location on the local filesystem.
+# Description: Remote file systems must be mounted with the nosuid option.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The FTPS/FTP service on the system must be configured with the Department of Defense (DoD) login banner.
-# Description: This setting will cause the system greeting banner to be used for FTP connections as well.
+# Description: The FTPS/FTP service on the system must be configured with the Department of Defense (DoD) login banner.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /etc/security/audit_user file must be group-owned by root, sys, or bin.
-# Description: The Solaris audit_user file allows for selective auditing or non-auditing of features for certain users.  If it is not protected, it could be compromised and used to mask audit events.  This could cause the loss of valuable forensics data in the case of a system compromise.
+# Description: The /etc/security/audit_user file must be group-owned by root, sys, or bin.
 

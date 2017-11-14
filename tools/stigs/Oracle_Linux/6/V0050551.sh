@@ -149,6 +149,6 @@ exit 0
 # Version: 6
 # Architecture: 
 #
-# Title: V0050551
+# Title: The telnet-server package must not be installed.
 # Description: The telnet-server package must not be installed.
 

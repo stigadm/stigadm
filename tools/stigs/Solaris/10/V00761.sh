@@ -153,3 +153,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, all accounts conform to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00761
+# STIG_Version: SV-27061r2
+# Rule_ID: GEN000300
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: All accounts on the system must have unique user or account names.
+# Description: All accounts on the system must have unique user or account names.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00761
+# STIG_Version: SV-27061r2
+# Rule_ID: GEN000300
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: All accounts on the system must have unique user or account names.
+# Description: All accounts on the system must have unique user or account names.
+

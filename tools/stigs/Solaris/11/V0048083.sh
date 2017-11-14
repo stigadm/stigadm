@@ -278,3 +278,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048083
+# STIG_Version: SV-60955r1
+# Rule_ID: SOL-11.1-040290
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must manage information system identifiers for users and devices by disabling the user identifier after 35 days of inactivity.
+# Description: The operating system must manage information system identifiers for users and devices by disabling the user identifier after 35 days of inactivity.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048083
+# STIG_Version: SV-60955r1
+# Rule_ID: SOL-11.1-040290
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The operating system must manage information system identifiers for users and devices by disabling the user identifier after 35 days of inactivity.
+# Description: The operating system must manage information system identifiers for users and devices by disabling the user identifier after 35 days of inactivity.
+

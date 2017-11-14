@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The telnet service daemon must not be installed unless required.
-# Description: Telnet is an insecure protocol.
+# Description: The telnet service daemon must not be installed unless required.
 

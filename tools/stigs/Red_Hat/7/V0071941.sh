@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071941
+# Title: The operating system must disable account identifiers (individuals, groups, roles, and devices) if the password expires.
 # Description: The operating system must disable account identifiers (individuals, groups, roles, and devices) if the password expires.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not respond to Internet Control Message Protocol  (ICMP) timestamp requests sent to a broadcast address.
-# Description: The processing of ICMP timestamp requests increases the attack surface of the system. Responding to broadcast ICMP timestamp requests facilitates network mapping and provides a vector for amplification attacks.
+# Description: The system must not respond to Internet Control Message Protocol  (ICMP) timestamp requests sent to a broadcast address.
 

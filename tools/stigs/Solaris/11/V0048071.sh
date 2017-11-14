@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The default umask for FTP users must be 077.
-# Description: Setting a very secure default value for umask ensures that users make a conscious choice about their file permissions.
+# Description: The default umask for FTP users must be 077.
 

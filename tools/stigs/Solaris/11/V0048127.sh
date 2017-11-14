@@ -228,3 +228,35 @@ fi
 [ ${verbose} -eq 1 ] && print "'${file}' conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048127
+# STIG_Version: SV-60999r1
+# Rule_ID: SOL-11.1-040430
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: Logins to the root account must be restricted to the system console only.
+# Description: Logins to the root account must be restricted to the system console only.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048127
+# STIG_Version: SV-60999r1
+# Rule_ID: SOL-11.1-040430
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: Logins to the root account must be restricted to the system console only.
+# Description: Logins to the root account must be restricted to the system console only.
+

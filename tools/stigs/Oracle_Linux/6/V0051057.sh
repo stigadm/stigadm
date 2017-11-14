@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must identify staff members to receive notifications of audit log storage volume capacity issues.
-# Description: Email sent to the root account is typically aliased to the administrators of the system, who can take appropriate action.
+# Description: The audit system must identify staff members to receive notifications of audit log storage volume capacity issues.
 

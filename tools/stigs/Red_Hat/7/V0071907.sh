@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071907
+# Title: When passwords are changed or new passwords are assigned, the new password must contain at least one numeric character.
 # Description: When passwords are changed or new passwords are assigned, the new password must contain at least one numeric character.
 

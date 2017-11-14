@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/securetty file must be owned by root.
-# Description: The securetty file contains the list of terminals permitting direct root logins.  It must be protected from unauthorized modification.
+# Description: The /etc/securetty file must be owned by root.
 

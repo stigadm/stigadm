@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Local initialization files must not have extended ACLs.
-# Description: Local initialization files are used to configure the user's shell environment upon login.  Malicious modification of these files could compromise accounts upon logon.
+# Description: Local initialization files must not have extended ACLs.
 

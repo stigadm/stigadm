@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All local initialization files must be owned by the home directorys user or root.
-# Description: Local initialization files are used to configure the user's shell environment upon login.  Malicious modification of these files could compromise accounts upon logon.
+# Description: All local initialization files must be owned by the home directorys user or root.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All files and directories must have a valid owner.
-# Description: Unowned files and directories may be unintentionally inherited if a user is assigned the same User Identifier "UID" as the UID of the un-owned files.
+# Description: All files and directories must have a valid owner.
 

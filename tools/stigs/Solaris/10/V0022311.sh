@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The root account's list of preloaded libraries must be empty.
-# Description: The library preload list environment variable contains a list of libraries for the dynamic linker to load before loading the libraries required by the binary.  If this list contains paths to libraries relative to the current working directory, unintended libraries may be preloaded.  This variable is formatted as a space-separated list of libraries.  Paths starting with (/) are absolute paths.
+# Description: The root account's list of preloaded libraries must be empty.
 

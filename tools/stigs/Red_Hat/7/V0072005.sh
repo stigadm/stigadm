@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The root account must be the only account having unrestricted access to the system.
-# Description: If an account other than root also has a User Identifier (UID) of "0", it has root authority, giving that account unrestricted access to the entire operating system. Multiple accounts with a UID of "0" afford an opportunity for potential intruders to guess a password for a privileged account.
+# Description: The root account must be the only account having unrestricted access to the system.
 

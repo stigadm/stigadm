@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Remote file systems must be mounted with the nodev option.
-# Description: Legitimate device files should only exist in the /dev directory. NFS mounts should not present device files to users.
+# Description: Remote file systems must be mounted with the nodev option.
 

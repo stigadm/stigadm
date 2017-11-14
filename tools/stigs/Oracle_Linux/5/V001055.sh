@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/security/access.conf file must have mode 0640 or less permissive.
-# Description: If the access permissions are more permissive than 0640, system security could be compromised.
+# Description: The /etc/security/access.conf file must have mode 0640 or less permissive.
 

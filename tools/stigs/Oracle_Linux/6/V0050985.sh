@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All accounts on the system must have unique user or account names.
-# Description: Unique usernames allow for accountability on the system.
+# Description: All accounts on the system must have unique user or account names.
 

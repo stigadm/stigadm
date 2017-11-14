@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The rdisc service must not be running.
-# Description: General-purpose systems typically have their network and routing information configured statically by a system administrator. Workstations or some special-purpose systems often use DHCP (instead of IRDP) to retrieve dynamic network configuration information.
+# Description: The rdisc service must not be running.
 

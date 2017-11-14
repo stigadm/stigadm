@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072233
+# Title: All networked systems must have SSH installed.
 # Description: All networked systems must have SSH installed.
 

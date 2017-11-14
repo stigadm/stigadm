@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must be checked weekly for unauthorized setuid files as well as unauthorized modification to authorized setuid files.
-# Description: Files with the setuid bit set will allow anyone running these files to be temporarily assigned the UID of the file. While many system files depend on these attributes for proper operation, security problems can result if setuid is assigned to programs allowing reading and writing of files, or shell escapes.
+# Description: The system must be checked weekly for unauthorized setuid files as well as unauthorized modification to authorized setuid files.
 

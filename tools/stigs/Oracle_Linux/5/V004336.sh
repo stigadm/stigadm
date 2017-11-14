@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/sysctl.conf file must have mode 0600 or less permissive.
-# Description: The sysctl.conf file specifies the values for kernel parameters to be set on boot.  These settings can affect the system's security.
+# Description: The /etc/sysctl.conf file must have mode 0600 or less permissive.
 

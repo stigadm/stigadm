@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The oddjobd service must not be running.
-# Description: The "oddjobd" service may provide necessary functionality in some environments but it can be disabled if it is not needed. Execution of tasks by privileged programs, on behalf of unprivileged ones, has traditionally been a source of privilege escalation security issues.
+# Description: The oddjobd service must not be running.
 

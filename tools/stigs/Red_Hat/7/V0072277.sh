@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: There must be no .shosts files on the system.
-# Description: The .shosts files are used to configure host-based authentication for individual users or the system via SSH. Host-based authentication is not sufficient for preventing unauthorized access to the system, as it does not require interactive identification and authentication of a connection request, or for the use of two-factor authentication.
+# Description: There must be no .shosts files on the system.
 

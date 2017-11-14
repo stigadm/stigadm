@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Crontabs must be owned by root or the crontab creator.
-# Description: To protect the integrity of scheduled system jobs and prevent malicious modification to these jobs, crontab files must be secured.
+# Description: Crontabs must be owned by root or the crontab creator.
 

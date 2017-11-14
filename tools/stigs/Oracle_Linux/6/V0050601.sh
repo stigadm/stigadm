@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must take appropriate action when the audit storage volume is full.
-# Description: Taking appropriate action in case of a filled audit storage volume will minimize the possibility of losing audit records.
+# Description: The audit system must take appropriate action when the audit storage volume is full.
 

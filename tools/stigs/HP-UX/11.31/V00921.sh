@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All shell files must be owned by root or bin.
-# Description: If shell files are owned by users other than root or bin, they could be modified by intruders or malicious users to perform unauthorized actions.
+# Description: All shell files must be owned by root or bin.
 

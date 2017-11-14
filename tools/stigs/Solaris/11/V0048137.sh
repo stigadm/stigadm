@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The sticky bit must be set on all world writable directories.
-# Description: Files in directories that have had the "sticky bit" enabled can only be deleted by users that have both write permissions for the directory in which the file resides, as well as ownership of the file or directory, or have sufficient privileges. As this prevents users from overwriting each others' files, whether it be accidental or malicious, it is generally appropriate for most world-writable directories (e.g., /tmp).
+# Description: The sticky bit must be set on all world writable directories.
 

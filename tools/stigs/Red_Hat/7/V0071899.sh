@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071899
+# Title: The operating system must initiate a session lock for the screensaver after a period of inactivity for graphical user interfaces.
 # Description: The operating system must initiate a session lock for the screensaver after a period of inactivity for graphical user interfaces.
 

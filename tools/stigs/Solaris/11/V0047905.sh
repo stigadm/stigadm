@@ -137,3 +137,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Not implemented"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-I
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047905
+# STIG_Version: SV-60777r1
+# Rule_ID: SOL-11.1-020110
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The NIS package must not be installed.
+# Description: The NIS package must not be installed.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-I
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047905
+# STIG_Version: SV-60777r1
+# Rule_ID: SOL-11.1-020110
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The NIS package must not be installed.
+# Description: The NIS package must not be installed.
+

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The file integrity tool must be configured to verify ACLs.
-# Description: ACLs can provide permissions beyond those permitted through the file mode and must be verified by file integrity tools.
+# Description: The file integrity tool must be configured to verify ACLs.
 

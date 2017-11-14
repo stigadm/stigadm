@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: X Window System connections that are not required must be disabled.
-# Description: If unauthorized clients are permitted access to the X server, a user's X session may be compromised.
+# Description: X Window System connections that are not required must be disabled.
 

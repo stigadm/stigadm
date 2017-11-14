@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The centralized process core dump data directory must be owned by root.
-# Description: Process core dumps contain the memory in use by the process when it crashed. Any data the process was handling may be contained in the core file, and it must be protected accordingly. If the centralized process core dump data directory is not owned by root, the core dumps contained in the directory may be subject to unauthorized access.
+# Description: The centralized process core dump data directory must be owned by root.
 

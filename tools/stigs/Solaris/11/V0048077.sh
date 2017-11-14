@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Reserved UIDs 0-99 must only be used by system accounts.
-# Description: If a user is assigned a UID that is in the reserved range, even if it is not presently in use, security exposures can arise if a subsequently installed application uses the same UID.
+# Description: Reserved UIDs 0-99 must only be used by system accounts.
 

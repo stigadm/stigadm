@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All manual page files must not have extended ACLs.
-# Description: If manual pages are compromised, misleading information could be inserted, causing actions to compromise the system.
+# Description: All manual page files must not have extended ACLs.
 

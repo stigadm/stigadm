@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must require individuals to be authenticated with an individual authenticator prior to using a group authenticator.
-# Description: Allowing any user to elevate their privileges can allow them excessive control of the system tools.
+# Description: The operating system must require individuals to be authenticated with an individual authenticator prior to using a group authenticator.
 

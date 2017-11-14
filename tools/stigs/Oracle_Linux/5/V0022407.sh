@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The kernel core dump data directory must not have an extended ACL.
-# Description: Kernel core dumps may contain the full contents of system memory at the time of the crash.  As the system memory may contain sensitive information, it must be protected accordingly.  If there is an extended ACL for the kernel core dump data directory, unauthorized users may be able to view or to modify kernel core dump data files.
+# Description: The kernel core dump data directory must not have an extended ACL.
 

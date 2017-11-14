@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must not respond to broadcast ICMP echo requests.
-# Description: ICMP echo requests can be useful for reconnaissance of systems and for denial of service attacks.
+# Description: The system must not respond to broadcast ICMP echo requests.
 

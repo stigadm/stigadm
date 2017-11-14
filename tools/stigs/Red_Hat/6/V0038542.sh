@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use a reverse-path filter for IPv4 network traffic when possible on all interfaces.
-# Description: Enabling reverse path filtering drops packets with source addresses that should not have been able to be received on the interface they were received on. It should not be used on systems which are routers for complicated networks, but is helpful for end hosts and routers serving small networks.
+# Description: The system must use a reverse-path filter for IPv4 network traffic when possible on all interfaces.
 

@@ -334,3 +334,35 @@ done
 [ ${verbose} -eq 1 ] && print "Success, system conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0059843
+# STIG_Version: SV-74273r1
+# Rule_ID: SOL-11.1-020380
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: System start-up files must only execute programs owned by a privileged UID or an application.
+# Description: System start-up files must only execute programs owned by a privileged UID or an application.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0059843
+# STIG_Version: SV-74273r1
+# Rule_ID: SOL-11.1-020380
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: System start-up files must only execute programs owned by a privileged UID or an application.
+# Description: System start-up files must only execute programs owned by a privileged UID or an application.
+

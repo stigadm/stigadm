@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Sendmail server must have the debug feature disabled.
-# Description: Debug mode is a feature present in older versions of Sendmail which, if not disabled, may allow an attacker to gain access to a system through the Sendmail service.
+# Description: The Sendmail server must have the debug feature disabled.
 

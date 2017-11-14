@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Files executed through a mail aliases file must be owned by root and must reside within a directory owned and writable only by root.
-# Description: If a file executed through a mail aliases file is not owned and writable only by root, it may be subject to unauthorized modification.  Unauthorized modification of files executed through aliases may allow unauthorized users to attain root privileges.
+# Description: Files executed through a mail aliases file must be owned by root and must reside within a directory owned and writable only by root.
 

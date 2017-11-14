@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The file integrity tool must use FIPS 140-2 approved cryptographic hashes for validating file contents.
-# Description: File integrity tools often use cryptographic hashes for verifying that file contents have not been altered.  These hashes must be FIPS 140-2 approved.
+# Description: The file integrity tool must use FIPS 140-2 approved cryptographic hashes for validating file contents.
 

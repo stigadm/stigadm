@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the sprayd service active.
-# Description: The sprayd service is sometimes used for network and nfs troubleshooting.  The spray service can be used for both buffer overflow and Denial of Service attacks by saturating the network.  The sprayd daemon is an unnecessary service.
+# Description: The system must not have the sprayd service active.
 

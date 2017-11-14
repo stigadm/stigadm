@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: NIS/NIS+/yp files must be group-owned by root, sys, bin, or other.
-# Description: NIS/NIS+/yp files are part of the system's identification and authentication processes and are, therefore, critical to system security.  Failure to give ownership of sensitive files or utilities to root or bin provides the designated owner and unauthorized users with the potential to access sensitive information or change the system configuration which could weaken the system's security posture.
+# Description: NIS/NIS+/yp files must be group-owned by root, sys, bin, or other.
 

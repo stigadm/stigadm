@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must require administrator action to unlock an account locked by excessive failed login attempts.
-# Description: Locking out user accounts after a number of incorrect attempts prevents direct password guessing attacks. Ensuring that an administrator is involved in unlocking locked accounts draws appropriate attention to such situations.
+# Description: The system must require administrator action to unlock an account locked by excessive failed login attempts.
 

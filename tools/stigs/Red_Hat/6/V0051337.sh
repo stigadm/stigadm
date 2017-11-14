@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use a Linux Security Module at boot time.
-# Description: Disabling a major host protection feature, such as SELinux, at boot time prevents it from confining system services at boot time. Further, it increases the chances that it will remain off during system operation.
+# Description: The system must use a Linux Security Module at boot time.
 

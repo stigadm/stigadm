@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must rotate audit log files that reach the maximum file size.
-# Description: Automatically rotating logs (by setting this to "rotate") minimizes the chances of the system unexpectedly running out of disk space by being overwhelmed with log data. However, for systems that must never discard log data, or which use external processes to transfer it and reclaim space, "keep_logs" can be employed.
+# Description: The system must rotate audit log files that reach the maximum file size.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/syslog.conf file must be group-owned by root, bin, sys, or system.
-# Description: If the group owner of /etc/syslog.conf is not root, bin, or sys, unauthorized users could be permitted to view, edit, or delete important system messages handled by the syslog facility.
+# Description: The /etc/syslog.conf file must be group-owned by root, bin, sys, or system.
 

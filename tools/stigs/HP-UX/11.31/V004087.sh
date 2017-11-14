@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: User start-up files must not execute world-writable programs.
-# Description: If start-up files execute world-writable programs, especially in unprotected directories, they could be maliciously modified to become Trojans destroying user files or otherwise compromise the system at the user level or higher. If the system is compromised at the user level, it is much easier to eventually compromise the system at the root and network level.
+# Description: User start-up files must not execute world-writable programs.
 

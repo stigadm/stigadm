@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Network analysis tools must not be installed.
-# Description: Network analysis tools allow for the capture of network traffic visible to the system.
+# Description: Network analysis tools must not be installed.
 

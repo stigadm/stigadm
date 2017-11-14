@@ -219,3 +219,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, '${file}' conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00765
+# STIG_Version: SV-27080r1
+# Rule_ID: GEN000440
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: Successful and unsuccessful logins and logouts must be logged.
+# Description: Successful and unsuccessful logins and logouts must be logged.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00765
+# STIG_Version: SV-27080r1
+# Rule_ID: GEN000440
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: Successful and unsuccessful logins and logouts must be logged.
+# Description: Successful and unsuccessful logins and logouts must be logged.
+

@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must restrict the ability of users to assume excessive privileges to members of a defined group and prevent unauthorized users from accessing administrative tools.
-# Description: Allowing any user to elevate their privileges can allow them excessive control of the system tools.
+# Description: The system must restrict the ability of users to assume excessive privileges to members of a defined group and prevent unauthorized users from accessing administrative tools.
 

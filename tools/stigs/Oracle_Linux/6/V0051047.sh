@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The NFS server must not have the insecure file locking option enabled.
-# Description: Allowing insecure file locking could allow for sensitive data to be viewed or edited by an unauthorized user.
+# Description: The NFS server must not have the insecure file locking option enabled.
 

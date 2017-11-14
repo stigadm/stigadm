@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Files in /var/news must be owned by root or news.
-# Description: If critical system files are not owned by a privileged user, system integrity could be compromised.
+# Description: Files in /var/news must be owned by root or news.
 

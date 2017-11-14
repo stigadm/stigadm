@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must allow locking of the console screen in text mode.
-# Description: Installing "screen" ensures a console locking capability is available for users who may need to suspend console logins.
+# Description: The system must allow locking of the console screen in text mode.
 

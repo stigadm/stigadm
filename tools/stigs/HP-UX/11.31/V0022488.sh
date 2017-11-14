@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must not allow compression or must only allow compression after successful authentication.
-# Description: If compression is allowed in an SSH connection prior to authentication, vulnerabilities in the compression software could result in compromise of the system from an unauthenticated connection, potentially with root privileges.
+# Description: The SSH daemon must not allow compression or must only allow compression after successful authentication.
 

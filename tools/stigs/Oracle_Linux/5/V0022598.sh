@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Auditing must be enabled at boot by setting a kernel parameter.
-# Description: If auditing is enabled late in the boot process, the actions of startup scripts may not be audited.  Some audit systems also maintain state information only available if auditing is enabled before a given process is created.
+# Description: Auditing must be enabled at boot by setting a kernel parameter.
 

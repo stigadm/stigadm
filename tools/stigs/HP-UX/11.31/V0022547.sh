@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have IP tunnels configured.
-# Description: IP tunneling mechanisms can be used to bypass network filtering.
+# Description: The system must not have IP tunnels configured.
 

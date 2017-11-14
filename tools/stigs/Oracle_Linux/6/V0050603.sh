@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must forward audit records to the syslog service.
-# Description: The auditd service does not include the ability to send audit records to a centralized server for management directly.  It does, however, include an audit event multiplexor plugin (audispd) to pass audit records to the local syslog server.
+# Description: The system must forward audit records to the syslog service.
 

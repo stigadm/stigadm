@@ -203,3 +203,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, '${file}' conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00778
+# STIG_Version: SV-27143r1
+# Rule_ID: GEN000980
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: The system must prevent the root account from directly logging in except from the system console.
+# Description: The system must prevent the root account from directly logging in except from the system console.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00778
+# STIG_Version: SV-27143r1
+# Rule_ID: GEN000980
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: The system must prevent the root account from directly logging in except from the system console.
+# Description: The system must prevent the root account from directly logging in except from the system console.
+

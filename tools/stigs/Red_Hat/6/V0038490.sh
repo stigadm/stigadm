@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must enforce requirements for the connection of mobile devices to operating systems.
-# Description: USB storage devices such as thumb drives can be used to introduce unauthorized software and other vulnerabilities. Support for these devices should be disabled and the devices themselves should be tightly controlled.
+# Description: The operating system must enforce requirements for the connection of mobile devices to operating systems.
 

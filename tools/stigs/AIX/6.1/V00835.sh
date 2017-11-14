@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Sendmail logging must not be set to less than nine in the sendmail.cf file.
-# Description: If Sendmail is not configured to log at level 9, system logs may not contain the information necessary for tracking unauthorized use of the Sendmail service.
+# Description: Sendmail logging must not be set to less than nine in the sendmail.cf file.
 

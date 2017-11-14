@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must require at least eight characters be changed between the old and new passwords during a password change.
-# Description: Requiring a minimum number of different characters during password changes ensures that newly changed passwords should not resemble previously compromised ones. Note that passwords which are changed on compromised systems will still be compromised, however.
+# Description: The system must require at least eight characters be changed between the old and new passwords during a password change.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use an access control program.
-# Description: Access control programs (such as TCP_WRAPPERS) provide the ability to enhance system security posture.
+# Description: The system must use an access control program.
 

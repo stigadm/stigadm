@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Inetd or xinetd logging/tracing must be enabled.
-# Description: Inetd or xinetd logging and tracing allows the system administrators to observe the IP addresses connecting to their machines and to observe what network services are being sought. This provides valuable information when trying to find the source of malicious users and potential malicious users.
+# Description: Inetd or xinetd logging/tracing must be enabled.
 

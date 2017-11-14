@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The cron.allow file must be owned by root, bin, or sys.
-# Description: If the owner of the cron.allow file is not set to root, bin, or sys, the possibility exists for an unauthorized user to view or to edit sensitive information.
+# Description: The cron.allow file must be owned by root, bin, or sys.
 

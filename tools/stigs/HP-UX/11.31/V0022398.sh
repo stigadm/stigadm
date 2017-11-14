@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The at.deny file must be group-owned by root, bin, sys, or other.
-# Description: If the group-owner of the at.deny file is not set to root, bin, sys, other, or cron, unauthorized users could be allowed to view or edit sensitive information contained within the file. Unauthorized modification could result in Denial of Service to authorized at users or provide unauthorized users with the ability to run at jobs.
+# Description: The at.deny file must be group-owned by root, bin, sys, or other.
 

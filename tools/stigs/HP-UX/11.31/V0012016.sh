@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: .Xauthority or X*.hosts (or equivalent) file(s) must be used to restrict access to the X server.
-# Description: If access to the X server is not restricted, the user's X session may be compromised.
+# Description: .Xauthority or X*.hosts (or equivalent) file(s) must be used to restrict access to the X server.
 

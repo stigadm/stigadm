@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Systems services that are not required must be disabled.
-# Description: Services that are enabled but not required by the mission may provide excessive access or additional attack vectors to penetrate the system.
+# Description: Systems services that are not required must be disabled.
 

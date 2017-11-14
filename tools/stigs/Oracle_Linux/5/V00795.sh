@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All system files, programs, and directories must be owned by a system account.
-# Description: Restricting permissions will protect the files from unauthorized modification.
+# Description: All system files, programs, and directories must be owned by a system account.
 

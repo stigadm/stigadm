@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Audit log directories must have mode 0755 or less permissive.
-# Description: If users can delete audit logs, audit trails can be modified or destroyed.
+# Description: Audit log directories must have mode 0755 or less permissive.
 

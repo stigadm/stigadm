@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The cron.allow file must be group-owned by root, bin, or sys.
-# Description: If the group of the cron.allow is not set to root, bin, or sys, the possibility exists for an unauthorized user to view or edit the list of users permitted to use cron.  Unauthorized modification of this file could cause Denial of Service to authorized cron users or provide unauthorized users with the ability to run cron jobs.
+# Description: The cron.allow file must be group-owned by root, bin, or sys.
 

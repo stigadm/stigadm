@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must require passwords to contain at least one lower-case alphabetic character.
-# Description: Requiring a minimum number of lower-case characters makes password guessing attacks more difficult by ensuring a larger search space.
+# Description: The system must require passwords to contain at least one lower-case alphabetic character.
 

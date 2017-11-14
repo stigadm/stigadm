@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The securetcpip command must be used.
-# Description: The AIX securetcpip command disables insecure network utilities, such as rcp, rlogin, rlogind, rsh, rshd, tftp, tftpd, and trpt/d. These services increase the attack surface of the system.
+# Description: The securetcpip command must be used.
 

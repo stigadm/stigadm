@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All interactive user home directories must be owned by their respective users.
-# Description: If users do not own their home directories, unauthorized users could access user files.
+# Description: All interactive user home directories must be owned by their respective users.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: File systems that are being imported via Network File System (NFS) must be mounted to prevent binary files from being executed.
-# Description: The "noexec" mount option causes the system to not execute binary files. This option must be used for mounting any file system not containing approved binary files as they may be incompatible. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative access.
+# Description: File systems that are being imported via Network File System (NFS) must be mounted to prevent binary files from being executed.
 

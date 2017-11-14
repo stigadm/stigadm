@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The "at" daemon must not execute programs in, or subordinate to, world-writable directories.
-# Description: If "at" programs are located in or subordinate to world-writable directories, they become vulnerable to removal and replacement by malicious users or system intruders.
+# Description: The "at" daemon must not execute programs in, or subordinate to, world-writable directories.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The systems local firewall must implement a deny-all, allow-by-exception policy for forwarded packets.
-# Description: In "iptables" the default policy is applied only after all the applicable rules in the table are examined for a match. Setting the default policy to "DROP" implements proper design for a firewall, i.e., any packets which are not explicitly permitted should not be accepted.
+# Description: The systems local firewall must implement a deny-all, allow-by-exception policy for forwarded packets.
 

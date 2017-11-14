@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0073155
+# Title: The operating system must set the lock delay setting  for all connection types.
 # Description: The operating system must set the lock delay setting  for all connection types.
 

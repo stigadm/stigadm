@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The TFTP daemon must operate in secure mode which provides access only to a single directory on the host file system.
-# Description: Using the "-s" option causes the TFTP service to only serve files from the given directory. Serving files from an intentionally specified directory reduces the risk of sharing files which should remain private.
+# Description: The TFTP daemon must operate in secure mode which provides access only to a single directory on the host file system.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Auditing must be enabled at boot by setting a kernel parameter.
-# Description: Each process on the system carries an "auditable" flag which indicates whether its activities can be audited. Although "auditd" takes care of enabling this for all processes which launch after it does, adding the kernel argument ensures it is set for every process during boot.
+# Description: Auditing must be enabled at boot by setting a kernel parameter.
 

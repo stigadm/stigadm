@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0048125
+# Title: Unauthorized use of the at or cron capabilities must not be permitted.
 # Description: Unauthorized use of the at or cron capabilities must not be permitted.
 

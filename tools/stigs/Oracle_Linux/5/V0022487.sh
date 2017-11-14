@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must not allow rhosts RSA authentication.
-# Description: If SSH permits rhosts RSA authentication, a user may be able to log in based on the keys of the host originating the request and not any user-specific authentication.
+# Description: The SSH daemon must not allow rhosts RSA authentication.
 

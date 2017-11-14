@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Passwords must be prohibited from reuse for a minimum of five generations.
-# Description: Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. If the information system or application allows the user to consecutively reuse their password when that password has exceeded its defined lifetime, the end result is a password that is not changed per policy requirements.
+# Description: Passwords must be prohibited from reuse for a minimum of five generations.
 

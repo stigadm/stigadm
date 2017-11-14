@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: All non-interactive/automated processing account passwords must be changed at least once per year or be locked.
-# Description: Limiting the lifespan of authenticators limits the period of time an unauthorized user has access to the system while using compromised credentials and reduces the period of time available for password-guessing attacks to run against a single password. Locking the password for non-interactive and automated processing accounts is preferred as it removes the possibility of accessing the account by a password. On some systems, locking the passwords of these accounts may prevent the account from functioning properly. Passwords for non-interactive/automated processing accounts must not be used for direct logon to the system.
+# Description: All non-interactive/automated processing account passwords must be changed at least once per year or be locked.
 

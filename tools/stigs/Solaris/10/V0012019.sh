@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The snmpd.conf files must be owned by root.
-# Description: The snmpd.conf files contain authenticators and must be protected from unauthorized access and modification.  If the files are not owned by root, they may be subject to access and modification from unauthorized users.
+# Description: The snmpd.conf files must be owned by root.
 

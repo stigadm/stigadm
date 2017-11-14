@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must require authentication before allowing modification of the boot devices or menus. Secure the GRUB Menu (Intel).
-# Description: The flexibility that GRUB provides creates a security risk if its configuration is modified by an unauthorized user. The failsafe menu entry needs to be secured in the same environments that require securing the systems firmware to avoid unauthorized removable media boots.
+# Description: The system must require authentication before allowing modification of the boot devices or menus. Secure the GRUB Menu (Intel).
 

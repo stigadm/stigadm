@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The aliases file must be group-owned by sys, bin, or system.
-# Description: If the alias file is not group-owned by a system group, an unauthorized user may modify the file to add aliases to run malicious code or redirect e-mail.
+# Description: The aliases file must be group-owned by sys, bin, or system.
 

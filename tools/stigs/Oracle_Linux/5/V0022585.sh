@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The systems boot loader configuration file(s) must not have extended ACLs.
-# Description: File system extended ACLs provide access to files beyond what is allowed by the mode numbers of the files.  If extended ACLs are present on the system's boot loader configuration file(s), these files may be vulnerable to unauthorized access or modification, which could compromise the system's boot process.
+# Description: The systems boot loader configuration file(s) must not have extended ACLs.
 

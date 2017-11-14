@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the tool-talk database server (ttdbserver) service active.
-# Description: The ttdbserver service for CDE is an unnecessary service that runs as root and might be compromised.
+# Description: The system must not have the tool-talk database server (ttdbserver) service active.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The at.deny file must not have an extended ACL.
-# Description: The "at" daemon control files restrict access to scheduled job manipulation and must be protected.  Unauthorized modification of the at.deny file could result in Denial of Service to authorized "at" users or provide unauthorized users with the ability to run "at" jobs.
+# Description: The at.deny file must not have an extended ACL.
 

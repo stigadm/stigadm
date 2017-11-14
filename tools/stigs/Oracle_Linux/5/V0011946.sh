@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: UIDs reserved for system accounts must not be assigned to non-system accounts.
-# Description: Reserved UIDs are typically used by system software packages.  If non-system accounts have UIDs in this range, they may conflict with system software, possibly leading to the user having permissions to modify system files.
+# Description: UIDs reserved for system accounts must not be assigned to non-system accounts.
 

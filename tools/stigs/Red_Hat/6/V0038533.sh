@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must ignore ICMPv4 redirect messages by default.
-# Description: This feature of the IPv4 protocol has few legitimate uses. It should be disabled unless it is absolutely required.
+# Description: The system must ignore ICMPv4 redirect messages by default.
 

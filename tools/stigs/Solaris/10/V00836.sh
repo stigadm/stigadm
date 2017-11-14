@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system syslog service must log informational and more severe SMTP service messages.
-# Description: If informational and more severe SMTP service messages are not logged, malicious activity on the system may go unnoticed.
+# Description: The system syslog service must log informational and more severe SMTP service messages.
 

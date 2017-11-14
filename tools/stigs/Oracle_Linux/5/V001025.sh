@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/security/access.conf file must be owned by root.
-# Description: The /etc/security/access.conf file contains entries restricting access from the system console by authorized System Administrators.  If the file is owned by a user other than root, it could compromise the system.
+# Description: The /etc/security/access.conf file must be owned by root.
 

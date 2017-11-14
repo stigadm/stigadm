@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Files in /etc/news must be owned by root.
-# Description: If critical system files are not owned by a privileged user, system integrity could be compromised.
+# Description: Files in /etc/news must be owned by root.
 

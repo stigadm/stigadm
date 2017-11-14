@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Any active TFTP daemon must be authorized and approved in the system accreditation package.
-# Description: TFTP is a file transfer protocol often used by embedded systems to obtain configuration data or software.    The service is unencrypted and does not require authentication of requests.  Data available using this service may be subject to unauthorized access or interception.
+# Description: Any active TFTP daemon must be authorized and approved in the system accreditation package.
 

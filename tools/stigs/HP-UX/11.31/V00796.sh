@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: System files, programs, and directories must be group-owned by a system group.
-# Description: Restricting permissions will protect the files from unauthorized modification.
+# Description: System files, programs, and directories must be group-owned by a system group.
 

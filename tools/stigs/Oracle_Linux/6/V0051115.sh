@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must limit users to 10 simultaneous system logins, or a site-defined number, in accordance with operational requirements.
-# Description: Limiting simultaneous user logins can insulate the system from denial of service problems caused by excessive logins. Automated login processes operating improperly or maliciously may result in an exceptional number of simultaneous login sessions.
+# Description: The system must limit users to 10 simultaneous system logins, or a site-defined number, in accordance with operational requirements.
 

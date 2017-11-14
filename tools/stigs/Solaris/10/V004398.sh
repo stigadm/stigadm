@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: A system used for routing must not run other network services or applications.
-# Description: Installing extraneous software on a system designated as a dedicated router poses a security threat to the system and the network. Should an attacker gain access to the router through the unauthorized software, the entire network is susceptible to malicious activity.
+# Description: A system used for routing must not run other network services or applications.
 

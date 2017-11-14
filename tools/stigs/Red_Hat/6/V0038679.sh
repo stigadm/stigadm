@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The DHCP client must be disabled if not needed.
-# Description: DHCP relies on trusting the local network. If the local network is not trusted, then it should not be used. However, the automatic configuration provided by DHCP is commonly used and the alternative, manual configuration, presents an unacceptable burden in many circumstances.
+# Description: The DHCP client must be disabled if not needed.
 

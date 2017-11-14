@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All files and directories must have a valid group owner.
-# Description: Files without a valid group owner may be unintentionally inherited if a group is assigned the same GID as the GID of the files without a valid group owner.
+# Description: All files and directories must have a valid group owner.
 

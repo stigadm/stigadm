@@ -255,3 +255,35 @@ done
 [ ${verbose} -eq 1 ] && print "Success, PATH validated in all specified profiles for '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00776
+# STIG_Version: SV-776r4
+# Rule_ID: GEN000940
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: The root accounts executable search path must contain only authorized paths.
+# Description: The root accounts executable search path must contain only authorized paths.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00776
+# STIG_Version: SV-776r4
+# Rule_ID: GEN000940
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: The root accounts executable search path must contain only authorized paths.
+# Description: The root accounts executable search path must contain only authorized paths.
+

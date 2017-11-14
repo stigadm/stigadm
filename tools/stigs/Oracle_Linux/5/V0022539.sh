@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Bluetooth protocol handler must be disabled or not installed.
-# Description: Bluetooth is a Personal Area Network (PAN) technology.  Binding this protocol to the network stack increases the attack surface of the host.   Unprivileged local processes may be able to cause the kernel to dynamically load a protocol handler by opening a socket using the protocol.
+# Description: The Bluetooth protocol handler must be disabled or not installed.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must have a host-based intrusion detection tool installed.
-# Description: Without a host-based intrusion detection tool, there is no system-level defense when an intruder gains access to a system or network.  Additionally, a host-based intrusion detection tool can provide methods to immediately lock out detected intrusion attempts.
+# Description: The system must have a host-based intrusion detection tool installed.
 

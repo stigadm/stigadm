@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Management Information Base (MIB) files must have mode 0640 or less permissive.
-# Description: The ability to read the MIB file could impart special knowledge to an intruder or malicious user about the ability to extract compromising information about the system or network.
+# Description: Management Information Base (MIB) files must have mode 0640 or less permissive.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /usr/aset/userlist file must have mode 0600 or less permissive.
-# Description: A permission mask not set to the required level could allow unauthorized access to sensitive system files and resources.
+# Description: The /usr/aset/userlist file must have mode 0600 or less permissive.
 

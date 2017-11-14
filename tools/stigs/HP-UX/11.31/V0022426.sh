@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The xinetd.d directory must not have an extended ACL.
-# Description: The Internet service daemon configuration files must be protected as malicious modification could cause denial of service or increase the attack surface of the system.
+# Description: The xinetd.d directory must not have an extended ACL.
 

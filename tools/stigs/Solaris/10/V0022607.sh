@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The inherit-pkg-dir zone option must be set to none or the system default list defined for sparse root zones.
-# Description: Solaris zones have the capability to inherit elements of the global zone's filesystem, which reduces the amount storage required for a zone, but also limits the flexibility of the zone.  The inherit-pkg-dir option defines which paths are shared between the zones.  If set incorrectly, private information from the global zone could be made available to the non-global zone.  This option must be set to none (for a whole-root non-global zone), the vendor-specified list of paths for sparse-root non-global zones, or a list specified by the SA for operational reasons which has been justified and documented with the IAO.
+# Description: The inherit-pkg-dir zone option must be set to none or the system default list defined for sparse root zones.
 

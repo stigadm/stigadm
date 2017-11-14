@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Removable media, remote file systems, and any file system not containing approved device files must be mounted with the nodev option.
-# Description: The "nodev" (or equivalent) mount option causes the system to not handle device files as system devices. This option must be used for mounting any file system not containing approved device files. Device files can provide direct access to system hardware and can compromise security if not protected.
+# Description: Removable media, remote file systems, and any file system not containing approved device files must be mounted with the nodev option.
 

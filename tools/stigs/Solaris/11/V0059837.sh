@@ -351,3 +351,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, system conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0059837
+# STIG_Version: SV-74267r3
+# Rule_ID: SOL-11.1-020350
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: Run control scripts must not execute world writable programs or scripts.
+# Description: Run control scripts must not execute world writable programs or scripts.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0059837
+# STIG_Version: SV-74267r3
+# Rule_ID: SOL-11.1-020350
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: Run control scripts must not execute world writable programs or scripts.
+# Description: Run control scripts must not execute world writable programs or scripts.
+

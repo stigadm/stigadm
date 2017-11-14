@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0048151
+# Title: The operating system must limit the number of concurrent sessions for each account to an organization-defined number of sessions.
 # Description: The operating system must limit the number of concurrent sessions for each account to an organization-defined number of sessions.
 

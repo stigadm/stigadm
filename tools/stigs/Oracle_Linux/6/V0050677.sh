@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use a separate file system for user home directories.
-# Description: Ensuring that "/home" is mounted on its own partition enables the setting of more restrictive mount options, and also helps ensure that users cannot trivially fill partitions used for log or audit data storage.
+# Description: The system must use a separate file system for user home directories.
 

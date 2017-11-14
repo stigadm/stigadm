@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The syslog daemon must not accept remote messages unless it is a syslog server documented using site-defined procedures.
-# Description: Unintentionally running a syslog server accepting remote messages puts the system at increased risk. Malicious syslog messages sent to the server could exploit vulnerabilities in the server software itself, could introduce misleading information in to the system's logs, or could fill the system's storage leading to a Denial of Service.
+# Description: The syslog daemon must not accept remote messages unless it is a syslog server documented using site-defined procedures.
 

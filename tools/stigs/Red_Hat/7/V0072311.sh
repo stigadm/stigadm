@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Network File System (NFS) must be configured to use RPCSEC_GSS.
-# Description: When an NFS server is configured to use RPCSEC_SYS, a selected userid and groupid are used to handle requests from the remote user. The userid and groupid could mistakenly or maliciously be set incorrectly. The RPCSEC_GSS method of authentication uses certificates on the server and client systems to more securely authenticate the remote mount request.
+# Description: The Network File System (NFS) must be configured to use RPCSEC_GSS.
 

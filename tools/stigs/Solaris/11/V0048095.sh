@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Duplicate User IDs (UIDs) must not exist for users within the organization.
-# Description: Users within the organization must be assigned unique UIDs for accountability and to ensure appropriate access protections.
+# Description: Duplicate User IDs (UIDs) must not exist for users within the organization.
 

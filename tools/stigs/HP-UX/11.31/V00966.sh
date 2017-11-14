@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/securetty file must be owned by root.
-# Description: Failure to make root the owner of sensitive files and utilities may provide unauthorized owners the potential to access and/or change sensitive information or system configurations, thus weakening the overall security posture of a site.
+# Description: The /etc/securetty file must be owned by root.
 

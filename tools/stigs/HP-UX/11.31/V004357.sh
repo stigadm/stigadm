@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Audit logs must be rotated daily.
-# Description: Rotate audit logs daily to preserve audit file system space and to conform to the DoD requirement. If it is not rotated daily and moved to another location, then there is more of a chance for the compromise of audit data by malicious users.
+# Description: Audit logs must be rotated daily.
 

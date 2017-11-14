@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: System log files must not have extended ACLs, except as needed to support authorized software.
-# Description: If the system log files are not protected, unauthorized users could change the logged data, eliminating its forensic value.  Authorized software may be given log file access through the use of extended ACLs when needed and configured to provide the least privileges required.
+# Description: System log files must not have extended ACLs, except as needed to support authorized software.
 

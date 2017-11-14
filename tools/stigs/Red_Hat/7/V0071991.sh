@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071991
+# Title: The operating system must enable the SELinux targeted policy.
 # Description: The operating system must enable the SELinux targeted policy.
 

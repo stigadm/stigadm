@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must be configured to use only FIPS 140-2 approved ciphers.
-# Description: Approved algorithms should impart some level of confidence in their implementation. These are also required for compliance.
+# Description: The SSH daemon must be configured to use only FIPS 140-2 approved ciphers.
 

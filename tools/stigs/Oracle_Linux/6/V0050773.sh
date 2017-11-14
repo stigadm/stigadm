@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/passwd file must have mode 0644 or less permissive.
-# Description: If the "/etc/passwd" file is writable by a group-owner or the world the risk of its compromise is increased. The file contains the list of accounts on the system and associated information, and protection of this file is critical for system security.
+# Description: The /etc/passwd file must have mode 0644 or less permissive.
 

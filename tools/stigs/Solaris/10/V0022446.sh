@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The .Xauthority files must not have extended ACLs.
-# Description: .Xauthority files ensure the user is authorized to access the specific X Windows host.  Extended ACLs may permit unauthorized modification of these files, which could lead to Denial of Service to authorized access or allow unauthorized access to be obtained.
+# Description: The .Xauthority files must not have extended ACLs.
 

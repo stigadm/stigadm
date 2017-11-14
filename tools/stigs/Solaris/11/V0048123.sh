@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Permissions on user .netrc files must be 750 or less permissive.
-# Description: .netrc files may contain unencrypted passwords that can be used to attack other systems.
+# Description: Permissions on user .netrc files must be 750 or less permissive.
 

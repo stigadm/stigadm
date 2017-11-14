@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0047951
+# Title: Intrusion detection and prevention capabilities must be architected and implemented to prevent non-privileged users from circumventing such protections.
 # Description: Intrusion detection and prevention capabilities must be architected and implemented to prevent non-privileged users from circumventing such protections.
 

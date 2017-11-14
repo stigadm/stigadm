@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must prevent the use of dictionary words for passwords.
-# Description: The use of common words in passwords simplifies password-cracking attacks.
+# Description: The system must prevent the use of dictionary words for passwords.
 

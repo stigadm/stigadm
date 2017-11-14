@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Audio devices must not have extended ACLs.
-# Description: File system ACLs can provide access to files beyond what is allowed by the mode numbers of the files.
+# Description: Audio devices must not have extended ACLs.
 

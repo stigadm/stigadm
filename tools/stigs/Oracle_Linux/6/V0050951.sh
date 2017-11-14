@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not permit interactive boot.
-# Description: Using interactive boot, the console user could disable auditing, firewalls, or other services, weakening system security.
+# Description: The system must not permit interactive boot.
 

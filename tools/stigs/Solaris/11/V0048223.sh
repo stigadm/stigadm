@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must use cryptography to protect the integrity of remote access sessions.
-# Description: Proper configuration of the firewall will only allow encrypted, authenticated protocols such as SSHv2 to ensure the integrity of remote access sessions.
+# Description: The operating system must use cryptography to protect the integrity of remote access sessions.
 

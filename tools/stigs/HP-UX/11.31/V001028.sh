@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/opt/samba/smb.conf file must have mode 0644 or less permissive.
-# Description: If the smb.conf file has excessive permissions, the file may be maliciously modified and the Samba configuration could be compromised.
+# Description: The /etc/opt/samba/smb.conf file must have mode 0644 or less permissive.
 

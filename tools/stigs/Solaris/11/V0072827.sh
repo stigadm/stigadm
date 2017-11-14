@@ -151,4 +151,4 @@ exit 0
 # Architecture: X86
 #
 # Title: Wireless network adapters must be disabled.
-# Description: The use of wireless networking can introduce many different attack vectors into the organization’s network. Common attack vectors such as malicious association and ad hoc networks will allow an attacker to spoof a wireless access point (AP), allowing validated systems to connect to the malicious AP and enabling the attacker to monitor and record network traffic. These malicious APs can also serve to create a man-in-the-middle attack or be used to create a denial-of-service to valid network resources.
+# Description: Wireless network adapters must be disabled.

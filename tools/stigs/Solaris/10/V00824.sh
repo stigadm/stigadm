@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The services file must have mode 0444 or less permissive.
-# Description: The services file is critical to the proper operation of network services and must be protected from unauthorized modification.  Unauthorized modification could result in the failure of network services.
+# Description: The services file must have mode 0444 or less permissive.
 

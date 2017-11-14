@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must prohibit the reuse of passwords within five iterations.
-# Description: Preventing reuse of previous passwords helps ensure that a compromised password is not reused by a user.
+# Description: The system must prohibit the reuse of passwords within five iterations.
 

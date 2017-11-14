@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/news/hosts.nntp file must not have an extended ACL.
-# Description: File system extended ACLs provide access to files beyond what is allowed by the mode numbers of the files. Excessive permissions on the hosts.nntp file may allow unauthorized modification which could lead to Denial of Service to authorized users or provide access to unauthorized users.
+# Description: The /etc/news/hosts.nntp file must not have an extended ACL.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: System security patches and updates must be installed and up-to-date.
-# Description: Installing software updates is a fundamental mitigation against the exploitation of publicly-known vulnerabilities.
+# Description: System security patches and updates must be installed and up-to-date.
 

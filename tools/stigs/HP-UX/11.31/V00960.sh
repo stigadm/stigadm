@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must be configured to operate in a security mode.
-# Description: When operating in standard  mode, account passwords are stored in the /etc/passwd file, which is world readable. By operating in either Trusted Mode or Standard Mode with Security Extensions, the system security posture is enhanced thru the addition of a secure, non-world readable password container other than /etc/passwd.
+# Description: The system must be configured to operate in a security mode.
 

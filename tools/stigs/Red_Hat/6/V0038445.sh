@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Audit log files must be group-owned by root.
-# Description: If non-privileged users can write to audit logs, audit trails can be modified or destroyed.
+# Description: Audit log files must be group-owned by root.
 

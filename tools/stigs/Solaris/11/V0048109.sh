@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Users must have a valid home directory assignment.
-# Description: All users must be assigned a home directory in the passwd file. Failure to have a home directory may result in the user being put in the root directory.
+# Description: Users must have a valid home directory assignment.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Trivial File Transfer Protocol (TFTP) server package must not be installed if not required for operational support.
-# Description: If TFTP is required for operational support (such as the transmission of router configurations) its use must be documented with the Information System Security Officer (ISSO), restricted to only authorized personnel, and have access control rules established.
+# Description: The Trivial File Transfer Protocol (TFTP) server package must not be installed if not required for operational support.
 

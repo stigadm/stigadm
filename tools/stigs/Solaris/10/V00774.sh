@@ -142,3 +142,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, all accounts conform to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V00774
+# STIG_Version: SV-774r2
+# Rule_ID: GEN000900
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: The root user's home directory must not be the root directory (/).
+# Description: The root user's home directory must not be the root directory (/).
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V00774
+# STIG_Version: SV-774r2
+# Rule_ID: GEN000900
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: The root user's home directory must not be the root directory (/).
+# Description: The root user's home directory must not be the root directory (/).
+

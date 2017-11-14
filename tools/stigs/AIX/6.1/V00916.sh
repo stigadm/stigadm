@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/shells (or equivalent) file must exist.
-# Description: The shells file (or equivalent) lists approved default shells.  It helps provide layered defense to the security approach by ensuring users cannot change their default shell to an unauthorized shell that may not be secure.
+# Description: The /etc/shells (or equivalent) file must exist.
 

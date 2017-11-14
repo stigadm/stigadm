@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The file integrity tool must use FIPS 140-2 approved cryptographic hashes for validating file contents and directories.
-# Description: File integrity tools use cryptographic hashes for verifying file contents and directories have not been altered. These hashes must be FIPS 140-2 approved cryptographic hashes.
+# Description: The file integrity tool must use FIPS 140-2 approved cryptographic hashes for validating file contents and directories.
 

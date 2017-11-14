@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The ypserv package must not be installed.
-# Description: Removing the "ypserv" package decreases the risk of the accidental (or intentional) activation of NIS or NIS+ services.
+# Description: The ypserv package must not be installed.
 

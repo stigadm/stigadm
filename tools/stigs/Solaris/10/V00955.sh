@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /usr/aset/userlist file must exist.
-# Description: If the userlist file does not exist, then an unauthorized user may exist in the /etc/passwd file.
+# Description: The /usr/aset/userlist file must exist.
 

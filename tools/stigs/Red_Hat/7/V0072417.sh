@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072417
+# Title: The operating system must have the required packages for multifactor authentication installed.
 # Description: The operating system must have the required packages for multifactor authentication installed.
 

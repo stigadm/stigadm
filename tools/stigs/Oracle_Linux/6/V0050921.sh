@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must disable accounts after three consecutive unsuccessful logon attempts.
-# Description: Locking out user accounts after a number of incorrect attempts prevents direct password guessing attacks.
+# Description: The system must disable accounts after three consecutive unsuccessful logon attempts.
 

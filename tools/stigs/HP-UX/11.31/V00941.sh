@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system's access control program must log each system’s access attempt.
-# Description: If access attempts are not logged, then multiple attempts to log on to the system by an unauthorized user may go undetected.
+# Description: The system's access control program must log each system’s access attempt.
 

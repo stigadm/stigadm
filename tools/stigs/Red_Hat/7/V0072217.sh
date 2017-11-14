@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072217
+# Title: The operating system must limit the number of concurrent sessions to 10 for all accounts and/or account types.
 # Description: The operating system must limit the number of concurrent sessions to 10 for all accounts and/or account types.
 

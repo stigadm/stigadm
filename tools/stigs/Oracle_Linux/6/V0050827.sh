@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The graphical desktop environment must have automatic lock enabled.
-# Description: Enabling the activation of the screen lock after an idle period ensures password entry will be required in order to access the system, preventing access by passersby.
+# Description: The graphical desktop environment must have automatic lock enabled.
 

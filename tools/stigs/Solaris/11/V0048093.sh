@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: X11 forwarding for SSH must be disabled.
-# Description: As enabling X11 Forwarding on the host can permit a malicious user to secretly open another X11 connection to another remote client during the session and perform unobtrusive activities such as keystroke monitoring, if the X11 services are not required for the system's intended function, they should be disabled or restricted as appropriate to the user's needs.
+# Description: X11 forwarding for SSH must be disabled.
 

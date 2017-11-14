@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0047961
+# Title: Users must not reuse the last 5 passwords.
 # Description: Users must not reuse the last 5 passwords.
 

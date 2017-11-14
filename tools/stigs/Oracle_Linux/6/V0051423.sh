@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All public directories must be owned by a system account.
-# Description: Allowing a user account to own a world-writable directory is undesirable because it allows the owner of that directory to remove or replace any files that may be placed in the directory by other users.
+# Description: All public directories must be owned by a system account.
 

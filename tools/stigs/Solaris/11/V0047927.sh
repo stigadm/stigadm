@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must employ automated mechanisms to prevent program execution in accordance with the organization-defined specifications.
-# Description: Operating systems are capable of providing a wide variety of functions and services. Execution must be disabled based on organization-defined specifications.
+# Description: The operating system must employ automated mechanisms to prevent program execution in accordance with the organization-defined specifications.
 

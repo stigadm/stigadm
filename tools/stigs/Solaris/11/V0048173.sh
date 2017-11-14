@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must not respond to ICMP broadcast timestamp requests.
-# Description: By accurately determining the system's clock state, an attacker can more effectively attack certain time-based pseudorandom number generators (PRNGs) and the authentication systems that rely on them.
+# Description: The system must not respond to ICMP broadcast timestamp requests.
 

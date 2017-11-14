@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The DHCP client must not send dynamic DNS updates.
-# Description: Dynamic DNS updates transmit unencrypted information about a system including its name and address and should not be used unless needed.
+# Description: The DHCP client must not send dynamic DNS updates.
 

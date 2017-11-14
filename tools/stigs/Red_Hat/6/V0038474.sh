@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must allow locking of graphical desktop sessions.
-# Description: The ability to lock graphical desktop sessions manually allows users to easily secure their accounts should they need to depart from their workstations temporarily.
+# Description: The system must allow locking of graphical desktop sessions.
 

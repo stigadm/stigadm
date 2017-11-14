@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The snmpd service must use only SNMP protocol version 3 or newer.
-# Description: Earlier versions of SNMP are considered insecure, as they potentially allow unauthorized access to detailed system management information.
+# Description: The snmpd service must use only SNMP protocol version 3 or newer.
 

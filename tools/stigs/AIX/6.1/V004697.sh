@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: X displays must not be exported to the world.
-# Description: Open X displays allow an attacker to capture keystrokes and to execute commands remotely. Many users have their X Server set to xhost +, permitting access to the X Server by anyone, from anywhere.
+# Description: X displays must not be exported to the world.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The audit system must alert the SA when the audit storage volume approaches its capacity.
-# Description: Filling the audit storage area can result in a denial of service or system outage and can lead to events going undetected.
+# Description: The audit system must alert the SA when the audit storage volume approaches its capacity.
 

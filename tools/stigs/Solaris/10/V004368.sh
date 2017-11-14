@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The at.deny file must be owned by root, bin, or sys.
-# Description: If the owner of the at.deny file is not set to root, bin, or sys, unauthorized users could be allowed to view or edit sensitive information contained within the file.
+# Description: The at.deny file must be owned by root, bin, or sys.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must protect audit tools from unauthorized modification.
-# Description: Failure to maintain system configurations may result in privilege escalation.
+# Description: The operating system must protect audit tools from unauthorized modification.
 

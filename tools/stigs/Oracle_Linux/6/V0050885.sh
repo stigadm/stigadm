@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: X Windows must not be enabled unless required.
-# Description: Unnecessary services should be disabled to decrease the attack surface of the system.
+# Description: X Windows must not be enabled unless required.
 

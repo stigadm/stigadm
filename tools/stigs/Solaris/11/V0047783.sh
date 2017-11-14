@@ -167,3 +167,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047783
+# STIG_Version: SV-60659r1
+# Rule_ID: SOL-11.1-010060
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The audit system must support an audit reduction capability.
+# Description: The audit system must support an audit reduction capability.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047783
+# STIG_Version: SV-60659r1
+# Rule_ID: SOL-11.1-010060
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: The audit system must support an audit reduction capability.
+# Description: The audit system must support an audit reduction capability.
+

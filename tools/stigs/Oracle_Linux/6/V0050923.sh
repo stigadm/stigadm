@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use a FIPS 140-2 approved cryptographic hashing algorithm for generating account password hashes (system-auth).
-# Description: Using a stronger hashing algorithm makes password cracking attacks more difficult.
+# Description: The system must use a FIPS 140-2 approved cryptographic hashing algorithm for generating account password hashes (system-auth).
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: All user accounts must be configured to use a home directory that exists.
-# Description: If the user's home directory does not exist, the user will be placed in "/" and will not be able to write any files or have local environment variables set.
+# Description: All user accounts must be configured to use a home directory that exists.
 

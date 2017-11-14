@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: IP forwarding for IPv4 must not be enabled, unless the system is a router.
-# Description: IP forwarding permits the kernel to forward packets from one network interface to another. The ability to forward packets between two networks is only appropriate for systems acting as routers.
+# Description: IP forwarding for IPv4 must not be enabled, unless the system is a router.
 

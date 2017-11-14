@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Audit log files must have mode 0640 or less permissive.
-# Description: If users can write to audit logs, audit trails can be modified or destroyed.
+# Description: Audit log files must have mode 0640 or less permissive.
 

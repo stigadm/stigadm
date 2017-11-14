@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/news/passwd.nntp file must not have an extended ACL.
-# Description: Extended ACLs may provide excessive permissions on the  /etc/news/passwd.nntp file, which may permit unauthorized  access or modification to the NNTP configuration.
+# Description: The /etc/news/passwd.nntp file must not have an extended ACL.
 

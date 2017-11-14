@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /etc/security/audit_user file must not define a different auditing level for specific users.
-# Description: The audit_user file may be used to selectively audit more, or fewer, auditing features for specific individuals.  If used this way it could subject the activity to a lawsuit and could cause the loss of valuable auditing data in the case of a system compromise.  If an item is audited for one individual (other than for root and administrative users - who have more auditing features) it must be audited for all.
+# Description: The /etc/security/audit_user file must not define a different auditing level for specific users.
 

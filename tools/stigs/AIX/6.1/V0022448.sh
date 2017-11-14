@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SNMP service must require the use of a FIPS 140-2 approved cryptographic hash algorithm as part of its authentication and integrity methods.
-# Description: The SNMP service must use SHA-1 or a FIPS 140-2 approved successor for authentication and integrity.
+# Description: The SNMP service must require the use of a FIPS 140-2 approved cryptographic hash algorithm as part of its authentication and integrity methods.
 

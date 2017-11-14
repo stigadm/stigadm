@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: File systems that are used with removable media must be mounted to prevent files with the setuid and setgid bit set from being executed.
-# Description: The "nosuid" mount option causes the system to not execute "setuid" and "setgid" files with owner privileges. This option must be used for mounting any file system not containing approved "setuid" and "setguid" files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative access.
+# Description: File systems that are used with removable media must be mounted to prevent files with the setuid and setgid bit set from being executed.
 

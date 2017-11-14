@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the daytime service active.
-# Description: The daytime service runs as root from the inetd daemon and can provide an opportunity for Denial of Service PING or PING-PONG attacks.   The daytime service is unnecessary and it increases the attack vector of the system.
+# Description: The system must not have the daytime service active.
 

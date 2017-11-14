@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system must be checked weekly for unauthorized setgid files, as well as, unauthorized modification to authorized setgid files.
-# Description: Files with the setgid bit set will allow anyone running these files to be temporarily assigned the group id of the file. While many system files depend on these attributes for proper operation, security problems can result if setgid is assigned to programs that allow reading and writing of files, or shell escapes.
+# Description: The system must be checked weekly for unauthorized setgid files, as well as, unauthorized modification to authorized setgid files.
 

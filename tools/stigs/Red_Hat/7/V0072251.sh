@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072251
+# Title: The SSH daemon must be configured to only use the SSHv2 protocol.
 # Description: The SSH daemon must be configured to only use the SSHv2 protocol.
 

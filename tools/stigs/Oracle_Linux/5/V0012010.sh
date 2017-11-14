@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Unencrypted FTP must not be used on the system.
-# Description: FTP is typically unencrypted and presents confidentiality and integrity risks. FTP may be protected by encryption in certain cases, such as when used in a Kerberos environment. SFTP and FTPS are encrypted alternatives to FTP.
+# Description: Unencrypted FTP must not be used on the system.
 

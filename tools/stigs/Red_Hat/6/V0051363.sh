@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use a Linux Security Module configured to enforce limits on system services.
-# Description: Setting the SELinux state to enforcing ensures SELinux is able to confine potentially compromised processes to the security policy, which is designed to prevent them from causing damage to the system or further elevating their privileges. 
+# Description: The system must use a Linux Security Module configured to enforce limits on system services.
 

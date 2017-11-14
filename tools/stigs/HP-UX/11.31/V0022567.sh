@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: For systems using NSS LDAP, the TLS certificate file must be owned by root.
-# Description: The NSS LDAP service provides user mappings which are a vital component of system security.  Its configuration must be protected from unauthorized modification.
+# Description: For systems using NSS LDAP, the TLS certificate file must be owned by root.
 

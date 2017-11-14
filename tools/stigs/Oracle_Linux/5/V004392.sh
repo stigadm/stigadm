@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: If the system is a Network Management System (NMS) server, it must only run the NMS and any software required by the NMS.
-# Description: Installing extraneous software on a system designated as a dedicated Network Management System (NMS) server poses a security threat to the system and the network. Should an attacker gain access to the NMS through unauthorized software, the entire network may be susceptible to malicious activity.
+# Description: If the system is a Network Management System (NMS) server, it must only run the NMS and any software required by the NMS.
 

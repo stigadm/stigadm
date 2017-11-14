@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: All interactive users must be assigned a home directory in the /etc/passwd file.
-# Description: If users do not have a valid home directory, there is no place for the storage and control of files they own.
+# Description: All interactive users must be assigned a home directory in the /etc/passwd file.
 

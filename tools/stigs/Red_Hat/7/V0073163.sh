@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must take appropriate action when there is an error sending audit records to a remote system.
-# Description: Taking appropriate action when there is an error sending audit records to a remote system will minimize the possibility of losing audit records.
+# Description: The audit system must take appropriate action when there is an error sending audit records to a remote system.
 

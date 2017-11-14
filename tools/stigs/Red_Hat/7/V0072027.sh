@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All files and directories contained in local interactive user home directories must have mode 0750 or less permissive.
-# Description: If a local interactive user files have excessive permissions, unintended users may be able to access or modify them.
+# Description: All files and directories contained in local interactive user home directories must have mode 0750 or less permissive.
 

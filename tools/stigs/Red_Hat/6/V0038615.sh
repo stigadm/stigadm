@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must be configured with the Department of Defense (DoD) login banner.
-# Description: The warning message reinforces policy awareness during the logon process and facilitates possible legal action against attackers. Alternatively, systems whose ownership should not be obvious should ensure usage of a banner that does not provide easy attribution.
+# Description: The SSH daemon must be configured with the Department of Defense (DoD) login banner.
 

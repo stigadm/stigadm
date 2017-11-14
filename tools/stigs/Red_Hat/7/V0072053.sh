@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: If the cron.allow file exists it must be owned by root.
-# Description: If the owner of the "cron.allow" file is not set to root, the possibility exists for an unauthorized user to view or to edit sensitive information.
+# Description: If the cron.allow file exists it must be owned by root.
 

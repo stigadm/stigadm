@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the PCNFS service active.
-# Description: The PCNFS service predates Microsoft’s SMB specifications.   If a similar service is needed to share files from a Windows based OS to a UNIX based OS,  consider SAMBA.
+# Description: The system must not have the PCNFS service active.
 

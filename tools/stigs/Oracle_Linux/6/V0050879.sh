@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The postfix service must be enabled for mail delivery.
-# Description: Local mail delivery is essential to some system maintenance and notification tasks.
+# Description: The postfix service must be enabled for mail delivery.
 

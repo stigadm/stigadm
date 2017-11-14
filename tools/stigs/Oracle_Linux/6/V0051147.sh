@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must be configured to audit all discretionary access control permission modifications using removexattr.
-# Description: The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.
+# Description: The audit system must be configured to audit all discretionary access control permission modifications using removexattr.
 

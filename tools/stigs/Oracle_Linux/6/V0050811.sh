@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system clock must be synchronized continuously, or at least daily.
-# Description: Enabling the "ntpd" service ensures that the "ntpd" service will be running and that the system will synchronize its time to any servers specified. This is important whether the system is configured to be a client (and synchronize only its own clock) or it is also acting as an NTP server to other systems. Synchronizing time is essential for authentication services such as Kerberos, but it is also important for maintaining accurate logs and auditing possible security breaches.
+# Description: The system clock must be synchronized continuously, or at least daily.
 

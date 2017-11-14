@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The at daemon must not execute group-writable or world-writable programs.
-# Description: If the "at" facility executes world-writable or group-writable programs, it is possible for the programs to be accidentally or maliciously changed or replaced without the owner's intent or knowledge.  This would cause a system security breach.
+# Description: The at daemon must not execute group-writable or world-writable programs.
 

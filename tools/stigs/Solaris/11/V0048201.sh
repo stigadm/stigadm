@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The system must disable TCP reverse IP source routing.
-# Description: If enabled, reverse IP source routing would allow an attacker to more easily complete a three-way TCP handshake and spoof new connections.
+# Description: The system must disable TCP reverse IP source routing.
 

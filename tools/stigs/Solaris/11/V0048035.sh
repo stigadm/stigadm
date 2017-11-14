@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The root account must be the only account with GID of 0.
-# Description: All accounts with a GID of 0 have root group privileges and must be limited to the group account only.
+# Description: The root account must be the only account with GID of 0.
 

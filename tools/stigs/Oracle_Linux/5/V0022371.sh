@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: System audit tool executables must be group-owned by root, bin, sys, or system.
-# Description: To prevent unauthorized access or manipulation of system audit logs, the tools for manipulating those logs must be protected.
+# Description: System audit tool executables must be group-owned by root, bin, sys, or system.
 

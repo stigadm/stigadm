@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The x86 CTRL-ALT-DELETE key sequence must be disabled.
-# Description: Undesirable reboots can occur if the CTRL-ALT-DELETE key sequence is not disabled.  Such reboots may cause a loss of data or loss of access to critical information.
+# Description: The x86 CTRL-ALT-DELETE key sequence must be disabled.
 

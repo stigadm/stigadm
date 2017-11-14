@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All local interactive user home directories must be group-owned by the home directory owners primary group.
-# Description: If the Group Identifier (GID) of a local interactive user’s home directory is not the same as the primary GID of the user, this would allow unauthorized access to the user’s files, and users that share the same group may not be able to access files that they legitimately should.
+# Description: All local interactive user home directories must be group-owned by the home directory owners primary group.
 

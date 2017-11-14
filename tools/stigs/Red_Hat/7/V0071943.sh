@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071943
+# Title: Accounts subject to three unsuccessful logon attempts within 15 minutes must be locked for the maximum configurable period.
 # Description: Accounts subject to three unsuccessful logon attempts within 15 minutes must be locked for the maximum configurable period.
 

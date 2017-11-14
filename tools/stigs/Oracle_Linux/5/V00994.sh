@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The snmpd.conf file must have mode 0600 or less permissive.
-# Description: The snmpd.conf file contains authenticators and must be protected from unauthorized access and modification.
+# Description: The snmpd.conf file must have mode 0600 or less permissive.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The systems boot loader configuration file(s) must have mode 0600 or less permissive.
-# Description: File permissions greater than 0600 on boot loader configuration files could allow an unauthorized user to view or modify sensitive information pertaining to system boot instructions.
+# Description: The systems boot loader configuration file(s) must have mode 0600 or less permissive.
 

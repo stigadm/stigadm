@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /usr/aset/userlist file must not have an extended ACL.
-# Description: File system ACLs can provide access to files beyond what is allowed by the mode numbers of the files.
+# Description: The /usr/aset/userlist file must not have an extended ACL.
 

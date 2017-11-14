@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use a separate file system for /var.
-# Description: Ensuring that "/var" is mounted on its own partition enables the setting of more restrictive mount options. This helps protect system services such as daemons or other programs which use it. It is not uncommon for the "/var" directory to contain world-writable directories, installed by other software packages.
+# Description: The system must use a separate file system for /var.
 

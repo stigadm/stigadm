@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Library files must have mode 0755 or less permissive.
-# Description: Unauthorized access could destroy the integrity of the library files.
+# Description: Library files must have mode 0755 or less permissive.
 

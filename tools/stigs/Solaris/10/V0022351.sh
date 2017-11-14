@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: All files and directories contained in user home directories must be group-owned by a group of which the home directory's owner is a member.
-# Description: If a user's files are group-owned by a group of which the user is not a member, unintended users may be able to access them.
+# Description: All files and directories contained in user home directories must be group-owned by a group of which the home directory's owner is a member.
 

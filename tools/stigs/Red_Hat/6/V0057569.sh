@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The noexec option must be added to the /tmp partition.
-# Description: Allowing users to execute binaries from world-writable directories such as "/tmp" should never be necessary in normal operation and can expose the system to potential compromise.
+# Description: The noexec option must be added to the /tmp partition.
 

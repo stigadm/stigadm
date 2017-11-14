@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not permit root logins using remote access programs such as SSH. 
-# Description: Even though communications are encrypted, an additional layer of security may be gained by extending the policy of not logging directly on as root. In addition, logging in with a user-specific account preserves the audit trail.
+# Description: The system must not permit root logins using remote access programs such as SSH. 
 

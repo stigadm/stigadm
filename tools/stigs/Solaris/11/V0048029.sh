@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operator must document all file system objects that have non-standard access control list settings.
-# Description: Access Control Lists allow an object owner to expand permissions on an object to specific users and groups in addition to the standard permission model. Non-standard Access Control List settings can allow unauthorized users to modify critical files.
+# Description: The operator must document all file system objects that have non-standard access control list settings.
 

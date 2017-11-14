@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH private host key files must have mode 0600 or less permissive.
-# Description: If an unauthorized user obtains the private SSH host key file, the host could be impersonated.
+# Description: The SSH private host key files must have mode 0600 or less permissive.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Network Information System (NIS) protocol must not be used.
-# Description: Due to numerous security vulnerabilities existing within NIS, it must not be used. Possible alternative directory services are NIS+ and LDAP.
+# Description: The Network Information System (NIS) protocol must not be used.
 

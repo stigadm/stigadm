@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The xorg-x11-server-common (X Windows) package must not be installed, unless required.
-# Description: Unnecessary packages should not be installed to decrease the attack surface of the system.
+# Description: The xorg-x11-server-common (X Windows) package must not be installed, unless required.
 

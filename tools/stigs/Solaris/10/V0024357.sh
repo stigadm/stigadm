@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system must be configured to send audit records to a remote audit server.
-# Description: Audit records contain evidence that can be used in the investigation of compromised systems.  To prevent this evidence from compromise, it must be sent to a separate system continuously. Methods for sending audit records include, but are not limited to, system audit tools used to send logs directly to another host or through the system's syslog service to another host.
+# Description: The system must be configured to send audit records to a remote audit server.
 

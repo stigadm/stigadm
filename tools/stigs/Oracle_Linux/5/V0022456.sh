@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH client must be configured to only use the SSHv2 protocol.
-# Description: SSHv1 is not a DoD-approved protocol and has many well-known vulnerability exploits.  Exploits of the SSH client could provide access to the system with the privileges of the user running the client.
+# Description: The SSH client must be configured to only use the SSHv2 protocol.
 

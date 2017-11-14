@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The xinetd.d directory must have mode 0755 or less permissive.
-# Description: The Internet service daemon configuration files must be protected as malicious modification could cause Denial of Service or increase the attack surface of the system.
+# Description: The xinetd.d directory must have mode 0755 or less permissive.
 

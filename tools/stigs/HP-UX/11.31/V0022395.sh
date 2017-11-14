@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The at directory must not have an extended ACL.
-# Description: If the at directory has an extended ACL, unauthorized users could be allowed to view or to edit files containing sensitive information within the at directory. Unauthorized modifications could result in Denial of Service to authorized at jobs.
+# Description: The at directory must not have an extended ACL.
 

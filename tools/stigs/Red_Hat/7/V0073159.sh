@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: When passwords are changed or new passwords are established, pwquality must be used.
-# Description: Use of a complex password helps to increase the time and resources required to compromise the password. Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. "Pwquality" enforces complex password construction configuration on the system.
+# Description: When passwords are changed or new passwords are established, pwquality must be used.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The kernel core dump data directory must have mode 0700 or less permissive.
-# Description: Kernel core dumps may contain the full contents of system memory at the time of the crash. As the system memory may contain sensitive information, it must be protected accordingly. If the mode of the kernel core dump data directory is more permissive than 0700, unauthorized users may be able to view or to modify kernel core dump data files.
+# Description: The kernel core dump data directory must have mode 0700 or less permissive.
 

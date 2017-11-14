@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Any NIS+ server must be operating at security level 2.
-# Description: If the NIS+ server is not operating in, at least, security level 2, there is no encryption and the system could be penetrated by intruders and/or malicious users.
+# Description: Any NIS+ server must be operating at security level 2.
 

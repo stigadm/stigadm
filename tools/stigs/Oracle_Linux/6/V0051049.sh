@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must set a maximum audit log file size.
-# Description: The total storage for audit log files must be large enough to retain log information over the period required. This is a function of the maximum log file size and the number of logs retained.
+# Description: The system must set a maximum audit log file size.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/shadow file (or equivalent) must be group-owned by root, bin, sys or other.
-# Description: The /etc/shadow file contains the list of local system accounts.  It is vital to system security and must be protected from unauthorized modification.  The file also contains password hashes which must not be accessible to users other than root.
+# Description: The /etc/shadow file (or equivalent) must be group-owned by root, bin, sys or other.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/passwd file must be group-owned by root.
-# Description: The "/etc/passwd" file contains information about the users that are configured on the system. Protection of this file is critical for system security.
+# Description: The /etc/passwd file must be group-owned by root.
 

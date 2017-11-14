@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The portmap or rpcbind service must not be installed unless needed.
-# Description: The portmap and rpcbind services increase the attack surface of the system and should only be used when needed.  The portmap or rpcbind services are used by a variety of services using Remote Procedure Calls (RPCs).
+# Description: The portmap or rpcbind service must not be installed unless needed.
 

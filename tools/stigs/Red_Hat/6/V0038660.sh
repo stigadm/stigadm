@@ -149,6 +149,6 @@ exit 0
 # Version: 6
 # Architecture: 
 #
-# Title: V0038660
+# Title: The snmpd service must use only SNMP protocol version 3 or newer.
 # Description: The snmpd service must use only SNMP protocol version 3 or newer.
 

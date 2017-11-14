@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The AppleTalk protocol must be disabled or not installed.
-# Description: The AppleTalk suite of protocols is no longer in common use.  Binding this protocol to the network stack increases the attack surface of the host.  Unprivileged local processes may be able to cause the system to dynamically load a protocol handler by opening a socket using the protocol.
+# Description: The AppleTalk protocol must be disabled or not installed.
 

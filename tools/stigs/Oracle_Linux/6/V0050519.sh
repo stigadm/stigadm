@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must provide automated support for account management functions.
-# Description: A comprehensive account management process that includes automation helps to ensure the accounts designated as requiring attention are consistently and promptly addressed. Enterprise environments make user account management challenging and complex. A user management process requiring administrators to manually address account management functions adds risk of potential oversight.
+# Description: The system must provide automated support for account management functions.
 

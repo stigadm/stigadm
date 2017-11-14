@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0048111
+# Title: The operating system must terminate the network connection associated with a communications session at the end of the session or after 10 minutes of inactivity.
 # Description: The operating system must terminate the network connection associated with a communications session at the end of the session or after 10 minutes of inactivity.
 

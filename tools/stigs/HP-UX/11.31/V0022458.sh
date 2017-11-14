@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must be configured to only use FIPS 140-2 approved ciphers.
-# Description: DoD information systems are required to use FIPS 140-2 approved ciphers. SSHv2 ciphers meeting this requirement are 3DES and AES.
+# Description: The SSH daemon must be configured to only use FIPS 140-2 approved ciphers.
 

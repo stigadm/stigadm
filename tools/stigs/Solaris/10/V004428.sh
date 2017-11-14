@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: All .rhosts, .shosts, .netrc, or hosts.equiv files must be accessible by only root or the owner.
-# Description: If these files are accessible by users other than root or the owner, they could be used by a malicious user to set up a system compromise.
+# Description: All .rhosts, .shosts, .netrc, or hosts.equiv files must be accessible by only root or the owner.
 

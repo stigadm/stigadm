@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072047
+# Title: All world-writable directories must be group-owned by root, sys, bin, or an application group.
 # Description: All world-writable directories must be group-owned by root, sys, bin, or an application group.
 

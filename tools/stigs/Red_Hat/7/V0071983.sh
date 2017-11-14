@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071983
+# Title: USB mass storage must be disabled.
 # Description: USB mass storage must be disabled.
 

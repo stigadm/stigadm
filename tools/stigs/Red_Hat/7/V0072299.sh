@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: A File Transfer Protocol (FTP) server package must not be installed unless needed.
-# Description: The FTP service provides an unencrypted remote access that does not provide for the confidentiality and integrity of user passwords or the remote session. If a privileged user were to log on using this service, the privileged user password could be compromised. SSH or other encrypted file transfer methods must be used in place of this service.
+# Description: A File Transfer Protocol (FTP) server package must not be installed unless needed.
 

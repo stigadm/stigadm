@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Skeleton files must not have extended ACLs.
-# Description: If the skeleton files are not protected, unauthorized personnel could change user's startup parameters and possibly jeopardize user's files.
+# Description: Skeleton files must not have extended ACLs.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Files in cron script directories must have mode 0700 or less permissive.
-# Description: To protect the integrity of scheduled system jobs and prevent malicious modification to these jobs, crontab files must be secured.
+# Description: Files in cron script directories must have mode 0700 or less permissive.
 

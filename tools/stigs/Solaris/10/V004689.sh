@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The SMTP service must be an up-to-date version.
-# Description: The SMTP service version on the system must be current to avoid exposing vulnerabilities present in unpatched versions.
+# Description: The SMTP service must be an up-to-date version.
 

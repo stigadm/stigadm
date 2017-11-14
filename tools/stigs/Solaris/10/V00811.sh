@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Auditing must be implemented.
-# Description: Without auditing, individual system accesses cannot be tracked and malicious activity cannot be detected and traced back to an individual account. 
+# Description: Auditing must be implemented.
 

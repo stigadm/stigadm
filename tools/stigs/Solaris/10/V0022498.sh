@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The smbpasswd file must not have an extended ACL.
-# Description: If the permissions of the smbpasswd file are too permissive, the smbpasswd file may be maliciously accessed or modified, potentially resulting in the compromise of Samba accounts.
+# Description: The smbpasswd file must not have an extended ACL.
 

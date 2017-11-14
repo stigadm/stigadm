@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Run control scripts must not execute world-writable programs or scripts.
-# Description: World-writable files could be modified accidentally or maliciously to compromise system integrity.
+# Description: Run control scripts must not execute world-writable programs or scripts.
 

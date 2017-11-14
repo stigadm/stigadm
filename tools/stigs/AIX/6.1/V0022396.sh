@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The "at" directory must be group-owned by system, bin, sys, or cron.
-# Description: If the group of the "at" directory is not system, bin, sys, or cron, unauthorized users could be allowed to view or edit files containing sensitive information within the directory.
+# Description: The "at" directory must be group-owned by system, bin, sys, or cron.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The NFS server must not allow remote root access.
-# Description: If the NFS server allows root access to local file systems from remote hosts, this access could be used to compromise the system.
+# Description: The NFS server must not allow remote root access.
 

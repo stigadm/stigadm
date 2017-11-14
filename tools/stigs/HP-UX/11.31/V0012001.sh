@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use initial TCP sequence numbers most resistant to sequence number guessing attacks.
-# Description: One use of initial TCP sequence numbers is to verify bidirectional communication between two hosts, which provides some protection against spoofed source addresses being used by the connection originator. If the initial TCP sequence numbers for a host can be determined by an attacker, it may be possible to establish a TCP connection from a spoofed source address without bidirectional communication.
+# Description: The system must use initial TCP sequence numbers most resistant to sequence number guessing attacks.
 

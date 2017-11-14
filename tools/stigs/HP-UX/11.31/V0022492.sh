@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The NFS share configuration file must be group-owned by root, bin, sys or other.
-# Description: Failure to give group ownership of the NFS share configuration file to root, bin, sys or other provides the designated group owner and possible unauthorized users with the potential to change system configuration which could weaken the system's security posture.
+# Description: The NFS share configuration file must be group-owned by root, bin, sys or other.
 

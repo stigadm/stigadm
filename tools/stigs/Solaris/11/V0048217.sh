@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0048217
+# Title: The system must disable network routing unless required.
 # Description: The system must disable network routing unless required.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Bluetooth service must be disabled.
-# Description: Disabling the "bluetooth" service prevents the system from attempting connections to Bluetooth devices, which entails some security risk. Nevertheless, variation in this risk decision may be expected due to the utility of Bluetooth connectivity and its limited range.
+# Description: The Bluetooth service must be disabled.
 

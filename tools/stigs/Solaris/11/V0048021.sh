@@ -210,3 +210,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048021
+# STIG_Version: SV-60893r2
+# Rule_ID: SOL-11.1-080040
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: Process core dumps must be disabled unless needed.
+# Description: Process core dumps must be disabled unless needed.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048021
+# STIG_Version: SV-60893r2
+# Rule_ID: SOL-11.1-080040
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: Process core dumps must be disabled unless needed.
+# Description: Process core dumps must be disabled unless needed.
+

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The qpidd service must not be running.
-# Description: The qpidd service is automatically installed when the "base" package selection is selected during installation. The qpidd service listens for network connections, which increases the attack surface of the system. If the system is not intended to receive AMQP, traffic then the "qpidd" service is not needed and should be disabled or removed.
+# Description: The qpidd service must not be running.
 

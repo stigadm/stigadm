@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Duplicate user names must not exist.
-# Description: If a user is assigned a duplicate user name, it will create and have access to files with the first UID for that username in passwd.
+# Description: Duplicate user names must not exist.
 

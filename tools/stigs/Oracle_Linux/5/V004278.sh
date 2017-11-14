@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The files in /etc/news must be group-owned by root or news.
-# Description: If critical system files do not have a privileged group-owner, system integrity could be compromised.
+# Description: The files in /etc/news must be group-owned by root or news.
 

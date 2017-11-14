@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: SNMP community strings must be changed from the default.
-# Description: Whether active or not, default Simple Network Management Protocol (SNMP) community strings must be changed to maintain security. If the service is running with the default authenticators, anyone can gather data about the system and the network and use the information to potentially compromise the integrity of the system or network(s). It is highly recommended that SNMP version 3 user authentication and message encryption be used in place of the version 2 community strings.
+# Description: SNMP community strings must be changed from the default.
 

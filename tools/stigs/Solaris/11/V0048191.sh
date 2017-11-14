@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must prevent internal users from sending out packets which attempt to manipulate or spoof invalid IP addresses.
-# Description: Manipulation of IP addresses can allow untrusted systems to appear as trusted hosts, bypassing firewall and other security mechanism and resulting in system penetration.
+# Description: The operating system must prevent internal users from sending out packets which attempt to manipulate or spoof invalid IP addresses.
 

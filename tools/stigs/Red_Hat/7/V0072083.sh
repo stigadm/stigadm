@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072083
+# Title: The operating system must off-load audit records onto a different system or media from the system being audited.
 # Description: The operating system must off-load audit records onto a different system or media from the system being audited.
 

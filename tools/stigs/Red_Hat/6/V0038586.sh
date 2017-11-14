@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must require authentication upon booting into single-user and maintenance modes.
-# Description: This prevents attackers with physical access from trivially bypassing security on the machine and gaining root access. Such accesses are further prevented by configuring the bootloader password.
+# Description: The system must require authentication upon booting into single-user and maintenance modes.
 

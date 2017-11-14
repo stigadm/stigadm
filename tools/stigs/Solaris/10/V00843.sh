@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The ftpusers file must have mode 0640 or less permissive.
-# Description: Excessive permissions on the ftpusers file could permit unauthorized modification.  Unauthorized modification could result in Denial of Service to authorized FTP users or permit unauthorized users to access the FTP service.
+# Description: The ftpusers file must have mode 0640 or less permissive.
 

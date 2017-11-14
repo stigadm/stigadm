@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The x86 Ctrl-Alt-Delete key sequence must be disabled.
-# Description: A locally logged-in user who presses Ctrl-Alt-Delete, when at the console, can reboot the system. If accidentally pressed, as could happen in the case of mixed OS environment, this can create the risk of short-term loss of availability of systems due to unintentional reboot. In the GNOME graphical environment, risk of unintentional reboot from the Ctrl-Alt-Delete sequence is reduced because the user will be prompted before any action is taken.
+# Description: The x86 Ctrl-Alt-Delete key sequence must be disabled.
 

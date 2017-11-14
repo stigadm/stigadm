@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The rhost-based authentication for SSH must be disabled.
-# Description: Setting this parameter forces users to enter a password when authenticating with SSH.
+# Description: The rhost-based authentication for SSH must be disabled.
 

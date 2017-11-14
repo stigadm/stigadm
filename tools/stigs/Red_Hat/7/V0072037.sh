@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Local initialization files must not execute world-writable programs.
-# Description: If user start-up files execute world-writable programs, especially in unprotected directories, they could be maliciously modified to destroy user files or otherwise compromise the system at the user level. If the system is compromised at the user level, it is easier to elevate privileges to eventually compromise the system at the root and network level.
+# Description: Local initialization files must not execute world-writable programs.
 

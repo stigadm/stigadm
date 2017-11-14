@@ -142,3 +142,35 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, all accounts conform to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00773
+# STIG_Version: SV-39820r1
+# Rule_ID: GEN000880
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: The root account must be the only account having an UID of 0.
+# Description: The root account must be the only account having an UID of 0.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00773
+# STIG_Version: SV-39820r1
+# Rule_ID: GEN000880
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: The root account must be the only account having an UID of 0.
+# Description: The root account must be the only account having an UID of 0.
+

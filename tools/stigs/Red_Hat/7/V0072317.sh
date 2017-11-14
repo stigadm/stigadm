@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have unauthorized IP tunnels configured.
-# Description: IP tunneling mechanisms can be used to bypass network filtering. If tunneling is required, it must be documented with the Information System Security Officer (ISSO).
+# Description: The system must not have unauthorized IP tunnels configured.
 

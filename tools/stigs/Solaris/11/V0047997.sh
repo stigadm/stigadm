@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0047997
+# Title: The operating system must implement transaction recovery for transaction-based systems.
 # Description: The operating system must implement transaction recovery for transaction-based systems.
 

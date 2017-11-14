@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071917
+# Title: When passwords are changed the number of repeating characters of the same character class must not be more than four characters.
 # Description: When passwords are changed the number of repeating characters of the same character class must not be more than four characters.
 

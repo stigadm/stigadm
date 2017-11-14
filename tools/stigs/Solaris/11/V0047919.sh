@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The rpcbind service must be configured for local only services.
-# Description: The portmap and rpcbind services increase the attack surface of the system and should only be used when needed. The portmap or rpcbind services are used by a variety of services using remote procedure calls (RPCs).
+# Description: The rpcbind service must be configured for local only services.
 

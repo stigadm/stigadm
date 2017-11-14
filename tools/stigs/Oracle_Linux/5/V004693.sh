@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SMTP service must not have the Verify (VRFY) feature active.
-# Description: The VRFY command allows an attacker to determine if an account exists on a system, providing significant assistance to a brute force attack on user accounts. VRFY may provide additional information about users on the system, such as the full names of account owners.
+# Description: The SMTP service must not have the Verify (VRFY) feature active.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The delay between login prompts following a failed login attempt must be at least 4 seconds.
-# Description: Enforcing a delay between successive failed login attempts increases protection against automated password guessing attacks.
+# Description: The delay between login prompts following a failed login attempt must be at least 4 seconds.
 

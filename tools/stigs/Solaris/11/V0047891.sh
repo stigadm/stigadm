@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: System packages must be configured with the vendor-provided files, permissions, and ownerships.
-# Description: Failure to maintain system configurations may result in privilege escalation.
+# Description: System packages must be configured with the vendor-provided files, permissions, and ownerships.
 

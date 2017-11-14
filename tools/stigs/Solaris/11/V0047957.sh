@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0047957
+# Title: User passwords must be at least 15 characters in length.
 # Description: User passwords must be at least 15 characters in length.
 

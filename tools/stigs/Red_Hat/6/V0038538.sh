@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The operating system must automatically audit account termination.
-# Description: In addition to auditing new user and group accounts, these watches will alert the system administrator(s) to any modifications. Any unexpected users, groups, or modifications should be investigated for legitimacy.
+# Description: The operating system must automatically audit account termination.
 

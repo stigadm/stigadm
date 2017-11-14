@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The at.allow file must have mode 0600 or less permissive.
-# Description: Permissions more permissive than 0600 (i.e. read, write and execute for the owner) may allow unauthorized or malicious access to the at.allow and/or at.deny files.
+# Description: The at.allow file must have mode 0600 or less permissive.
 

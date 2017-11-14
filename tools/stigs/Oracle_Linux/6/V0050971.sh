@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not accept ICMPv4 redirect packets on any interface.
-# Description: Accepting ICMP redirects has few legitimate uses. It should be disabled unless it is absolutely required.
+# Description: The system must not accept ICMPv4 redirect packets on any interface.
 

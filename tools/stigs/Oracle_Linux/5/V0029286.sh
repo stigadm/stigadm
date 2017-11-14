@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The audit system must be configured to audit the loading and unloading of dynamic kernel modules -/sbin/modprobe.
-# Description: Actions concerning dynamic kernel modules must be recorded as they are substantial events. Dynamic kernel modules can increase the attack surface of a system. A malicious kernel module can be used to substantially alter the functioning of a system, often with the purpose of hiding a compromise from the SA.
+# Description: The audit system must be configured to audit the loading and unloading of dynamic kernel modules -/sbin/modprobe.
 

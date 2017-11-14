@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The cron.deny file must not have an extended ACL.
-# Description: If file permissions for cron.deny are more permissive than 0700, sensitive information could be viewed or edited by unauthorized users.
+# Description: The cron.deny file must not have an extended ACL.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must use cryptographic mechanisms to protect the integrity of audit information.
-# Description: Protection of audit records and audit data is of critical importance. Cryptographic mechanisms are the industry established standard used to protect the integrity of audit data.
+# Description: The operating system must use cryptographic mechanisms to protect the integrity of audit information.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must have USB Mass Storage disabled unless needed.
-# Description: USB is a common computer peripheral interface. USB devices may include storage devices with the potential to install malicious software on a system or exfiltrate data
+# Description: The system must have USB Mass Storage disabled unless needed.
 

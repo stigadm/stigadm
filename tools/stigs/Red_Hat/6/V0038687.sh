@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must provide VPN connectivity for communications over untrusted networks.
-# Description: Providing the ability for remote users or systems to initiate a secure VPN connection protects information when it is transmitted over a wide area network.
+# Description: The system must provide VPN connectivity for communications over untrusted networks.
 

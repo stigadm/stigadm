@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/passwd file must not have an extended ACL.
-# Description: File system ACLs can provide access to files beyond what is allowed by the mode numbers of the files.  The /etc/passwd file contains the list of local system accounts. It is vital to system security and must be protected from unauthorized modification.
+# Description: The /etc/passwd file must not have an extended ACL.
 

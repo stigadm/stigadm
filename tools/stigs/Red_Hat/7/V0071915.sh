@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071915
+# Title: When passwords are changed the number of repeating consecutive characters must not be more than four characters.
 # Description: When passwords are changed the number of repeating consecutive characters must not be more than four characters.
 

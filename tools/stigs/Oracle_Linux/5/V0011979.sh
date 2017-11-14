@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The root account must not be used for direct log in.
-# Description: Direct login with the root account prevents individual user accountability.  Acceptable non-routine uses of the root account for direct login are limited to emergency maintenance, the use of single-user mode for maintenance, and situations where individual administrator accounts are not available.
+# Description: The root account must not be used for direct log in.
 

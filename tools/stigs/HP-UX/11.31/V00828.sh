@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The hosts.lpd (or equivalent) file must be owned by root, bin, sys, or lp.
-# Description: Failure to give ownership of the hosts.lpd file to root, bin, sys, or lp provides the designated owner, and possible unauthorized users, with the potential to modify the hosts.lpd file. Unauthorized modifications could disrupt access to local printers from authorized remote hosts or permit unauthorized remote access to local printers.
+# Description: The hosts.lpd (or equivalent) file must be owned by root, bin, sys, or lp.
 

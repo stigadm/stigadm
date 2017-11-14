@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The system must have IEEE 1394 (Firewire) disabled unless needed.
-# Description: Firewire is a common computer peripheral interface.  Firewire devices may include storage devices that could be used to install malicious software on a system or exfiltrate data.
+# Description: The system must have IEEE 1394 (Firewire) disabled unless needed.
 

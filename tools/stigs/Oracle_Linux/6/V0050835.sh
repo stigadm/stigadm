@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The atd service must be disabled.
-# Description: The "atd" service could be used by an unsophisticated insider to carry out activities outside of a normal login session, which could complicate accountability. Furthermore, the need to schedule tasks with "at" or "batch" is not common.
+# Description: The atd service must be disabled.
 

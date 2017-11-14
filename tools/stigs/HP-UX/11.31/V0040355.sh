@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must disable accounts after three consecutive unsuccessful SSH login attempts.
-# Description: Disabling accounts after a limited number of unsuccessful SSH login attempts improves protection against password guessing attacks.
+# Description: The system must disable accounts after three consecutive unsuccessful SSH login attempts.
 

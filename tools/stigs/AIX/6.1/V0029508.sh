@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have Internet Message Access Protocol (IMAP) service active.
-# Description: The IMAP service should not be running unless the system is acting as a mail server for client connections.   Running unnecessary services increases the attack vector on the system.
+# Description: The system must not have Internet Message Access Protocol (IMAP) service active.
 

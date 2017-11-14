@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: System logs must be rotated daily.
-# Description: Log files that are not properly rotated run the risk of growing so large that they fill up the /var/log partition. Valuable logging information could be lost if the /var/log partition becomes full.
+# Description: System logs must be rotated daily.
 

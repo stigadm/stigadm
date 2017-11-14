@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/gshadow file must not contain any group password hashes.
-# Description: Group passwords are typically shared and should not be used.
+# Description: The /etc/gshadow file must not contain any group password hashes.
 

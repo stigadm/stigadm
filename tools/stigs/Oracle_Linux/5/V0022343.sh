@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/gshadow file must have mode 0400.
-# Description: The /etc/gshadow file is critical to system security and must be protected from unauthorized modification.   The /etc/gshadow file contains a list of system groups and hashes for group passwords.
+# Description: The /etc/gshadow file must have mode 0400.
 

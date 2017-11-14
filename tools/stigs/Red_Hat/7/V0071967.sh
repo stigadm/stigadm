@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071967
+# Title: The rsh-server package must not be installed.
 # Description: The rsh-server package must not be installed.
 

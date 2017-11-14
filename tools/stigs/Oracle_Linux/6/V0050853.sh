@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use SMB client signing for connecting to samba servers using mount.cifs.
-# Description: Packet signing can prevent man-in-the-middle attacks which modify SMB packets in transit.
+# Description: The system must use SMB client signing for connecting to samba servers using mount.cifs.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The X server must have the correct options enabled.
-# Description: Without the correct options enabled, the Xwindows system would be less secure and there would be no screen timeout.
+# Description: The X server must have the correct options enabled.
 

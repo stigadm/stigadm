@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: A file integrity baseline must be created.
-# Description: For AIDE to be effective, an initial database of "known-good" information about files must be captured and it should be able to be verified against the installed files. 
+# Description: A file integrity baseline must be created.
 

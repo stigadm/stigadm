@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The SSH daemon must restrict login ability to specific users and/or groups.
-# Description: Restricting SSH logins to a limited group of users, such as system administrators, prevents password-guessing and other SSH attacks from reaching system accounts and other accounts not authorized for SSH access.
+# Description: The SSH daemon must restrict login ability to specific users and/or groups.
 

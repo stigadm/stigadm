@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Samba must be configured to use encrypted passwords.
-# Description: Samba must be configured to protect authenticators.  If Samba passwords are not encrypted for storage, plain-text user passwords may be read by those with access to the Samba password file.
+# Description: Samba must be configured to use encrypted passwords.
 

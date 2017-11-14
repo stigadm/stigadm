@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/security/passwd file must not have an extended ACL.
-# Description: The /etc/security/passwd file contains the list of local system accounts.  It is vital to system security and must be protected from unauthorized modification.  The file also contains password hashes which must not be accessible to users other than root.
+# Description: The /etc/security/passwd file must not have an extended ACL.
 

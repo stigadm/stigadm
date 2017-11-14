@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the talk or ntalk services active.
-# Description: The talk and ntalk commands allow users on the same or different systems on converse. The talk daemons are started from the inetd process and run as root.  These unnecessary processes increase the attack vector of the system  and may cause Denial of Service by scrambling the users display. 
+# Description: The system must not have the talk or ntalk services active.
 

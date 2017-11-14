@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The cron.deny file must not have an extended ACL.
-# Description: If there are excessive file permissions for the cron.deny file, sensitive information could be viewed or edited by unauthorized users.
+# Description: The cron.deny file must not have an extended ACL.
 

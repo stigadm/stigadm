@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072215
+# Title: The system must update the DoD-approved virus scan program every seven days or more frequently.
 # Description: The system must update the DoD-approved virus scan program every seven days or more frequently.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must impose the same restrictions on root passwords that are already applied to non-root users.
-# Description: Best practices and standard operating procedures for computing systems include password management. If the root account is allowed to be configured with inadequate password controls, the entire system can be compromised.
+# Description: The system must impose the same restrictions on root passwords that are already applied to non-root users.
 

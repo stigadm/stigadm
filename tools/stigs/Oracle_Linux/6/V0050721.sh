@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must prevent the root account from logging in from virtual consoles.
-# Description: Preventing direct root login to virtual console devices helps ensure accountability for actions taken on the system using the root account.
+# Description: The system must prevent the root account from logging in from virtual consoles.
 

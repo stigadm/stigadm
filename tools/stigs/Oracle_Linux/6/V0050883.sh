@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The netconsole service must be disabled unless required.
-# Description: The "netconsole" service is not necessary unless there is a need to debug kernel panics, which is not common.
+# Description: The netconsole service must be disabled unless required.
 

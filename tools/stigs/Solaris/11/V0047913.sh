@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The TFTP service daemon must not be installed unless required.
-# Description: TFTP is an insecure protocol.
+# Description: The TFTP service daemon must not be installed unless required.
 

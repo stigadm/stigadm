@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Host-based authentication for login-based services must be disabled.
-# Description: The use of .rhosts authentication is an insecure protocol and can be replaced with public-key authentication using Secure Shell. As automatic authentication settings in the .rhosts files can provide a malicious user with sensitive system credentials, the use of .rhosts files should be disabled.
+# Description: Host-based authentication for login-based services must be disabled.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The SSH daemon must be configured to only use the SSHv2 protocol.
-# Description: SSHv1 is not a DoD-approved protocol and has many well-known vulnerability exploits.  Exploits of the SSH daemon could provide immediate root access to the system.
+# Description: The SSH daemon must be configured to only use the SSHv2 protocol.
 

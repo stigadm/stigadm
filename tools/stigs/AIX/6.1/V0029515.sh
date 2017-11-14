@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not have the rusersd service active.
-# Description: The rusersd daemon gives out a list of current uses on the system.   The rusersd daemon is unnecessary and it increases the attack vector of the system by providing information on the current users of the system.
+# Description: The system must not have the rusersd service active.
 

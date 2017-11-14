@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The TFTP daemon must operate in secure mode which provides access only to a single directory on the host file system.
-# Description: Secure mode limits TFTP requests to a specific directory.  If TFTP is not running in secure mode, it may be able to write to any file or directory and may seriously impair system integrity, confidentiality, and availability.
+# Description: The TFTP daemon must operate in secure mode which provides access only to a single directory on the host file system.
 

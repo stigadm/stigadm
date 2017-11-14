@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Network File System (NFS) export configuration file must have mode 0644 or less permissive.
-# Description: Excessive permissions on the NFS export configuration file could allow unauthorized modification of the file, which could result in Denial of Service to authorized NFS exports and the creation of additional unauthorized exports.
+# Description: The Network File System (NFS) export configuration file must have mode 0644 or less permissive.
 

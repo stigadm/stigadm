@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The telnet daemon must not be running.
-# Description: The telnet daemon provides a typically unencrypted remote access service which does not provide for the confidentiality and integrity of user passwords or the remote session.  If a privileged user were to log on using this service, the privileged user password could be compromised.
+# Description: The telnet daemon must not be running.
 

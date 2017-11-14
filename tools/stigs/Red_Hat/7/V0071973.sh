@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071973
+# Title: A file integrity tool must verify the baseline operating system configuration at least weekly.
 # Description: A file integrity tool must verify the baseline operating system configuration at least weekly.
 

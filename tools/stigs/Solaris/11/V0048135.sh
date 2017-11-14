@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0048135
+# Title: The operating system must provide the capability for users to directly initiate session lock mechanisms.
 # Description: The operating system must provide the capability for users to directly initiate session lock mechanisms.
 

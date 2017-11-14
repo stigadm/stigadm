@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071909
+# Title: When passwords are changed or new passwords are assigned, the new password must contain at least one special character.
 # Description: When passwords are changed or new passwords are assigned, the new password must contain at least one special character.
 

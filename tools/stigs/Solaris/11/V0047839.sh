@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The audit system must identify in which zone an event occurred.
-# Description: Tracking the specific Solaris zones in the audit trail reduces the time required to determine the cause of a security event.
+# Description: The audit system must identify in which zone an event occurred.
 

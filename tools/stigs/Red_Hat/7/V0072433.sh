@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072433
+# Title: The operating system must implement certificate status checking for PKI authentication.
 # Description: The operating system must implement certificate status checking for PKI authentication.
 

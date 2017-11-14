@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /etc/passwd file must have mode 0644 or less permissive.
-# Description: If the password file is writable by a group owner or the world, the risk of password file compromise is increased.  The password file contains the list of accounts on the system and associated information.
+# Description: The /etc/passwd file must have mode 0644 or less permissive.
 

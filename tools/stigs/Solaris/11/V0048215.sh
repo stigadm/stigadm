@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must enforce requirements for remote connections to the information system.
-# Description: Remote access to the system can be limited through the use of the host-based firewall.
+# Description: The operating system must enforce requirements for remote connections to the information system.
 

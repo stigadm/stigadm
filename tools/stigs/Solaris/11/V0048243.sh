@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Systems must employ cryptographic hashes for passwords using the SHA-2 family of algorithms or FIPS 140-2 approved successors.
-# Description: Cryptographic hashes provide quick password authentication while not actually storing the password.
+# Description: Systems must employ cryptographic hashes for passwords using the SHA-2 family of algorithms or FIPS 140-2 approved successors.
 

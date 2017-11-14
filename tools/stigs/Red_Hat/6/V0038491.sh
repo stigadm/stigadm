@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: There must be no .rhosts or hosts.equiv files on the system.
-# Description: Trust files are convenient, but when used in conjunction with the R-services, they can allow unauthenticated access to a system.
+# Description: There must be no .rhosts or hosts.equiv files on the system.
 

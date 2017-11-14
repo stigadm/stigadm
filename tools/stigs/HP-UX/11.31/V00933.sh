@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Network File System (NFS) server must be configured to restrict file system access to local hosts.
-# Description: The NFS access option limits user access to the specified level. This assists in protecting shared file systems.  If access is not restricted, unauthorized hosts may be able to access the system's NFS shares.
+# Description: The Network File System (NFS) server must be configured to restrict file system access to local hosts.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The kernel core dump data directory must be group-owned by root, bin, sys, or other.
-# Description: Kernel core dumps may contain the full contents of system memory at the time of the crash. As the system memory may contain sensitive information, it must be protected accordingly. If the kernel core dump data directory is not group-owned by a system group, the core dumps contained in the directory may be subject to unauthorized access.
+# Description: The kernel core dump data directory must be group-owned by root, bin, sys, or other.
 

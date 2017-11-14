@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must set a timeout count on idle sessions.
-# Description: This ensures a user login will be terminated as soon as the "ClientAliveCountMax" is reached.
+# Description: The SSH daemon must set a timeout count on idle sessions.
 

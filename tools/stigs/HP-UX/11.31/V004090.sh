@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All system startup files must be group-owned by root, sys, bin or other.
-# Description: If system startup files do not have a group owner of root or a system group, the files may be modified by malicious users or intruders.
+# Description: All system startup files must be group-owned by root, sys, bin or other.
 

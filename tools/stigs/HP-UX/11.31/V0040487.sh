@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: /etc/pam_user.conf file must not have an extended ACL.
-# Description: The /etc/pam_user.conf file is the per user configuration file for the Pluggable Authentication Module (PAM) architecture. It supports per user authentication, account, session, and password management. If the configuration is modified maliciously, users may gain unauthorized system access. The /etc/pam_user.conf file must not be configured unless it is required.
+# Description: /etc/pam_user.conf file must not have an extended ACL.
 

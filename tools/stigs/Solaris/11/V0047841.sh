@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The systems physical devices must not be assigned to non-global zones.
-# Description: Solaris non-global zones can be assigned physical hardware devices. This increases the risk of such a non-global zone having the capability to compromise the global zone.
+# Description: The systems physical devices must not be assigned to non-global zones.
 

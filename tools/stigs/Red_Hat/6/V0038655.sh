@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The noexec option must be added to removable media partitions.
-# Description: Allowing users to execute binaries from removable media such as USB keys exposes the system to potential compromise.
+# Description: The noexec option must be added to removable media partitions.
 

@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0048195
+# Title: The operating system must terminate all sessions and network connections when non-local maintenance is completed.
 # Description: The operating system must terminate all sessions and network connections when non-local maintenance is completed.
 

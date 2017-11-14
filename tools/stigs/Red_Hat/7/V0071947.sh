@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071947
+# Title: Users must provide a password for privilege escalation.
 # Description: Users must provide a password for privilege escalation.
 

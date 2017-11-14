@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The root user must not own the logon session for an application requiring a continuous display.
-# Description: If an application is providing a continuous display and is running with root privileges, unauthorized users could interrupt the process and gain root access to the system.
+# Description: The root user must not own the logon session for an application requiring a continuous display.
 

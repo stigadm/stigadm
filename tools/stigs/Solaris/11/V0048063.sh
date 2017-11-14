@@ -304,3 +304,35 @@ done
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048063
+# STIG_Version: SV-60935r1
+# Rule_ID: SOL-11.1-070180
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: World-writable files must not exist.
+# Description: World-writable files must not exist.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048063
+# STIG_Version: SV-60935r1
+# Rule_ID: SOL-11.1-070180
+#
+# OS: Solaris
+# Version: 11
+# Architecture: X86
+#
+# Title: World-writable files must not exist.
+# Description: World-writable files must not exist.
+

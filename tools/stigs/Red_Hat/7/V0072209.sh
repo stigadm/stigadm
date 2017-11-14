@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must send rsyslog output to a log aggregation server.
-# Description: Sending rsyslog output to another system ensures that the logs cannot be removed or modified in the event that the system is compromised or has a hardware failure.
+# Description: The system must send rsyslog output to a log aggregation server.
 

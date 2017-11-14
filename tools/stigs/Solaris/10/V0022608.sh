@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The limitpriv zone option must be set to the vendor default or less permissive.
-# Description: Solaris zones can be assigned privileges generally reserved for the global zone using the limitpriv zone option.  Any privilege assignments in excess of the vendor defaults may provide the ability for a non-global zone to compromise the global zone.
+# Description: The limitpriv zone option must be set to the vendor default or less permissive.
 

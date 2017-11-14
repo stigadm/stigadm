@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Crontab files must be group-owned by root, sys, or the crontab creator's primary group.
-# Description: To protect the integrity of scheduled system jobs and prevent malicious modification to these jobs, crontab files must be secured.
+# Description: Crontab files must be group-owned by root, sys, or the crontab creator's primary group.
 

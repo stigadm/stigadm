@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The alias file must have mode 0644 or less permissive.
-# Description: Excessive permissions on the aliases file may permit unauthorized modification. If the alias file is modified by an unauthorized user, they may modify the file to run malicious code or redirect e-mail.
+# Description: The alias file must have mode 0644 or less permissive.
 

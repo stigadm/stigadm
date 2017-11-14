@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: System log files must have mode 0640 or less permissive.
-# Description: If the system log files are not protected, unauthorized users could change the logged data, eliminating its forensic value.
+# Description: System log files must have mode 0640 or less permissive.
 

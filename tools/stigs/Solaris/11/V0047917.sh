@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The UUCP service daemon must not be installed unless required.
-# Description: UUCP is an insecure protocol.
+# Description: The UUCP service daemon must not be installed unless required.
 

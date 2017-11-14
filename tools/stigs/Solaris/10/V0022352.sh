@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: All files and directories contained in user home directories must not have extended ACLs.
-# Description: Excessive permissions allow unauthorized access to user files.
+# Description: All files and directories contained in user home directories must not have extended ACLs.
 

@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0072129
+# Title: All uses of the open_by_handle_at command must be audited.
 # Description: All uses of the open_by_handle_at command must be audited.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must prevent the root account from logging in from serial consoles.
-# Description: Preventing direct root login to serial port interfaces helps ensure accountability for actions taken on the systems using the root account.
+# Description: The system must prevent the root account from logging in from serial consoles.
 

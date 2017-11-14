@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must display the DoD approved system use notification message or banner before granting access to the system for general system logons.
-# Description: Warning messages inform users who are attempting to log in to the system of their legal status regarding the system and must include the name of the organization that owns the system and any monitoring policies that are in place. As implementing a logon banner to deter inappropriate use can provide a foundation for legal action against abuse, this warning content should be set as appropriate.
+# Description: The operating system must display the DoD approved system use notification message or banner before granting access to the system for general system logons.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The "at" directory must be group-owned by root, bin, or sys.
-# Description: If the "at" directory's group owner is not root, bin, or sys, unauthorized users could be allowed to view or edit files containing sensitive information within the directory.
+# Description: The "at" directory must be group-owned by root, bin, or sys.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The hosts.lpd (or equivalent) file must be group-owned by root, bin, or sys.
-# Description: Failure to give group ownership of the hosts.lpd (or equivalent) file to root, bin, sys, or system provides the members of the owning group and possible unauthorized users, with the potential to modify it.  Unauthorized modifications could disrupt access to local printers from authorized remote hosts or permit unauthorized remote access to local printers.
+# Description: The hosts.lpd (or equivalent) file must be group-owned by root, bin, or sys.
 

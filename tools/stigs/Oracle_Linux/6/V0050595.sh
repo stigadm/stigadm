@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The NFS server must not have the all_squash option enabled.
-# Description: The "all_squash" option maps all client requests to a single anonymous uid/gid on the NFS server, negating the ability to track file access by user ID.
+# Description: The NFS server must not have the all_squash option enabled.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All users' home directories must have mode 0750 or less permissive.
-# Description: Excessive permissions on home directories allow unauthorized access to user's files.
+# Description: All users' home directories must have mode 0750 or less permissive.
 

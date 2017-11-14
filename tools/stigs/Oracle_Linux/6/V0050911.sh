@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must require passwords to contain at least one numeric character.
-# Description: Requiring digits makes password guessing attacks more difficult by ensuring a larger search space.
+# Description: The system must require passwords to contain at least one numeric character.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Cron and crontab directories must not have extended ACLs.
-# Description: To protect the integrity of scheduled system jobs and to prevent malicious modification to these jobs, crontab files must be secured.  ACLs on cron and crontab directories may provide unauthorized access to these directories.  Unauthorized modifications to these directories or their contents may result in the addition of unauthorized cron jobs or deny service to authorized cron jobs.
+# Description: Cron and crontab directories must not have extended ACLs.
 

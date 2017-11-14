@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/shadow file must be group-owned by root.
-# Description: The "/etc/shadow" file stores password hashes. Protection of this file is critical for system security.
+# Description: The /etc/shadow file must be group-owned by root.
 

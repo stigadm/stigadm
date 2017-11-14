@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071903
+# Title: When passwords are changed or new passwords are established, the new password must contain at least one upper-case character.
 # Description: When passwords are changed or new passwords are established, the new password must contain at least one upper-case character.
 

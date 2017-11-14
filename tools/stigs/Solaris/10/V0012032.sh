@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Hidden extended file attributes must not exist on the system.
-# Description: Solaris extended attributes are essentially files themselves that are of an arbitrary size and content.  They could be used to hide files from ordinary system file scans.
+# Description: Hidden extended file attributes must not exist on the system.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/pam.conf file must be owned by root.
-# Description: /etc/pam.conf file is the system configuration file for the Pluggable Authentication Module (PAM) architecture. It supports per user authentication, account, session, and password management. If the configuration is modified maliciously, users may gain unauthorized system access. 
+# Description: The /etc/pam.conf file must be owned by root.
 

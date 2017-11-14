@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All Network File System (NFS) shared system files and system directories must be group-owned by root, bin, sys, or other.
-# Description: Failure to give group-ownership of sensitive files or directories to root provides the members of the owning group with the potential to access sensitive information or change system configuration which could weaken the system's security posture.
+# Description: All Network File System (NFS) shared system files and system directories must be group-owned by root, bin, sys, or other.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: Permissions on user . (hidden) files must be 750 or less permissive.
-# Description: Group-writable or world-writable user configuration files may enable malicious users to steal or modify other users' data or to gain another user's system privileges.
+# Description: Permissions on user . (hidden) files must be 750 or less permissive.
 

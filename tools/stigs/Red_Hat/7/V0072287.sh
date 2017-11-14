@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must not respond to Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) echoes sent to a broadcast address.
-# Description: Responding to broadcast (ICMP) echoes facilitates network mapping and provides a vector for amplification attacks.
+# Description: The system must not respond to Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) echoes sent to a broadcast address.
 

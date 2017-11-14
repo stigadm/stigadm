@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The smb.conf file must be group-owned by root, bin, or sys.
-# Description: If the group owner of the smb.conf file is not root or a system group, the file may be maliciously modified and the Samba configuration could be compromised.
+# Description: The smb.conf file must be group-owned by root, bin, or sys.
 

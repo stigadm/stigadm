@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The auditing system must not define a different auditing level for specific users.
-# Description: Without auditing, individual system accesses cannot be tracked, and malicious activity cannot be detected and traced back to an individual account.
+# Description: The auditing system must not define a different auditing level for specific users.
 

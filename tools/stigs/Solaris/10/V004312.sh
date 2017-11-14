@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /usr/aset/masters/uid_aliases must be empty.
-# Description: If uid_aliases has entries, users may not be properly identified in ASET records.
+# Description: The /usr/aset/masters/uid_aliases must be empty.
 

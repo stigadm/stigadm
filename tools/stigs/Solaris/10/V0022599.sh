@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: The /etc/security/audit_user file must not have an extended ACL.
-# Description: Audit_user is a sensitive file that, if compromised, would allow a malicious user to select auditing parameters to ignore their sessions.  This would allow malicious operations the auditing subsystem would not detect for that user.  It could also result in long-term system compromise possibly leading to the compromise of other systems and networks.
+# Description: The /etc/security/audit_user file must not have an extended ACL.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Automatic Bug Reporting Tool (abrtd) service must not be running.
-# Description: Mishandling crash data could expose sensitive information about vulnerabilities in software executing on the local machine, as well as sensitive information from within a process's address space or registers.
+# Description: The Automatic Bug Reporting Tool (abrtd) service must not be running.
 

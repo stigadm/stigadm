@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Default operating system accounts, other than root, must be locked.
-# Description: Disabling authentication for default system accounts makes it more difficult for attackers to make use of them to compromise a system.
+# Description: Default operating system accounts, other than root, must be locked.
 

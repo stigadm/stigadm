@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: All system command files must have mode 755 or less permissive.
-# Description: System binaries are executed by privileged users, as well as system services, and restrictive permissions are necessary to ensure execution of these programs cannot be co-opted.
+# Description: All system command files must have mode 755 or less permissive.
 

@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The rlogind service must not be installed.
-# Description: The rlogind process provides a typically unencrypted, host-authenticated remote access service. SSH should be used in place of this service.
+# Description: The rlogind service must not be installed.
 

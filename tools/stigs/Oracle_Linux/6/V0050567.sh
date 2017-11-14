@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The tftp-server package must not be installed unless required.
-# Description: Removing the "tftp-server" package decreases the risk of the accidental (or intentional) activation of tftp services.
+# Description: The tftp-server package must not be installed unless required.
 

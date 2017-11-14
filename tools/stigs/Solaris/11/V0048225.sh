@@ -150,5 +150,5 @@ exit 0
 # Architecture: X86
 #
 # Title: The operating system must configure the information system to specifically prohibit or restrict the use of organization-defined functions, ports, protocols, and/or services.
-# Description: Proper configuration of the firewall will only allow encrypted, authenticated protocols such as SSHv2. Stateful packet filtering and logging shall be enabled.
+# Description: The operating system must configure the information system to specifically prohibit or restrict the use of organization-defined functions, ports, protocols, and/or services.
 

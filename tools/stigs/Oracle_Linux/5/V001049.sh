@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Audio devices must be owned by root.
-# Description: Audio and video devices globally accessible have proven to be another security hazard. There is software that can activate system microphones and video devices connected to user workstations and/or X terminals. Once the microphone has been activated, it is possible to eavesdrop on otherwise private conversations without the victim being aware of it. This action effectively changes the user's microphone into a bugging device.
+# Description: Audio devices must be owned by root.
 

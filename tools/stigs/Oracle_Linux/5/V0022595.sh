@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The access.conf file must not have an extended ACL.
-# Description: If the access permissions are more permissive than 0640, system security could be compromised.
+# Description: The access.conf file must not have an extended ACL.
 

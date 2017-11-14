@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Any X Windows host must write .Xauthority files.
-# Description: .Xauthority files ensure the user is authorized to access the specific X Windows host.  If .Xauthority files are not used, it may be possible to obtain unauthorized access to the X Windows host.
+# Description: Any X Windows host must write .Xauthority files.
 

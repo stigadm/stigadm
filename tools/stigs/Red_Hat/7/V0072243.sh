@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The SSH daemon must not allow authentication using rhosts authentication.
-# Description: Configuring this setting for the SSH daemon provides additional assurance that remote logon via SSH will require a password, even in the event of misconfiguration elsewhere.
+# Description: The SSH daemon must not allow authentication using rhosts authentication.
 

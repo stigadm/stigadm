@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must use available memory address randomization techniques.
-# Description: Successful exploitation of buffer overflow vulnerabilities relies in some measure to having a predictable address structure of the executing program. Address randomization techniques reduce the probability of a successful exploit.
+# Description: The system must use available memory address randomization techniques.
 

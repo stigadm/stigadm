@@ -150,5 +150,5 @@ exit 0
 # Architecture: Sparc
 #
 # Title: Inetd and xinetd must be disabled or removed if no network services utilizing them are enabled.
-# Description: Unnecessary services should be disabled to decrease the attack surface of the system.
+# Description: Inetd and xinetd must be disabled or removed if no network services utilizing them are enabled.
 

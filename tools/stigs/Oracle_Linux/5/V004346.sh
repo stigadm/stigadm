@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The Linux PAM system must not grant sole access to admin privileges to the first user who logs into the console.
-# Description: If an unauthorized user has been granted privileged access while logged in at the console, the security posture of a system could be greatly compromised.  Additionally, such a situation could deny legitimate root access from another terminal.
+# Description: The Linux PAM system must not grant sole access to admin privileges to the first user who logs into the console.
 

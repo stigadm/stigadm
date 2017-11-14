@@ -149,6 +149,6 @@ exit 0
 # Version: 6
 # Architecture: 
 #
-# Title: V0038589
+# Title: The telnet daemon must not be running.
 # Description: The telnet daemon must not be running.
 

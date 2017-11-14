@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The NFS export configuration file must be owned by root.
-# Description: Failure to give ownership of the NFS export configuration file to root provides the designated owner and possible unauthorized users with the potential to change system configuration which could weaken the system's security posture.
+# Description: The NFS export configuration file must be owned by root.
 

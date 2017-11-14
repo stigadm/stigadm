@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: If the system is an anonymous FTP server, it must be isolated to the DMZ network.
-# Description: Anonymous FTP is a public data service which is only permitted in a server capacity when located on the DMZ network.
+# Description: If the system is an anonymous FTP server, it must be isolated to the DMZ network.
 

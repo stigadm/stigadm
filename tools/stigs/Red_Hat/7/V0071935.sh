@@ -149,6 +149,6 @@ exit 0
 # Version: 7
 # Architecture: 
 #
-# Title: V0071935
+# Title: Passwords must be a minimum of 15 characters in length.
 # Description: Passwords must be a minimum of 15 characters in length.
 

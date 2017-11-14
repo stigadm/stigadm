@@ -149,6 +149,6 @@ exit 0
 # Version: 11
 # Architecture: X86
 #
-# Title: V0047941
+# Title: The operating system must back up audit records at least every seven days onto a different system or system component than the system or component being audited.
 # Description: The operating system must back up audit records at least every seven days onto a different system or system component than the system or component being audited.
 

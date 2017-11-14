@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The /etc/ftpaccess.ctl file must exist.
-# Description: The ftpaccess.ctl  file contains options for the ftp daemon, such as herald, motd, user access,  and permissions to files and directories. If the ftpaccess.ctl file does not exist, the ftpd process will not display any warning banners, and permissions will only be enforced using basic UNIX permissions. 
+# Description: The /etc/ftpaccess.ctl file must exist.
 

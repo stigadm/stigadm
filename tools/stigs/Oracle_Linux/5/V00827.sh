@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The hosts.lpd file (or equivalent) must not contain a + character.
-# Description: Having the '+' character in the hosts.lpd (or equivalent) file allows all hosts to use local system print resources.
+# Description: The hosts.lpd file (or equivalent) must not contain a + character.
 

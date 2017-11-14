@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: Anonymous FTP accounts must not have a functional shell.
-# Description: If an anonymous FTP account has been configured to use a functional shell, attackers could gain access to the shell if the account is compromised.
+# Description: Anonymous FTP accounts must not have a functional shell.
 

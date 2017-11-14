@@ -150,5 +150,5 @@ exit 0
 # Architecture: 
 #
 # Title: The system must ignore ICMPv6 redirects by default.
-# Description: An illicit ICMP redirect message could result in a man-in-the-middle attack.
+# Description: The system must ignore ICMPv6 redirects by default.
 
