@@ -7,9 +7,10 @@
 # VulnID: V-47819
 # Name: SV-60695r1
 
+
 # Define an array of default policy kernel params
 declare -a defpolicy
-defpolicy+=("argv")
+defpolicy+=("+argv")
 
 
 # Define an array of default audit flags
@@ -133,7 +134,7 @@ if [[ ${restore} -eq 1 ]] && [[ ${cond} -eq 1 ]]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-
+  
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -208,14 +209,49 @@ if [ ${change} -eq 1 ]; then
   [ ${verbose} -eq 1 ] && print "Created snapshot of current default audit flags & policies"
 
 
-  # Combine ${cur_defpolicy[@]} with ${defpolicy[@]}
-  set_defpolicy=( $(remove_duplicates "${defpolicy[@]}" "${cur_defpolicy[@]}") )
+  # IF ${#cur_defflags[@]} > 0
+  if [ ${#cur_defflags[@]} -gt 0 ]; then
 
-  # Combine ${cur_defflags[@]} with ${defflags[@]}
-  set_defflags=( $(remove_duplicates "${defflags[@]}" "${cur_defflags[@]}") )
+    # Perform intersection of ${def_flags[@]} with ${cur_defpolicy[@]}
+    set_defpolicy=($(comm -13 <(printf "%s\n" $(echo "${defpolicy[@]}" | sort -u)) <(printf "%s\n" $(echo "${cur_defpolicy[@]}" | sort -u))))
+  else
 
-  # Combine ${cur_defnaflags[@]} with ${defnaflags[@]}
-  set_defnaflags=( $(remove_duplicates "${defnaflags[@]}" "${cur_defnaflags[@]}") )
+    # Copy ${defpolicy[@]} to ${set_defpolicy[@]}
+    set_defpolicy=(${defflags[@]})
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Combined current audit policies with configured policies"
+
+
+  # IF ${#cur_defflags[@]} > 0
+  if [ ${#cur_defflags[@]} -gt 0 ]; then
+
+    # Perform intersection of ${def_flags[@]} with ${cur_defflags[@]}
+    set_defflags=($(comm -13 <(printf "%s\n" $(echo "${defflags[@]}" | sort -u)) <(printf "%s\n" $(echo "${cur_defflags[@]}" | sort -u))))
+  else
+
+    # Copy ${defflags[@]} to ${set_defflags[@]}
+    set_defflags=(${defflags[@]})
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Combined current audit flags with configured flags"
+
+
+  # IF ${#cur_defnaflags[@]} > 0
+  if [ ${#cur_defnaflags[@]} -gt 0 ]; then
+
+    # Perform intersection of ${def_flags[@]} with ${cur_defnaflags[@]}
+    set_defnaflags=($(comm -13 <(printf "%s\n" $(echo "${defnaflags[@]}" | sort -u)) <(printf "%s\n" $(echo "${cur_defnaflags[@]}" | sort -u))))
+  else
+
+    # Copy ${defnaflags[@]} to ${set_defnaflags[@]}
+    set_defnaflags=(${defnaflags[@]})
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Combined current non-attributable audit flags with configured flags"
 
 
   # Convert ${set_defpolicy[@]} into a string
@@ -225,37 +261,37 @@ if [ ${change} -eq 1 ]; then
   defflag="$(echo "${set_defflags[@]}" | tr ' ' ',')"
 
   # Convert ${set_defnaflags[@]} into a string
-  defnaflag="$(echo "${set_defnaflags[@]}" | tr ' ' ',')"
+  defflag="$(echo "${set_defnaflags[@]}" | tr ' ' ',')"
 
 
   # Set the value(s) to the audit service
-  auditconfig -setpolicy ${defpol} &> /dev/null
+  auditconfig -setpolicy ${defpol} 2> /dev/null
 
   # Handle results
   if [ $? -ne 0 ]; then
-
+    
     # Print friendly message
     [ ${verbose} -eq 1 ] && print "An error occurred setting default audit policy: ${defpol}" 1
   fi
 
 
   # Set the value(s) to the audit service
-  auditconfig -setflags ${defflag} &> /dev/null
+  auditconfig -setflags ${defflag} 2> /dev/null
 
   # Handle results
   if [ $? -ne 0 ]; then
-
+    
     # Print friendly message
     [ ${verbose} -eq 1 ] && print "An error occurred setting default audit flags: ${defflag}" 1
   fi
 
 
   # Set the value(s) to the audit service
-  auditconfig -setnaflags ${defnaflag} &> /dev/null
+  auditconfig -setnaflags ${defflag} 2> /dev/null
 
   # Handle results
   if [ $? -ne 0 ]; then
-
+    
     # Print friendly message
     [ ${verbose} -eq 1 ] && print "An error occurred setting default non-immutable audit flags: ${defnaflag}" 1
   fi
@@ -269,6 +305,9 @@ declare -a err
 # Get an array of default policy flags
 cur_defpolicy=($(auditconfig -getpolicy | awk '$1 ~ /^active/{print}' | cut -d= -f2 | tr ',' ' '))
 
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Obtained current list of default audit policies"
+
 # Iterate ${defpolicy[@]}
 for pol in ${defpolicy[@]}; do
 
@@ -279,6 +318,9 @@ done
 
 # Get an array of default flags
 cur_defflags=($(auditconfig -getflags | awk '$1 ~ /^active/{split($7, obj, "(");print obj[1]}' | tr ',' ' '))
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Obtained current list of default audit flags"
 
 
 # Iterate ${defflags[@]}
@@ -291,6 +333,9 @@ done
 
 # Get an array of default non-attributable flags
 cur_defnaflags=($(auditconfig -getnaflags | awk '$1 ~ /^active/{split($6, obj, "(");print obj[1]}' | tr ',' ' '))
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Obtained current list of default non-attributable audit flags"
 
 # Iterate ${defnaflags[@]}
 for naflag in ${defnaflags[@]}; do
