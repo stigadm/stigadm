@@ -146,3 +146,35 @@ exit 0
 # STIG_Version: SV-785r2
 # Rule_ID: GEN001160
 #
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00785
+# STIG_Version: SV-785r2
+# Rule_ID: GEN001160
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: All files and directories must have a valid owner.
+# Description: All files and directories must have a valid owner.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00785
+# STIG_Version: SV-785r2
+# Rule_ID: GEN001160
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: All files and directories must have a valid owner.
+# Description: All files and directories must have a valid owner.
+

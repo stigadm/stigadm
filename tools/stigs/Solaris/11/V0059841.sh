@@ -340,3 +340,19 @@ done
 [ ${verbose} -eq 1 ] && print "Success, system conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0059841
+# STIG_Version: SV-74271r1
+# Rule_ID: SOL-11.1-020370
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: All system start-up files must be group-owned by root, sys, or bin.
+# Description: All system start-up files must be group-owned by root, sys, or bin.
+

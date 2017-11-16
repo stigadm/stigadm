@@ -316,3 +316,19 @@ IFS="${cIFS}"
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048033
+# STIG_Version: SV-60905r2
+# Rule_ID: SOL-11.1-070240
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must reveal error messages only to authorized personnel.
+# Description: The operating system must reveal error messages only to authorized personnel.
+

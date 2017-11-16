@@ -376,3 +376,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047819
+# STIG_Version: SV-60695r1
+# Rule_ID: SOL-11.1-010310
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The audit system must be configured to audit login, logout, and session initiation.
+# Description: The audit system must be configured to audit login, logout, and session initiation.
+

@@ -363,3 +363,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047943
+# STIG_Version: SV-60815r2
+# Rule_ID: SOL-11.1-040010
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: User passwords must be changed at least every 56 days.
+# Description: User passwords must be changed at least every 56 days.
+

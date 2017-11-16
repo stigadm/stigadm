@@ -170,3 +170,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047785
+# STIG_Version: SV-60661r1
+# Rule_ID: SOL-11.1-010070
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The audit system records must be able to be used by a report generation capability.
+# Description: The audit system records must be able to be used by a report generation capability.
+

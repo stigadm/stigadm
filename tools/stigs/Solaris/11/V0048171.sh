@@ -340,3 +340,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048171
+# STIG_Version: SV-61043r1
+# Rule_ID: SOL-11.1-060090
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must maintain the integrity of information during aggregation, packaging, and transformation in preparation for transmission.
+# Description: The operating system must maintain the integrity of information during aggregation, packaging, and transformation in preparation for transmission.
+

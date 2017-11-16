@@ -340,3 +340,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048159
+# STIG_Version: SV-61031r1
+# Rule_ID: SOL-11.1-060130
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must use cryptography to protect the confidentiality of remote access sessions.
+# Description: The operating system must use cryptography to protect the confidentiality of remote access sessions.
+

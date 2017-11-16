@@ -239,3 +239,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048133
+# STIG_Version: SV-61005r1
+# Rule_ID: SOL-11.1-070020
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: Permissions on user home directories must be 750 or less permissive.
+# Description: Permissions on user home directories must be 750 or less permissive.
+

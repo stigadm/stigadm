@@ -322,3 +322,19 @@ done
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048039
+# STIG_Version: SV-60911r1
+# Rule_ID: SOL-11.1-070200
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must have no unowned files.
+# Description: The operating system must have no unowned files.
+

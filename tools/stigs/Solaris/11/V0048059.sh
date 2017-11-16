@@ -201,3 +201,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048059
+# STIG_Version: SV-60931r2
+# Rule_ID: SOL-11.1-070190
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: All valid SUID/SGID files must be documented.
+# Description: All valid SUID/SGID files must be documented.
+

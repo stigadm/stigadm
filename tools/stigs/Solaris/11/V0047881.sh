@@ -159,3 +159,19 @@ removal=("$(echo "${updates}" | sed -n '/Removal instruction/,/Generic Instructi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047881
+# STIG_Version: SV-60753r2
+# Rule_ID: SOL-11.1-020010
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The System packages must be up to date with the most recent vendor updates and security fixes.
+# Description: The System packages must be up to date with the most recent vendor updates and security fixes.
+

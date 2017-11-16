@@ -282,3 +282,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048085
+# STIG_Version: SV-60957r1
+# Rule_ID: SOL-11.1-040300
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: Emergency accounts must be locked after 35 days of inactivity.
+# Description: Emergency accounts must be locked after 35 days of inactivity.
+

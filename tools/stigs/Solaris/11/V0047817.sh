@@ -376,3 +376,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047817
+# STIG_Version: SV-60693r1
+# Rule_ID: SOL-11.1-010300
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The audit system must be configured to audit all administrative, privileged, and security actions.
+# Description: The audit system must be configured to audit all administrative, privileged, and security actions.
+

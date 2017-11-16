@@ -319,6 +319,9 @@ EOF
 
 EOF
     fi
+
+    # Set permission(s)
+    find ${ouptput} -type f -name "*.sh" chmod 00601 {} \:
   done
 done
 

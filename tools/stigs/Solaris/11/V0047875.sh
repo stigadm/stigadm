@@ -216,3 +216,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-I
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047875
+# STIG_Version: SV-60747r1
+# Rule_ID: SOL-11.1-010450
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The operating system must protect audit information from unauthorized modification.
+# Description: The operating system must protect audit information from unauthorized modification.
+

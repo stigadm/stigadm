@@ -376,3 +376,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047821
+# STIG_Version: SV-60697r1
+# Rule_ID: SOL-11.1-010320
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The audit system must be configured to audit all discretionary access control permission modifications.
+# Description: The audit system must be configured to audit all discretionary access control permission modifications.
+

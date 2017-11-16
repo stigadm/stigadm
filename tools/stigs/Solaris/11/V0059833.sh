@@ -317,3 +317,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, system conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0059833
+# STIG_Version: SV-74263r2
+# Rule_ID: SOL-11.1-020330
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: Run control scripts library search paths must contain only authorized paths.
+# Description: Run control scripts library search paths must contain only authorized paths.
+

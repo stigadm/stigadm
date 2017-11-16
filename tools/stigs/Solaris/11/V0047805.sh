@@ -376,3 +376,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047805
+# STIG_Version: SV-60681r1
+# Rule_ID: SOL-11.1-010220
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The audit system must be configured to audit file deletions.
+# Description: The audit system must be configured to audit file deletions.
+

@@ -152,3 +152,35 @@ exit 0
 # STIG_Version: SV-27065r1
 # Rule_ID: GEN000320
 #
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00762
+# STIG_Version: SV-27065r1
+# Rule_ID: GEN000320
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: All accounts must be assigned unique User Identification Numbers (UIDs).
+# Description: All accounts must be assigned unique User Identification Numbers (UIDs).
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00762
+# STIG_Version: SV-27065r1
+# Rule_ID: GEN000320
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: All accounts must be assigned unique User Identification Numbers (UIDs).
+# Description: All accounts must be assigned unique User Identification Numbers (UIDs).
+

@@ -231,3 +231,19 @@ done
 
 [ ${verbose} -eq 1 ] && print "Failed conformity to '${stigid}'" 1
 exit 1
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048193
+# STIG_Version: SV-61065r1
+# Rule_ID: SOL-11.1-050080
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The system must set strict multihoming.
+# Description: The system must set strict multihoming.
+

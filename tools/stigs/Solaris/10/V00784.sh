@@ -245,3 +245,35 @@ exit 0
 # STIG_Version: SV-39833r1
 # Rule_ID: GEN001140
 #
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00784
+# STIG_Version: SV-39833r1
+# Rule_ID: GEN001140
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: System files and directories must not have uneven access permissions.
+# Description: System files and directories must not have uneven access permissions.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00784
+# STIG_Version: SV-39833r1
+# Rule_ID: GEN001140
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: System files and directories must not have uneven access permissions.
+# Description: System files and directories must not have uneven access permissions.
+

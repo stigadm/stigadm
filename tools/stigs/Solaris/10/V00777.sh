@@ -260,3 +260,35 @@ exit 0
 # STIG_Version: SV-37075r1
 # Rule_ID: GEN000960
 #
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00777
+# STIG_Version: SV-37075r1
+# Rule_ID: GEN000960
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: The root account must not have world-writable directories in its executable search path.
+# Description: The root account must not have world-writable directories in its executable search path.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00777
+# STIG_Version: SV-37075r1
+# Rule_ID: GEN000960
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: The root account must not have world-writable directories in its executable search path.
+# Description: The root account must not have world-writable directories in its executable search path.
+

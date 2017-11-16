@@ -195,3 +195,35 @@ exit 0
 # STIG_Version: SV-28658r1
 # Rule_ID: GEN000360
 #
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00780
+# STIG_Version: SV-28658r1
+# Rule_ID: GEN000360
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: GIDs reserved for system accounts must not be assigned to non-system groups.
+# Description: GIDs reserved for system accounts must not be assigned to non-system groups.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00780
+# STIG_Version: SV-28658r1
+# Rule_ID: GEN000360
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: GIDs reserved for system accounts must not be assigned to non-system groups.
+# Description: GIDs reserved for system accounts must not be assigned to non-system groups.
+

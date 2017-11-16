@@ -27,3 +27,19 @@ else
   echo $sshdconfig " does not exist or Secure Shell has not been installed" >> $LOGFILE
   echo "     $sshdconfig does not exist or Secure Shell has not been installed."
 fi
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048103
+# STIG_Version: SV-60975r1
+# Rule_ID: SOL-11.1-040360
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: Direct root account login must not be permitted for SSH access.
+# Description: Direct root account login must not be permitted for SSH access.
+

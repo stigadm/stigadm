@@ -232,3 +232,19 @@ done
 
 [ ${verbose} -eq 1 ] && print "Failed conformity to '${stigid}'" 1
 exit 1
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048189
+# STIG_Version: SV-61061r1
+# Rule_ID: SOL-11.1-050070
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The system must ignore ICMP redirect messages.
+# Description: The system must ignore ICMP redirect messages.
+

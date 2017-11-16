@@ -152,3 +152,35 @@ exit 0
 # STIG_Version: SV-27105r1
 # Rule_ID: GEN000560
 #
+
+# Date: 2017-06-21
+#
+# Severity: CAT-I
+# Classification: UNCLASSIFIED
+# STIG_ID: V00770
+# STIG_Version: SV-27105r1
+# Rule_ID: GEN000560
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: The system must not have accounts configured with blank or null passwords.
+# Description: The system must not have accounts configured with blank or null passwords.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-I
+# Classification: UNCLASSIFIED
+# STIG_ID: V00770
+# STIG_Version: SV-27105r1
+# Rule_ID: GEN000560
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: The system must not have accounts configured with blank or null passwords.
+# Description: The system must not have accounts configured with blank or null passwords.
+

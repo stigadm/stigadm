@@ -231,3 +231,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047991
+# STIG_Version: SV-60863r1
+# Rule_ID: SOL-11.1-040100
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The system must require passwords to contain at least one special character.
+# Description: The system must require passwords to contain at least one special character.
+

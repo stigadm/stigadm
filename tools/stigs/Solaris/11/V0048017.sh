@@ -192,3 +192,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0048017
+# STIG_Version: SV-60889r1
+# Rule_ID: SOL-11.1-080060
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The centralized process core dump data directory must be group-owned by root, bin, or sys.
+# Description: The centralized process core dump data directory must be group-owned by root, bin, or sys.
+

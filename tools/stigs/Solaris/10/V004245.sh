@@ -199,3 +199,35 @@ exit 0
 # STIG_Version: SV-4245r2
 # Rule_ID: GEN000000-SOL00100
 #
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V004245
+# STIG_Version: SV-4245r2
+# Rule_ID: GEN000000-SOL00100
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: The /etc/security/audit_user file must have mode 0640 or less permissive.
+# Description: The /etc/security/audit_user file must have mode 0640 or less permissive.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V004245
+# STIG_Version: SV-4245r2
+# Rule_ID: GEN000000-SOL00100
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: The /etc/security/audit_user file must have mode 0640 or less permissive.
+# Description: The /etc/security/audit_user file must have mode 0640 or less permissive.
+

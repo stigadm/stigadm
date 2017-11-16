@@ -297,3 +297,19 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, '${file}' conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-I
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047843
+# STIG_Version: SV-60717r1
+# Rule_ID: SOL-11.1-010380
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc
+#
+# Title: The audit system must alert the System Administrator (SA) if there is any type of audit failure.
+# Description: The audit system must alert the System Administrator (SA) if there is any type of audit failure.
+
