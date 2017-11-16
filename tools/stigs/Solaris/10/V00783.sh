@@ -199,7 +199,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: System security patches and updates must be installed and up-to-date.
 # Description: System security patches and updates must be installed and up-to-date.

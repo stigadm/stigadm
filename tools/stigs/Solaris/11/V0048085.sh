@@ -293,7 +293,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Emergency accounts must be locked after 35 days of inactivity.
 # Description: Emergency accounts must be locked after 35 days of inactivity.

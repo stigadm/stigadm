@@ -244,7 +244,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The operating system must protect against an individual falsely denying having performed a particular action. In order to do so the system must be configured to send audit records to a remote audit server.
 # Description: The operating system must protect against an individual falsely denying having performed a particular action. In order to do so the system must be configured to send audit records to a remote audit server.

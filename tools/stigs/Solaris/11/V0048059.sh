@@ -212,7 +212,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: All valid SUID/SGID files must be documented.
 # Description: All valid SUID/SGID files must be documented.

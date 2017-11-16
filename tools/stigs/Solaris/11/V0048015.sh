@@ -194,7 +194,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The centralized process core dump data directory must have mode 0700 or less permissive.
 # Description: The centralized process core dump data directory must have mode 0700 or less permissive.

@@ -239,7 +239,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The system and user default umask must be 077.
 # Description: The system and user default umask must be 077.

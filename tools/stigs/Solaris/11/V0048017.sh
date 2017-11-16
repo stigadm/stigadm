@@ -203,7 +203,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The centralized process core dump data directory must be group-owned by root, bin, or sys.
 # Description: The centralized process core dump data directory must be group-owned by root, bin, or sys.

@@ -228,7 +228,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The Department of Defense (DoD) login banner must be displayed immediately prior to, or as part of, console login prompts.
 # Description: The Department of Defense (DoD) login banner must be displayed immediately prior to, or as part of, console login prompts.

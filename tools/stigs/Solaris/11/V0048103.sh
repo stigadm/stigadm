@@ -38,7 +38,7 @@ fi
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Direct root account login must not be permitted for SSH access.
 # Description: Direct root account login must not be permitted for SSH access.

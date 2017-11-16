@@ -292,7 +292,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The root accounts executable search path must contain only authorized paths.
 # Description: The root accounts executable search path must contain only authorized paths.

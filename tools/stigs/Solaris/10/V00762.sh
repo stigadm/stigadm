@@ -179,7 +179,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: All accounts must be assigned unique User Identification Numbers (UIDs).
 # Description: All accounts must be assigned unique User Identification Numbers (UIDs).

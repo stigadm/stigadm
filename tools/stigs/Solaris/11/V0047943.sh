@@ -374,7 +374,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: User passwords must be changed at least every 56 days.
 # Description: User passwords must be changed at least every 56 days.

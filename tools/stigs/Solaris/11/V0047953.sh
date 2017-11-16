@@ -321,7 +321,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The operating system must enforce minimum password lifetime restrictions.
 # Description: The operating system must enforce minimum password lifetime restrictions.

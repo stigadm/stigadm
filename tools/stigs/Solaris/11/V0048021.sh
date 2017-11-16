@@ -224,7 +224,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Process core dumps must be disabled unless needed.
 # Description: Process core dumps must be disabled unless needed.

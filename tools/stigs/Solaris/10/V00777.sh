@@ -287,7 +287,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The root account must not have world-writable directories in its executable search path.
 # Description: The root account must not have world-writable directories in its executable search path.

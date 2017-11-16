@@ -179,7 +179,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The root account must be the only account having an UID of 0.
 # Description: The root account must be the only account having an UID of 0.

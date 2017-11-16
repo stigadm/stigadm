@@ -242,7 +242,7 @@ exit 1
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The system must disable ICMP redirect messages.
 # Description: The system must disable ICMP redirect messages.

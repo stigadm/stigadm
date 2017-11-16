@@ -190,7 +190,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: All accounts on the system must have unique user or account names.
 # Description: All accounts on the system must have unique user or account names.

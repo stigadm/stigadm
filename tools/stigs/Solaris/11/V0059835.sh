@@ -325,7 +325,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Run control scripts lists of preloaded libraries must contain only authorized paths.
 # Description: Run control scripts lists of preloaded libraries must contain only authorized paths.

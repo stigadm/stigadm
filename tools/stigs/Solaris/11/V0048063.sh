@@ -319,7 +319,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: World-writable files must not exist.
 # Description: World-writable files must not exist.

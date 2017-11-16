@@ -151,7 +151,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The NIS package must not be installed.
 # Description: The NIS package must not be installed.

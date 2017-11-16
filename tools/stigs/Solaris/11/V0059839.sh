@@ -349,7 +349,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: All system start-up files must be owned by root.
 # Description: All system start-up files must be owned by root.

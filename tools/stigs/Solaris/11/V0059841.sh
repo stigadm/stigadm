@@ -351,7 +351,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: All system start-up files must be group-owned by root, sys, or bin.
 # Description: All system start-up files must be group-owned by root, sys, or bin.

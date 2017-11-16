@@ -241,7 +241,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The system must prevent the root account from directly logging in except from the system console.
 # Description: The system must prevent the root account from directly logging in except from the system console.

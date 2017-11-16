@@ -242,7 +242,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The system must require passwords to contain at least one special character.
 # Description: The system must require passwords to contain at least one special character.

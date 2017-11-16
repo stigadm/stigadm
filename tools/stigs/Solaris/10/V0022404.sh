@@ -169,7 +169,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Kernel core dumps must be disabled unless needed.
 # Description: Kernel core dumps must be disabled unless needed.

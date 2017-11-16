@@ -387,7 +387,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The operating system must automatically audit account termination.
 # Description: The operating system must automatically audit account termination.

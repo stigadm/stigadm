@@ -222,7 +222,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: GIDs reserved for system accounts must not be assigned to non-system groups.
 # Description: GIDs reserved for system accounts must not be assigned to non-system groups.

@@ -179,7 +179,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The system must not have accounts configured with blank or null passwords.
 # Description: The system must not have accounts configured with blank or null passwords.

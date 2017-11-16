@@ -182,7 +182,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The operating system must provide the capability to automatically process audit records for events of interest based upon selectable, event criteria.
 # Description: The operating system must provide the capability to automatically process audit records for events of interest based upon selectable, event criteria.

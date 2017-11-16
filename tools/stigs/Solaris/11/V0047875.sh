@@ -227,7 +227,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The operating system must protect audit information from unauthorized modification.
 # Description: The operating system must protect audit information from unauthorized modification.

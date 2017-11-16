@@ -250,7 +250,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Permissions on user home directories must be 750 or less permissive.
 # Description: Permissions on user home directories must be 750 or less permissive.

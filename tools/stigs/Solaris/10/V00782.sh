@@ -213,7 +213,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The system must have a host-based intrusion detection tool installed.
 # Description: The system must have a host-based intrusion detection tool installed.

@@ -244,7 +244,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Logins to the root account must be restricted to the system console only.
 # Description: Logins to the root account must be restricted to the system console only.

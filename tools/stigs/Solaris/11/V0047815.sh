@@ -387,7 +387,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The operating system must ensure unauthorized, security-relevant configuration changes detected are tracked.
 # Description: The operating system must ensure unauthorized, security-relevant configuration changes detected are tracked.

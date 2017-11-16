@@ -182,7 +182,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Audit records must include the sources of the events that occurred.
 # Description: Audit records must include the sources of the events that occurred.

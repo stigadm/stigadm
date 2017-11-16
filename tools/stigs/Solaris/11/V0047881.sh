@@ -170,7 +170,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The System packages must be up to date with the most recent vendor updates and security fixes.
 # Description: The System packages must be up to date with the most recent vendor updates and security fixes.

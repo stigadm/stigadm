@@ -296,7 +296,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Accounts must be locked upon 35 days of inactivity.
 # Description: Accounts must be locked upon 35 days of inactivity.

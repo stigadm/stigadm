@@ -179,7 +179,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The root user's home directory must not be the root directory (/).
 # Description: The root user's home directory must not be the root directory (/).

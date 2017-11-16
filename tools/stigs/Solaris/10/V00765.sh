@@ -256,7 +256,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Successful and unsuccessful logins and logouts must be logged.
 # Description: Successful and unsuccessful logins and logouts must be logged.

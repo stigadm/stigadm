@@ -365,7 +365,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Run control scripts must not execute world writable programs or scripts.
 # Description: Run control scripts must not execute world writable programs or scripts.

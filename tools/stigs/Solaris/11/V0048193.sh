@@ -242,7 +242,7 @@ exit 1
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The system must set strict multihoming.
 # Description: The system must set strict multihoming.

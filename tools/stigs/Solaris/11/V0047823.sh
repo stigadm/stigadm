@@ -387,7 +387,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The audit system must be configured to audit the loading and unloading of dynamic kernel modules.
 # Description: The audit system must be configured to audit the loading and unloading of dynamic kernel modules.

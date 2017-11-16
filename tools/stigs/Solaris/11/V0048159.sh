@@ -351,7 +351,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The operating system must use cryptography to protect the confidentiality of remote access sessions.
 # Description: The operating system must use cryptography to protect the confidentiality of remote access sessions.

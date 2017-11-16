@@ -272,7 +272,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: System files and directories must not have uneven access permissions.
 # Description: System files and directories must not have uneven access permissions.

@@ -286,7 +286,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The operating system must alert designated organizational officials in the event of an audit processing failure.
 # Description: The operating system must alert designated organizational officials in the event of an audit processing failure.

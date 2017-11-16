@@ -230,7 +230,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: All home directories must be owned by the respective user assigned to it in /etc/passwd.
 # Description: All home directories must be owned by the respective user assigned to it in /etc/passwd.

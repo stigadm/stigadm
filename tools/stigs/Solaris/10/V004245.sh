@@ -226,7 +226,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The /etc/security/audit_user file must have mode 0640 or less permissive.
 # Description: The /etc/security/audit_user file must have mode 0640 or less permissive.

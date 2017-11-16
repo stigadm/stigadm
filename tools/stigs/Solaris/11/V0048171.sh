@@ -351,7 +351,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The operating system must maintain the integrity of information during aggregation, packaging, and transformation in preparation for transmission.
 # Description: The operating system must maintain the integrity of information during aggregation, packaging, and transformation in preparation for transmission.

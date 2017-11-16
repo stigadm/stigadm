@@ -348,7 +348,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: System start-up files must only execute programs owned by a privileged UID or an application.
 # Description: System start-up files must only execute programs owned by a privileged UID or an application.

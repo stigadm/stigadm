@@ -181,7 +181,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The operating system must generate audit records for the selected list of auditable events as defined in DoD list of events.
 # Description: The operating system must generate audit records for the selected list of auditable events as defined in DoD list of events.

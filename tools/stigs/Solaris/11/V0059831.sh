@@ -326,7 +326,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Run control scripts executable search paths must contain only authorized paths.
 # Description: Run control scripts executable search paths must contain only authorized paths.

@@ -270,7 +270,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Users must not be able to change passwords more than once every 24 hours.
 # Description: Users must not be able to change passwords more than once every 24 hours.

@@ -239,7 +239,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The delay between login prompts following a failed login attempt must be at least 4 seconds.
 # Description: The delay between login prompts following a failed login attempt must be at least 4 seconds.

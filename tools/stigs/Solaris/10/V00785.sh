@@ -173,7 +173,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: All files and directories must have a valid owner.
 # Description: All files and directories must have a valid owner.

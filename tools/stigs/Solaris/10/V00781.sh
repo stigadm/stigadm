@@ -196,7 +196,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: All GIDs referenced in the /etc/passwd file must be defined in the /etc/group file.
 # Description: All GIDs referenced in the /etc/passwd file must be defined in the /etc/group file.

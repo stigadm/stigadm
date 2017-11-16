@@ -241,7 +241,7 @@ exit 1
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The system must set maximum number of incoming connections to 1024.
 # Description: The system must set maximum number of incoming connections to 1024.

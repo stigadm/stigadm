@@ -202,7 +202,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The root account's home directory (other than /) must have mode 0700.
 # Description: The root account's home directory (other than /) must have mode 0700.

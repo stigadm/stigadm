@@ -308,7 +308,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: The audit system must alert the System Administrator (SA) if there is any type of audit failure.
 # Description: The audit system must alert the System Administrator (SA) if there is any type of audit failure.

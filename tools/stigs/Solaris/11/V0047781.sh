@@ -97,7 +97,7 @@ fi
 if [ ${meta} -eq 1 ]; then
 
   # Print meta data
-  get_meta_data "${cwd}/${prog}"
+  get_meta_data "${cwd}" "${prog}"
 fi
 
 

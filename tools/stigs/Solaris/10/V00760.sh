@@ -257,7 +257,7 @@ exit 0
 #
 # OS: Solaris
 # Version: 10
-# Architecture: Sparc
+# Architecture: Sparc X86
 #
 # Title: Direct logins must not be permitted to shared, default, application, or utility accounts.
 # Description: Direct logins must not be permitted to shared, default, application, or utility accounts.
