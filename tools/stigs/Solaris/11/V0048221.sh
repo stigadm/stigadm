@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 11
-# Severity: CAT-III
-# Class: UNCLASSIFIED
-# VulnID: V-48221
-# Name: SV-61093r1
-
 
 # Define the hosts.allow path
 hosts_allow=/etc/hosts.allow
@@ -44,6 +37,7 @@ EOF
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -111,11 +105,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -127,6 +122,14 @@ done
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
+fi
+
+
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
 fi
 
 
@@ -158,7 +161,7 @@ if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${stigid}'"
 
@@ -214,11 +217,11 @@ if [ ${change} -eq 1 ]; then
 
         # Print friendly message
         [ ${verbose} -eq 1 ] && print "An error occurred when editing '${hosts_allow}'" 1
-        
+
         # Remove ${tallow}
         rm ${tallow}
       else
-      
+
         # Copy ${tallow} over to ${hosts_allow}
         mv -f ${tallow} ${hosts_allow}
       fi
@@ -263,11 +266,11 @@ if [ ${change} -eq 1 ]; then
 
       # Print friendly message
       [ ${verbose} -eq 1 ] && print "An error occurred when editing '${hosts_deny}'" 1
-      
+
       # Remove ${tdeny}
       rm ${tdeny}
     else
-      
+
       # Move ${tdeny} over to ${hosts_deny}
       mv ${tdeny} ${hosts_deny}
     fi
@@ -388,35 +391,3 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
-
-# Date: 2017-06-21
-#
-# Severity: CAT-III
-# Classification: UNCLASSIFIED
-# STIG_ID: V0048221
-# STIG_Version: SV-61093r1
-# Rule_ID: SOL-11.1-050140
-#
-# OS: Solaris
-# Version: 11
-# Architecture: Sparc
-#
-# Title: The system must implement TCP Wrappers.
-# Description: The system must implement TCP Wrappers.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-III
-# Classification: UNCLASSIFIED
-# STIG_ID: V0048221
-# STIG_Version: SV-61093r1
-# Rule_ID: SOL-11.1-050140
-#
-# OS: Solaris
-# Version: 11
-# Architecture: X86
-#
-# Title: The system must implement TCP Wrappers.
-# Description: The system must implement TCP Wrappers.
-

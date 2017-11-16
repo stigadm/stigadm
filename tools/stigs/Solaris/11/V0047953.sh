@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 11
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V-47943
-# Name: SV-60815r1
-
 
 # Define a minimum weeks range for changing passwords
 minweeks=1
@@ -39,6 +32,7 @@ exceptions+=('CMacct2')
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -107,11 +101,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -123,6 +118,14 @@ done
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
+fi
+
+
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
 fi
 
 
@@ -139,7 +142,7 @@ if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -193,7 +196,7 @@ mweeks=$(grep -i ^MINWEEKS ${file} | cut -d= -f2)
 
 # If ${mweeks} > ${maxweeks}
 if [ ${mweeks} -gt ${minweeks} ]; then
-  
+
   # If ${change} set
   if [ ${change} -eq 1 ]; then
 
@@ -237,7 +240,7 @@ pattern="$(echo "${exceptions[@]}" | tr ' ' '|')"
 # Print friendly message
 [ ${verbose} -eq 1 ] && print "Created exclude pattern ($(truncate_cols "${pattern}" 20))"
 
-# Get an array of logins 
+# Get an array of logins
 accounts=( $(logins -ox | nawk -F: -v minw="${minweeks}" -v min="${uid_min}" -v pat="${pattern}" '$2 >= min && $1 !~ pat && $8 ~ /^PS|UP|LK$/ && ($10 > minw || $10 < minw){print $1}' 2>/dev/null | sort -u) )
 
 # If ${#accounts[@]} = 0 exit
@@ -307,35 +310,3 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0047953
-# STIG_Version: SV-60825r2
-# Rule_ID: SOL-11.1-040030
-#
-# OS: Solaris
-# Version: 11
-# Architecture: Sparc
-#
-# Title: The operating system must enforce minimum password lifetime restrictions.
-# Description: The operating system must enforce minimum password lifetime restrictions.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0047953
-# STIG_Version: SV-60825r2
-# Rule_ID: SOL-11.1-040030
-#
-# OS: Solaris
-# Version: 11
-# Architecture: X86
-#
-# Title: The operating system must enforce minimum password lifetime restrictions.
-# Description: The operating system must enforce minimum password lifetime restrictions.
-

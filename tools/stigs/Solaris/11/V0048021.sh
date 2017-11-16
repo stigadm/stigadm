@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 11
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V-48021
-# Name: SV-60893r2
-
 
 # Define an array of items to disable with coreadm
 disable=(global process global-setid proc-setid)
@@ -16,6 +9,7 @@ disable=(global process global-setid proc-setid)
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -84,11 +78,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -100,6 +95,14 @@ done
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
+fi
+
+
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
 fi
 
 
@@ -130,7 +133,7 @@ if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -159,7 +162,7 @@ err=()
 
 # Iterate ${res[@]}
 for dis in ${res[@]}; do
-  
+
   # If ${change} = 1 make the change
   if [ ${change} -eq 1 ]; then
 
@@ -196,7 +199,7 @@ if [ ${#err[@]} -gt 0 ]; then
 
   # Print friendly message
   if [ ${verbose} -eq 1 ]; then
-  
+
     print "Issues found with coreadm services:" 1
     for er in ${err[@]}; do
       echo "  ${er}"
@@ -210,35 +213,3 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0048021
-# STIG_Version: SV-60893r2
-# Rule_ID: SOL-11.1-080040
-#
-# OS: Solaris
-# Version: 11
-# Architecture: Sparc
-#
-# Title: Process core dumps must be disabled unless needed.
-# Description: Process core dumps must be disabled unless needed.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0048021
-# STIG_Version: SV-60893r2
-# Rule_ID: SOL-11.1-080040
-#
-# OS: Solaris
-# Version: 11
-# Architecture: X86
-#
-# Title: Process core dumps must be disabled unless needed.
-# Description: Process core dumps must be disabled unless needed.
-

@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 11
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V-47943
-# Name: SV-60815r1
-
 
 # Define a minimum days range for locked accounts
 min_days=56
@@ -42,6 +35,7 @@ exceptions+=('CMacct2')
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -110,11 +104,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -126,6 +121,14 @@ done
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
+fi
+
+
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
 fi
 
 
@@ -360,35 +363,3 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0047943
-# STIG_Version: SV-60815r2
-# Rule_ID: SOL-11.1-040010
-#
-# OS: Solaris
-# Version: 11
-# Architecture: Sparc
-#
-# Title: User passwords must be changed at least every 56 days.
-# Description: User passwords must be changed at least every 56 days.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0047943
-# STIG_Version: SV-60815r2
-# Rule_ID: SOL-11.1-040010
-#
-# OS: Solaris
-# Version: 11
-# Architecture: X86
-#
-# Title: User passwords must be changed at least every 56 days.
-# Description: User passwords must be changed at least every 56 days.
-

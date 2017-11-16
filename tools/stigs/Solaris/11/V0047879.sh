@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 11
-# Severity: CAT-I
-# Class: UNCLASSIFIED
-# VulnID: V-47879
-# Name: SV-60751r1
 
 
 # Minimum permissions octal
@@ -21,6 +15,7 @@ group="root"
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -89,11 +84,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -107,13 +103,22 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
   usage "Must specify an author name (use -a <initials>)" && exit 1
 fi
 
+
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
+fi
+
+
 print "Not yet implemented" && exit 0
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -149,10 +154,10 @@ if [ ${change} -eq 1 ]; then
 
   # Get the current octal value of ${audit_loc}
   coctal=$(get_octal ${audit_loc})
-  
+
   # Get current owner
   cowner="$(get_inode_user ${audit_loc})"
-    
+
   # Get current group
   cgroup="$(get_inode_group ${audit_loc})"
 
@@ -176,7 +181,7 @@ fi
 
 # Get the current octal value of ${audit_loc}
 coctal=$(get_octal ${audit_loc})
-  
+
 # Get current owner
 cowner="$(get_inode_user ${audit_loc})"
 
@@ -202,35 +207,3 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
-
-# Date: 2017-06-21
-#
-# Severity: CAT-I
-# Classification: UNCLASSIFIED
-# STIG_ID: V0047879
-# STIG_Version: SV-60751r1
-# Rule_ID: SOL-11.1-010460
-#
-# OS: Solaris
-# Version: 11
-# Architecture: Sparc
-#
-# Title: The operating system must protect audit information from unauthorized deletion.
-# Description: The operating system must protect audit information from unauthorized deletion.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-I
-# Classification: UNCLASSIFIED
-# STIG_ID: V0047879
-# STIG_Version: SV-60751r1
-# Rule_ID: SOL-11.1-010460
-#
-# OS: Solaris
-# Version: 11
-# Architecture: X86
-#
-# Title: The operating system must protect audit information from unauthorized deletion.
-# Description: The operating system must protect audit information from unauthorized deletion.
-

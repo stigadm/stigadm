@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 11
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V0059835
-
 
 # Array of init script locations
 declare -a inits
@@ -24,6 +18,7 @@ disable_remote=1
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -92,11 +87,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -108,6 +104,14 @@ done
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
+fi
+
+
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
 fi
 
 
@@ -310,35 +314,3 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, system conforms to '${stigid}'"
 
 exit 0
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0059835
-# STIG_Version: SV-74265r2
-# Rule_ID: SOL-11.1-020340
-#
-# OS: Solaris
-# Version: 11
-# Architecture: Sparc
-#
-# Title: Run control scripts lists of preloaded libraries must contain only authorized paths.
-# Description: Run control scripts lists of preloaded libraries must contain only authorized paths.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0059835
-# STIG_Version: SV-74265r2
-# Rule_ID: SOL-11.1-020340
-#
-# OS: Solaris
-# Version: 11
-# Architecture: X86
-#
-# Title: Run control scripts lists of preloaded libraries must contain only authorized paths.
-# Description: Run control scripts lists of preloaded libraries must contain only authorized paths.
-

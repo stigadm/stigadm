@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 10
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V-784
-# Name: SV-39833r1
-
 
 # Array of folders to examine
 declare -a folders
@@ -22,6 +15,7 @@ folders+=("/usr/sbin")
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -90,11 +84,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -109,12 +104,20 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
 fi
 
 
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
+fi
+
+
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -145,7 +148,7 @@ for folder in ${folders[@]}; do
 
   # Get files in ${folder}
   contents=($(ls ${folder}))
-  
+
   # Make sure it isn't empty
   if [ ${#contents[@]} -eq 0 ]; then
 
@@ -160,7 +163,7 @@ for folder in ${folders[@]}; do
     # Handle symlinks
     item="$(get_inode ${item})"
     [ -z ${item} ] && continue
-  
+
     # Make changes
     if [ ${change} -eq 1 ]; then
 
@@ -172,7 +175,7 @@ for folder in ${folders[@]}; do
 
       # Get group octal
       goctal=${octal:4:5}
-    
+
       # Get world octal
       woctal=${octal:5:6}
 
@@ -201,7 +204,7 @@ for folder in ${folders[@]}; do
 
     # Get group octal
     goctal=${octal:4:5}
-    
+
     # Get world octal
     woctal=${octal:5:6}
 
@@ -230,40 +233,15 @@ if [ ${#ferr[@]} -gt 0 ]; then
   done
 fi
 
-  
+
 # Print friendly success
 [ ${verbose} -eq 1 ] && print "Success, system folder contents conform to STIG ID '${stigid}'"
 
 exit 0
 
-# Date: 2017-06-21
-#
 # Severity: CAT-II
 # Classification: UNCLASSIFIED
 # STIG_ID: V00784
 # STIG_Version: SV-39833r1
 # Rule_ID: GEN001140
 #
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: System files and directories must not have uneven access permissions.
-# Description: System files and directories must not have uneven access permissions.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00784
-# STIG_Version: SV-39833r1
-# Rule_ID: GEN001140
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc
-#
-# Title: System files and directories must not have uneven access permissions.
-# Description: System files and directories must not have uneven access permissions.
-

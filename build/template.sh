@@ -91,8 +91,7 @@ done
 cat <<EOF
 [${stigid}] Warning: Not yet implemented...
 
-$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${prog})
-
+$(get_meta_data "${cwd}/${prog}")
 EOF
 exit 1
 
@@ -104,11 +103,8 @@ fi
 # If ${meta} is true
 if [ ${meta} -eq 1 ]; then
 
-cat <<EOF
-[${stigid}] Meta Data
-$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${prog})
-
-EOF
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
 fi
 
 

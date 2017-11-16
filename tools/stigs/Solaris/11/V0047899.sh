@@ -1,18 +1,11 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 11
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V-47899
-# Name: SV-60771r1
-
 
 # Define an associative array of proc/mem/network limits per object
 #  - Each value must be in the following format due to limitations in bash's associative arrays
 #    Format: obj["user.name"]="projid:[int] comment:[text] users:[text,...,...] groups:[text,...,...] attribs:[text,...,...]"
 #    Example: obj["user.name"]="projid:1 comment:a user users:user1,user2,user3 groups:group1,group2,group3 attribs:process.max-file-descriptor=(basic,131072,deny),process.max-shm-memory(privileged,934584254464,deny)
-# For information regarding possible attributes please review the kernel options man page 
+# For information regarding possible attributes please review the kernel options man page
 declare -A obj
 obj["dba"]="projid:104 comment: users: groups: attribs:"
 obj["default"]="projid:3 comment: users: groups: attribs:"
@@ -38,6 +31,7 @@ pattern="^([a-z]+).([a-z]+)=\(([a-z]+,[a-z]+,[a-z]+)\)?,"
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -106,11 +100,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -124,13 +119,22 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
   usage "Must specify an author name (use -a <initials>)" && exit 1
 fi
 
+
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
+fi
+
+
 print "Not yet implemented" && exit 0
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -154,7 +158,7 @@ if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -215,13 +219,13 @@ for key in ${!opts[@]}; do
 
     # Make changes if requested
     if [ ${check} -eq 1 ]; then
-    
+
     fi
   done
 done
 
 
-  
+
 fi
 
 # Use the following for verbose error output
@@ -232,35 +236,3 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0047899
-# STIG_Version: SV-60771r1
-# Rule_ID: SOL-11.1-090280
-#
-# OS: Solaris
-# Version: 11
-# Architecture: Sparc
-#
-# Title: The operating system must manage excess capacity, bandwidth, or other redundancy to limit the effects of information flooding types of denial of service attacks.
-# Description: The operating system must manage excess capacity, bandwidth, or other redundancy to limit the effects of information flooding types of denial of service attacks.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0047899
-# STIG_Version: SV-60771r1
-# Rule_ID: SOL-11.1-090280
-#
-# OS: Solaris
-# Version: 11
-# Architecture: X86
-#
-# Title: The operating system must manage excess capacity, bandwidth, or other redundancy to limit the effects of information flooding types of denial of service attacks.
-# Description: The operating system must manage excess capacity, bandwidth, or other redundancy to limit the effects of information flooding types of denial of service attacks.
-

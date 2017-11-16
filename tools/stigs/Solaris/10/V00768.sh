@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 10
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V-768
-# Name: SV-27094r1
-
 
 # Definition for the file to validate/make changes to
 file=/etc/default/login
@@ -30,6 +23,7 @@ perms=600
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -98,11 +92,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -116,6 +111,15 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
   usage "Must specify an author name (use -a <initials>)" && exit 1
 fi
 
+
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
+fi
+
+
 # Handle symlinks
 file="$(get_inode ${file})"
 
@@ -124,14 +128,14 @@ file="$(get_inode ${file})"
 if [ ! -f ${file} ]; then
   usage "'${file}' does not exist at specified location" && exit 1
 fi
-  
+
 
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -196,40 +200,15 @@ if [ "${haystack}" == "" ]; then
 
   exit 1
 fi
-  
+
 # Print friendly success
 [ ${verbose} -eq 1 ] && print "Success, '${file}' conforms to '${stigid}'"
 
 exit 0
 
-# Date: 2017-06-21
-#
 # Severity: CAT-II
 # Classification: UNCLASSIFIED
 # STIG_ID: V00768
 # STIG_Version: SV-27094r1
 # Rule_ID: GEN000480
 #
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The delay between login prompts following a failed login attempt must be at least 4 seconds.
-# Description: The delay between login prompts following a failed login attempt must be at least 4 seconds.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00768
-# STIG_Version: SV-27094r1
-# Rule_ID: GEN000480
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc
-#
-# Title: The delay between login prompts following a failed login attempt must be at least 4 seconds.
-# Description: The delay between login prompts following a failed login attempt must be at least 4 seconds.
-

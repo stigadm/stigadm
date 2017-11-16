@@ -4,7 +4,7 @@
 author=
 verbose=0
 change=0
-mega=0
+meta=0
 restore=0
 interactive=0
 
@@ -92,14 +92,12 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
   usage "Must specify an author name (use -a <initials>)" && exit 1
 fi
 
+
 # If ${meta} is true
 if [ ${meta} -eq 1 ]; then
 
-cat <<EOF
-[${stigid}] Meta Data
-$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${prog})
-
-EOF
+  # Print meta data
+  get_meta_data "${cwd}/${prog}"
 fi
 
 

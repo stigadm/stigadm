@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 10
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V-776
-# Name: SV-776r3
-
 
 # Array of profile files
 declare -a profiles
@@ -25,6 +18,7 @@ path="PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/ucb
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -96,11 +90,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -115,12 +110,20 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
 fi
 
 
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
+fi
+
+
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -155,7 +158,7 @@ fi
 # Print friendly message regarding validation
 [ ${verbose} -eq 1 ] && print "Obtained root user's home directory; '${directory}'"
 
- 
+
 # Make sure ${#profiles[@]} > 0
 if [ ${#profiles[@]} -eq 0 ]; then
   [ ${verbose} -eq 1 ] && print "No file(s) defined for root account PATH configuration" 1
@@ -195,7 +198,7 @@ for profile in ${profiles[@]}; do
 
       # If ${interactive} = 1 go to interactive restoration mode
       if [ ${interactive} -eq 1 ]; then
-  
+
         # Print friendly message regarding restoration mode
         [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
       fi
@@ -241,7 +244,7 @@ for profile in ${profiles[@]}; do
     fi
   fi
 
-  # Perform check on ${stigid} rules for ${file} 
+  # Perform check on ${stigid} rules for ${file}
   chk=$(echo "${cpath}" | awk '! $0 ~ /^\// && ! $0 ~ /\$PATH/ || $0 ~ /\.\./{print 1}')
 
   if [ ${chk} -eq 1 ]; then
@@ -256,34 +259,9 @@ done
 
 exit 0
 
-# Date: 2017-06-21
-#
 # Severity: CAT-II
 # Classification: UNCLASSIFIED
 # STIG_ID: V00776
 # STIG_Version: SV-776r4
 # Rule_ID: GEN000940
 #
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The root accounts executable search path must contain only authorized paths.
-# Description: The root accounts executable search path must contain only authorized paths.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00776
-# STIG_Version: SV-776r4
-# Rule_ID: GEN000940
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc
-#
-# Title: The root accounts executable search path must contain only authorized paths.
-# Description: The root accounts executable search path must contain only authorized paths.
-

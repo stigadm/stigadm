@@ -266,7 +266,7 @@ EOF
             -e "s|^\(# STIG_Version: \).*$|\1${stigver}|g" \
             -e "s|^\(# OS: \).*$|\1${os}|g" \
             -e "s|^\(# Version: \).*$|\1${version}|g" \
-            -e "s|^\(# Architecture: \).*$|\1${arch}|g" \
+            -e "s|^\(# Architecture:.* \)$|\1${arch}|g" \
             -e "s|^\(# Title: \).*$|\1${title}|g" \
             -e "s|^\(# Description: \).*$|\1${description}|g" ${full_path}/${stigid}.sh > ${full_path}/${stigid}-${ts}.sh
 

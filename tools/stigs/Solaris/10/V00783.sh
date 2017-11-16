@@ -1,17 +1,11 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 10
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V-783
-# Name: SV-40813r2
-
 
 # Global defaults for tool
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -80,11 +74,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -99,12 +94,20 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
 fi
 
 
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
+fi
+
+
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -133,7 +136,7 @@ fi
 [ ${verbose} -eq 1 ] && print "Obtained list of security updates"
 
 
-# Iterate ${sec_updates[@]} & update or make 
+# Iterate ${sec_updates[@]} & update or make
 for update in ${sec_updates[@]}; do
 
   [ ${verbose} -eq 1 ] && print "A security update exists for '${update}'"
@@ -157,40 +160,15 @@ if [ ${ret} -ne 1 ]; then
   [ ${verbose} -eq 1 ] && print "Some updates failed for STIG ID '${stigid}'" 1
   exit 1
 fi
- 
+
 # Print friendly success
 [ ${verbose} -eq 1 ] && print "Success, system is running an IDS on allowed list conforming to STIG ID '${stigid}'"
 
 exit 0
 
-# Date: 2017-06-21
-#
 # Severity: CAT-II
 # Classification: UNCLASSIFIED
 # STIG_ID: V00783
 # STIG_Version: SV-40813r2
 # Rule_ID: GEN000120
 #
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: System security patches and updates must be installed and up-to-date.
-# Description: System security patches and updates must be installed and up-to-date.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00783
-# STIG_Version: SV-40813r2
-# Rule_ID: GEN000120
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc
-#
-# Title: System security patches and updates must be installed and up-to-date.
-# Description: System security patches and updates must be installed and up-to-date.
-

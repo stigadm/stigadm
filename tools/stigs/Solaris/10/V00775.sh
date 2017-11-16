@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 10
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V-775
-# Name: SV-775r2
-
 
 # Permission for root user home directory
 perm=00700
@@ -16,6 +9,7 @@ perm=00700
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -84,11 +78,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -103,12 +98,20 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
 fi
 
 
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
+fi
+
+
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -139,7 +142,7 @@ fi
 # Print friendly message regarding validation
 [ ${verbose} -eq 1 ] && print "Obtained root user's home directory; '${directory}'"
 
- 
+
 # If ${change} = 1 do work
 if [ ${change} -eq 1 ]; then
 
@@ -149,7 +152,7 @@ if [ ${change} -eq 1 ]; then
   chmod ${perm} ${directory}
 fi
 
-  
+
 # Get current permissions for ${directory}
 perms=$(get_octal ${directory})
 
@@ -166,34 +169,9 @@ fi
 
 exit 0
 
-# Date: 2017-06-21
-#
 # Severity: CAT-II
 # Classification: UNCLASSIFIED
 # STIG_ID: V00775
 # STIG_Version: SV-775r2
 # Rule_ID: GEN000920
 #
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The root account's home directory (other than /) must have mode 0700.
-# Description: The root account's home directory (other than /) must have mode 0700.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00775
-# STIG_Version: SV-775r2
-# Rule_ID: GEN000920
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc
-#
-# Title: The root account's home directory (other than /) must have mode 0700.
-# Description: The root account's home directory (other than /) must have mode 0700.
-

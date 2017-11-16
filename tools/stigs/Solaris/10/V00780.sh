@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 10
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V-780
-# Name: SV-28658r1
-
 
 # Max GID for range of comparison with ${accounts[@]}
 max_gid=99
@@ -34,6 +27,7 @@ accounts+=("unknown")
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -102,11 +96,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -121,12 +116,20 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
 fi
 
 
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
+fi
+
+
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -164,7 +167,7 @@ exceptions=("$(comm -12 <(printf "%s\n" "$(echo "${accounts[@]}"|sort -u)") <(pr
 
 # If ${#exceptions[@]} > 1 then return error & optionally show accounts
 if [ ${#exceptions[@]} -ge 1 ]; then
-  
+
   # Print details of exceptions
   if [ ${verbose} -eq 1 ]; then
     print "Obtained list of users w/ GID less than '${max_gid}'" 1
@@ -174,7 +177,7 @@ if [ ${#exceptions[@]} -ge 1 ]; then
       print "  Account: ${user}" 1
     done
   fi
-  
+
   exit 1
 fi
 
@@ -186,34 +189,9 @@ fi
 
 exit 0
 
-# Date: 2017-06-21
-#
 # Severity: CAT-II
 # Classification: UNCLASSIFIED
 # STIG_ID: V00780
 # STIG_Version: SV-28658r1
 # Rule_ID: GEN000360
 #
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: GIDs reserved for system accounts must not be assigned to non-system groups.
-# Description: GIDs reserved for system accounts must not be assigned to non-system groups.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00780
-# STIG_Version: SV-28658r1
-# Rule_ID: GEN000360
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc
-#
-# Title: GIDs reserved for system accounts must not be assigned to non-system groups.
-# Description: GIDs reserved for system accounts must not be assigned to non-system groups.
-

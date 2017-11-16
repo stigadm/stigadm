@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 10
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V-1032
-# Name: SV-39809r1
 
 # Define a minimum days range between password changes
 min_days=1
@@ -25,6 +19,7 @@ uid_excp+=(65534) # noaccess
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -93,11 +88,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -112,12 +108,20 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
 fi
 
 
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
+fi
+
+
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -177,7 +181,7 @@ if [ ${change} -eq 1 ]; then
   bu_passwd_db "${author}"
   if [ $? -ne 0 ]; then
 
-    # Print friendly message 
+    # Print friendly message
     [ ${verbose} -eq 1 ] && print "Backup of passwd database failed, exiting..." 1
 
     # Stop, we require a backup of the passwd database for changes
@@ -233,34 +237,9 @@ fi
 
 exit 0
 
-# Date: 2017-06-21
-#
 # Severity: CAT-II
 # Classification: UNCLASSIFIED
 # STIG_ID: V001032
 # STIG_Version: SV-39809r1
 # Rule_ID: GEN000540
 #
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: Users must not be able to change passwords more than once every 24 hours.
-# Description: Users must not be able to change passwords more than once every 24 hours.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V001032
-# STIG_Version: SV-39809r1
-# Rule_ID: GEN000540
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc
-#
-# Title: Users must not be able to change passwords more than once every 24 hours.
-# Description: Users must not be able to change passwords more than once every 24 hours.
-

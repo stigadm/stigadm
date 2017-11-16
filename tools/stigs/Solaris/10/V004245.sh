@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# OS: Solaris
-# Version: 10
-# Severity: CAT-II
-# Class: UNCLASSIFIED
-# VulnID: V-4245
-# Name: SV-4245r2
-
 
 # Minimum allowable permssions
 min_perm=0640
@@ -20,6 +13,7 @@ inodes+=(/etc/security/audit_user)
 author=
 verbose=0
 change=0
+meta=0
 restore=0
 interactive=0
 
@@ -88,11 +82,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cvri" OPTION ; do
+while getopts "ha:cmvri" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
@@ -107,12 +102,20 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
 fi
 
 
+# If ${meta} is true
+if [ ${meta} -eq 1 ]; then
+
+  # Print meta data
+  get_meta_data "${cwd}" "${prog}"
+fi
+
+
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
-  
+
     # Print friendly message regarding restoration mode
     [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
 
@@ -161,8 +164,8 @@ for inode in ${inodes[@]}; do
 
   # If ${change} = 1
   if [ ${change} -eq 1 ]; then
-    
-    # 
+
+    #
   fi
 
 done
@@ -190,34 +193,9 @@ fi
 
 exit 0
 
-# Date: 2017-06-21
-#
 # Severity: CAT-II
 # Classification: UNCLASSIFIED
 # STIG_ID: V004245
 # STIG_Version: SV-4245r2
 # Rule_ID: GEN000000-SOL00100
 #
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The /etc/security/audit_user file must have mode 0640 or less permissive.
-# Description: The /etc/security/audit_user file must have mode 0640 or less permissive.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V004245
-# STIG_Version: SV-4245r2
-# Rule_ID: GEN000000-SOL00100
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc
-#
-# Title: The /etc/security/audit_user file must have mode 0640 or less permissive.
-# Description: The /etc/security/audit_user file must have mode 0640 or less permissive.
-
