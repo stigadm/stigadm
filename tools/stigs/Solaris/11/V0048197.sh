@@ -245,5 +245,5 @@ exit 1
 # Architecture: Sparc X86
 #
 # Title: The system must disable ICMP redirect messages.
-# Description: The system must disable ICMP redirect messages.
+# Description: A malicious user can exploit the ability of the system to send ICMP redirects by continually sending packets to the system, forcing the system to respond with ICMP redirect messages, resulting in an adverse impact on the CPU performance of the system.
 

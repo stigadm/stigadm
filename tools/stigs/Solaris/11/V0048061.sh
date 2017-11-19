@@ -241,5 +241,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The default umask for system and users must be 077.
-# Description: The default umask for system and users must be 077.
+# Description: Setting a very secure default value for umask ensures that users make a conscious choice about their file permissions.
 

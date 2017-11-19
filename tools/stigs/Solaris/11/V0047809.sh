@@ -390,5 +390,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The audit system must be configured to audit account modification.
-# Description: The audit system must be configured to audit account modification.
+# Description: Without auditing, malicious activity cannot be detected.
 

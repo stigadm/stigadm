@@ -330,5 +330,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must reveal error messages only to authorized personnel.
-# Description: The operating system must reveal error messages only to authorized personnel.
+# Description: Proper file permissions and ownership ensures that only designated personnel in the organization can access error messages.
 

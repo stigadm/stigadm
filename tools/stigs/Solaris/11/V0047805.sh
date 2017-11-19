@@ -390,5 +390,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The audit system must be configured to audit file deletions.
-# Description: The audit system must be configured to audit file deletions.
+# Description: Without auditing, malicious activity cannot be detected.
 

@@ -233,3 +233,35 @@ exit 0
 # Title: The Department of Defense (DoD) login banner must be displayed immediately prior to, or as part of, console login prompts.
 # Description: The Department of Defense (DoD) login banner must be displayed immediately prior to, or as part of, console login prompts.
 
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00763
+# STIG_Version: SV-28596r1
+# Rule_ID: GEN000400
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: The Department of Defense (DoD) login banner must be displayed immediately prior to, or as part of, console login prompts.
+# Description: Failure to display the login banner prior to a logon attempt will negate legal proceedings resulting from unauthorized access to system resources.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00763
+# STIG_Version: SV-28596r1
+# Rule_ID: GEN000400
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: The Department of Defense (DoD) login banner must be displayed immediately prior to, or as part of, console login prompts.
+# Description: Failure to display the login banner prior to a logon attempt will negate legal proceedings resulting from unauthorized access to system resources.
+

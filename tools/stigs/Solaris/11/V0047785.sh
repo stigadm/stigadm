@@ -184,5 +184,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The audit system records must be able to be used by a report generation capability.
-# Description: The audit system records must be able to be used by a report generation capability.
+# Description: Enabling the audit system will produce records for use in report generation.  Without an audit reporting capability, users find it difficult to identify specific patterns of attack.
 

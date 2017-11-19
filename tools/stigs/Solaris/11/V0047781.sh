@@ -169,3 +169,18 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V0047781
+# STIG_Version: SOL-11.1-010040
+# Rule_ID: SV-60657r1
+#
+# OS: Solaris
+# Version: 11
+# Architecture: Sparc X86
+#
+# Title: The audit system must produce records containing sufficient information to establish the identity of any user/subject associated with the event.
+# Description: Enabling the audit system will produce records with accurate time stamps, source, user, and activity information. Without this information malicious activity cannot be accurately tracked.

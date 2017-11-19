@@ -245,5 +245,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The system must require passwords to contain at least one numeric character.
-# Description: The system must require passwords to contain at least one numeric character.
+# Description: Complex passwords can reduce the likelihood of success of automated password-guessing attacks.
 

@@ -195,3 +195,35 @@ exit 0
 # Title: All accounts on the system must have unique user or account names.
 # Description: All accounts on the system must have unique user or account names.
 
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00761
+# STIG_Version: SV-27061r2
+# Rule_ID: GEN000300
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: All accounts on the system must have unique user or account names.
+# Description: A unique user name is the first part of the identification and authentication process.  If user names are not unique, there can be no accountability on the system for auditing purposes.  Multiple accounts sharing the same name could result in the Denial of Service to one or both of the accounts or unauthorized access to files or privileges.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00761
+# STIG_Version: SV-27061r2
+# Rule_ID: GEN000300
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: All accounts on the system must have unique user or account names.
+# Description: A unique user name is the first part of the identification and authentication process.  If user names are not unique, there can be no accountability on the system for auditing purposes.  Multiple accounts sharing the same name could result in the Denial of Service to one or both of the accounts or unauthorized access to files or privileges.
+

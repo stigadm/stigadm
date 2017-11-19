@@ -465,5 +465,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The system must disable accounts after three consecutive unsuccessful login attempts.
-# Description: The system must disable accounts after three consecutive unsuccessful login attempts.
+# Description: Allowing continued access to accounts on the system exposes them to brute-force password-guessing attacks.
 

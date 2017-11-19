@@ -354,5 +354,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must maintain the integrity of information during aggregation, packaging, and transformation in preparation for transmission.
-# Description: The operating system must maintain the integrity of information during aggregation, packaging, and transformation in preparation for transmission.
+# Description: Ensuring the integrity of transmitted information requires the operating system take feasible measures to employ transmission layer security. This requirement applies to communications across internal and external networks.
 

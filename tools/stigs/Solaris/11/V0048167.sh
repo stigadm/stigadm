@@ -354,5 +354,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must protect the confidentiality of transmitted information.
-# Description: The operating system must protect the confidentiality of transmitted information.
+# Description: Ensuring the confidentiality of transmitted information requires the operating system take feasible measures to employ transmission layer security. This requirement applies to communications across internal and external networks.
 

@@ -354,5 +354,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: All system start-up files must be group-owned by root, sys, or bin.
-# Description: All system start-up files must be group-owned by root, sys, or bin.
+# Description: If system start-up files do not have a group owner of root or a system group, the files may be modified by malicious users or intruders.
 

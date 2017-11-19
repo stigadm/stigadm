@@ -390,5 +390,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must ensure unauthorized, security-relevant configuration changes detected are tracked.
-# Description: The operating system must ensure unauthorized, security-relevant configuration changes detected are tracked.
+# Description: Without auditing, malicious activity cannot be detected.
 

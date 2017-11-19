@@ -390,5 +390,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The audit system must be configured to audit the loading and unloading of dynamic kernel modules.
-# Description: The audit system must be configured to audit the loading and unloading of dynamic kernel modules.
+# Description: Without auditing, individual system accesses cannot be tracked, and malicious activity cannot be detected and traced back to an individual account.
 

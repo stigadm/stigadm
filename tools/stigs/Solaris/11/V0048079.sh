@@ -296,5 +296,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: User accounts must be locked after 35 days of inactivity.
-# Description: User accounts must be locked after 35 days of inactivity.
+# Description: Inactive accounts pose a threat to system security since the users are not logging in to notice failed login attempts or other anomalies.
 

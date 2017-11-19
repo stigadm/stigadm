@@ -368,5 +368,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: Run control scripts must not execute world writable programs or scripts.
-# Description: Run control scripts must not execute world writable programs or scripts.
+# Description: World writable files could be modified accidentally or maliciously to compromise system integrity.
 

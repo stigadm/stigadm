@@ -322,5 +322,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: World-writable files must not exist.
-# Description: World-writable files must not exist.
+# Description: Data in world-writable files can be read, modified, and potentially compromised by any user on the system. World-writable files may also indicate an incorrectly written script or program that could potentially be the cause of a larger compromise to the system's integrity.
 

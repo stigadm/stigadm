@@ -351,5 +351,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: System start-up files must only execute programs owned by a privileged UID or an application.
-# Description: System start-up files must only execute programs owned by a privileged UID or an application.
+# Description: System start-up files executing programs owned by other than root (or another privileged user) or an application indicates the system may have been compromised.
 

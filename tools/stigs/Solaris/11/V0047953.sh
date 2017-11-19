@@ -324,5 +324,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must enforce minimum password lifetime restrictions.
-# Description: The operating system must enforce minimum password lifetime restrictions.
+# Description: Passwords need to be changed at specific policy-based intervals; however, if the information system or application allows the user to immediately and continually change their password, then the password could be repeatedly changed in a short period of time, defeating the organization's policy regarding password reuse.
 

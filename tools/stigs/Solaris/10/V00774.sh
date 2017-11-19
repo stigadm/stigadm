@@ -184,3 +184,35 @@ exit 0
 # Title: The root user's home directory must not be the root directory (/).
 # Description: The root user's home directory must not be the root directory (/).
 
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V00774
+# STIG_Version: SV-774r2
+# Rule_ID: GEN000900
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: The root user's home directory must not be the root directory (/).
+# Description: Changing the root home directory to something other than / and assigning it a 0700 protection makes it more difficult for intruders to manipulate the system by reading the files that root places in its default directory. It also gives root the same discretionary access control for root's home directory as for the other plain user home directories.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-III
+# Classification: UNCLASSIFIED
+# STIG_ID: V00774
+# STIG_Version: SV-774r2
+# Rule_ID: GEN000900
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: The root user's home directory must not be the root directory (/).
+# Description: Changing the root home directory to something other than / and assigning it a 0700 protection makes it more difficult for intruders to manipulate the system by reading the files that root places in its default directory. It also gives root the same discretionary access control for root's home directory as for the other plain user home directories.
+

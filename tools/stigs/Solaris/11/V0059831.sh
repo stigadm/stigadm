@@ -329,5 +329,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: Run control scripts executable search paths must contain only authorized paths.
-# Description: Run control scripts executable search paths must contain only authorized paths.
+# Description: The executable search path (typically the PATH environment variable) contains a list of directories for the shell to search to find executables. If this path includes the current working directory or other relative paths, executables in these directories may be executed instead of system commands. This variable is formatted as a colon-separated list of directories. If there is an empty entry, such as a leading or trailing colon, two consecutive colons, or a single period, this is interpreted as the current working directory. Paths starting with a slash (/) are absolute paths.
 

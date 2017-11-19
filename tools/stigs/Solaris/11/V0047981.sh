@@ -227,5 +227,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must enforce password complexity requiring that at least one lowercase character is used.
-# Description: The operating system must enforce password complexity requiring that at least one lowercase character is used.
+# Description: Complex passwords can reduce the likelihood of success of automated password-guessing attacks.
 

@@ -197,5 +197,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The centralized process core dump data directory must have mode 0700 or less permissive.
-# Description: The centralized process core dump data directory must have mode 0700 or less permissive.
+# Description: Process core dumps contain the memory in use by the process when it crashed. Any data the process was handling may be contained in the core file, and it must be protected accordingly. If the process core dump data directory has a mode more permissive than 0700, unauthorized users may be able to view or to modify sensitive information contained in any process core dumps in the directory.
 

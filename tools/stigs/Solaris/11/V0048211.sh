@@ -244,5 +244,5 @@ exit 1
 # Architecture: Sparc X86
 #
 # Title: The system must set maximum number of incoming connections to 1024.
-# Description: The system must set maximum number of incoming connections to 1024.
+# Description: This setting controls the maximum number of incoming connections that can be accepted on a TCP port limiting exposure to denial of service attacks.
 

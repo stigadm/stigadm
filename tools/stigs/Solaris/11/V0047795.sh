@@ -185,5 +185,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: Audit records must include what type of events occurred.
-# Description: Audit records must include what type of events occurred.
+# Description: Without proper system auditing, individual system accesses cannot be tracked, and malicious activity cannot be detected and traced back to an individual account.
 

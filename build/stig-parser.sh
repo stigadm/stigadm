@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Parse STIG XML into meta data
 
@@ -178,7 +178,7 @@ for stig in ${stigs[@]}; do
     description="$(echo "${blob}" | cut -d: -f7 | tr '~' ' ')"
 
     # If ${description} matches an OS use ${title} as the ${description}
-    if [ $(echo "${os}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris') -eq 1 ]; then
+    if [ $(echo "${description}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris') -eq 1 ]; then
       description="${title}"
     fi
 
@@ -321,9 +321,11 @@ EOF
     fi
 
     # Set permission(s)
-    find ${ouptput} -type f -name "*.sh" chmod 00601 {} \:
+    chmod 00601 ${full_path}/${stigid}.sh
+    chown root:root ${full_path}/${stigid}.sh
   done
 done
+
 
 # Print a summary of processing
 # ${f}:${cat}:${stigid}:${stigver}:${ruleid}:${os}:${version}

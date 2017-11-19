@@ -253,5 +253,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: Permissions on user home directories must be 750 or less permissive.
-# Description: Permissions on user home directories must be 750 or less permissive.
+# Description: Group-writable or world-writable user home directories may enable malicious users to steal or modify other users' data or to gain another user's system privileges.
 

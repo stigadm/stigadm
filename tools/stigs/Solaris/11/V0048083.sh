@@ -296,5 +296,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must manage information system identifiers for users and devices by disabling the user identifier after 35 days of inactivity.
-# Description: The operating system must manage information system identifiers for users and devices by disabling the user identifier after 35 days of inactivity.
+# Description: Inactive accounts pose a threat to system security since the users are not logging in to notice failed login attempts or other anomalies.
 

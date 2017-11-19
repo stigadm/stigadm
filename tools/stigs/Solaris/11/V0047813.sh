@@ -390,5 +390,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must automatically audit account termination.
-# Description: The operating system must automatically audit account termination.
+# Description: Without auditing, malicious activity cannot be detected.
 

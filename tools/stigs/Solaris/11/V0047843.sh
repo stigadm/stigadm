@@ -311,5 +311,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The audit system must alert the System Administrator (SA) if there is any type of audit failure.
-# Description: The audit system must alert the System Administrator (SA) if there is any type of audit failure.
+# Description: Proper alerts to system administrators and Information Assurance (IA) officials of audit failures ensure a timely response to critical system issues.
 

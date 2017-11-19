@@ -244,3 +244,35 @@ exit 0
 # Title: The delay between login prompts following a failed login attempt must be at least 4 seconds.
 # Description: The delay between login prompts following a failed login attempt must be at least 4 seconds.
 
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00768
+# STIG_Version: SV-27094r1
+# Rule_ID: GEN000480
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: The delay between login prompts following a failed login attempt must be at least 4 seconds.
+# Description: The delay between login prompts following a failed login attempt must be at least 4 seconds.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00768
+# STIG_Version: SV-27094r1
+# Rule_ID: GEN000480
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: The delay between login prompts following a failed login attempt must be at least 4 seconds.
+# Description: The delay between login prompts following a failed login attempt must be at least 4 seconds.
+

@@ -355,5 +355,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must employ cryptographic mechanisms to recognize changes to information during transmission unless otherwise protected by alternative physical measures.
-# Description: The operating system must employ cryptographic mechanisms to recognize changes to information during transmission unless otherwise protected by alternative physical measures.
+# Description: Ensuring that transmitted information is not altered during transmission requires the operating system take feasible measures to employ transmission layer security. This requirement applies to communications across internal and external networks.
 

@@ -173,5 +173,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The System packages must be up to date with the most recent vendor updates and security fixes.
-# Description: The System packages must be up to date with the most recent vendor updates and security fixes.
+# Description: Failure to install security updates can provide openings for attack.
 

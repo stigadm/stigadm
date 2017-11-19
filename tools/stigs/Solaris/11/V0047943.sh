@@ -377,5 +377,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: User passwords must be changed at least every 56 days.
-# Description: User passwords must be changed at least every 56 days.
+# Description: Limiting the lifespan of authenticators limits the period of time an unauthorized user has access to the system while using compromised credentials and reduces the period of time available for password-guessing attacks to run against a single password.
 

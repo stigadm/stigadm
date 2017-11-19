@@ -185,5 +185,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: Audit records must include when (date and time) the events occurred.
-# Description: Audit records must include when (date and time) the events occurred.
+# Description: Without accurate time stamps malicious activity cannot be accurately tracked.
 

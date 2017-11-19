@@ -247,5 +247,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: Logins to the root account must be restricted to the system console only.
-# Description: Logins to the root account must be restricted to the system console only.
+# Description: Use an authorized mechanism such as RBAC and the "su" command to provide administrative access to unprivileged accounts. These mechanisms provide an audit trail in the event of problems.
 

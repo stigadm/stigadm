@@ -41,5 +41,5 @@ fi
 # Architecture: Sparc X86
 #
 # Title: Direct root account login must not be permitted for SSH access.
-# Description: Direct root account login must not be permitted for SSH access.
+# Description: The system should not allow users to log in as the root user directly, as audited actions would be non-attributable to a specific user.
 

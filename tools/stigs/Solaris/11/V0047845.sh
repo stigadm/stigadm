@@ -289,5 +289,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must alert designated organizational officials in the event of an audit processing failure.
-# Description: The operating system must alert designated organizational officials in the event of an audit processing failure.
+# Description: Proper alerts to system administrators and IA officials of audit failures ensure a timely response to critical system issues.
 

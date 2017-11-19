@@ -184,4 +184,4 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The audit system must support an audit reduction capability.
-# Description: The audit system must support an audit reduction capability.
+# Description: Using the audit system will utilize the audit reduction capability. Without an audit reduction capability, users find it difficult to identify specific patterns of attack.

@@ -233,5 +233,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: All home directories must be owned by the respective user assigned to it in /etc/passwd.
-# Description: All home directories must be owned by the respective user assigned to it in /etc/passwd.
+# Description: Since the user is accountable for files stored in the user's home directory, the user must be the owner of the directory.
 

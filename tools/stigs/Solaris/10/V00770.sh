@@ -184,3 +184,35 @@ exit 0
 # Title: The system must not have accounts configured with blank or null passwords.
 # Description: The system must not have accounts configured with blank or null passwords.
 
+
+# Date: 2017-06-21
+#
+# Severity: CAT-I
+# Classification: UNCLASSIFIED
+# STIG_ID: V00770
+# STIG_Version: SV-27105r1
+# Rule_ID: GEN000560
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: The system must not have accounts configured with blank or null passwords.
+# Description: If an account is configured for password authentication but does not have an assigned password, it may be possible to log into the account without authentication.  If the root user is configured without a password, the entire system may be compromised.  For user accounts not using password authentication, the account must be configured with a password lock value instead of a blank or null value.  
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-I
+# Classification: UNCLASSIFIED
+# STIG_ID: V00770
+# STIG_Version: SV-27105r1
+# Rule_ID: GEN000560
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: The system must not have accounts configured with blank or null passwords.
+# Description: If an account is configured for password authentication but does not have an assigned password, it may be possible to log into the account without authentication.  If the root user is configured without a password, the entire system may be compromised.  For user accounts not using password authentication, the account must be configured with a password lock value instead of a blank or null value.  
+

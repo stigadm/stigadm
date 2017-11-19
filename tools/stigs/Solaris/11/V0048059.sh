@@ -215,5 +215,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: All valid SUID/SGID files must be documented.
-# Description: All valid SUID/SGID files must be documented.
+# Description: There are valid reasons for SUID/SGID programs, but it is important to identify and review such programs to ensure they are legitimate.
 

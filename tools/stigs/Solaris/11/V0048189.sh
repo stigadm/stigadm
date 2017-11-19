@@ -246,5 +246,5 @@ exit 1
 # Architecture: Sparc X86
 #
 # Title: The system must ignore ICMP redirect messages.
-# Description: The system must ignore ICMP redirect messages.
+# Description: Ignoring ICMP redirect messages reduces the likelihood of denial of service attacks.
 

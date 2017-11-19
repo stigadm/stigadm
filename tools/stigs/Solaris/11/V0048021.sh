@@ -227,5 +227,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: Process core dumps must be disabled unless needed.
-# Description: Process core dumps must be disabled unless needed.
+# Description: Process core dumps contain the memory in use by the process when it crashed. Process core dump files can be of significant size and their use can result in file systems filling to capacity, which may result in denial of service. Process core dumps can be useful for software debugging.
 

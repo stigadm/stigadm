@@ -185,5 +185,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must provide the capability to automatically process audit records for events of interest based upon selectable, event criteria.
-# Description: The operating system must provide the capability to automatically process audit records for events of interest based upon selectable, event criteria.
+# Description: Without an audit reporting capability, users find it difficult to identify specific patterns of attack.
 

@@ -204,3 +204,35 @@ exit 0
 # Title: System security patches and updates must be installed and up-to-date.
 # Description: System security patches and updates must be installed and up-to-date.
 
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00783
+# STIG_Version: SV-40813r2
+# Rule_ID: GEN000120
+#
+# OS: Solaris
+# Version: 10
+# Architecture: X86
+#
+# Title: System security patches and updates must be installed and up-to-date.
+# Description: Timely patching is critical for maintaining the operational availability, confidentiality, and integrity of Information Technology (IT) systems. However, failure to keep operating system and application software patched is a common mistake made by IT professionals. New patches are released daily, and it is often difficult for even experienced system administrators to keep abreast of all the new patches. When new weaknesses in an operating system exist, patches are usually made available by the vendor to resolve the problems. If the most recent security patches and updates are not installed, unauthorized users may take advantage of weaknesses present in the unpatched software. The lack of prompt attention to patching could result in a system compromise.
+
+
+# Date: 2017-06-21
+#
+# Severity: CAT-II
+# Classification: UNCLASSIFIED
+# STIG_ID: V00783
+# STIG_Version: SV-40813r2
+# Rule_ID: GEN000120
+#
+# OS: Solaris
+# Version: 10
+# Architecture: Sparc
+#
+# Title: System security patches and updates must be installed and up-to-date.
+# Description: Timely patching is critical for maintaining the operational availability, confidentiality, and integrity of Information Technology (IT) systems. However, failure to keep operating system and application software patched is a common mistake made by IT professionals. New patches are released daily, and it is often difficult for even experienced system administrators to keep abreast of all the new patches. When new weaknesses in an operating system exist, patches are usually made available by the vendor to resolve the problems. If the most recent security patches and updates are not installed, unauthorized users may take advantage of weaknesses present in the unpatched software. The lack of prompt attention to patching could result in a system compromise.
+

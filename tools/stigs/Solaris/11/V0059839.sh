@@ -352,5 +352,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: All system start-up files must be owned by root.
-# Description: All system start-up files must be owned by root.
+# Description: System start-up files not owned by root could lead to system compromise by allowing malicious users or applications to modify them for unauthorized purposes.  This could lead to system and network compromise.
 

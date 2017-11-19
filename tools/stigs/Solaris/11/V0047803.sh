@@ -185,5 +185,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: Audit records must include the outcome (success or failure) of the events that occurred.
-# Description: Audit records must include the outcome (success or failure) of the events that occurred.
+# Description: Tracking both the successful and unsuccessful attempts aids in identifying threats to the system.
 

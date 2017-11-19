@@ -355,5 +355,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must maintain the confidentiality of information during aggregation, packaging, and transformation in preparation for transmission.
-# Description: The operating system must maintain the confidentiality of information during aggregation, packaging, and transformation in preparation for transmission.
+# Description: Ensuring that transmitted information remains confidential during aggregation, packaging, and transformation requires the operating system take feasible measures to employ transmission layer security. This requirement applies to communications across internal and external networks.
 

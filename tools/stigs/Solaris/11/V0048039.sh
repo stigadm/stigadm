@@ -336,5 +336,5 @@ exit 0
 # Architecture: Sparc X86
 #
 # Title: The operating system must have no unowned files.
-# Description: The operating system must have no unowned files.
+# Description: A new user who is assigned a deleted user's user ID or group ID may then end up owning these files, and thus have more access on the system than was intended.
 
