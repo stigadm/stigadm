@@ -133,7 +133,7 @@ Usage ./${appname} [options]
     -b  Use new boot environment (Solaris only)
     -c  Make the change
     -d  Debug mode
-    -m  Display meta data only
+    -m  Display meta data for STIG
     -v  Enable verbosity mode
 
   Restoration:

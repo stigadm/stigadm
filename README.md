@@ -44,6 +44,7 @@ Usage ./stigadm [options]
     -b  Use new boot environment (Solaris only)
     -c  Make the change
     -d  Debug mode
+    -m  Display meta data for STIG
     -v  Enable verbosity mode
 
   Restoration:
@@ -67,6 +68,7 @@ $ ./stigadm.sh
   Severity [ALL|CAT-I|CAT-II|CAT-III]: ALL
   Mode [Change|Validate|Restore]: Validate
   Enable verbosity [True|False]: True
+  Display meta data [True|False]: True
   Enable debug [True|False]: False
 
 [stigadm] Ok: Built list of STIG modules: 74/74
