@@ -1,3 +1,0 @@
-setpolicy:argv,cnt
-setflags:ex,xa,ua,as,ss,ap,lo,ft
-setnaflags:ex,xa,ps,ua,as,ss,ap,lo,ft,fd,fm,-fa

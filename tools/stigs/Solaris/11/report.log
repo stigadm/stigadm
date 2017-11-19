@@ -1,0 +1,3646 @@
+report.log
+
+
+
+=========================================
+V0047781.sh.log
+
+[V0047781] Ok: Validating auditing
+[V0047781] Ok: Success, conforms to 'V0047781'
+
+=========================================
+V0047783.sh.log
+
+[V0047783] Ok: Validating auditing
+[V0047783] Ok: Success, conforms to 'V0047783'
+
+=========================================
+V0047785.sh.log
+
+[V0047785] Ok: Validating auditing
+[V0047785] Ok: Success, conforms to 'V0047785'
+
+=========================================
+V0047787.sh.log
+
+[V0047787] Ok: Validating auditing
+[V0047787] Ok: Success, conforms to 'V0047787'
+
+=========================================
+V0047789.sh.log
+
+[V0047789] Ok: Validating auditing
+[V0047789] Ok: Success, conforms to 'V0047789'
+
+=========================================
+V0047791.sh.log
+
+[V0047791] Ok: Validating auditing
+[V0047791] Ok: Success, conforms to 'V0047791'
+
+=========================================
+V0047793.sh.log
+
+[V0047793] Ok: Validating auditing
+[V0047793] Ok: Success, conforms to 'V0047793'
+
+=========================================
+V0047795.sh.log
+
+[V0047795] Ok: Validating auditing
+[V0047795] Ok: Success, conforms to 'V0047795'
+
+=========================================
+V0047797.sh.log
+
+[V0047797] Ok: Validating auditing
+[V0047797] Ok: Success, conforms to 'V0047797'
+
+=========================================
+V0047799.sh.log
+
+[V0047799] Ok: Validating auditing
+[V0047799] Ok: Success, conforms to 'V0047799'
+
+=========================================
+V0047801.sh.log
+
+[V0047801] Ok: Validating auditing
+[V0047801] Ok: Success, conforms to 'V0047801'
+
+=========================================
+V0047803.sh.log
+
+[V0047803] Ok: Validating auditing
+[V0047803] Ok: Success, conforms to 'V0047803'
+
+=========================================
+V0047805.sh.log
+
+[V0047805] Error:   - defflags (cusa)
+[V0047805] Error:   - defnaflags (cusa)
+[V0047805] Error:   - policy (+argv)
+
+=========================================
+V0047807.sh.log
+
+[V0047807] Error:   - defflags (cusa)
+[V0047807] Error:   - defnaflags (cusa)
+[V0047807] Error:   - policy (+argv)
+
+=========================================
+V0047809.sh.log
+
+[V0047809] Error:   - defflags (cusa)
+[V0047809] Error:   - defnaflags (cusa)
+[V0047809] Error:   - policy (+argv)
+
+=========================================
+V0047811.sh.log
+
+[V0047811] Error:   - defflags (cusa)
+[V0047811] Error:   - defnaflags (cusa)
+[V0047811] Error:   - policy (+argv)
+
+=========================================
+V0047813.sh.log
+
+[V0047813] Error:   - defflags (cusa)
+[V0047813] Error:   - defnaflags (cusa)
+[V0047813] Error:   - policy (+argv)
+
+=========================================
+V0047815.sh.log
+
+[V0047815] Error:   - defflags (cusa)
+[V0047815] Error:   - defnaflags (cusa)
+[V0047815] Error:   - policy (+argv)
+
+=========================================
+V0047817.sh.log
+
+[V0047817] Error:   - defflags (cusa)
+[V0047817] Error:   - defnaflags (cusa)
+[V0047817] Error:   - policy (+argv)
+
+=========================================
+V0047819.sh.log
+
+[V0047819] Error:   - defflags (cusa)
+[V0047819] Error:   - defnaflags (cusa)
+[V0047819] Error:   - policy (+argv)
+
+=========================================
+V0047821.sh.log
+
+[V0047821] Error:   - defflags (cusa)
+[V0047821] Error:   - defnaflags (cusa)
+[V0047821] Error:   - policy (+argv)
+
+=========================================
+V0047823.sh.log
+
+[V0047823] Error:   - defflags (cusa)
+[V0047823] Error:   - defnaflags (cusa)
+[V0047823] Error:   - policy (+argv)
+
+=========================================
+V0047825.sh.log
+
+[V0047825] Error:   - defflags (cusa)
+[V0047825] Error:   - defnaflags (cusa)
+[V0047825] Error:   - policy (+argv)
+
+=========================================
+V0047827.sh.log
+
+[V0047827] Ok: Success, conforms to 'V0047827'
+
+=========================================
+V0047831.sh.log
+
+[V0047831] Warning: Not yet implemented...
+
+[V0047831] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047831
+  STIG_Version: SV-60705r1
+  Rule_ID: SOL-11.1-010360
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The auditing system must not define a different auditing level for specific users.
+  Description: Without auditing, individual system accesses cannot be tracked, and malicious activity cannot be detected and traced back to an individual account.
+
+=========================================
+V0047835.sh.log
+
+[V0047835] Warning: Not yet implemented...
+
+[V0047835] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047835
+  STIG_Version: SV-60709r1
+  Rule_ID: SOL-11.1-010370
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The audit system must alert the SA when the audit storage volume approaches its capacity.
+  Description: Filling the audit storage area can result in a denial of service or system outage and can lead to events going undetected.
+
+=========================================
+V0047837.sh.log
+
+[V0047837] Warning: Not yet implemented...
+
+[V0047837] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047837
+  STIG_Version: SV-60711r1
+  Rule_ID: SOL-11.1-100050
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The audit system must maintain a central audit trail for all zones.
+  Description: Centralized auditing simplifies the investigative process to determine the cause of a security event.
+
+=========================================
+V0047839.sh.log
+
+[V0047839] Warning: Not yet implemented...
+
+[V0047839] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047839
+  STIG_Version: SV-60713r1
+  Rule_ID: SOL-11.1-100040
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The audit system must identify in which zone an event occurred.
+  Description: The audit system must identify in which zone an event occurred.
+
+=========================================
+V0047841.sh.log
+
+[V0047841] Warning: Not yet implemented...
+
+[V0047841] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047841
+  STIG_Version: SV-60715r1
+  Rule_ID: SOL-11.1-100030
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The systems physical devices must not be assigned to non-global zones.
+  Description: The systems physical devices must not be assigned to non-global zones.
+
+=========================================
+V0047843.sh.log
+
+[V0047843] Ok: Validating '/etc/mail/aliases' according to STIG ID 'V0047843'
+[V0047843] Ok: Success, '/etc/mail/aliases' conforms to 'V0047843'
+
+=========================================
+V0047845.sh.log
+
+[V0047845] Ok: Validating '/etc/mail/aliases' according to STIG ID 'V0047845'
+[V0047845] Ok: Success, '/etc/mail/aliases' conforms to 'V0047845'
+
+=========================================
+V0047857.sh.log
+
+[V0047857] Warning: Not yet implemented...
+
+[V0047857] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047857
+  STIG_Version: SV-60731r2
+  Rule_ID: SOL-11.1-010400
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must allocate audit record storage capacity.
+  Description: Proper audit storage capacity is crucial to ensuring the ongoing logging of critical events.
+
+=========================================
+V0047863.sh.log
+
+[V0047863] Warning: Not yet implemented...
+
+[V0047863] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047863
+  STIG_Version: SV-60737r1
+  Rule_ID: SOL-11.1-010420
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must shut down by default upon audit failure (unless availability is an overriding concern).
+  Description: Continuing to operate a system without auditing working properly can result in undocumented access or system changes.
+
+=========================================
+V0047869.sh.log
+
+[V0047869] Warning: Not yet implemented...
+
+[V0047869] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047869
+  STIG_Version: SV-60741r1
+  Rule_ID: SOL-11.1-010440
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must protect audit information from unauthorized read access.
+  Description: The operating system must protect audit information from unauthorized read access.
+
+=========================================
+V0047875.sh.log
+
+[V0047875] Ok: 'V0047875' is not yet implemented!
+
+=========================================
+V0047879.sh.log
+
+[V0047879] Ok: Not yet implemented
+
+=========================================
+V0047881.sh.log
+
+[V0047881] Ok: Not yet implemented
+
+=========================================
+V0047883.sh.log
+
+[V0047883] Warning: Not yet implemented...
+
+[V0047883] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047883
+  STIG_Version: SV-60755r1
+  Rule_ID: SOL-11.1-020020
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must verify that package updates are digitally signed.
+  Description: Digitally signed packages ensure that the source of the package can be identified.
+
+=========================================
+V0047885.sh.log
+
+[V0047885] Warning: Not yet implemented...
+
+[V0047885] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047885
+  STIG_Version: SV-60757r1
+  Rule_ID: SOL-11.1-020030
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must protect audit tools from unauthorized access.
+  Description: Failure to maintain system configurations may result in privilege escalation.
+
+=========================================
+V0047887.sh.log
+
+[V0047887] Warning: Not yet implemented...
+
+[V0047887] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047887
+  STIG_Version: SV-60759r1
+  Rule_ID: SOL-11.1-020040
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must protect audit tools from unauthorized modification.
+  Description: Failure to maintain system configurations may result in privilege escalation.
+
+=========================================
+V0047889.sh.log
+
+[V0047889] Warning: Not yet implemented...
+
+[V0047889] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047889
+  STIG_Version: SV-60761r1
+  Rule_ID: SOL-11.1-020050
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must protect audit tools from unauthorized deletion.
+  Description: Failure to maintain system configurations may result in privilege escalation.
+
+=========================================
+V0047891.sh.log
+
+[V0047891] Warning: Not yet implemented...
+
+[V0047891] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047891
+  STIG_Version: SV-60763r1
+  Rule_ID: SOL-11.1-020080
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: System packages must be configured with the vendor-provided files, permissions, and ownerships.
+  Description: Failure to maintain system configurations may result in privilege escalation.
+
+=========================================
+V0047893.sh.log
+
+[V0047893] Warning: Not yet implemented...
+
+[V0047893] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047893
+  STIG_Version: SV-60765r1
+  Rule_ID: SOL-11.1-020090
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The finger daemon package must not be installed.
+  Description: Finger is an insecure protocol.
+
+=========================================
+V0047895.sh.log
+
+[V0047895] Warning: Not yet implemented...
+
+[V0047895] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047895
+  STIG_Version: SV-60767r3
+  Rule_ID: SOL-11.1-100020
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The limitpriv zone option must be set to the vendor default or less permissive.
+  Description: The limitpriv zone option must be set to the vendor default or less permissive.
+
+=========================================
+V0047897.sh.log
+
+[V0047897] Warning: Not yet implemented...
+
+[V0047897] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047897
+  STIG_Version: SV-60769r1
+  Rule_ID: SOL-11.1-100010
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The /etc/zones directory, and its contents, must have the vendor default owner, group, and permissions.
+  Description: Incorrect ownership can result in unauthorized changes or theft of data.
+
+=========================================
+V0047899.sh.log
+
+[V0047899] Ok: Not yet implemented
+
+=========================================
+V0047901.sh.log
+
+[V0047901] Warning: Not yet implemented...
+
+[V0047901] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047901
+  STIG_Version: SV-60773r1
+  Rule_ID: SOL-11.1-020100
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The legacy remote network access utilities daemons must not be installed.
+  Description: Legacy remote access utilities allow remote control of a system without proper authentication.
+
+=========================================
+V0047903.sh.log
+
+[V0047903] Warning: Not yet implemented...
+
+[V0047903] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047903
+  STIG_Version: SV-60775r1
+  Rule_ID: SOL-11.1-090270
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must identify potentially security-relevant error conditions.
+  Description: Security functional testing involves testing the operating system for conformance to the operating system security function specifications, as well as for the underlying security model. The need to verify security functionality applies to all security functions. The conformance criteria state the conditions necessary for the operating system to exhibit the desired security behavior or satisfy a security property. For example, successful login triggers an audit entry.
+
+=========================================
+V0047905.sh.log
+
+[V0047905] Ok: Not implemented
+
+=========================================
+V0047907.sh.log
+
+[V0047907] Warning: Not yet implemented...
+
+[V0047907] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047907
+  STIG_Version: SV-60779r1
+  Rule_ID: SOL-11.1-090250
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must verify the correct operation of security functions in accordance with organization-defined conditions and in accordance with organization-defined frequency (if periodic verification).
+  Description: Security functional testing involves testing the operating system for conformance to the operating system security function specifications, as well as for the underlying security model. The need to verify security functionality applies to all security functions. The conformance criteria state the conditions necessary for the operating system to exhibit the desired security behavior or satisfy a security property. For example, successful login triggers an audit entry.
+
+=========================================
+V0047909.sh.log
+
+[V0047909] Warning: Not yet implemented...
+
+[V0047909] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047909
+  STIG_Version: SV-60781r1
+  Rule_ID: SOL-11.1-020120
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The pidgin IM client package must not be installed.
+  Description: Instant messaging is an insecure protocol.
+
+=========================================
+V0047911.sh.log
+
+[V0047911] Warning: Not yet implemented...
+
+[V0047911] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047911
+  STIG_Version: SV-60783r1
+  Rule_ID: SOL-11.1-020130
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The FTP daemon must not be installed unless required.
+  Description: FTP is an insecure protocol.
+
+=========================================
+V0047913.sh.log
+
+[V0047913] Warning: Not yet implemented...
+
+[V0047913] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047913
+  STIG_Version: SV-60785r2
+  Rule_ID: SOL-11.1-020140
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The TFTP service daemon must not be installed unless required.
+  Description: TFTP is an insecure protocol.
+
+=========================================
+V0047915.sh.log
+
+[V0047915] Warning: Not yet implemented...
+
+[V0047915] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047915
+  STIG_Version: SV-60787r2
+  Rule_ID: SOL-11.1-020150
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The telnet service daemon must not be installed unless required.
+  Description: Telnet is an insecure protocol.
+
+=========================================
+V0047917.sh.log
+
+[V0047917] Warning: Not yet implemented...
+
+[V0047917] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047917
+  STIG_Version: SV-60789r2
+  Rule_ID: SOL-11.1-020160
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The UUCP service daemon must not be installed unless required.
+  Description: UUCP is an insecure protocol.
+
+=========================================
+V0047919.sh.log
+
+[V0047919] Warning: Not yet implemented...
+
+[V0047919] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047919
+  STIG_Version: SV-60791r1
+  Rule_ID: SOL-11.1-020170
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The rpcbind service must be configured for local only services.
+  Description: The portmap and rpcbind services increase the attack surface of the system and should only be used when needed. The portmap or rpcbind services are used by a variety of services using remote procedure calls (RPCs).
+
+=========================================
+V0047921.sh.log
+
+[V0047921] Warning: Not yet implemented...
+
+[V0047921] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047921
+  STIG_Version: SV-60793r1
+  Rule_ID: SOL-11.1-020180
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The VNC server package must not be installed unless required.
+  Description: The VNC service uses weak authentication capabilities and provides the user complete graphical system access.
+
+=========================================
+V0047923.sh.log
+
+[V0047923] Warning: Not yet implemented...
+
+[V0047923] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047923
+  STIG_Version: SV-60795r1
+  Rule_ID: SOL-11.1-020190
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must employ automated mechanisms, per organization-defined frequency, to detect the addition of unauthorized components/devices into the operating system.
+  Description: Addition of unauthorized code or packages may result in data corruption or theft.
+
+=========================================
+V0047925.sh.log
+
+[V0047925] Warning: Not yet implemented...
+
+[V0047925] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047925
+  STIG_Version: SV-60797r1
+  Rule_ID: SOL-11.1-020220
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must be configured to provide essential capabilities.
+  Description: Operating systems are capable of providing a wide variety of functions and services. Execution must be disabled based on organization-defined specifications.
+
+=========================================
+V0047927.sh.log
+
+[V0047927] Warning: Not yet implemented...
+
+[V0047927] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047927
+  STIG_Version: SV-60799r1
+  Rule_ID: SOL-11.1-020230
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must employ automated mechanisms to prevent program execution in accordance with the organization-defined specifications.
+  Description: Operating systems are capable of providing a wide variety of functions and services. Execution must be disabled based on organization-defined specifications.
+
+=========================================
+V0047929.sh.log
+
+[V0047929] Warning: Not yet implemented...
+
+[V0047929] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047929
+  STIG_Version: SV-60801r1
+  Rule_ID: SOL-11.1-030010
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The graphical login service provides the capability of logging into the system using an X-Windows type interface from the console. If graphical login access for the console is required, the service must be in local-only mode.
+  Description: Externally accessible graphical desktop software may open the system to remote attacks.
+
+=========================================
+V0047931.sh.log
+
+[V0047931] Warning: Not yet implemented...
+
+[V0047931] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047931
+  STIG_Version: SV-60803r1
+  Rule_ID: SOL-11.1-030030
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Generic Security Services (GSS) must be disabled.
+  Description: This service should be disabled if it is not required.
+
+=========================================
+V0047933.sh.log
+
+[V0047933] Warning: Not yet implemented...
+
+[V0047933] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047933
+  STIG_Version: SV-60805r1
+  Rule_ID: SOL-11.1-030040
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Systems services that are not required must be disabled.
+  Description: Services that are enabled but not required by the mission may provide excessive access or additional attack vectors to penetrate the system.
+
+=========================================
+V0047935.sh.log
+
+[V0047935] Warning: Not yet implemented...
+
+[V0047935] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047935
+  STIG_Version: SV-60807r1
+  Rule_ID: SOL-11.1-030050
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: TCP Wrappers must be enabled and configured per site policy to only allow access by approved hosts and services.
+  Description: TCP Wrappers are a host-based access control system that allows administrators to control who has access to various network services based on the IP address of the remote end of the connection. TCP Wrappers also provide logging information via syslog about both successful and unsuccessful connections.
+
+=========================================
+V0047937.sh.log
+
+[V0047937] Warning: Not yet implemented...
+
+[V0047937] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047937
+  STIG_Version: SV-60809r1
+  Rule_ID: SOL-11.1-090240
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: All manual editing of system-relevant files shall be done using the pfedit command, which logs changes made to the files.
+  Description: Editing a system file with common tools such as vi, emacs, or gedit does not allow the auditing of changes made by an operator. This reduces the capability of determining which operator made security-relevant changes to the system.
+
+=========================================
+V0047939.sh.log
+
+[V0047939] Warning: Not yet implemented...
+
+[V0047939] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047939
+  STIG_Version: SV-60811r1
+  Rule_ID: SOL-11.1-030060
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must disable information system functionality that provides the capability for automatic execution of code on mobile devices without user direction.
+  Description: The operating system must disable information system functionality that provides the capability for automatic execution of code on mobile devices without user direction.
+
+=========================================
+V0047941.sh.log
+
+[V0047941] Warning: Not yet implemented...
+
+[V0047941] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047941
+  STIG_Version: SV-60813r1
+  Rule_ID: SOL-11.1-090220
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must back up audit records at least every seven days onto a different system or system component than the system or component being audited.
+  Description: The operating system must back up audit records at least every seven days onto a different system or system component than the system or component being audited.
+
+=========================================
+V0047943.sh.log
+
+[V0047943] Ok: '0' accounts found, system conforms to 'V0047943'
+[V0047943] Error: Host does not conform to 'V0047943'
+
+=========================================
+V0047945.sh.log
+
+[V0047945] Warning: Not yet implemented...
+
+[V0047945] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047945
+  STIG_Version: SV-60817r1
+  Rule_ID: SOL-11.1-090200
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must employ automated mechanisms to alert security personnel of any organization-defined inappropriate or unusual activities with security implications.
+  Description: Intrusion detection and prevention capabilities must be architected and implemented to prevent non-privileged users from circumventing such protections. This can be accomplished through the use of user roles, use of proper systems permissions, auditing, logging, etc.
+
+=========================================
+V0047947.sh.log
+
+[V0047947] Warning: Not yet implemented...
+
+[V0047947] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047947
+  STIG_Version: SV-60819r1
+  Rule_ID: SOL-11.1-090180
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must protect information obtained from intrusion-monitoring tools from unauthorized access, modification, and deletion.
+  Description: The operating system must protect information obtained from intrusion-monitoring tools from unauthorized access, modification, and deletion.
+
+=========================================
+V0047949.sh.log
+
+[V0047949] Warning: Not yet implemented...
+
+[V0047949] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047949
+  STIG_Version: SV-60821r1
+  Rule_ID: SOL-11.1-040020
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must automatically terminate temporary accounts within 72 hours.
+  Description: The operating system must automatically terminate temporary accounts within 72 hours.
+
+=========================================
+V0047951.sh.log
+
+[V0047951] Warning: Not yet implemented...
+
+[V0047951] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047951
+  STIG_Version: SV-60823r1
+  Rule_ID: SOL-11.1-090170
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Intrusion detection and prevention capabilities must be architected and implemented to prevent non-privileged users from circumventing such protections.
+  Description: Intrusion detection and prevention capabilities must be architected and implemented to prevent non-privileged users from circumventing such protections.
+
+=========================================
+V0047953.sh.log
+
+[V0047953] Ok: '0' accounts found, system conforms to 'V0047953'
+
+=========================================
+V0047955.sh.log
+
+[V0047955] Warning: Not yet implemented...
+
+[V0047955] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047955
+  STIG_Version: SV-60827r1
+  Rule_ID: SOL-11.1-090140
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must have malicious code protection mechanisms at system entry and exit points to detect and eradicate malicious code transported by electronic mail, electronic mail attachments, web accesses, removable media, or other common means.
+  Description: The operating system must have malicious code protection mechanisms at system entry and exit points to detect and eradicate malicious code transported by electronic mail, electronic mail attachments, web accesses, removable media, or other common means.
+
+=========================================
+V0047957.sh.log
+
+[V0047957] Warning: Not yet implemented...
+
+[V0047957] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047957
+  STIG_Version: SV-60829r1
+  Rule_ID: SOL-11.1-040040
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: User passwords must be at least 15 characters in length.
+  Description: User passwords must be at least 15 characters in length.
+
+=========================================
+V0047959.sh.log
+
+[V0047959] Warning: Not yet implemented...
+
+[V0047959] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047959
+  STIG_Version: SV-60831r1
+  Rule_ID: SOL-11.1-090130
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must employ malicious code protection mechanisms at workstations, servers, or mobile computing devices on the network to detect and eradicate malicious code transported by electronic mail, electronic mail attachments, web accesses, removable media, or other common means.
+  Description: The operating system must employ malicious code protection mechanisms at workstations, servers, or mobile computing devices on the network to detect and eradicate malicious code transported by electronic mail, electronic mail attachments, web accesses, removable media, or other common means.
+
+=========================================
+V0047961.sh.log
+
+[V0047961] Warning: Not yet implemented...
+
+[V0047961] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047961
+  STIG_Version: SV-60833r1
+  Rule_ID: SOL-11.1-040050
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Users must not reuse the last 5 passwords.
+  Description: Users must not reuse the last 5 passwords.
+
+=========================================
+V0047963.sh.log
+
+[V0047963] Warning: Not yet implemented...
+
+[V0047963] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047963
+  STIG_Version: SV-60835r1
+  Rule_ID: SOL-11.1-090120
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must prevent non-privileged users from circumventing malicious code protection capabilities.
+  Description: The operating system must prevent non-privileged users from circumventing malicious code protection capabilities.
+
+=========================================
+V0047967.sh.log
+
+[V0047967] Warning: Not yet implemented...
+
+[V0047967] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047967
+  STIG_Version: SV-60839r2
+  Rule_ID: SOL-11.1-040060
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must require at least eight characters be changed between the old and new passwords during a password change.
+  Description: To ensure password changes are effective in their goals, the system must ensure old and new passwords have significant differences. Without significant changes, new passwords may be easily guessed based on the value of a previously compromised password.
+
+=========================================
+V0047969.sh.log
+
+[V0047969] Warning: Not yet implemented...
+
+[V0047969] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047969
+  STIG_Version: SV-60841r1
+  Rule_ID: SOL-11.1-090100
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must prevent the execution of prohibited mobile code.
+  Description: The operating system must prevent the execution of prohibited mobile code.
+
+=========================================
+V0047971.sh.log
+
+[V0047971] Error: An error occurred validating '/etc/default/passwd'
+[V0047971] Error:   - MINUPPER
+
+=========================================
+V0047973.sh.log
+
+[V0047973] Warning: Not yet implemented...
+
+[V0047973] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047973
+  STIG_Version: SV-60845r1
+  Rule_ID: SOL-11.1-090070
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must conduct backups of operating system documentation including security-related documentation per organization-defined frequency to conduct backups that is consistent with recovery time and recovery point objectives.
+  Description: The operating system must conduct backups of operating system documentation including security-related documentation per organization-defined frequency to conduct backups that is consistent with recovery time and recovery point objectives.
+
+=========================================
+V0047975.sh.log
+
+[V0047975] Warning: Not yet implemented...
+
+[V0047975] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047975
+  STIG_Version: SV-60847r1
+  Rule_ID: SOL-11.1-090060
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must conduct backups of system-level information contained in the information system per organization-defined frequency to conduct backups that are consistent with recovery time and recovery point objectives.
+  Description: The operating system must conduct backups of system-level information contained in the information system per organization-defined frequency to conduct backups that are consistent with recovery time and recovery point objectives.
+
+=========================================
+V0047977.sh.log
+
+[V0047977] Warning: Not yet implemented...
+
+[V0047977] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047977
+  STIG_Version: SV-60849r1
+  Rule_ID: SOL-11.1-090050
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must conduct backups of user-level information contained in the operating system per organization-defined frequency to conduct backups consistent with recovery time and recovery point objectives.
+  Description: The operating system must conduct backups of user-level information contained in the operating system per organization-defined frequency to conduct backups consistent with recovery time and recovery point objectives.
+
+=========================================
+V0047979.sh.log
+
+[V0047979] Warning: Not yet implemented...
+
+[V0047979] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047979
+  STIG_Version: SV-60851r1
+  Rule_ID: SOL-11.1-090040
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must not have any unnecessary accounts.
+  Description: Accounts providing no operational purpose provide additional opportunities for system compromise. Unnecessary accounts include user accounts for individuals not requiring access to the system and application accounts for applications not installed on the system.
+
+=========================================
+V0047981.sh.log
+
+[V0047981] Error: An error occurred validating '/etc/default/passwd'
+[V0047981] Error:   - MINLOWER
+
+=========================================
+V0047983.sh.log
+
+[V0047983] Warning: Not yet implemented...
+
+[V0047983] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047983
+  STIG_Version: SV-60855r2
+  Rule_ID: SOL-11.1-090030
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Direct logins must not be permitted to shared, default, application, or utility accounts.
+  Description: Shared accounts (accounts where two or more people log in with the same user identification) do not provide identification and authentication. There is no way to provide for non-repudiation or individual accountability.
+
+=========================================
+V0047985.sh.log
+
+[V0047985] Warning: Not yet implemented...
+
+[V0047985] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047985
+  STIG_Version: SV-60857r2
+  Rule_ID: SOL-11.1-090020
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must synchronize internal information system clocks with a server that is synchronized to one of the redundant United States Naval Observatory (USNO) time servers or a time server designated for the appropriate DoD network (NIPRNet/SIPRNet), and/or the Global Positioning System (GPS).
+  Description: To assure the accuracy of the system clock, it must be synchronized with an authoritative time source within DoD. Many system functions, including time-based login and activity restrictions, automated reports, system logs, and audit records depend on an accurate system clock. If there is no confidence in the correctness of the system clock, time-based functions may not operate as intended and records may be of diminished value.
+
+=========================================
+V0047987.sh.log
+
+[V0047987] Warning: Not yet implemented...
+
+[V0047987] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047987
+  STIG_Version: SV-60859r1
+  Rule_ID: SOL-11.1-090010
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: A file integrity baseline must be created, maintained, and reviewed on at least weekly to determine if unauthorized changes have been made to important system files located in the root file system.
+  Description: A file integrity baseline is a collection of file metadata which is to evaluate the integrity of the system. A minimal baseline must contain metadata for all device files, setuid files, setgid files, system libraries, system binaries, and system configuration files. The minimal metadata must consist of the mode, owner, group owner, and modification times. For regular files, metadata must also include file size and a cryptographic hash of the file's contents.
+
+=========================================
+V0047989.sh.log
+
+[V0047989] Error: An error occurred validating '/etc/default/passwd'
+[V0047989] Error:   - MINDIGIT
+
+=========================================
+V0047991.sh.log
+
+[V0047991] Error: An error occurred validating '/etc/default/passwd'
+[V0047991] Error:   - MINSPECIAL
+
+=========================================
+V0047993.sh.log
+
+[V0047993] Warning: Not yet implemented...
+
+[V0047993] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047993
+  STIG_Version: SV-60865r1
+  Rule_ID: SOL-11.1-040110
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must require passwords to contain no more than three consecutive repeating characters.
+  Description: Complex passwords can reduce the likelihood of success of automated password-guessing attacks.
+
+=========================================
+V0047995.sh.log
+
+[V0047995] Warning: Not yet implemented...
+
+[V0047995] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047995
+  STIG_Version: SV-60867r1
+  Rule_ID: SOL-11.1-080160
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: SNMP communities, users, and passphrases must be changed from the default.
+  Description: Whether active or not, default SNMP passwords, users, and passphrases must be changed to maintain security. If the service is running with the default authenticators, then anyone can gather data about the system and the network and use the information to potentially compromise the integrity of the system or network(s).
+
+=========================================
+V0047997.sh.log
+
+[V0047997] Warning: Not yet implemented...
+
+[V0047997] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047997
+  STIG_Version: SV-60869r1
+  Rule_ID: SOL-11.1-080150
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must implement transaction recovery for transaction-based systems.
+  Description: The operating system must implement transaction recovery for transaction-based systems.
+
+=========================================
+V0047999.sh.log
+
+[V0047999] Warning: Not yet implemented...
+
+[V0047999] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0047999
+  STIG_Version: SV-60871r1
+  Rule_ID: SOL-11.1-040120
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must not have accounts configured with blank or null passwords.
+  Description: Complex passwords can reduce the likelihood of success of automated password-guessing attacks.
+
+=========================================
+V0048001.sh.log
+
+[V0048001] Warning: Not yet implemented...
+
+[V0048001] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048001
+  STIG_Version: SV-60873r3
+  Rule_ID: SOL-11.1-080140
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: X86
+ 
+  Title: The system must require authentication before allowing modification of the boot devices or menus. Secure the GRUB Menu (Intel).
+  Description: The flexibility that GRUB provides creates a security risk if its configuration is modified by an unauthorized user. The failsafe menu entry needs to be secured in the same environments that require securing the systems firmware to avoid unauthorized removable media boots.
+
+=========================================
+V0048003.sh.log
+
+[V0048003] Warning: Not yet implemented...
+
+[V0048003] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048003
+  STIG_Version: SV-60875r1
+  Rule_ID: SOL-11.1-080130
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must require passwords to change the boot device settings. (SPARC)
+  Description: Setting the EEPROM password helps prevent attackers who gain physical access to the system console from booting from an external device (such as a CD-ROM or floppy).
+
+=========================================
+V0048005.sh.log
+
+[V0048005] Warning: Not yet implemented...
+
+[V0048005] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048005
+  STIG_Version: SV-60877r2
+  Rule_ID: SOL-11.1-080120
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: X86
+ 
+  Title: System BIOS or system controllers supporting password protection must have administrator accounts/passwords configured, and no others. (Intel)
+  Description: A system's BIOS or system controller handles the initial startup of a system and its configuration must be protected from unauthorized modification. When the BIOS or system controller supports the creation of user accounts or passwords, such protections must be used and accounts/passwords only assigned to system administrators. Failure to protect BIOS or system controller settings could result in denial of service or compromise of the system resulting from unauthorized configuration changes.
+
+=========================================
+V0048007.sh.log
+
+[V0048007] Warning: Not yet implemented...
+
+[V0048007] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048007
+  STIG_Version: SV-60879r1
+  Rule_ID: SOL-11.1-080110
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The kernel core dump data directory must have mode 0700 or less permissive.
+  Description: Kernel core dumps may contain the full contents of system memory at the time of the crash. As the system memory may contain sensitive information, it must be protected accordingly. If the mode of the kernel core dump data directory is more permissive than 0700, unauthorized users may be able to view or to modify kernel core dump data files.
+
+=========================================
+V0048009.sh.log
+
+[V0048009] Warning: Not yet implemented...
+
+[V0048009] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048009
+  STIG_Version: SV-60881r1
+  Rule_ID: SOL-11.1-080100
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The kernel core dump data directory must be group-owned by root.
+  Description: Kernel core dumps may contain the full contents of system memory at the time of the crash. As the system memory may contain sensitive information, it must be protected accordingly. If the kernel core dump data directory is not group-owned by a system group, the core dumps contained in the directory may be subject to unauthorized access.
+
+=========================================
+V0048011.sh.log
+
+[V0048011] Warning: Not yet implemented...
+
+[V0048011] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048011
+  STIG_Version: SV-60883r1
+  Rule_ID: SOL-11.1-080090
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The kernel core dump data directory must be owned by root.
+  Description: Kernel core dumps may contain the full contents of system memory at the time of the crash. As the system memory may contain sensitive information, it must be protected accordingly. If the kernel core dump data directory is not owned by root, the core dumps contained in the directory may be subject to unauthorized access.
+
+=========================================
+V0048013.sh.log
+
+[V0048013] Warning: Not yet implemented...
+
+[V0048013] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048013
+  STIG_Version: SV-60885r1
+  Rule_ID: SOL-11.1-080080
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Kernel core dumps must be disabled unless needed.
+  Description: Kernel core dumps may contain the full contents of system memory at the time of the crash. Kernel core dumps may consume a considerable amount of disk space and may result in denial of service by exhausting the available space on the target file system. The kernel core dump process may increase the amount of time a system is unavailable due to a crash. Kernel core dumps can be useful for kernel debugging.
+
+=========================================
+V0048015.sh.log
+
+[V0048015] Error: '.' permissions does NOT conform to 'V0048015'
+
+=========================================
+V0048017.sh.log
+
+[V0048017] Error: '.' group ownership does NOT conform to 'V0048017' (vboxsf)
+
+=========================================
+V0048019.sh.log
+
+[V0048019] Warning: Not yet implemented...
+
+[V0048019] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048019
+  STIG_Version: SV-60891r1
+  Rule_ID: SOL-11.1-080050
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The centralized process core dump data directory must be owned by root.
+  Description: Process core dumps contain the memory in use by the process when it crashed. Any data the process was handling may be contained in the core file, and it must be protected accordingly. If the centralized process core dump data directory is not owned by root, the core dumps contained in the directory may be subject to unauthorized access.
+
+=========================================
+V0048021.sh.log
+
+[V0048021] Ok: Success, conforms to 'V0048021'
+
+=========================================
+V0048023.sh.log
+
+[V0048023] Warning: Not yet implemented...
+
+[V0048023] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048023
+  STIG_Version: SV-60895r2
+  Rule_ID: SOL-11.1-080030
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Address Space Layout Randomization (ASLR) must be enabled.
+  Description: Modification of memory area can result in executable code vulnerabilities. ASLR can reduce the likelihood of these attacks. ASLR activates the randomization of key areas of the process such as stack, brk-based heap, memory mappings, and so forth.
+
+=========================================
+V0048025.sh.log
+
+[V0048025] Warning: Not yet implemented...
+
+[V0048025] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048025
+  STIG_Version: SV-60897r2
+  Rule_ID: SOL-11.1-080020
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must implement non-executable program stacks.
+  Description: A common type of exploit is the stack buffer overflow. An application receives, from an attacker, more data than it is prepared for and stores this information on its stack, writing beyond the space reserved for it. This can be designed to cause execution of the data written on the stack. One mechanism to mitigate this vulnerability is for the system to not allow the execution of instructions in sections of memory identified as part of the stack.
+
+=========================================
+V0048027.sh.log
+
+[V0048027] Warning: Not yet implemented...
+
+[V0048027] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048027
+  STIG_Version: SV-60899r1
+  Rule_ID: SOL-11.1-080010
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must be a supported release.
+  Description: An operating system release is considered supported if the vendor continues to provide security patches for the product. With an unsupported release, it will not be possible to resolve security issues discovered in the system software.
+
+=========================================
+V0048029.sh.log
+
+[V0048029] Warning: Not yet implemented...
+
+[V0048029] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048029
+  STIG_Version: SV-60901r1
+  Rule_ID: SOL-11.1-070260
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operator must document all file system objects that have non-standard access control list settings.
+  Description: Access Control Lists allow an object owner to expand permissions on an object to specific users and groups in addition to the standard permission model. Non-standard Access Control List settings can allow unauthorized users to modify critical files.
+
+=========================================
+V0048031.sh.log
+
+[V0048031] Warning: Not yet implemented...
+
+[V0048031] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048031
+  STIG_Version: SV-60903r2
+  Rule_ID: SOL-11.1-070250
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must protect the audit records resulting from non-local accesses to privileged accounts and the execution of privileged functions.
+  Description: Protection of audit records and audit data is of critical importance. Care must be taken to ensure privileged users cannot circumvent audit protections put in place. Auditing might not be reliable when performed by an operating system which the user being audited has privileged access to. The privileged user could inhibit auditing or directly modify audit records. To prevent this from occurring, privileged access shall be further defined between audit-related privileges and other privileges, thus limiting the users with audit-related privileges.
+
+=========================================
+V0048033.sh.log
+
+[V0048033] Error: Errors were encountered regarding 'V0048033'
+[V0048033] Error:   - Permissions on '/var/adm/messages' are set to '00644' vs. '00640'
+[V0048033] Error:   - Permissions on '/var/adm' are set to '00775' vs. '00750'
+
+=========================================
+V0048035.sh.log
+
+[V0048035] Warning: Not yet implemented...
+
+[V0048035] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048035
+  STIG_Version: SV-60907r1
+  Rule_ID: SOL-11.1-070220
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The root account must be the only account with GID of 0.
+  Description: All accounts with a GID of 0 have root group privileges and must be limited to the group account only.
+
+=========================================
+V0048037.sh.log
+
+[V0048037] Warning: Not yet implemented...
+
+[V0048037] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048037
+  STIG_Version: SV-60909r2
+  Rule_ID: SOL-11.1-070210
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must have no files with extended attributes.
+  Description: Attackers or malicious users could hide information, exploits, etc. in extended attribute areas. Since extended attributes are rarely used, it is important to find files with extended attributes set and correct these attributes.
+
+=========================================
+V0048039.sh.log
+
+[V0048039] Ok: Not yet implemented
+
+=========================================
+V0048043.sh.log
+
+[V0048043] Warning: Not yet implemented...
+
+[V0048043] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048043
+  STIG_Version: SV-60915r1
+  Rule_ID: SOL-11.1-040160
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The delay between login prompts following a failed login attempt must be at least 4 seconds.
+  Description: As an immediate return of an error message, coupled with the capability to try again, may facilitate automatic and rapid-fire brute-force password attacks by a malicious user.
+
+=========================================
+V0048045.sh.log
+
+[V0048045] Warning: Not yet implemented...
+
+[V0048045] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048045
+  STIG_Version: SV-60917r4
+  Rule_ID: SOL-11.1-040170
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must require users to re-authenticate to unlock a graphical desktop environment.
+  Description: Allowing access to a graphical environment when the user is not attending the system can allow unauthorized users access to the system.
+
+=========================================
+V0048047.sh.log
+
+[V0048047] Warning: Not yet implemented...
+
+[V0048047] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048047
+  STIG_Version: SV-60919r2
+  Rule_ID: SOL-11.1-040180
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Graphical desktop environments provided by the system must automatically lock after 15 minutes of inactivity.
+  Description: Allowing access to a graphical environment when the user is not attending the system can allow unauthorized users access to the system.
+
+=========================================
+V0048053.sh.log
+
+[V0048053] Warning: Not yet implemented...
+
+[V0048053] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048053
+  STIG_Version: SV-60925r1
+  Rule_ID: SOL-11.1-040190
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must prevent the use of dictionary words for passwords.
+  Description: The use of common words in passwords simplifies password-cracking attacks.
+
+=========================================
+V0048055.sh.log
+
+[V0048055] Warning: Not yet implemented...
+
+[V0048055] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048055
+  STIG_Version: SV-60927r2
+  Rule_ID: SOL-11.1-040200
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must restrict the ability of users to assume excessive privileges to members of a defined group and prevent unauthorized users from accessing administrative tools.
+  Description: Allowing any user to elevate their privileges can allow them excessive control of the system tools.
+
+=========================================
+V0048057.sh.log
+
+[V0048057] Warning: Not yet implemented...
+
+[V0048057] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048057
+  STIG_Version: SV-60929r2
+  Rule_ID: SOL-11.1-040230
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must require individuals to be authenticated with an individual authenticator prior to using a group authenticator.
+  Description: Allowing any user to elevate their privileges can allow them excessive control of the system tools.
+
+=========================================
+V0048059.sh.log
+
+[V0048059] Ok: The following SUID/GUID binaries passed validation
+[V0048059] Ok:   - '/usr/bin/amd64/newtask'
+[V0048059] Ok:   - '/usr/bin/amd64/uptime'
+[V0048059] Ok:   - '/usr/bin/at'
+[V0048059] Ok:   - '/usr/bin/atq'
+[V0048059] Ok:   - '/usr/bin/atrm'
+[V0048059] Ok:   - '/usr/bin/cdrw'
+[V0048059] Ok:   - '/usr/bin/chkey'
+[V0048059] Ok:   - '/usr/bin/crontab'
+[V0048059] Ok:   - '/usr/bin/mail'
+[V0048059] Ok:   - '/usr/bin/mailx'
+[V0048059] Ok:   - '/usr/bin/mlocate'
+[V0048059] Ok:   - '/usr/bin/newgrp'
+[V0048059] Ok:   - '/usr/bin/pfedit'
+[V0048059] Ok:   - '/usr/bin/pppd'
+[V0048059] Ok:   - '/usr/bin/rcp'
+[V0048059] Ok:   - '/usr/bin/rlogin'
+[V0048059] Ok:   - '/usr/bin/rmformat'
+[V0048059] Ok:   - '/usr/bin/rsh'
+[V0048059] Ok:   - '/usr/bin/stclient'
+[V0048059] Ok:   - '/usr/bin/su'
+[V0048059] Ok:   - '/usr/bin/sudo'
+[V0048059] Ok:   - '/usr/bin/sys-suspend'
+[V0048059] Ok:   - '/usr/bin/tip'
+[V0048059] Ok:   - '/usr/bin/write'
+[V0048059] Ok:   - '/usr/lib/acct/accton'
+[V0048059] Ok:   - '/usr/lib/fs/smbfs/mount'
+[V0048059] Ok:   - '/usr/lib/fs/smbfs/umount'
+[V0048059] Ok:   - '/usr/lib/fs/ufs/ufsdump'
+[V0048059] Ok:   - '/usr/lib/fs/ufs/ufsrestore'
+[V0048059] Ok:   - '/usr/lib/inet/mailq'
+[V0048059] Ok:   - '/usr/lib/inet/sendmail'
+[V0048059] Ok:   - '/usr/lib/sunssh/lib/ssh-keysign'
+[V0048059] Ok:   - '/usr/lib/utmp_update'
+[V0048059] Ok:   - '/usr/sbin/amd64/prtconf'
+[V0048059] Ok:   - '/usr/sbin/amd64/swap'
+[V0048059] Ok:   - '/usr/sbin/amd64/sysdef'
+[V0048059] Ok:   - '/usr/sbin/amd64/whodo'
+[V0048059] Ok:   - '/usr/sbin/ping'
+[V0048059] Ok:   - '/usr/sbin/prtdiag'
+[V0048059] Ok:   - '/usr/sbin/quota'
+[V0048059] Ok:   - '/usr/sbin/traceroute'
+[V0048059] Ok:   - '/usr/sbin/updatedb'
+[V0048059] Ok:   - '/usr/sbin/wall'
+[V0048059] Ok:   - '/usr/xpg4/bin/at'
+[V0048059] Ok:   - '/usr/xpg4/bin/crontab'
+[V0048059] Ok:   - '/usr/xpg6/bin/crontab'
+[V0048059] Ok:   - '/usr/bin/mlocate'
+[V0048059] Ok:   - '/usr/bin/write'
+[V0048059] Ok:   - '/usr/bin/mail'
+[V0048059] Ok:   - '/usr/bin/mailx'
+[V0048059] Ok:   - '/usr/lib/inet/sendmail'
+[V0048059] Ok:   - '/usr/sbin/wall'
+[V0048059] Ok:   - '/usr/sbin/prtdiag'
+[V0048059] Ok:   - '/usr/sbin/swap'
+[V0048059] Ok:   - '/usr/sbin/amd64/sysdef'
+[V0048059] Ok:   - '/usr/sbin/amd64/prtconf'
+[V0048059] Ok:   - '/usr/sbin/amd64/swap'
+[V0048059] Ok:   - '/usr/sbin/prtconf'
+[V0048059] Ok:   - '/usr/sbin/updatedb'
+[V0048059] Ok:   - '/usr/sbin/sysdef'
+[V0048059] Ok: Success, conforms to 'V0048059'
+
+=========================================
+V0048061.sh.log
+
+[V0048061] Ok: Not yet implemented
+
+=========================================
+V0048063.sh.log
+
+[V0048063] Ok: '0' found with world-writeable permissions; exiting
+
+=========================================
+V0048065.sh.log
+
+[V0048065] Warning: Not yet implemented...
+
+[V0048065] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048065
+  STIG_Version: SV-60937r1
+  Rule_ID: SOL-11.1-070170
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must not allow users to configure .forward files.
+  Description: Use of the .forward file poses a security risk in that sensitive data may be inadvertently transferred outside the organization. The .forward file also poses a secondary risk as it can be used to execute commands that may perform unintended actions.
+
+=========================================
+V0048067.sh.log
+
+[V0048067] Warning: Not yet implemented...
+
+[V0048067] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048067
+  STIG_Version: SV-60939r2
+  Rule_ID: SOL-11.1-070160
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: User .netrc files must not exist.
+  Description: The .netrc file presents a significant security risk since it stores passwords in unencrypted form.
+
+=========================================
+V0048069.sh.log
+
+[V0048069] Warning: Not yet implemented...
+
+[V0048069] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048069
+  STIG_Version: SV-60941r2
+  Rule_ID: SOL-11.1-070150
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Duplicate group names must not exist.
+  Description: If a group is assigned a duplicate group name, it will create and have access to files with the first GID for that group in group. Effectively, the GID is shared, which is a security risk.
+
+=========================================
+V0048071.sh.log
+
+[V0048071] Warning: Not yet implemented...
+
+[V0048071] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048071
+  STIG_Version: SV-60943r1
+  Rule_ID: SOL-11.1-040260
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The default umask for FTP users must be 077.
+  Description: Setting a very secure default value for umask ensures that users make a conscious choice about their file permissions.
+
+=========================================
+V0048073.sh.log
+
+[V0048073] Warning: Not yet implemented...
+
+[V0048073] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048073
+  STIG_Version: SV-60945r1
+  Rule_ID: SOL-11.1-070140
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Duplicate user names must not exist.
+  Description: If a user is assigned a duplicate user name, it will create and have access to files with the first UID for that username in passwd.
+
+=========================================
+V0048075.sh.log
+
+[V0048075] Warning: Not yet implemented...
+
+[V0048075] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048075
+  STIG_Version: SV-60947r2
+  Rule_ID: SOL-11.1-040270
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The value mesg n must be configured as the default setting for all users.
+  Description: The "mesg n" command blocks attempts to use the "write" or "talk" commands to contact users at their terminals, but has the side effect of slightly strengthening permissions on the user's TTY device.
+
+=========================================
+V0048077.sh.log
+
+[V0048077] Warning: Not yet implemented...
+
+[V0048077] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048077
+  STIG_Version: SV-60949r3
+  Rule_ID: SOL-11.1-070130
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Reserved UIDs 0-99 must only be used by system accounts.
+  Description: If a user is assigned a UID that is in the reserved range, even if it is not presently in use, security exposures can arise if a subsequently installed application uses the same UID.
+
+=========================================
+V0048079.sh.log
+
+[V0048079] Error: The following accounts are using an incorrect inactivity value
+[V0048079] Error:   - root
+[V0048079] Error:   - jas
+
+=========================================
+V0048081.sh.log
+
+[V0048081] Warning: Not yet implemented...
+
+[V0048081] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048081
+  STIG_Version: SV-60953r1
+  Rule_ID: SOL-11.1-070120
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Duplicate Group IDs (GIDs) must not exist for multiple groups.
+  Description: User groups must be assigned unique GIDs for accountability and to ensure appropriate access protections.
+
+=========================================
+V0048083.sh.log
+
+[V0048083] Error: The following accounts are using an incorrect inactivity value
+[V0048083] Error:   - root
+[V0048083] Error:   - jas
+
+=========================================
+V0048085.sh.log
+
+[V0048085] Error: The following accounts are using an incorrect inactivity value
+[V0048085] Error:   - root
+[V0048085] Error:   - jas
+
+=========================================
+V0048087.sh.log
+
+[V0048087] Warning: Not yet implemented...
+
+[V0048087] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048087
+  STIG_Version: SV-60959r1
+  Rule_ID: SOL-11.1-040310
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Login services for serial ports must be disabled.
+  Description: Login services should not be enabled on any serial ports that are not strictly required to support the mission of the system. This action can be safely performed even when console access is provided using a serial port.
+
+=========================================
+V0048089.sh.log
+
+[V0048089] Warning: Not yet implemented...
+
+[V0048089] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048089
+  STIG_Version: SV-60961r1
+  Rule_ID: SOL-11.1-040320
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The nobody access for RPC encryption key storage service must be disabled.
+  Description: If login by the user "nobody" is allowed for secure RPC, there is an increased risk of system compromise. If keyserv holds a private key for the "nobody" user, it will be used by key_encryptsession to compute a magic phrase which can be easily recovered by a malicious user.
+
+=========================================
+V0048091.sh.log
+
+[V0048091] Warning: Not yet implemented...
+
+[V0048091] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048091
+  STIG_Version: SV-60963r1
+  Rule_ID: SOL-11.1-070110
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Duplicate UIDs must not exist for multiple non-organizational users.
+  Description: Non-organizational users must be assigned unique UIDs for accountability and to ensure appropriate access protections.
+
+=========================================
+V0048093.sh.log
+
+[V0048093] Warning: Not yet implemented...
+
+[V0048093] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048093
+  STIG_Version: SV-60965r1
+  Rule_ID: SOL-11.1-040330
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: X11 forwarding for SSH must be disabled.
+  Description: As enabling X11 Forwarding on the host can permit a malicious user to secretly open another X11 connection to another remote client during the session and perform unobtrusive activities such as keystroke monitoring, if the X11 services are not required for the system's intended function, they should be disabled or restricted as appropriate to the user's needs.
+
+=========================================
+V0048095.sh.log
+
+[V0048095] Warning: Not yet implemented...
+
+[V0048095] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048095
+  STIG_Version: SV-60967r1
+  Rule_ID: SOL-11.1-070100
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Duplicate User IDs (UIDs) must not exist for users within the organization.
+  Description: Users within the organization must be assigned unique UIDs for accountability and to ensure appropriate access protections.
+
+=========================================
+V0048097.sh.log
+
+[V0048097] Ok: '0' offending accounts found. Success, conforms to 'V0048097'
+
+=========================================
+V0048099.sh.log
+
+[V0048099] Warning: Not yet implemented...
+
+[V0048099] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048099
+  STIG_Version: SV-60971r1
+  Rule_ID: SOL-11.1-040340
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Consecutive login attempts for SSH must be limited to 3.
+  Description: Setting the authentication login limit to a low value will disconnect the attacker and force a reconnect, which severely limits the speed of such brute-force attacks.
+
+=========================================
+V0048101.sh.log
+
+[V0048101] Warning: Not yet implemented...
+
+[V0048101] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048101
+  STIG_Version: SV-60973r1
+  Rule_ID: SOL-11.1-040350
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The rhost-based authentication for SSH must be disabled.
+  Description: Setting this parameter forces users to enter a password when authenticating with SSH.
+
+=========================================
+V0048103.sh.log
+
+
+
+=========================================
+V0048105.sh.log
+
+[V0048105] Warning: Not yet implemented...
+
+[V0048105] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048105
+  STIG_Version: SV-60977r2
+  Rule_ID: SOL-11.1-070080
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: All user accounts must be configured to use a home directory that exists.
+  Description: If the user's home directory does not exist, the user will be placed in "/" and will not be able to write any files or have local environment variables set.
+
+=========================================
+V0048107.sh.log
+
+[V0048107] Warning: Not yet implemented...
+
+[V0048107] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048107
+  STIG_Version: SV-60979r1
+  Rule_ID: SOL-11.1-040370
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Login must not be permitted with empty/null passwords for SSH.
+  Description: Permitting login without a password is inherently risky.
+
+=========================================
+V0048109.sh.log
+
+[V0048109] Warning: Not yet implemented...
+
+[V0048109] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048109
+  STIG_Version: SV-60981r1
+  Rule_ID: SOL-11.1-070070
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Users must have a valid home directory assignment.
+  Description: All users must be assigned a home directory in the passwd file. Failure to have a home directory may result in the user being put in the root directory.
+
+=========================================
+V0048111.sh.log
+
+[V0048111] Warning: Not yet implemented...
+
+[V0048111] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048111
+  STIG_Version: SV-60983r1
+  Rule_ID: SOL-11.1-040380
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must terminate the network connection associated with a communications session at the end of the session or after 10 minutes of inactivity.
+  Description: The operating system must terminate the network connection associated with a communications session at the end of the session or after 10 minutes of inactivity.
+
+=========================================
+V0048113.sh.log
+
+[V0048113] Warning: Not yet implemented...
+
+[V0048113] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048113
+  STIG_Version: SV-60985r2
+  Rule_ID: SOL-11.1-040390
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Host-based authentication for login-based services must be disabled.
+  Description: The use of .rhosts authentication is an insecure protocol and can be replaced with public-key authentication using Secure Shell. As automatic authentication settings in the .rhosts files can provide a malicious user with sensitive system credentials, the use of .rhosts files should be disabled.
+
+=========================================
+V0048115.sh.log
+
+[V0048115] Warning: Not yet implemented...
+
+[V0048115] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048115
+  STIG_Version: SV-60987r1
+  Rule_ID: SOL-11.1-070060
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Groups assigned to users must exist in the /etc/group file.
+  Description: Groups defined in passwd but not in group file pose a threat to system security since group permissions are not properly managed.
+
+=========================================
+V0048117.sh.log
+
+[V0048117] Warning: Not yet implemented...
+
+[V0048117] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048117
+  STIG_Version: SV-60989r1
+  Rule_ID: SOL-11.1-040400
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The use of FTP must be restricted.
+  Description: FTP is an insecure protocol that transfers files and credentials in clear text, and can be replaced by using SFTP. However, if FTP is permitted for use in the environment, it is important to ensure that the default "system" accounts are not permitted to transfer files via FTP, especially the root role. Consider also adding the names of other privileged or shared accounts that may exist on the system such as user "oracle" and the account which the web server process runs under.
+
+=========================================
+V0048119.sh.log
+
+[V0048119] Warning: Not yet implemented...
+
+[V0048119] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048119
+  STIG_Version: SV-60991r1
+  Rule_ID: SOL-11.1-070050
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: There must be no user .rhosts files.
+  Description: Even though the .rhosts files are ineffective if support is disabled in /etc/pam.conf, they may have been brought over from other systems and could contain information useful to an attacker for those other systems.
+
+=========================================
+V0048121.sh.log
+
+[V0048121] Warning: Not yet implemented...
+
+[V0048121] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048121
+  STIG_Version: SV-60993r1
+  Rule_ID: SOL-11.1-040410
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must not allow autologin capabilities from the GNOME desktop.
+  Description: As automatic logins are a known security risk for other than "kiosk" types of systems, GNOME automatic login should be disabled in pam.conf.
+
+=========================================
+V0048123.sh.log
+
+[V0048123] Warning: Not yet implemented...
+
+[V0048123] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048123
+  STIG_Version: SV-60995r1
+  Rule_ID: SOL-11.1-070040
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Permissions on user .netrc files must be 750 or less permissive.
+  Description: .netrc files may contain unencrypted passwords that can be used to attack other systems.
+
+=========================================
+V0048125.sh.log
+
+[V0048125] Warning: Not yet implemented...
+
+[V0048125] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048125
+  STIG_Version: SV-60997r3
+  Rule_ID: SOL-11.1-040420
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Unauthorized use of the at or cron capabilities must not be permitted.
+  Description: Unauthorized use of the at or cron capabilities must not be permitted.
+
+=========================================
+V0048127.sh.log
+
+Not yet implemented
+
+=========================================
+V0048129.sh.log
+
+[V0048129] Warning: Not yet implemented...
+
+[V0048129] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048129
+  STIG_Version: SV-61001r1
+  Rule_ID: SOL-11.1-070030
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Permissions on user . (hidden) files must be 750 or less permissive.
+  Description: Group-writable or world-writable user configuration files may enable malicious users to steal or modify other users' data or to gain another user's system privileges.
+
+=========================================
+V0048131.sh.log
+
+[V0048131] Warning: Not yet implemented...
+
+[V0048131] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048131
+  STIG_Version: SV-61003r1
+  Rule_ID: SOL-11.1-040450
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system, upon successful logon, must display to the user the date and time of the last logon (access).
+  Description: Users need to be aware of activity that occurs regarding their account. Providing users with information regarding the date and time of their last successful login allows the user to determine if any unauthorized activity has occurred and gives them an opportunity to notify administrators.
+
+=========================================
+V0048133.sh.log
+
+[V0048133] Error:   - /export/home/jas [00755]
+
+=========================================
+V0048135.sh.log
+
+[V0048135] Warning: Not yet implemented...
+
+[V0048135] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048135
+  STIG_Version: SV-61007r1
+  Rule_ID: SOL-11.1-040460
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must provide the capability for users to directly initiate session lock mechanisms.
+  Description: The operating system must provide the capability for users to directly initiate session lock mechanisms.
+
+=========================================
+V0048137.sh.log
+
+[V0048137] Warning: Not yet implemented...
+
+[V0048137] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048137
+  STIG_Version: SV-61009r1
+  Rule_ID: SOL-11.1-070010
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The sticky bit must be set on all world writable directories.
+  Description: Files in directories that have had the "sticky bit" enabled can only be deleted by users that have both write permissions for the directory in which the file resides, as well as ownership of the file or directory, or have sufficient privileges. As this prevents users from overwriting each others' files, whether it be accidental or malicious, it is generally appropriate for most world-writable directories (e.g., /tmp).
+
+=========================================
+V0048139.sh.log
+
+[V0048139] Warning: Not yet implemented...
+
+[V0048139] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048139
+  STIG_Version: SV-61011r1
+  Rule_ID: SOL-11.1-040470
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system session lock mechanism, when activated on a device with a display screen, must place a publicly viewable pattern onto the associated display, hiding what was previously visible on the screen.
+  Description: The operating system session lock mechanism, when activated on a device with a display screen, must place a publicly viewable pattern onto the associated display, hiding what was previously visible on the screen.
+
+=========================================
+V0048141.sh.log
+
+[V0048141] Ok: Success, conforms to 'V0048141'
+
+=========================================
+V0048143.sh.log
+
+[V0048143] Warning: Not yet implemented...
+
+[V0048143] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048143
+  STIG_Version: SV-61015r1
+  Rule_ID: SOL-11.1-040480
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must not allow logins for users with blank passwords.
+  Description: If the password field is blank and the system does not enforce a policy that passwords are required, it could allow login without proper authentication of a user.
+
+=========================================
+V0048145.sh.log
+
+[V0048145] Warning: Not yet implemented...
+
+[V0048145] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048145
+  STIG_Version: SV-61017r1
+  Rule_ID: SOL-11.1-060180
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must use cryptographic mechanisms to protect the integrity of audit information.
+  Description: Protection of audit records and audit data is of critical importance. Cryptographic mechanisms are the industry established standard used to protect the integrity of audit data.
+
+=========================================
+V0048147.sh.log
+
+[V0048147] Error: '1' accounts found, not conforming to 'V0048147'
+[V0048147] Ok: Success, conforms to 'V0048147'
+
+=========================================
+V0048149.sh.log
+
+[V0048149] Warning: Not yet implemented...
+
+[V0048149] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048149
+  STIG_Version: SV-61021r1
+  Rule_ID: SOL-11.1-060170
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must employ cryptographic mechanisms to prevent unauthorized disclosure of information at rest unless otherwise protected by alternative physical measures.
+  Description: The operating system must employ cryptographic mechanisms to prevent unauthorized disclosure of information at rest unless otherwise protected by alternative physical measures.
+
+=========================================
+V0048151.sh.log
+
+[V0048151] Warning: Not yet implemented...
+
+[V0048151] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048151
+  STIG_Version: SV-61023r2
+  Rule_ID: SOL-11.1-040500
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must limit the number of concurrent sessions for each account to an organization-defined number of sessions.
+  Description: The operating system must limit the number of concurrent sessions for each account to an organization-defined number of sessions.
+
+=========================================
+V0048153.sh.log
+
+[V0048153] Warning: Not yet implemented...
+
+[V0048153] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048153
+  STIG_Version: SV-61025r1
+  Rule_ID: SOL-11.1-060160
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must protect the confidentiality and integrity of information at rest.
+  Description: The operating system must protect the confidentiality and integrity of information at rest.
+
+=========================================
+V0048155.sh.log
+
+[V0048155] Warning: Not yet implemented...
+
+[V0048155] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048155
+  STIG_Version: SV-61027r1
+  Rule_ID: SOL-11.1-060150
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must employ cryptographic mechanisms to protect information in storage.
+  Description: The operating system must employ cryptographic mechanisms to protect information in storage.
+
+=========================================
+V0048157.sh.log
+
+[V0048157] Warning: Not yet implemented...
+
+[V0048157] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048157
+  STIG_Version: SV-61029r1
+  Rule_ID: SOL-11.1-060140
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must use cryptographic mechanisms to protect and restrict access to information on portable digital media.
+  Description: The operating system must use cryptographic mechanisms to protect and restrict access to information on portable digital media.
+
+=========================================
+V0048159.sh.log
+
+[V0048159] Error:     /lib/inet/in.mpathd
+[V0048159] Error:     /sbin/dhcpagent
+[V0048159] Error:     /usr/lib/dbus-daemon
+[V0048159] Error:     /usr/lib/hal/hald
+[V0048159] Error:     /usr/lib/hal/hald-addon-acpi
+[V0048159] Error:     /usr/lib/hal/hald-addon-cpufreq
+[V0048159] Error:     /usr/lib/hal/hald-addon-storage
+[V0048159] Error:     /usr/lib/inet/in.ndpd
+[V0048159] Error:     /usr/lib/rmvolmgr
+
+=========================================
+V0048161.sh.log
+
+[V0048161] Error:     /lib/inet/in.mpathd
+[V0048161] Error:     /sbin/dhcpagent
+[V0048161] Error:     /usr/lib/dbus-daemon
+[V0048161] Error:     /usr/lib/hal/hald
+[V0048161] Error:     /usr/lib/hal/hald-addon-acpi
+[V0048161] Error:     /usr/lib/hal/hald-addon-cpufreq
+[V0048161] Error:     /usr/lib/hal/hald-addon-storage
+[V0048161] Error:     /usr/lib/inet/in.ndpd
+[V0048161] Error:     /usr/lib/rmvolmgr
+
+=========================================
+V0048163.sh.log
+
+[V0048163] Error:     /lib/inet/in.mpathd
+[V0048163] Error:     /sbin/dhcpagent
+[V0048163] Error:     /usr/lib/dbus-daemon
+[V0048163] Error:     /usr/lib/hal/hald
+[V0048163] Error:     /usr/lib/hal/hald-addon-acpi
+[V0048163] Error:     /usr/lib/hal/hald-addon-cpufreq
+[V0048163] Error:     /usr/lib/hal/hald-addon-storage
+[V0048163] Error:     /usr/lib/inet/in.ndpd
+[V0048163] Error:     /usr/lib/rmvolmgr
+
+=========================================
+V0048165.sh.log
+
+[V0048165] Warning: Not yet implemented...
+
+[V0048165] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048165
+  STIG_Version: SV-61037r1
+  Rule_ID: SOL-11.1-050010
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must disable directed broadcast packet forwarding.
+  Description: This parameter must be disabled to reduce the risk of denial of service attacks.
+
+=========================================
+V0048167.sh.log
+
+[V0048167] Error:     /lib/inet/in.mpathd
+[V0048167] Error:     /sbin/dhcpagent
+[V0048167] Error:     /usr/lib/dbus-daemon
+[V0048167] Error:     /usr/lib/hal/hald
+[V0048167] Error:     /usr/lib/hal/hald-addon-acpi
+[V0048167] Error:     /usr/lib/hal/hald-addon-cpufreq
+[V0048167] Error:     /usr/lib/hal/hald-addon-storage
+[V0048167] Error:     /usr/lib/inet/in.ndpd
+[V0048167] Error:     /usr/lib/rmvolmgr
+
+=========================================
+V0048169.sh.log
+
+[V0048169] Warning: Not yet implemented...
+
+[V0048169] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048169
+  STIG_Version: SV-61041r1
+  Rule_ID: SOL-11.1-050020
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must not respond to ICMP timestamp requests.
+  Description: By accurately determining the system's clock state, an attacker can more effectively attack certain time-based pseudorandom number generators (PRNGs) and the authentication systems that rely on them.
+
+=========================================
+V0048171.sh.log
+
+[V0048171] Error:     /lib/inet/in.mpathd
+[V0048171] Error:     /sbin/dhcpagent
+[V0048171] Error:     /usr/lib/dbus-daemon
+[V0048171] Error:     /usr/lib/hal/hald
+[V0048171] Error:     /usr/lib/hal/hald-addon-acpi
+[V0048171] Error:     /usr/lib/hal/hald-addon-cpufreq
+[V0048171] Error:     /usr/lib/hal/hald-addon-storage
+[V0048171] Error:     /usr/lib/inet/in.ndpd
+[V0048171] Error:     /usr/lib/rmvolmgr
+
+=========================================
+V0048173.sh.log
+
+[V0048173] Warning: Not yet implemented...
+
+[V0048173] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048173
+  STIG_Version: SV-61045r1
+  Rule_ID: SOL-11.1-050030
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must not respond to ICMP broadcast timestamp requests.
+  Description: By accurately determining the system's clock state, an attacker can more effectively attack certain time-based pseudorandom number generators (PRNGs) and the authentication systems that rely on them.
+
+=========================================
+V0048175.sh.log
+
+[V0048175] Error:     /lib/inet/in.mpathd
+[V0048175] Error:     /sbin/dhcpagent
+[V0048175] Error:     /usr/lib/dbus-daemon
+[V0048175] Error:     /usr/lib/hal/hald
+[V0048175] Error:     /usr/lib/hal/hald-addon-acpi
+[V0048175] Error:     /usr/lib/hal/hald-addon-cpufreq
+[V0048175] Error:     /usr/lib/hal/hald-addon-storage
+[V0048175] Error:     /usr/lib/inet/in.ndpd
+[V0048175] Error:     /usr/lib/rmvolmgr
+
+=========================================
+V0048177.sh.log
+
+[V0048177] Warning: Not yet implemented...
+
+[V0048177] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048177
+  STIG_Version: SV-61049r1
+  Rule_ID: SOL-11.1-050040
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must not respond to ICMP broadcast netmask requests.
+  Description: By determining the netmasks of various computers in your network, an attacker can better map your subnet structure and infer trust relationships.
+
+=========================================
+V0048179.sh.log
+
+[V0048179] Error:     /lib/inet/in.mpathd
+[V0048179] Error:     /sbin/dhcpagent
+[V0048179] Error:     /usr/lib/dbus-daemon
+[V0048179] Error:     /usr/lib/hal/hald
+[V0048179] Error:     /usr/lib/hal/hald-addon-acpi
+[V0048179] Error:     /usr/lib/hal/hald-addon-cpufreq
+[V0048179] Error:     /usr/lib/hal/hald-addon-storage
+[V0048179] Error:     /usr/lib/inet/in.ndpd
+[V0048179] Error:     /usr/lib/rmvolmgr
+
+=========================================
+V0048181.sh.log
+
+[V0048181] Warning: Not yet implemented...
+
+[V0048181] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048181
+  STIG_Version: SV-61053r1
+  Rule_ID: SOL-11.1-050050
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must not respond to broadcast ICMP echo requests.
+  Description: ICMP echo requests can be useful for reconnaissance of systems and for denial of service attacks.
+
+=========================================
+V0048183.sh.log
+
+[V0048183] Warning: Not yet implemented...
+
+[V0048183] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048183
+  STIG_Version: SV-61055r1
+  Rule_ID: SOL-11.1-060060
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must employ FIPS-validate or NSA-approved cryptography to implement digital signatures.
+  Description: FIPS 140-2 is the current standard for validating cryptographic modules, and NSA Type-X (where X=1, 2, 3, 4) products are NSA-certified hardware based encryption modules.
+
+=========================================
+V0048185.sh.log
+
+[V0048185] Warning: Not yet implemented...
+
+[V0048185] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048185
+  STIG_Version: SV-61057r1
+  Rule_ID: SOL-11.1-050060
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must not respond to multicast echo requests.
+  Description: Multicast echo requests can be useful for reconnaissance of systems and for denial of service attacks.
+
+=========================================
+V0048187.sh.log
+
+[V0048187] Warning: Not yet implemented...
+
+[V0048187] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048187
+  STIG_Version: SV-61059r3
+  Rule_ID: SOL-11.1-060010
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must use mechanisms for authentication to a cryptographic module meeting the requirements of applicable federal laws, Executive orders, directives, policies, regulations, standards, and guidance for such authentication.
+  Description: The operating system must use mechanisms for authentication to a cryptographic module meeting the requirements of applicable federal laws, Executive orders, directives, policies, regulations, standards, and guidance for such authentication.
+
+=========================================
+V0048189.sh.log
+
+[V0048189] Error:   - _ignore_redirect = 0 -> ipv6
+[V0048189] Error: Failed conformity to 'V0048189'
+
+=========================================
+V0048191.sh.log
+
+[V0048191] Warning: Not yet implemented...
+
+[V0048191] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048191
+  STIG_Version: SV-61063r2
+  Rule_ID: SOL-11.1-050470
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must prevent internal users from sending out packets which attempt to manipulate or spoof invalid IP addresses.
+  Description: Manipulation of IP addresses can allow untrusted systems to appear as trusted hosts, bypassing firewall and other security mechanism and resulting in system penetration.
+
+=========================================
+V0048193.sh.log
+
+[V0048193] Error:   - _strict_dst_multihoming = 0 -> ipv6
+[V0048193] Error: Failed conformity to 'V0048193'
+
+=========================================
+V0048195.sh.log
+
+[V0048195] Warning: Not yet implemented...
+
+[V0048195] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048195
+  STIG_Version: SV-61067r1
+  Rule_ID: SOL-11.1-050460
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must terminate all sessions and network connections when non-local maintenance is completed.
+  Description: The operating system must terminate all sessions and network connections when non-local maintenance is completed.
+
+=========================================
+V0048197.sh.log
+
+[V0048197] Error:   - send_redirects = on -> ipv6
+[V0048197] Error: Failed conformity to 'V0048197'
+
+=========================================
+V0048199.sh.log
+
+[V0048199] Warning: Not yet implemented...
+
+[V0048199] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048199
+  STIG_Version: SV-61071r1
+  Rule_ID: SOL-11.1-050430
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The FTP service must display the DoD approved system use notification message or banner before granting access to the system.
+  Description: Warning messages inform users who are attempting to log in to the system of their legal status regarding the system and must include the name of the organization that owns the system and any monitoring policies that are in place. As implementing a logon banner to deter inappropriate use can provide a foundation for legal action against abuse, this warning content should be set as appropriate.
+
+=========================================
+V0048201.sh.log
+
+[V0048201] Warning: Not yet implemented...
+
+[V0048201] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048201
+  STIG_Version: SV-61073r1
+  Rule_ID: SOL-11.1-050100
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must disable TCP reverse IP source routing.
+  Description: If enabled, reverse IP source routing would allow an attacker to more easily complete a three-way TCP handshake and spoof new connections.
+
+=========================================
+V0048203.sh.log
+
+[V0048203] Warning: Not yet implemented...
+
+[V0048203] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048203
+  STIG_Version: SV-61075r1
+  Rule_ID: SOL-11.1-050410
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The GNOME service must display the DoD approved system use notification message or banner before granting access to the system.
+  Description: Warning messages inform users who are attempting to log in to the system of their legal status regarding the system and must include the name of the organization that owns the system and any monitoring policies that are in place. As implementing a logon banner to deter inappropriate use can provide a foundation for legal action against abuse, this warning content should be set as appropriate.
+
+=========================================
+V0048205.sh.log
+
+[V0048205] Warning: Not yet implemented...
+
+[V0048205] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048205
+  STIG_Version: SV-61077r1
+  Rule_ID: SOL-11.1-050390
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must display the DoD approved system use notification message or banner for SSH connections.
+  Description: Warning messages inform users who are attempting to log in to the system of their legal status regarding the system and must include the name of the organization that owns the system and any monitoring policies that are in place. As implementing a logon banner to deter inappropriate use can provide a foundation for legal action against abuse, this warning content should be set as appropriate.
+
+=========================================
+V0048207.sh.log
+
+[V0048207] Warning: Not yet implemented...
+
+[V0048207] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048207
+  STIG_Version: SV-61079r1
+  Rule_ID: SOL-11.1-050110
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must set maximum number of half-open TCP connections to 4096.
+  Description: The system must set maximum number of half-open TCP connections to 4096.
+
+=========================================
+V0048209.sh.log
+
+[V0048209] Warning: Not yet implemented...
+
+[V0048209] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048209
+  STIG_Version: SV-61081r1
+  Rule_ID: SOL-11.1-050380
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must display the DoD approved system use notification message or banner before granting access to the system for general system logons.
+  Description: Warning messages inform users who are attempting to log in to the system of their legal status regarding the system and must include the name of the organization that owns the system and any monitoring policies that are in place. As implementing a logon banner to deter inappropriate use can provide a foundation for legal action against abuse, this warning content should be set as appropriate.
+
+=========================================
+V0048211.sh.log
+
+[V0048211] Error:   - _conn_req_max_q = 128 -> tcp
+[V0048211] Error: Failed conformity to 'V0048211'
+
+=========================================
+V0048213.sh.log
+
+[V0048213] Warning: Not yet implemented...
+
+[V0048213] Meta Data
+  Severity: CAT-III
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048213
+  STIG_Version: SV-61085r3
+  Rule_ID: SOL-11.1-050370
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must prevent local applications from generating source-routed packets.
+  Description: Source-routed packets allow the source of the packet to suggest that routers forward the packet along a different path than configured on the router, which can be used to bypass network security measures.
+
+=========================================
+V0048215.sh.log
+
+[V0048215] Warning: Not yet implemented...
+
+[V0048215] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048215
+  STIG_Version: SV-61087r1
+  Rule_ID: SOL-11.1-050360
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must enforce requirements for remote connections to the information system.
+  Description: Remote access to the system can be limited through the use of the host-based firewall.
+
+=========================================
+V0048217.sh.log
+
+[V0048217] Warning: Not yet implemented...
+
+[V0048217] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048217
+  STIG_Version: SV-61089r1
+  Rule_ID: SOL-11.1-050130
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The system must disable network routing unless required.
+  Description: The system must disable network routing unless required.
+
+=========================================
+V0048219.sh.log
+
+[V0048219] Warning: Not yet implemented...
+
+[V0048219] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048219
+  STIG_Version: SV-61091r1
+  Rule_ID: SOL-11.1-050350
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must block both inbound and outbound traffic between instant messaging clients, independently configured by end users and external service providers.
+  Description: Proper configuration of the firewall will deny instant messaging clients which will reduce a user's ability to relay sensitive information.
+
+=========================================
+V0048221.sh.log
+
+[V0048221] Ok: Obtained list of inetd services; '0'
+[V0048221] Error: System does not conform to 'V0048221'
+
+=========================================
+V0048223.sh.log
+
+[V0048223] Warning: Not yet implemented...
+
+[V0048223] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048223
+  STIG_Version: SV-61095r1
+  Rule_ID: SOL-11.1-050330
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must use cryptography to protect the integrity of remote access sessions.
+  Description: Proper configuration of the firewall will only allow encrypted, authenticated protocols such as SSHv2 to ensure the integrity of remote access sessions.
+
+=========================================
+V0048225.sh.log
+
+[V0048225] Warning: Not yet implemented...
+
+[V0048225] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048225
+  STIG_Version: SV-61097r1
+  Rule_ID: SOL-11.1-050150
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must configure the information system to specifically prohibit or restrict the use of organization-defined functions, ports, protocols, and/or services.
+  Description: Proper configuration of the firewall will only allow encrypted, authenticated protocols such as SSHv2. Stateful packet filtering and logging shall be enabled.
+
+=========================================
+V0048227.sh.log
+
+[V0048227] Warning: Not yet implemented...
+
+[V0048227] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048227
+  STIG_Version: SV-61099r1
+  Rule_ID: SOL-11.1-050320
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must disable the use of organization-defined networking protocols within the operating system deemed to be nonsecure except for explicitly identified components in support of specific operational requirements.
+  Description: Organization-defined networking protocols can be limited through the use of the host-based firewall.
+
+=========================================
+V0048229.sh.log
+
+[V0048229] Warning: Not yet implemented...
+
+[V0048229] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048229
+  STIG_Version: SV-61101r1
+  Rule_ID: SOL-11.1-050290
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must implement host-based boundary protection mechanisms for servers, workstations, and mobile devices.
+  Description: A host-based boundary protection mechanism is a host-based firewall.
+
+=========================================
+V0048231.sh.log
+
+[V0048231] Warning: Not yet implemented...
+
+[V0048231] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048231
+  STIG_Version: SV-61103r1
+  Rule_ID: SOL-11.1-050160
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must use organization-defined replay-resistant authentication mechanisms for network access to privileged accounts.
+  Description: Non-local maintenance and diagnostic communications often contain sensitive information and must be protected. The security of these remote accesses can be ensured by sending non-local maintenance and diagnostic communications through encrypted channels enforced via firewall configurations.
+
+=========================================
+V0048233.sh.log
+
+[V0048233] Warning: Not yet implemented...
+
+[V0048233] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048233
+  STIG_Version: SV-61105r1
+  Rule_ID: SOL-11.1-050270
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The boundary protection system (firewall) must be configured to only allow encrypted protocols to ensure that passwords are transmitted via encryption.
+  Description: Proper configuration of the firewall will only allow encrypted, authenticated protocols such as SSHv2. Stateful packet filtering and logging must also be enabled.
+
+=========================================
+V0048235.sh.log
+
+[V0048235] Warning: Not yet implemented...
+
+[V0048235] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048235
+  STIG_Version: SV-61107r1
+  Rule_ID: SOL-11.1-050240
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The boundary protection system (firewall) must be configured to deny network traffic by default and must allow network traffic by exception (i.e., deny all, permit by exception).
+  Description: A firewall that relies on a deny all, permit by exception strategy requires all traffic to have explicit permission before traversing an interface on the host.
+
+=========================================
+V0048237.sh.log
+
+[V0048237] Warning: Not yet implemented...
+
+[V0048237] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048237
+  STIG_Version: SV-61109r1
+  Rule_ID: SOL-11.1-050170
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must use organization-defined replay-resistant authentication mechanisms for network access to non-privileged accounts.
+  Description: Non-local maintenance and diagnostic communications often contain sensitive information and must be protected. The security of these remote accesses can be ensured by sending non-local maintenance and diagnostic communications through encrypted channels enforced via firewall configurations.
+
+=========================================
+V0048239.sh.log
+
+[V0048239] Warning: Not yet implemented...
+
+[V0048239] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048239
+  STIG_Version: SV-61111r1
+  Rule_ID: SOL-11.1-050180
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must employ strong identification and authentication techniques in the establishment of non-local maintenance and diagnostic sessions.
+  Description: Non-local maintenance and diagnostic communications often contain sensitive information and must be protected. The security of these remote accesses can be ensured by sending non-local maintenance and diagnostic communications through encrypted channels enforced via firewall configurations.
+
+=========================================
+V0048241.sh.log
+
+[V0048241] Warning: Not yet implemented...
+
+[V0048241] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048241
+  STIG_Version: SV-61113r1
+  Rule_ID: SOL-11.1-050190
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must employ cryptographic mechanisms to protect the integrity and confidentiality of non-local maintenance and diagnostic communications.
+  Description: Non-local maintenance and diagnostic communications often contain sensitive information and must be protected. This data's integrity and confidentiality can be ensured by sending non-local maintenance and diagnostic communications through encrypted channels enforced via firewall configurations.
+
+=========================================
+V0048243.sh.log
+
+[V0048243] Warning: Not yet implemented...
+
+[V0048243] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0048243
+  STIG_Version: SV-61115r2
+  Rule_ID: SOL-11.1-040130
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Systems must employ cryptographic hashes for passwords using the SHA-2 family of algorithms or FIPS 140-2 approved successors.
+  Description: Cryptographic hashes provide quick password authentication while not actually storing the password.
+
+=========================================
+V0048245.sh.log
+
+[V0048245] Ok: Not yet implemented
+
+=========================================
+V0049621.sh.log
+
+[V0049621] Warning: Not yet implemented...
+
+[V0049621] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0049621
+  STIG_Version: SV-62545r1
+  Rule_ID: SOL-11.1-010410
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must configure auditing to reduce the likelihood of storage capacity being exceeded.
+  Description: Overflowing the audit storage area can result in a denial of service or system outage.
+
+=========================================
+V0049625.sh.log
+
+[V0049625] Warning: Not yet implemented...
+
+[V0049625] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0049625
+  STIG_Version: SV-62549r1
+  Rule_ID: SOL-11.1-090115
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must employ PKI solutions at workstations, servers, or mobile computing devices on the network to create, manage, distribute, use, store, and revoke digital certificates.
+  Description: Without the use of PKI systems to manage digital certificates, the operating system or other system components may be unable to securely communicate on a network or reliably verify the identity of a user via digital signatures.
+
+=========================================
+V0049635.sh.log
+
+[V0049635] Warning: Not yet implemented...
+
+[V0049635] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0049635
+  STIG_Version: SV-62559r1
+  Rule_ID: SOL-11.1-120410
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The operating system must monitor for unauthorized connections of mobile devices to organizational information systems.
+  Description: The operating system must monitor for unauthorized connections of mobile devices to organizational information systems.
+
+=========================================
+V0059827.sh.log
+
+[V0059827] Warning: Not yet implemented...
+
+[V0059827] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0059827
+  STIG_Version: SV-74257r1
+  Rule_ID: SOL-11.1-020300
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: All run control scripts must have mode 0755 or less permissive.
+  Description: If the startup files are writable by other users, these users could modify the startup files to insert malicious commands into the startup files.
+
+=========================================
+V0059829.sh.log
+
+[V0059829] Warning: Not yet implemented...
+
+[V0059829] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0059829
+  STIG_Version: SV-74259r1
+  Rule_ID: SOL-11.1-020310
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: All run control scripts must have no extended ACLs.
+  Description: If the startup files are writable by other users, these users could modify the startup files to insert malicious commands into the startup files.
+
+=========================================
+V0059831.sh.log
+
+[V0059831] Error:   - /lib/svc/method/test
+
+=========================================
+V0059833.sh.log
+
+[V0059833] Ok:   - /lib/svc/method/net-physical
+[V0059833] Ok: Success, system conforms to 'V0059833'
+
+=========================================
+V0059835.sh.log
+
+[V0059835] Ok: '0/968' LD_PRELOAD(s) from init scripts validated
+[V0059835] Ok: Success, system conforms to 'V0059835'
+
+=========================================
+V0059837.sh.log
+
+[V0059837] Ok: '0' world writeable files exist on system; conforms to 'V0059837'
+
+=========================================
+V0059839.sh.log
+
+[V0059839] Error:   - /usr/lib/ocm/ccr/bin/configCCR [ocm]
+
+=========================================
+V0059841.sh.log
+
+[V0059841] Error:   - /usr/lib/ocm/ccr/bin/configCCR [daemon]
+
+=========================================
+V0059843.sh.log
+
+[V0059843] Error:   - /usr/lib/ocm/ccr/bin/configCCR [ocm]
+
+=========================================
+V0061003.sh.log
+
+[V0061003] Warning: Not yet implemented...
+
+[V0061003] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0061003
+  STIG_Version: SV-75471r1
+  Rule_ID: SOL-11.1-020500
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Any X Windows host must write .Xauthority files.
+  Description: .Xauthority files ensure the user is authorized to access the specific X Windows host. If .Xauthority files are not used, it may be possible to obtain unauthorized access to the X Windows host.
+
+=========================================
+V0061005.sh.log
+
+[V0061005] Warning: Not yet implemented...
+
+[V0061005] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0061005
+  STIG_Version: SV-75473r1
+  Rule_ID: SOL-11.1-020510
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: All .Xauthority files must have mode 0600 or less permissive.
+  Description: .Xauthority files ensure the user is authorized to access the specific X Windows host. Excessive permissions may permit unauthorized modification of these files, which could lead to Denial of Service to authorized access or allow unauthorized access to be obtained.
+
+=========================================
+V0061023.sh.log
+
+[V0061023] Warning: Not yet implemented...
+
+[V0061023] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0061023
+  STIG_Version: SV-75491r1
+  Rule_ID: SOL-11.1-020520
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The .Xauthority files must not have extended ACLs.
+  Description: .Xauthority files ensure the user is authorized to access the specific X Windows host. Extended ACLs may permit unauthorized modification of these files, which could lead to Denial of Service to authorized access or allow unauthorized access to be obtained.
+
+=========================================
+V0061025.sh.log
+
+[V0061025] Warning: Not yet implemented...
+
+[V0061025] Meta Data
+  Severity: CAT-I
+  Classification: UNCLASSIFIED
+  STIG_ID: V0061025
+  STIG_Version: SV-75493r1
+  Rule_ID: SOL-11.1-020530
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: X displays must not be exported to the world.
+  Description: Open X displays allow an attacker to capture keystrokes and to execute commands remotely. Many users have their X Server set to xhost +, permitting access to the X Server by anyone, from anywhere.
+
+=========================================
+V0061027.sh.log
+
+[V0061027] Warning: Not yet implemented...
+
+[V0061027] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0061027
+  STIG_Version: SV-75495r1
+  Rule_ID: SOL-11.1-020540
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: .Xauthority or X*.hosts (or equivalent) file(s) must be used to restrict access to the X server.
+  Description: If access to the X server is not restricted, a user's X session may be compromised.
+
+=========================================
+V0061029.sh.log
+
+[V0061029] Warning: Not yet implemented...
+
+[V0061029] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0061029
+  STIG_Version: SV-75497r1
+  Rule_ID: SOL-11.1-020550
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: The .Xauthority utility must only permit access to authorized hosts.
+  Description: If unauthorized clients are permitted access to the X server, a user's X session may be compromised.
+
+=========================================
+V0061031.sh.log
+
+[V0061031] Warning: Not yet implemented...
+
+[V0061031] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0061031
+  STIG_Version: SV-75499r1
+  Rule_ID: SOL-11.1-020560
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: X Window System connections that are not required must be disabled.
+  Description: If unauthorized clients are permitted access to the X server, a user's X session may be compromised.
+
+=========================================
+V0071495.sh.log
+
+[V0071495] Warning: Not yet implemented...
+
+[V0071495] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0071495
+  STIG_Version: SV-86119r1
+  Rule_ID: SOL-11.1-040315
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Access to a domain console via telnet must be restricted to the local host.
+  Description: Telnet is an insecure protocol.
+
+=========================================
+V0071497.sh.log
+
+[V0071497] Warning: Not yet implemented...
+
+[V0071497] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0071497
+  STIG_Version: SV-86121r1
+  Rule_ID: SOL-11.1-040316
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Access to a logical domain console must be restricted to authorized users.
+  Description: A logical domain is a discrete, logical grouping with its own operating system, resources, and identity within a single computer system.  Access to the logical domain console provides system-level access to the OBP of the domain.
+
+=========================================
+V0072827.sh.log
+
+[V0072827] Warning: Not yet implemented...
+
+[V0072827] Meta Data
+  Severity: CAT-II
+  Classification: UNCLASSIFIED
+  STIG_ID: V0072827
+  STIG_Version: SV-87479r2
+  Rule_ID: SOL-11.1-050480
+ 
+  OS: Solaris
+  Version: 11
+  Architecture: Sparc X86
+ 
+  Title: Wireless network adapters must be disabled.
+  Description: The use of wireless networking can introduce many different attack vectors into the organization’s network. Common attack vectors such as malicious association and ad hoc networks will allow an attacker to spoof a wireless access point (AP), allowing validated systems to connect to the malicious AP and enabling the attacker to monitor and record network traffic. These malicious APs can also serve to create a man-in-the-middle attack or be used to create a denial-of-service to valid network resources.
+
+=========================================
