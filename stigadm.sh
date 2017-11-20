@@ -91,10 +91,7 @@ function usage()
   local os_list="$(get_os ${assets})"
 
   # Gather list of available supported versions (non-os dependent)
-  local version_list="$(get_version ${assets}/*/)"
-
-  # Gather list of available supported severity (non-os dependent)
-  local classificication_list="$(get_classification ${assets})"
+  local version_list="$(get_version ${assets})"
 
 
   # Handle error if present
@@ -123,7 +120,7 @@ Usage ./${appname} [options]
       Supported: [Not yet implemented]
 
     -C  Classification
-      Supported: [${classificication_list}]
+      Supported: [CAT-I|CAT-II|CAT-III]
 
     -L  VMS ID List - A comma separated list VMS ID's
       Example: V0047799,V0048211,V0048189

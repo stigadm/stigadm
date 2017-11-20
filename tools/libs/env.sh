@@ -17,7 +17,7 @@ function version()
 # Determine hw architecture
 function architecture()
 {
-  uname -p
+  uname -p | sed 's/i[3|4]86$/X86/g'
 }
 
 

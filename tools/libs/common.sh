@@ -88,12 +88,15 @@ function get_os()
 
   # Create a local array to handle directory list
   local -a dirs
-  dirs=( $(ls ${path}) )
+  dirs=( $(find ${path}/* -type d -prune) )
 
   if [ ${#dirs[@]} -eq 0 ]; then
     echo "undefined"
     return
   fi
+
+  # Return only the directory names (strip out paths)
+  dirs=( $(echo "${dirs[@]}" | tr ' ' '\n' | sed "s|${path}||g" | sed "s|/||g") )
 
   if [ ${retval} -eq 1 ]; then
     echo "${dirs[@]}"
@@ -122,12 +125,15 @@ function get_version()
 
   # Create a local array to handle directory list
   local -a versions
-  versions=( $(ls ${path} | grep -v "/") )
+  versions=( $(find ${path}/*/* -type d -prune) )
 
   if [ ${#versions[@]} -eq 0 ]; then
     echo "undefined"
     return
   fi
+
+  # Return only the directory names (strip out paths)
+  versions=( $(echo "${versions[@]}" | tr ' ' '\n' | sed "s|${path}.*/||g" | sort -ru) )
 
   if [ ${retval} -eq 1 ]; then
     echo "${versions[@]}"
@@ -156,12 +162,15 @@ function get_classification()
 
   # Create a local array to handle directory list
   local -a classes
-  classes=( $(find ${path} -type f -prune -name "*.sh" -exec grep -i "^# severity:" {} \; | cut -d" " -f3 | sort -u) )
+  classes=( $(find ${path} -type f -prune -name "*.sh" -exec grep "^# Severity:" {} \;  | cut -d" " -f3) )
 
   if [ ${#classes[@]} -eq 0 ]; then
     echo "undefined"
     return
   fi
+
+  # Cut out & sort our classifications
+  classes=( $(echo "${classes[@]}" | tr ' ' '\n' | sort -u) )
 
   if [ ${retval} -eq 1 ]; then
     echo "${classes[@]}"
