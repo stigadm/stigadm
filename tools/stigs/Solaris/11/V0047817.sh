@@ -118,6 +118,14 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
 fi
 
 
+# Make sure we have required defined values
+if [[ ${#defpolicy[@]} -eq 0 ]] || [[ ${#defflags[@]} -eq 0 ]] || [[ ${#defnaflags[@]} -eq 0 ]]; then
+
+  print "One or more default policies, flags or non-attributable flags defined" 1
+  exit 1
+fi
+
+
 # If ${meta} is true
 if [ ${meta} -eq 1 ]; then
 
@@ -213,49 +221,14 @@ if [ ${change} -eq 1 ]; then
   [ ${verbose} -eq 1 ] && print "Created snapshot of current default audit flags & policies"
 
 
-  # IF ${#cur_defflags[@]} > 0
-  if [ ${#cur_defflags[@]} -gt 0 ]; then
+  # Combine & remove duplicates from ${defpolicy[@]} & ${cur_defpolicy[@]}
+  set_defpolicy=( $(remove_duplicates "${defpolicy[@]}" "${cur_defpolicy[@]}") )
 
-    # Perform intersection of ${def_flags[@]} with ${cur_defpolicy[@]}
-    set_defpolicy=($(comm -13 <(printf "%s\n" $(echo "${defpolicy[@]}" | sort -u)) <(printf "%s\n" $(echo "${cur_defpolicy[@]}" | sort -u))))
-  else
+  # Combine & remove duplicates from ${defflags[@]} & ${cur_defflags[@]}
+  set_defflags=( $(remove_duplicates "${defflags[@]}" "${cur_defflags[@]}") )
 
-    # Copy ${defpolicy[@]} to ${set_defpolicy[@]}
-    set_defpolicy=(${defflags[@]})
-  fi
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Combined current audit policies with configured policies"
-
-
-  # IF ${#cur_defflags[@]} > 0
-  if [ ${#cur_defflags[@]} -gt 0 ]; then
-
-    # Perform intersection of ${def_flags[@]} with ${cur_defflags[@]}
-    set_defflags=($(comm -13 <(printf "%s\n" $(echo "${defflags[@]}" | sort -u)) <(printf "%s\n" $(echo "${cur_defflags[@]}" | sort -u))))
-  else
-
-    # Copy ${defflags[@]} to ${set_defflags[@]}
-    set_defflags=(${defflags[@]})
-  fi
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Combined current audit flags with configured flags"
-
-
-  # IF ${#cur_defnaflags[@]} > 0
-  if [ ${#cur_defnaflags[@]} -gt 0 ]; then
-
-    # Perform intersection of ${def_flags[@]} with ${cur_defnaflags[@]}
-    set_defnaflags=($(comm -13 <(printf "%s\n" $(echo "${defnaflags[@]}" | sort -u)) <(printf "%s\n" $(echo "${cur_defnaflags[@]}" | sort -u))))
-  else
-
-    # Copy ${defnaflags[@]} to ${set_defnaflags[@]}
-    set_defnaflags=(${defnaflags[@]})
-  fi
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Combined current non-attributable audit flags with configured flags"
+  # Combine & remove duplicates from ${defnaflags[@]} & ${cur_defnaflags[@]}
+  set_defnaflags=( $(remove_duplicates "${defnaflags[@]}" "${cur_defnaflags[@]}") )
 
 
   # Convert ${set_defpolicy[@]} into a string
@@ -265,11 +238,11 @@ if [ ${change} -eq 1 ]; then
   defflag="$(echo "${set_defflags[@]}" | tr ' ' ',')"
 
   # Convert ${set_defnaflags[@]} into a string
-  defflag="$(echo "${set_defnaflags[@]}" | tr ' ' ',')"
+  defnaflag="$(echo "${set_defnaflags[@]}" | tr ' ' ',')"
 
 
   # Set the value(s) to the audit service
-  auditconfig -setpolicy ${defpol} 2> /dev/null
+  auditconfig -setpolicy ${defpol} &>/dev/null
 
   # Handle results
   if [ $? -ne 0 ]; then
@@ -280,7 +253,7 @@ if [ ${change} -eq 1 ]; then
 
 
   # Set the value(s) to the audit service
-  auditconfig -setflags ${defflag} 2> /dev/null
+  auditconfig -setflags ${defflag} &>/dev/null
 
   # Handle results
   if [ $? -ne 0 ]; then
@@ -291,7 +264,7 @@ if [ ${change} -eq 1 ]; then
 
 
   # Set the value(s) to the audit service
-  auditconfig -setnaflags ${defflag} 2> /dev/null
+  auditconfig -setnaflags ${defnaflag} &>/dev/null
 
   # Handle results
   if [ $? -ne 0 ]; then
@@ -307,10 +280,7 @@ declare -a err
 
 
 # Get an array of default policy flags
-cur_defpolicy=($(auditconfig -getpolicy | awk '$1 ~ /^active/{print}' | cut -d= -f2 | tr ',' ' '))
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtained current list of default audit policies"
+cur_defpolicy=($(auditconfig -getpolicy 2>/dev/null | awk '$1 ~ /^active/{print}' | cut -d= -f2 | tr ',' ' '))
 
 # Iterate ${defpolicy[@]}
 for pol in ${defpolicy[@]}; do
@@ -321,11 +291,7 @@ done
 
 
 # Get an array of default flags
-cur_defflags=($(auditconfig -getflags | awk '$1 ~ /^active/{split($7, obj, "(");print obj[1]}' | tr ',' ' '))
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtained current list of default audit flags"
-
+cur_defflags=($(auditconfig -getflags 2>/dev/null | awk '$1 ~ /^active/{split($7, obj, "(");print obj[1]}' | tr ',' ' '))
 
 # Iterate ${defflags[@]}
 for flag in ${defflags[@]}; do
@@ -336,10 +302,7 @@ done
 
 
 # Get an array of default non-attributable flags
-cur_defnaflags=($(auditconfig -getnaflags | awk '$1 ~ /^active/{split($6, obj, "(");print obj[1]}' | tr ',' ' '))
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtained current list of default non-attributable audit flags"
+cur_defnaflags=($(auditconfig -getnaflags 2>/dev/null | awk '$1 ~ /^active/{split($6, obj, "(");print obj[1]}' | tr ',' ' '))
 
 # Iterate ${defnaflags[@]}
 for naflag in ${defnaflags[@]}; do
@@ -391,4 +354,3 @@ exit 0
 #
 # Title: The audit system must be configured to audit all administrative, privileged, and security actions.
 # Description: Without auditing, individual system accesses cannot be tracked, and malicious activity cannot be detected and traced back to an individual account.
-
