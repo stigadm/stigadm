@@ -155,11 +155,14 @@ if [[ ${change} -eq 1 ]] && [[ ${cond} -eq 0 ]]; then
     [ ${verbose} -eq 1 ] && print "Unable to enable auditing" 1
     exit 1
   fi
+
+  # Get boolean of current status
+  cond=$(auditconfig -getcond | nawk '$1 ~ /^audit/ && $4 ~ /^auditing/{print 1}')
 fi
 
 
   # If ${cond} != 1
-if [ ${cond} -ne 1 ]; then
+if [ ${cond:=0} -ne 1 ]; then
 
   # Print friendly message
   [ ${verbose} -eq 1 ] && print "Auditing is not enabled" 1
@@ -186,4 +189,3 @@ exit 0
 #
 # Title: The operating system must provide the capability to automatically process audit records for events of interest based upon selectable, event criteria.
 # Description: Without an audit reporting capability, users find it difficult to identify specific patterns of attack.
-

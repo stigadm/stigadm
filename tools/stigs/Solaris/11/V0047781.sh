@@ -153,11 +153,14 @@ if [[ ${change} -eq 1 ]] && [[ ${cond} -eq 0 ]]; then
     [ ${verbose} -eq 1 ] && print "Unable to enable auditing" 1
     exit 1
   fi
+
+  # Get boolean of current status
+  cond=$(auditconfig -getcond | nawk '$1 ~ /^audit/ && $4 ~ /^auditing/{print 1}')
 fi
 
 
-  # If ${cond} != 1
-if [ ${cond} -ne 1 ]; then
+# If ${cond} != 1
+if [ ${cond:=0} -ne 1 ]; then
 
   # Print friendly message
   [ ${verbose} -eq 1 ] && print "Auditing is not enabled" 1
