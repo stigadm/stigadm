@@ -226,15 +226,8 @@ for log_host in ${log_hosts[@]}; do
     hname="$(echo "${log_host}")"
   fi
 
-cat <<EOF
-${regex_hostname}
-${regex_ipv4}
-${regex_ipv6}
-
-EOF
-exit 1
   # Determine if ${log_host} is an RFC-1123 hostname
-  if [ $(echo "${hname}" | awk -v regex_hostname=${regex_hostname} '{if($0 ~ regex_hostname){print 0}else{print 1}}') -ne 0 ]; then
+  if [ $(echo "${hname}" | nawk -v regex_hostname="${regex_hostname}" '{if($0 ~ regex_hostname){print 0}else{print 1}}') -ne 0 ]; then
     print "'${hname}' did not pass RFC-1123 validation..." 1
   fi
 
@@ -242,7 +235,7 @@ exit 1
   if [ -z ${ip} ]; then
 
     # Determine if ${log_host} is an IPv4 or IPv6 address
-    if [ $(echo "${ip}" | awk -v regex_ipv4=${regex_ipv4} -v regex_ipv6=${regex_ipv6} '{if($0 ~ regex_ipv4 || $0 ~ regex_ipv6){print 0}else{print 1}}') -eq 0 ]; then
+    if [ $(echo "${ip}" | nawk -v regex_ipv4="${regex_ipv4}" -v regex_ipv6=${regex_ipv6} '{if($0 ~ regex_ipv4 || $0 ~ regex_ipv6){print 0}else{print 1}}') -eq 0 ]; then
       print "'${hname}' did not pass RFC-1123 validation..." 1
     fi
   fi
@@ -262,8 +255,8 @@ exit 1
     fi
   fi
 
-  # Create a new value for ${hosts[@]}
-  loghosts+=("${ip}:${hname}")
+  # Create a new value for ${hosts[@]} (set default ${ip} to localhost (127.0.0.1)
+  loghosts+=("${ip:=127.0.0.1}:${hname}")
 done
 
 
@@ -340,18 +333,51 @@ if [ ${change} -eq 1 ]; then
   [ ${verbose} -eq 1 ] && print "Disabled requested services; [$(truncate_cols "$(echo "${services[@]}" | tr ' ' '|')")]"
 
 
+  # Make a copy of ${log}
+  cp -p ${log} ${log}-${ts}
+
+  # Add/Modify ${log} 'audit.notice @loghost'
+  if [ $(grep -c "^audit.notice" ${log}) -gt 0 ]; then
+    sed "s|^\(audit.notice\).*$|\1                                    @loghost|g" ${log} > ${log}-${ts}
+  else
+    echo "audit.notice                                    @loghost" >> ${log}-${ts}
+  fi
+
+  # Double check addition/modification
+  if [ $(grep -c "^audit.notice.*@loghost$" ${log}-${ts}) -gt 0 ]; then
+
+    # Move ${log}-${ts} back in place
+    mv ${log}-${ts} ${log}
+  else
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "'audit.notice' was not found in '${log}-${ts}'..." 1
+    rm ${log}-${ts}
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Remote logging enabled to '@loghost' (defined in ${hosts})"
+
+
   # If ${#loghosts[@]} > 0
   if [ ${#loghosts[@]} -gt 0 ]; then
 
     # Iterate ${hosts[@]}
     for log_host in ${loghosts[@]}; do
 
-      # Make sure both ${ip} & ${hname} exists
-      if [[ "${ip}" == "" ]] || [[ "${hname}" == "" ]]; then
+      # Split ${log_host} into ${ip} & ${hname}
+      ip="$(echo "${log_host}" | cut -d: -f1)"
+      hname="$(echo "${log_host}" | cut -d: -f2)"
 
-        # Print friendly message
-        [ ${verbose} -eq 1 ] && print "The hostname and/or IP is cannot be determined for the remote logging host, skipping..." 1
-        continue
+      # Flag ${ip} if a local address (default)
+      if [ "${ip}" == "127.0.0.1" ]; then
+
+        # If the ${err['Services']} key exists
+        if [ -z ${err['Servers']} ]; then
+          err['Servers']="${ip}_${hname}"
+        else
+          err['Servers']="${err['Servers']}:${ip}_${hname}"
+        fi
       fi
 
 
@@ -431,6 +457,52 @@ if [ ${change} -eq 1 ]; then
 fi
 
 
+# Check ${log} for audit.notice @loghost entry
+if [ $(grep -c "^audit.notice.*@loghost" ${log}) -le 0 ]; then
+
+  # If the ${err['Syslog']} key exists
+  if [ -z ${err['Syslog']} ]; then
+    err['Syslog']="No_remote_loghosts_defined"
+  else
+    err['Syslog']="${err['Servers']}:No_remote_loghosts_defined"
+  fi
+fi
+
+
+# Get currently configured 'loghost' entries from ${hosts} file
+cur_hosts=( $(grep "loghost$" ${hosts} | awk '{printf("%s:%s\n", $1, $2)}') )
+
+# Push to ${err['Servers']} if empty
+if [ ${#cur_hosts[@]} -eq 0 ]; then
+
+  # If the ${err['Services']} key exists
+  if [ -z ${err['Servers']} ]; then
+    err['Servers']="No_loghosts_defined"
+  else
+    err['Servers']="${err['Servers']}:No_loghosts_defined"
+  fi
+fi
+
+# Iterate ${hosts[@]}
+for log_host in ${cur_hosts[@]}; do
+
+  # Split ${log_host} into ${ip} & ${hname}
+  ip="$(echo "${log_host}" | cut -d: -f1)"
+  hname="$(echo "${log_host}" | cut -d: -f2)"
+
+  # Flag ${ip} if a local address (default)
+  if [ "${ip}" == "127.0.0.1" ]; then
+
+    # If the ${err['Services']} key exists
+    if [ -z ${err['Servers']} ]; then
+      err['Servers']="${ip}_${hname}"
+    else
+      err['Servers']="${err['Servers']}:${ip}_${hname}"
+    fi
+  fi
+done
+
+
 # Acquire all running (online) services
 cur_services=( $(svcs -a | awk '$1 ~ /^online/{split($3, obj, ":");print obj[2]}' | sort -u) )
 
@@ -490,10 +562,13 @@ if [ ${#err[@]} -gt 0 ]; then
     errors=( $(echo "${err[${error}]}" | tr ':' ' ') )
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  ${error}: ${#errors[@]}/${#services[@]}" 1
+    [ ${verbose} -eq 1 ] && print "  ${error}:  " 1
 
     # Iterate ${errors[@]}
     for e in ${errors[@]}; do
+
+      # Break ${e} up if need be
+      e="$(echo "${e}" | tr '_' ' ')"
 
       # Print friendly message
       [ ${verbose} -eq 1 ] && print "     ${e}" 1

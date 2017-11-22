@@ -18,12 +18,26 @@ function psuccess()
 }
 
 
+# Print warning
+# Arguments:
+#  [String]: Provided message for warning
+function pwarning()
+{
+  printf "[${stigid:=${appname}}] Warning: %s\n" "${1}"
+}
+
+
 # Pretty printer
 # Arguments:
 #  [String]: Provided message for error printing
 #  [Integer] (Optional): Force error message printing
 function print()
 {
+  # An warning is present
+  if [[ -n "${2}" ]] && [[ ${2} -eq 2 ]]; then
+    pwarning "${1}" && return 0
+  fi
+
   # An error is present
   if [[ -n "${2}" ]] && [[ ${2} -eq 1 ]]; then
     perror "${1}" && return 0
