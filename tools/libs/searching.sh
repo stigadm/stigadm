@@ -42,6 +42,27 @@ function in_array_fuzzy()
 }
 
 
+# Perform loose regex pattern based search of needle in supplied haystack
+# Arguments:
+#  args [Array]: Array of arguments supplied to in_array()
+#  needle [String]: String to perform loose prefix based search on
+#  haystack [Array]: Array of string(s) to search for ${string} in
+function in_array_loose()
+{
+  local args=("${@}")
+  local needle="${args[0]}"
+  local haystack=("${args[@]:1}")
+
+  for i in ${haystack[@]}; do
+    if [ $(echo "${i}" | grep -c "${needle}") -gt 0 ]; then
+      echo 0 && return 0
+    fi
+  done
+
+  echo 1 && return 1
+}
+
+
 # Search for absolute file & path from a supplied file
 # Arguments:
 #  file [String]: File to search for patterns in
@@ -59,7 +80,7 @@ function extract_filenames()
   tresults=()
   results=()
   tpat=
-  
+
   # Iterate 0 - ${iterations}
   for i in $(seq 1 ${iterations}); do
 
@@ -68,7 +89,7 @@ function extract_filenames()
 
     # Combine the ${prefix}, ${tpat} & ${suffix} for a complete regex
     pat="${prefix}${tpat}${suffix}"
-    
+
     # Extract any patterns matching ${pat} from ${file} while assigning to ${tresults[@]}
     tresults+=($(gawk -v pat="${pat}" '{if (match($0, pat, obj)) { print obj[1] }}' ${file} 2> /dev/null))
   done

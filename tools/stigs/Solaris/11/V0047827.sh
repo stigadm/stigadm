@@ -15,6 +15,8 @@ plugins+=("audit_syslog")
 declare -a log_hosts
 log_hosts+=('127.0.0.1:solaris')
 
+# Create a timestamp
+ts="$(date +%Y%m%d-%H%M)"
 
 # Global defaults for tool
 author=
@@ -175,8 +177,81 @@ declare -a inactive
 declare -a active
 
 
-# Define an array for errors
-declare -a err
+# Define an associative array for errors
+declare -A err
+
+
+# Find syslog.conf or rsyslog.conf & make a backup
+log="$(find / -xdev -type f -name "syslog.conf")"
+
+# If ${log} is empty, try rsyslog.conf
+if [ "${log}" == "" ]; then
+  log="$(find / -xdev -type f -name "rsyslog.conf")"
+fi
+
+
+# Use /etc/hosts
+hosts="/etc/hosts"
+
+# Make sure we are working on the actual file
+hosts="$(get_inode "${hosts}")"
+
+
+# If ${hosts} doesn't exist make it
+if [ ! -f ${hosts} ]; then
+  hosts=/etc/inet/hosts
+  touch ${hosts}
+  chown root:sys ${hosts}
+  chmod 00644 ${hosts}
+fi
+
+# If ${log} doesn't exist make it
+if [ ! -f ${log} ]; then
+  log=/etc/syslog.conf
+  touch ${log}
+  chown root:sys ${log}
+  chmod 00644 ${log}
+fi
+
+
+# Iterate ${log_hosts[@]}
+for log_host in ${log_hosts[@]}; do
+
+  # If both IP & Hostname defined in ${log_host} split it up
+  if [ $(echo "${log_host}" | grep -c ":") -gt 0 ]; then
+    ip="$(echo "${log_host}" | cut -d: -f1)"
+    hname="$(echo "${log_host}" | cut -d: -f2)"
+  else
+
+    # Determine if ${log_host} is an RFC-1123 hostname
+    if [ $(echo "${log_host}" | awk -v regex_hostname=${regex_hostname} '{if($0 ~ regex_hostname){print 0}else{print 1}}') -eq 0 ]; then
+      hname="${log_host}"
+    fi
+
+    # Determine if ${log_host} is an IPv4 or IPv6 address
+    if [ $(echo "${log_host}" | awk -v regex_ipv4=${regex_ipv4} -v regex_ipv6=${regex_ipv6} '{if($0 ~ regex_ipv4 || $0 ~ regex_ipv6){print 0}else{print 1}}') -eq 0 ]; then
+      ip="${log_host}"
+    fi
+  fi
+
+
+  # If only ${ip} OR ${hname} exist try to rely on DNS
+  if [[ "${ip}" == "" ]] || [[ "${hname}" == "" ]]; then
+
+    # If only the IP exists
+    if [[ "${ip}" != "" ]] && [[ "${hname}" == "" ]]; then
+      hname="$(nslookup ${ip} 2> /dev/null | awk '$1 ~ /^Name/{getline; print $2}')"
+    fi
+
+    # If only the hostname exists
+    if [[ "${ip}" == "" ]] && [[ "${hname}" != "" ]]; then
+      ip="$(nslookup ${hname} 2> /dev/null | awk '$1 ~ /^Name/{getline; print $2}')"
+    fi
+  fi
+
+  # Create a new value for ${hosts[@]}
+  loghosts+=("${ip}:${hname}")
+done
 
 
 # If ${change} = 1
@@ -203,14 +278,8 @@ if [ ${change} -eq 1 ]; then
     exit 1
   fi
 
-
-  # Find syslog.conf or rsyslog.conf & make a backup
-  log="$(find / -xdev -type f -name "syslog.conf")"
-
-  # If ${log} is empty, try rsyslog.conf
-  if [ "${log}" == "" ]; then
-    log="$(find / -xdev -type f -name "rsyslog.conf")"
-  fi
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot of current audit plugins for '${stigid}'"
 
   # If ${log} exists make a backup
   if [ -f ${log} ]; then
@@ -223,12 +292,9 @@ if [ ${change} -eq 1 ]; then
     fi
   fi
 
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created backup of '${log}'"
 
-  # Use /etc/hosts
-  hosts="/etc/hosts"
-
-  # Make sure we are working on the actual file
-  hosts="$(get_inode "${hosts}")"
 
   # If ${hosts} exists make a backup
   if [ -f ${hosts} ]; then
@@ -241,6 +307,9 @@ if [ ${change} -eq 1 ]; then
     fi
   fi
 
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created backup of '${hosts}'"
+
 
   # Iterate ${services[@]}
   for service in ${services[@]}; do
@@ -248,102 +317,62 @@ if [ ${change} -eq 1 ]; then
     # Disable any ${services[@]}
     svcadm disable ${service} 2>/dev/null
     if [ $? -ne 0 ]; then
+
       # Print friendly message
       [ ${verbose} -eq 1 ] && print "An error occurred disabling '${service}'" 1
     fi
   done
 
-
-  # If ${hosts} doesn't exist make it
-  if [ ! -f ${hosts} ]; then
-    hosts=/etc/inet/hosts
-    touch ${hosts}
-    chown root:sys ${hosts}
-    chmod 00644 ${hosts}
-  fi
-
-  # If ${log} doesn't exist make it
-  if [ ! -f ${log} ]; then
-    log=/etc/syslog.conf
-    touch ${log}
-    chown root:sys ${log}
-    chmod 00644 ${log}
-  fi
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Disabled requested services '[$(truncate_cols "$(echo "${services[@]}" | tr ' ' '|')" 20)]'"
 
 
-  # Iterate ${log_hosts[@]}
-  for log_host in ${log_hosts[@]}; do
+  # If ${#loghosts[@]} > 0
+  if [ ${#loghosts[@]} -gt 0 ]; then
 
-    # If both IP & Hostname defined in ${log_host} split it up
-    if [ $(echo "${log_host}" | grep -c ":") -gt 0 ]; then
-      ip="$(echo "${log_host}" | cut -d: -f1)"
-      hname="$(echo "${log_host}" | cut -d: -f2)"
-    else
+    # Iterate ${hosts[@]}
+    for log_host in ${loghosts[@]}; do
 
-      # Determine if ${log_host} is an RFC-1123 hostname
-      if [ $(echo "${log_host}" | awk -v regex_hostname=${regex_hostname} '{if($0 ~ regex_hostname){print 0}else{print 1}}') -eq 0 ]; then
-        hname="${log_host}"
+      # Make sure both ${ip} & ${hname} exists
+      if [[ "${ip}" == "" ]] || [[ "${hname}" == "" ]]; then
+
+        # Print friendly message
+        [ ${verbose} -eq 1 ] && print "The hostname and/or IP is cannot be determined for the remote logging host, skipping..." 1
+        continue
       fi
 
-      # Determine if ${log_host} is an IPv4 or IPv6 address
-      if [ $(echo "${log_host}" | awk -v regex_ipv4=${regex_ipv4} -v regex_ipv6=${regex_ipv6} '{if($0 ~ regex_ipv4 || $0 ~ regex_ipv6){print 0}else{print 1}}') -eq 0 ]; then
-        ip="${log_host}"
-      fi
-    fi
 
-
-    # If only ${ip} OR ${hname} exist try to rely on DNS
-    if [[ "${ip}" == "" ]] || [[ "${hname}" == "" ]]; then
-
-      # If only the IP exists
-      if [[ "${ip}" != "" ]] && [[ "${hname}" == "" ]]; then
-        hname="$(nslookup ${ip} 2> /dev/null | awk '$1 ~ /^Name/{getline; print $2}')"
-      fi
-
-      # If only the hostname exists
-      if [[ "${ip}" == "" ]] && [[ "${hname}" != "" ]]; then
-        ip="$(nslookup ${hname} 2> /dev/null | awk '$1 ~ /^Name/{getline; print $2}')"
-      fi
-    fi
-
-
-    # Make sure both ${ip} & ${hname} exists
-    if [[ "${ip}" == "" ]] || [[ "${hname}" == "" ]]; then
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "The hostname and/or IP is cannot be determined for the remote logging host, skipping..." 1
-      continue
-    fi
-
-
-    # Add/modify the entry to ${hosts}
-    if [ $(grep -c "^${ip}" ${hosts}) -gt 0 ]; then
-      sed "s|^${ip}.*$|${ip} ${hname} loghost|g" ${hosts} > ${hosts}-${ts}
-    else
+      # Make a copy of ${hosts} to preserve permissions
       cp -p ${hosts} ${hosts}-${ts}
-      echo "${ip} ${hname} loghost" >> ${hosts}-${ts}
-    fi
+
+      # Add/modify the entry to ${hosts}
+      if [ $(grep -c "^${ip}" ${hosts}) -gt 0 ]; then
+        sed "s|^${ip}.*$|${ip} ${hname} loghost|g" ${hosts} > ${hosts}-${ts}
+      else
+        echo "${ip} ${hname} loghost" >> ${hosts}-${ts}
+      fi
 
 
-    # Double check addition/modification
-    if [ $(grep -c "^${ip}.*${hname}.*loghost$" ${hosts}-${ts}) -gt 0 ]; then
+      # Double check addition/modification
+      if [ $(grep -c "^${ip}.*${hname}.*loghost$" ${hosts}-${ts}) -gt 0 ]; then
 
-      # Move ${hosts}-${ts} back in place
-      mv ${hosts}-${ts} ${hosts}
-    else
+        # Move ${hosts}-${ts} back in place
+        mv ${hosts}-${ts} ${hosts}
+      else
 
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "'${ip} ${hname} loghost' was not found in '${hosts}-${ts}'..." 1
-      rm ${hosts}-${ts}
-    fi
-  done
+        # Print friendly message
+        [ ${verbose} -eq 1 ] && print "'${ip} ${hname} loghost' was not found in '${hosts}-${ts}'..." 1
+        rm ${hosts}-${ts}
+      fi
+    done
+  fi
 
 
   # Iterate ${plugins[@]}
   for plugin in ${plugins[@]}; do
 
     # Make change according to ${stigid}
-    auditconfig -setplugin ${plugin} active 2> /dev/null
+    auditconfig -setplugin ${plugin} active "p_flags=all" 2> /dev/null
     if [ $? -ne 0 ]; then
 
       # Print friendly message
@@ -353,16 +382,54 @@ if [ ${change} -eq 1 ]; then
 
   # Print friendly message
   [ ${verbose} -eq 1 ] && print "Enabled all defined audit plug-ins"
+
+
+  # Iterate ${services[@]}
+  for service in ${services[@]}; do
+
+    # Refresh ${services[@]}
+    svcadm refresh ${service} 2>/dev/null
+    if [ $? -ne 0 ]; then
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "An error occurred refreshing '${service}'" 1
+    fi
+
+    # Enable any ${services[@]}
+    svcadm enable ${service} 2>/dev/null
+    if [ $? -ne 0 ]; then
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "An error occurred enabling '${service}'" 1
+    fi
+  done
 fi
+
+
+# Acquire all running (online) services
+cur_services=( $(svcs -a | awk '$1 ~ /^online/{split($3, obj, ":");print obj[2]}' | sort -u) )
+
+# Iterate ${services[@]}
+for service in ${services[@]}; do
+
+  # Determine if ${service} exists in ${cur_services[@]}
+  if [ $(in_array_loose "${service}" "${cur_services[@]}") -ne 0 ]; then
+
+    # If the ${err['Services']} key exists
+    if [ -z ${err['Services']} ]; then
+      err['Services']="${service}"
+    else
+      err['Services']="${err['Services']}:${service}"
+    fi
+  fi
+done
 
 
 # Get a list of inactive audit plugins
 inactive=($(auditconfig -getplugin | awk '$1 ~ /^Plugin/ && $3 ~ /inactive/{print $2}'))
 
-
 # Get a list of active audit plugins
 active=($(auditconfig -getplugin | awk '$1 ~ /^Plugin/ && $3 !~ /inactive/{print $2}'))
-
 
 # Iterate ${plugins[@]}
 for plugin in ${plugins[@]}; do
@@ -370,8 +437,12 @@ for plugin in ${plugins[@]}; do
   # If ${plugin} doesn't exist in ${inactive[@]} & ${active[@]}
   if [[ $(in_array "${plugin}" "${inactive[@]}") -eq 1 ]] && [[ $(in_array "${plugin}" "${active[@]}") -ne 0 ]]; then
 
-    # Push ${plugin} to ${err[@]}
-    [ ${verbose} -eq 1 ] && err+=("${plugin}")
+    # If the ${err['Plugins']} key exists
+    if [ -z ${err['Plugins']} ]; then
+      err['Plugins']="${service}"
+    else
+      err['Plugins']="${err['Plugins']}:${service}"
+    fi
   fi
 done
 
@@ -380,13 +451,23 @@ done
 if [ ${#err[@]} -gt 0 ]; then
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "An error occurred validating available/active audit plug-ins:" 1
+  [ ${verbose} -eq 1 ] && print "Could not validate '${stigid}'" 1
 
   # Iterate ${err[@]}
-  for error in ${err[@]}; do
+  for error in ${!err[@]}; do
+
+    # Split ${error} into an array
+    errors=( $(echo "${err[${error}]}" | tr ':' ' ') )
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - ${error}" 1
+    [ ${verbose} -eq 1 ] && print "  ${error}: ${#errors[@]}/${#services[@]}" 1
+
+    # Iterate ${errors[@]}
+    for e in ${errors[@]}; do
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "     ${e}" 1
+    done | sort -u
   done
 
   exit 1
