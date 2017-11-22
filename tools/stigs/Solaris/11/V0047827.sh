@@ -1,10 +1,19 @@
 #!/bin/bash
 
 
+# Define an array of loggin services that should be enabled
+declare -a services
+services+=('auditd')
+services+=('system-log')
 
 # Define an array of plugins that should be active for auditing
 declare -a plugins
 plugins+=("audit_syslog")
+
+# Define an array of remote logging hosts
+#  - Can be defined as: <IP>:<HOSTNAME> or <HOSTNAME>
+declare -a log_hosts
+log_hosts+=('127.0.0.1:solaris')
 
 
 # Global defaults for tool
@@ -100,6 +109,25 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
 fi
 
 
+# Ensure a logging service is defined
+if [ ${#services[@]} -eq 0 ]; then
+  print "'${#services[@]}' remote logging services are defined" 1
+  exit 1
+fi
+
+# Ensure audit plugins are defined
+if [ ${#plugins[@]} -eq 0 ]; then
+  print "'${#plugins[@]}' audit plug ins are defined" 1
+  exit 1
+fi
+
+# Ensure configuration options are defined
+if [ ${#log_hosts[@]} -eq 0 ]; then
+  print "'${#log_hosts[@]}' remote syslog/rsyslog hosts defined" 1
+  exit 1
+fi
+
+
 # If ${meta} is true
 if [ ${meta} -eq 1 ]; then
 
@@ -154,11 +182,11 @@ declare -a err
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
-  # Get a list of active audit plugins
-  active=($(auditconfig -getplugin | awk '$1 ~ /^Plugin/ && $3 !~ /inactive/{print $2}'))
-
   # Create the backup env
   backup_setup_env "${backup_path}"
+
+  # Get a list of active audit plugins
+  active=($(auditconfig -getplugin | awk '$1 ~ /^Plugin/ && $3 !~ /inactive/{print $2}'))
 
   # Create array to handle configuration backup
   declare -a conf_bu
@@ -169,11 +197,147 @@ if [ ${change} -eq 1 ]; then
   if [ $? -ne 0 ]; then
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Snapshot of current audit plugins for '${stigid}' failed..."
+    [ ${verbose} -eq 1 ] && print "Snapshot of current audit plugins for '${stigid}' failed..." 1
 
     # Stop, we require a backup
     exit 1
   fi
+
+
+  # Find syslog.conf or rsyslog.conf & make a backup
+  log="$(find / -xdev -type f -name "syslog.conf")"
+
+  # If ${log} is empty, try rsyslog.conf
+  if [ "${log}" == "" ]; then
+    log="$(find / -xdev -type f -name "rsyslog.conf")"
+  fi
+
+  # If ${log} exists make a backup
+  if [ -f ${log} ]; then
+    bu_file "${author}" "${log}"
+    if [ $? -ne 0 ]; then
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "Could not create a backup of '${log}', exiting..." 1
+      exit 1
+    fi
+  fi
+
+
+  # Use /etc/hosts
+  hosts="/etc/hosts"
+
+  # Make sure we are working on the actual file
+  hosts="$(get_inode "${hosts}")"
+
+  # If ${hosts} exists make a backup
+  if [ -f ${hosts} ]; then
+    bu_file "${author}" "${hosts}"
+    if [ $? -ne 0 ]; then
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "Could not create a backup of '${hosts}', exiting..." 1
+      exit 1
+    fi
+  fi
+
+
+  # Iterate ${services[@]}
+  for service in ${services[@]}; do
+
+    # Disable any ${services[@]}
+    svcadm disable ${service} 2>/dev/null
+    if [ $? -ne 0 ]; then
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "An error occurred disabling '${service}'" 1
+    fi
+  done
+
+
+  # If ${hosts} doesn't exist make it
+  if [ ! -f ${hosts} ]; then
+    hosts=/etc/inet/hosts
+    touch ${hosts}
+    chown root:sys ${hosts}
+    chmod 00644 ${hosts}
+  fi
+
+  # If ${log} doesn't exist make it
+  if [ ! -f ${log} ]; then
+    log=/etc/syslog.conf
+    touch ${log}
+    chown root:sys ${log}
+    chmod 00644 ${log}
+  fi
+
+
+  # Iterate ${log_hosts[@]}
+  for log_host in ${log_hosts[@]}; do
+
+    # If both IP & Hostname defined in ${log_host} split it up
+    if [ $(echo "${log_host}" | grep -c ":") -gt 0 ]; then
+      ip="$(echo "${log_host}" | cut -d: -f1)"
+      hname="$(echo "${log_host}" | cut -d: -f2)"
+    else
+
+      # Determine if ${log_host} is an RFC-1123 hostname
+      if [ $(echo "${log_host}" | awk -v regex_hostname=${regex_hostname} '{if($0 ~ regex_hostname){print 0}else{print 1}}') -eq 0 ]; then
+        hname="${log_host}"
+      fi
+
+      # Determine if ${log_host} is an IPv4 or IPv6 address
+      if [ $(echo "${log_host}" | awk -v regex_ipv4=${regex_ipv4} -v regex_ipv6=${regex_ipv6} '{if($0 ~ regex_ipv4 || $0 ~ regex_ipv6){print 0}else{print 1}}') -eq 0 ]; then
+        ip="${log_host}"
+      fi
+    fi
+
+
+    # If only ${ip} OR ${hname} exist try to rely on DNS
+    if [[ "${ip}" == "" ]] || [[ "${hname}" == "" ]]; then
+
+      # If only the IP exists
+      if [[ "${ip}" != "" ]] && [[ "${hname}" == "" ]]; then
+        hname="$(nslookup ${ip} 2> /dev/null | awk '$1 ~ /^Name/{getline; print $2}')"
+      fi
+
+      # If only the hostname exists
+      if [[ "${ip}" == "" ]] && [[ "${hname}" != "" ]]; then
+        ip="$(nslookup ${hname} 2> /dev/null | awk '$1 ~ /^Name/{getline; print $2}')"
+      fi
+    fi
+
+
+    # Make sure both ${ip} & ${hname} exists
+    if [[ "${ip}" == "" ]] || [[ "${hname}" == "" ]]; then
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "The hostname and/or IP is cannot be determined for the remote logging host, skipping..." 1
+      continue
+    fi
+
+
+    # Add/modify the entry to ${hosts}
+    if [ $(grep -c "^${ip}" ${hosts}) -gt 0 ]; then
+      sed "s|^${ip}.*$|${ip} ${hname} loghost|g" ${hosts} > ${hosts}-${ts}
+    else
+      cp -p ${hosts} ${hosts}-${ts}
+      echo "${ip} ${hname} loghost" >> ${hosts}-${ts}
+    fi
+
+
+    # Double check addition/modification
+    if [ $(grep -c "^${ip}.*${hname}.*loghost$" ${hosts}-${ts}) -gt 0 ]; then
+
+      # Move ${hosts}-${ts} back in place
+      mv ${hosts}-${ts} ${hosts}
+    else
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "'${ip} ${hname} loghost' was not found in '${hosts}-${ts}'..." 1
+      rm ${hosts}-${ts}
+    fi
+  done
+
 
   # Iterate ${plugins[@]}
   for plugin in ${plugins[@]}; do
@@ -183,12 +347,12 @@ if [ ${change} -eq 1 ]; then
     if [ $? -ne 0 ]; then
 
       # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Unable to enable audit plug-in '${plugin}'"
+      [ ${verbose} -eq 1 ] && print "Unable to enable audit plug-in '${plugin}'" 1
     fi
   done
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Created snapshot of current default audit plugins"
+  [ ${verbose} -eq 1 ] && print "Enabled all defined audit plug-ins"
 fi
 
 
@@ -248,4 +412,3 @@ exit 0
 #
 # Title: The operating system must protect against an individual falsely denying having performed a particular action. In order to do so the system must be configured to send audit records to a remote audit server.
 # Description: Keeping audit records on a remote system reduces the likelihood of audit records being changed or corrupted. Duplicating and protecting the audit trail on a separate system reduces the likelihood of an individual being able to deny performing an action.
-
