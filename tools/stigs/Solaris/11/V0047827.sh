@@ -7,13 +7,14 @@ services+=('auditd')
 services+=('system-log')
 
 # Define an array of plugins that should be active for auditing
+#  Format: <PLUGIN>:<FLAGS> or <PLUGIN>
 declare -a plugins
-plugins+=("audit_syslog")
+plugins+=("audit_syslog:p_flags=all")
 
 # Define an array of remote logging hosts
 #  - Can be defined as: <IP>:<HOSTNAME> or <HOSTNAME>
 declare -a log_hosts
-log_hosts+=('127.0.0.1:solaris')
+log_hosts+=('solaris')
 
 # Create a timestamp
 ts="$(date +%Y%m%d-%H%M)"
@@ -222,15 +223,27 @@ for log_host in ${log_hosts[@]}; do
     ip="$(echo "${log_host}" | cut -d: -f1)"
     hname="$(echo "${log_host}" | cut -d: -f2)"
   else
+    hname="$(echo "${log_host}")"
+  fi
 
-    # Determine if ${log_host} is an RFC-1123 hostname
-    if [ $(echo "${log_host}" | awk -v regex_hostname=${regex_hostname} '{if($0 ~ regex_hostname){print 0}else{print 1}}') -eq 0 ]; then
-      hname="${log_host}"
-    fi
+cat <<EOF
+${regex_hostname}
+${regex_ipv4}
+${regex_ipv6}
+
+EOF
+exit 1
+  # Determine if ${log_host} is an RFC-1123 hostname
+  if [ $(echo "${hname}" | awk -v regex_hostname=${regex_hostname} '{if($0 ~ regex_hostname){print 0}else{print 1}}') -ne 0 ]; then
+    print "'${hname}' did not pass RFC-1123 validation..." 1
+  fi
+
+  # If ${ip} is defined
+  if [ -z ${ip} ]; then
 
     # Determine if ${log_host} is an IPv4 or IPv6 address
-    if [ $(echo "${log_host}" | awk -v regex_ipv4=${regex_ipv4} -v regex_ipv6=${regex_ipv6} '{if($0 ~ regex_ipv4 || $0 ~ regex_ipv6){print 0}else{print 1}}') -eq 0 ]; then
-      ip="${log_host}"
+    if [ $(echo "${ip}" | awk -v regex_ipv4=${regex_ipv4} -v regex_ipv6=${regex_ipv6} '{if($0 ~ regex_ipv4 || $0 ~ regex_ipv6){print 0}else{print 1}}') -eq 0 ]; then
+      print "'${hname}' did not pass RFC-1123 validation..." 1
     fi
   fi
 
@@ -324,7 +337,7 @@ if [ ${change} -eq 1 ]; then
   done
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Disabled requested services '[$(truncate_cols "$(echo "${services[@]}" | tr ' ' '|')" 20)]'"
+  [ ${verbose} -eq 1 ] && print "Disabled requested services; [$(truncate_cols "$(echo "${services[@]}" | tr ' ' '|')")]"
 
 
   # If ${#loghosts[@]} > 0
@@ -365,14 +378,23 @@ if [ ${change} -eq 1 ]; then
         rm ${hosts}-${ts}
       fi
     done
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Configured remote logging hosts; [$(truncate_cols "$(echo "${loghosts[@]}" | tr ' ' '\n' | cut -d: -f1 | tr ' ' '|')")]"
   fi
 
 
   # Iterate ${plugins[@]}
   for plugin in ${plugins[@]}; do
 
+    # If ${plugin} contains a ':' split it up to get the necessary flags
+    if [ $(echo "${plugin}" | grep -c ":") -gt 0 ]; then
+      plugin="$(echo "${plugin}" | cut -d: -f1)"
+      flags="$(echo "${plugin}" | cut -d: -f2)"
+    fi
+
     # Make change according to ${stigid}
-    auditconfig -setplugin ${plugin} active "p_flags=all" 2> /dev/null
+    auditconfig -setplugin ${plugin} active "${flags}" 2> /dev/null
     if [ $? -ne 0 ]; then
 
       # Print friendly message
@@ -381,7 +403,7 @@ if [ ${change} -eq 1 ]; then
   done
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Enabled all defined audit plug-ins"
+  [ ${verbose} -eq 1 ] && print "Enabled audit plug-ins; [$(truncate_cols "$(echo "${plugins[@]}" | tr ' ' '\n' | cut -d: -f1 | tr ' ' '|')")]"
 
 
   # Iterate ${services[@]}
@@ -403,6 +425,9 @@ if [ ${change} -eq 1 ]; then
       [ ${verbose} -eq 1 ] && print "An error occurred enabling '${service}'" 1
     fi
   done
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Re-enabled services; [$(truncate_cols "$(echo "${services[@]}" | tr ' ' '|')")]"
 fi
 
 
@@ -434,14 +459,19 @@ active=($(auditconfig -getplugin | awk '$1 ~ /^Plugin/ && $3 !~ /inactive/{print
 # Iterate ${plugins[@]}
 for plugin in ${plugins[@]}; do
 
+  # If ${plugin} contains a ':' split it up to get the necessary flags
+  if [ $(echo "${plugin}" | grep -c ":") -gt 0 ]; then
+    plugin="$(echo "${plugin}" | cut -d: -f1)"
+  fi
+
   # If ${plugin} doesn't exist in ${inactive[@]} & ${active[@]}
   if [[ $(in_array "${plugin}" "${inactive[@]}") -eq 1 ]] && [[ $(in_array "${plugin}" "${active[@]}") -ne 0 ]]; then
 
     # If the ${err['Plugins']} key exists
     if [ -z ${err['Plugins']} ]; then
-      err['Plugins']="${service}"
+      err['Plugins']="${plugin}"
     else
-      err['Plugins']="${err['Plugins']}:${service}"
+      err['Plugins']="${err['Plugins']}:${plugin}"
     fi
   fi
 done
