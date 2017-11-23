@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Define the aliases file
+aliases=/etc/mail/aliases
+
+# Define an array of users to handle audit notifications
+declare -a administrators
+administrators+=("root")
+
+# Create a timestamp
+ts="$(date +%Y%m%d-%H%M)"
+
+
 # Global defaults for tool
 author=
 verbose=0
@@ -87,18 +98,25 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Remove once work is complete on module
-cat <<EOF
-[${stigid}] Warning: Not yet implemented...
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  print "'${stigid}' only applies to global zones" 1
+  exit 1
+fi
 
-$(get_meta_data "${cwd}" "${prog}")
-EOF
-exit 1
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
 fi
+
+
+# Make sure ${administrators[@]} is defined
+if [ ${#administrators[@]} -eq 0 ]; then
+  [ ${verbose} -eq 1 ] && print "'${#administrators[@]}' users defined for audit notifications" 1
+  exit 1
+fi
+
 
 # If ${meta} is true
 if [ ${meta} -eq 1 ]; then
@@ -126,14 +144,60 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
+# Get a list of currently defined users in ${aliases} for audit_warn
+cur_aliases=( $(grep "^audit_warn" ${aliases} | cut -d: -f2 | sort -u | tr ',' ' ') )
+
+
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
-  # Create backup of file(s), settings or permissions on inodes
-  # (see existing facilities in ${lib_path}/backup.sh)
+  # Create the backup env
+  backup_setup_env "${backup_path}"
 
-  # Make change according to ${stigid}
-  [ ${verbose} -eq 1 ] && print "Make change here"
+  # If ${aliases} exists make a backup
+  if [ -f ${aliases} ]; then
+    bu_file "${author}" "${aliases}"
+    if [ $? -ne 0 ]; then
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "Could not create a backup of '${aliases}', exiting..." 1
+      exit 1
+    fi
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created backup of '${aliases}'"
+
+
+  # Create a working copy
+  cp -p ${aliases} ${aliases}-${ts}
+
+  # Combine ${cur_aliases[@]} with ${administrators[@]} & remove dupes
+  administrators=( "$(remove_duplicates "${cur_aliases[@]}" "${administrators[@]}")" )
+
+  # Create a string from ${administrators[@]}
+  administrators_str="$(echo "${administrators[@]}" | tr ' ' ',')"
+
+  # If ^audit_warn exists in ${aliases}
+  if [ $(grep -c "^audit_warn:" ${aliases}) -gt 0 ]; then
+
+    # Replace audit_warn with our new combined list of users
+    sed "s|^\(audit_warn:\).*$|\1|g" ${aliases} > ${aliases}-${ts}
+  else
+
+    # Add our new list of administrators
+    echo "audit_warn:${administrators_str}" >> ${aliases}-${ts}
+  fi
+
+  # Make sure ${administrators_str} exists
+  if [ $(grep -c "^audit_warn:${administrators_str}$" ${aliases}-${ts}) -eq 0 ]; then
+    [ ${verbose} -eq 1 ] && print "An error occured adding users to ${aliases}-${ts}" 1
+  else
+    mv ${aliases}-${ts} ${aliases}
+  fi
+
+  # Get a list of currently defined users in ${aliases} for audit_warn
+  cur_aliases=( $(grep "^audit_warn" ${aliases} | cut -d: -f2 | sort -u | tr ',' ' ') )
 fi
 
 
@@ -162,4 +226,3 @@ exit 0
 #
 # Title: The audit system must alert the SA when the audit storage volume approaches its capacity.
 # Description: Filling the audit storage area can result in a denial of service or system outage and can lead to events going undetected.
-
