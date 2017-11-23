@@ -87,13 +87,12 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Remove once work is complete on module
-cat <<EOF
-[${stigid}] Warning: Not yet implemented...
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  print "'${stigid}' only applies to global zones" 1
+  exit 1
+fi
 
-$(get_meta_data "${cwd}" "${prog}")
-EOF
-exit 1
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
@@ -126,21 +125,47 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
+# Get currently defined audit policies
+policies=( $(auditconfig -getpolicy | grep "^active" | awk '{print $5}' | tr ',' ' ') )
+
+
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
-  # Create backup of file(s), settings or permissions on inodes
-  # (see existing facilities in ${lib_path}/backup.sh)
+  # Create the backup env
+  backup_setup_env "${backup_path}"
 
-  # Make change according to ${stigid}
-  [ ${verbose} -eq 1 ] && print "Make change here"
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "setpolicy:$(echo "${policies[@]}" | tr ' ' ',')"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of current audit flags per zone for '${stigid}' failed..." 1
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot of current audit flags per zone for '${stigid}'"
+
+
+  # Remove perzone audit flag
+  auditconfig -setpolicy -perzone
+  if [ $? -ne 0 ]; then
+    [ ${verbose} -eq 1 ] && print "Could not remove 'perzone' flag from audit policy" 1
+  fi
+
+  # Get currently defined audit policies
+  policies=( $(auditconfig -getpolicy | grep "^active" | awk '{print $5}' | tr ',' ' ') )
 fi
 
 
-# Validate change according to ${stigid}
-
-
-# Exit 1 if validation failed
+# Look for perzone in ${policies[@]} array
+if [ $(in_array "perzone" "${policies[@]}") -eq 0 ]; then
+  [ ${verbose} -eq 1 ] && print "Per zone auditing enabled" 1
+  exit 1
+fi
 
 
 # Print friendly success
@@ -162,4 +187,3 @@ exit 0
 #
 # Title: The audit system must maintain a central audit trail for all zones.
 # Description: Centralized auditing simplifies the investigative process to determine the cause of a security event.
-
