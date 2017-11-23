@@ -340,7 +340,13 @@ if [ ${change} -eq 1 ]; then
   if [ $(grep -c "^audit.notice" ${log}) -gt 0 ]; then
     sed "s|^\(audit.notice\).*$|\1                                    @loghost|g" ${log} > ${log}-${ts}
   else
-    echo "audit.notice                                    @loghost" >> ${log}-${ts}
+
+    # Make sure the formatting is accurate when appending
+    cat <<EOF >> ${log}-${ts}
+
+audit.notice                                    @loghost
+
+EOF
   fi
 
   # Double check addition/modification
