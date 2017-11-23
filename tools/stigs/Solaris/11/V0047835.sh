@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # Define the aliases file
 aliases=/etc/mail/aliases
 
@@ -172,6 +173,7 @@ if [ ${change} -eq 1 ]; then
   # Create a working copy
   cp -p ${aliases} ${aliases}-${ts}
 
+
   # Combine ${cur_aliases[@]} with ${administrators[@]} & remove dupes
   administrators=( "$(remove_duplicates "${cur_aliases[@]}" "${administrators[@]}")" )
 
@@ -182,29 +184,69 @@ if [ ${change} -eq 1 ]; then
   if [ $(grep -c "^audit_warn:" ${aliases}) -gt 0 ]; then
 
     # Replace audit_warn with our new combined list of users
-    sed "s|^\(audit_warn:\).*$|\1|g" ${aliases} > ${aliases}-${ts}
+    sed "s|^\(audit_warn:\).*$|\1${administrators_str}|g" ${aliases} > ${aliases}-${ts}
   else
 
     # Add our new list of administrators
     echo "audit_warn:${administrators_str}" >> ${aliases}-${ts}
   fi
 
+
   # Make sure ${administrators_str} exists
   if [ $(grep -c "^audit_warn:${administrators_str}$" ${aliases}-${ts}) -eq 0 ]; then
     [ ${verbose} -eq 1 ] && print "An error occured adding users to ${aliases}-${ts}" 1
+    rm ${aliases}-${ts}
   else
     mv ${aliases}-${ts} ${aliases}
   fi
 
+
   # Get a list of currently defined users in ${aliases} for audit_warn
   cur_aliases=( $(grep "^audit_warn" ${aliases} | cut -d: -f2 | sort -u | tr ',' ' ') )
+
+  # Import the aliases
+  newaliases &>/dev/null
+  if [ $? -ne 0 ]; then
+    [ ${verbose} -eq 1 ] && print "Could not import new aliases" 1
+  fi
 fi
 
 
-# Validate change according to ${stigid}
+# Define an empty errors array
+declare -a errors
+
+# If ${#cur_aliases[@]} is empty add all of ${administrators[@]} to ${errors[@]}
+if [ ${#cur_aliases[@]} -eq 0 ]; then
+  errors=( "${administrators[@]}" )
+else
+
+  # Iterate ${cur_aliases[@]}
+  for alias in ${cur_aliases[@]}; do
+
+    # Look for ${alias} in ${administrators[@]}
+    if [ $(in_array "${alias}" "${administrators[@]}") -eq 1 ]; then
+
+      # Add ${alias} to ${errors[@]}
+      errors+=("${alias}")
+    fi
+  done
+fi
 
 
-# Exit 1 if validation failed
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Could not validate '${stigid}'" 1
+
+  # Iterate ${errors[@]}
+  for error in ${errors[@]}; do
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "  - ${error}" 1
+  done
+  exit 1
+fi
 
 
 # Print friendly success
