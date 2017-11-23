@@ -106,6 +106,13 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  print "'${stigid}' only applies to global zones" 1
+  exit 1
+fi
+
+
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
@@ -136,13 +143,6 @@ if [ ${meta} -eq 1 ]; then
 
   # Print meta data
   get_meta_data "${cwd}" "${prog}"
-fi
-
-
-# Make sure we are operating on global zones
-if [ "$(zonename)" != "global" ]; then
-  print "'${stigid}' only applies to global zones" 1
-  exit 1
 fi
 
 

@@ -87,18 +87,18 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Remove once work is complete on module
-cat <<EOF
-[${stigid}] Warning: Not yet implemented...
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  print "'${stigid}' only applies to global zones" 1
+  exit 1
+fi
 
-$(get_meta_data "${cwd}" "${prog}")
-EOF
-exit 1
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
 fi
+
 
 # If ${meta} is true
 if [ ${meta} -eq 1 ]; then
@@ -126,21 +126,95 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
+# Iterate all user accounts on system
+for user in $(cut -d: -f1 /etc/passwd | sort -u); do
+
+  # Skip root account
+  [ "${user}" == "root" ] && continue
+
+  # Get list of users & any auditing flags
+  users+=("${user}:$(userattr audit_flags ${user})")
+done
+
+
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
-  # Create backup of file(s), settings or permissions on inodes
-  # (see existing facilities in ${lib_path}/backup.sh)
+  # Create the backup env
+  backup_setup_env "${backup_path}"
 
-  # Make change according to ${stigid}
-  [ ${verbose} -eq 1 ] && print "Make change here"
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "${users[@]}"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of current audit flags per user for '${stigid}' failed..." 1
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot of current audit flags per user for '${stigid}'"
+
+
+  # Iterate ${users[@]}
+  for user in ${users[@]}; do
+
+    # Cut out the username from ${user}
+    user="$(echo "${user}" | cut -d: -f1)"
+
+    # Reset all audit_flags per ${user}
+    usermod -K audit_flags= ${user} 2>/dev/null
+    if [ $? -gt 1 ]; then
+      print "Could not disable audit_flags for '${user}'" 1
+    fi
+  done
+
+
+  # Iterate all user accounts on system
+  for user in $(cut -d: -f1 /etc/passwd | sort -u); do
+
+    # Skip root account
+    [ "${user}" == "root" ] && continue
+
+    # Get list of users & any auditing flags
+    users+=("${user}:$(userattr audit_flags ${user})")
+  done
 fi
 
 
-# Validate change according to ${stigid}
+# Create an empty error array
+declare -a errors
+
+# Iterate ${users[@]}
+for user in ${users[@]}; do
+
+  # Split ${user} up
+  flags="$(echo "${user}" | cut -d: -f2)"
+  user="$(echo "${user}" | cut -d: -f1)"
+
+  # If ${flags} is not NULL then add to an error array
+  if [ "${flags}" != "" ]; then
+    errors+=("${user}")
+  fi
+done
 
 
-# Exit 1 if validation failed
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Could not validate '${stigid}'" 1
+
+  # Iterate ${errors[@]}
+  for error in ${errors[@]}; do
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "  - ${error}" 1
+  done
+  exit 1
+fi
 
 
 # Print friendly success
@@ -162,4 +236,3 @@ exit 0
 #
 # Title: The auditing system must not define a different auditing level for specific users.
 # Description: Without auditing, individual system accesses cannot be tracked, and malicious activity cannot be detected and traced back to an individual account.
-
