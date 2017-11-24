@@ -87,13 +87,12 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Remove once work is complete on module
-cat <<EOF
-[${stigid}] Warning: Not yet implemented...
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  print "'${stigid}' only applies to global zones" 1
+  exit 1
+fi
 
-$(get_meta_data "${cwd}" "${prog}")
-EOF
-exit 1
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
@@ -126,11 +125,54 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
+# Get an array of currently configured & running zones
+zones=( $(zoneadm list -vci | awk '$2 != "global"{print $2}' | sort -u) )
+
+
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
-  # Create backup of file(s), settings or permissions on inodes
-  # (see existing facilities in ${lib_path}/backup.sh)
+
+  # Create the backup env
+  backup_setup_env "${backup_path}"
+
+
+  # Iterate ${zones[@]}
+  for zone in ${zones[@]}; do
+
+    # Get a list of configuration file(s) applicable for all ${zones[@]} found
+    config="$(find / -xdev -type f -name "${zone}.xml")"
+
+    # Skip backup if ${config} doesn't exist
+    [ "${config}" != "" ] && continue
+
+    # If ${config} is a file make a backup
+    if [ -f ${config} ]; then
+
+      bu_file "${author}" "${aliases}"
+      if [ $? -ne 0 ]; then
+
+        # Print friendly message
+        [ ${verbose} -eq 1 ] && print "Could not create a backup of '${aliases}', exiting..." 1
+        exit 1
+      fi
+    fi
+
+
+    # Acquire a list of devices for ${zone}
+    devices=( $(zonecfg -z ${zone} info | grep dev | sed 's/://g') )
+
+    # If ${#devices[@]} is 0, skip
+    [ ${#devices[@]} -eq 0 ] && continue
+
+    # Iterate ${devices[@]}
+    for device in ${devices[@]}; do
+
+      # Remove ${device} from the zone
+      zonecfg -z ${zone} delete device ${device} 2>/dev/null
+    done
+  done
+
 
   # Make change according to ${stigid}
   [ ${verbose} -eq 1 ] && print "Make change here"
@@ -162,4 +204,3 @@ exit 0
 #
 # Title: The systems physical devices must not be assigned to non-global zones.
 # Description: The systems physical devices must not be assigned to non-global zones.
-
