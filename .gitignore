@@ -1,3 +1,8 @@
 *komodo*
 .git/
 tools/backups/
+build/AIX
+build/HPUX
+build/OEL
+build/RH
+build/SOL
