@@ -1,13 +1,14 @@
 #!/bin/bash
 
+# Define the aliases file
+aliases=/etc/mail/aliases
 
+# Define an array of users to handle audit notifications
+declare -a administrators
+administrators+=("root")
 
-# Definition for the file to validate/make changes to
-file=/etc/mail/aliases
-
-# Array of aliases
-declare -a aliases
-aliases+=("")
+# Create a timestamp
+ts="$(date +%Y%m%d-%H%M)"
 
 
 # Global defaults for tool
@@ -97,9 +98,23 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  print "'${stigid}' only applies to global zones" 1
+  exit 1
+fi
+
+
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
+fi
+
+
+# Make sure ${administrators[@]} is defined
+if [ ${#administrators[@]} -eq 0 ]; then
+  [ ${verbose} -eq 1 ] && print "'${#administrators[@]}' users defined for audit notifications" 1
+  exit 1
 fi
 
 
@@ -128,164 +143,107 @@ if [ ${restore} -eq 1 ]; then
   exit 0
 fi
 
-# Handle symlinks
-file="$(get_inode ${file})"
 
-# Ensure ${file} exists @ specified location
-if [ ! -f ${file} ]; then
-  usage "'${file}' does not exist at specified location" && exit 1
-fi
+# Get a list of currently defined users in ${aliases} for audit_warn
+cur_aliases=( $(grep "^audit_warn" ${aliases} | cut -d: -f2 | sort -u | tr ',' ' ') )
 
 
-# If ${restore} = 1 go to restoration mode
-if [ ${restore} -eq 1 ]; then
-
-  # If ${interactive} = 1 go to interactive restoration mode
-  if [ ${interactive} -eq 1 ]; then
-
-    # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
-
-  fi
-
-  # Print friendly message regarding restoration mode
-  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
-
-  exit 0
-fi
-
-
-# If ${change} = 1 do work
+# If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
-  # Create a backup of ${file}
-  bu_file "${author}" "${file}"
-  if [ $? -ne 0 ]; then
+  # Create the backup env
+  backup_setup_env "${backup_path}"
 
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Could not create a backup of '${file}', exiting..." 1
-    exit 1
+  # If ${aliases} exists make a backup
+  if [ -f ${aliases} ]; then
+    bu_file "${author}" "${aliases}"
+    if [ $? -ne 0 ]; then
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "Could not create a backup of '${aliases}', exiting..." 1
+      exit 1
+    fi
   fi
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Created backup of '${file}'"
+  [ ${verbose} -eq 1 ] && print "Created backup of '${aliases}'"
 
 
-  # Print friendly message regarding change
-  [ ${verbose} -eq 1 ] && print "Applying changes for '${stigid}'"
+  # Create a working copy
+  cp -p ${aliases} ${aliases}-${ts}
 
 
-  # Get octal notation for current perms on ${file}
-  perms=$(get_octal ${file})
+  # Combine ${cur_aliases[@]} with ${administrators[@]} & remove dupes
+  administrators=( "$(remove_duplicates "${cur_aliases[@]}" "${administrators[@]}")" )
 
-  # Get user/group for current ${file}
-  owner="$(get_inode_user ${file}):$(get_inode_group ${file})"
+  # Create a string from ${administrators[@]}
+  administrators_str="$(echo "${administrators[@]}" | tr ' ' ',')"
 
-  # Create & set permissions on temporary file
-  tfile="$(gen_tmpfile "${file}" "${owner}" "${perms}" 1)"
+  # If ^audit_warn exists in ${aliases}
+  if [ $(grep -c "^audit_warn:" ${aliases}) -gt 0 ]; then
+
+    # Replace audit_warn with our new combined list of users
+    sed "s|^\(audit_warn:\).*$|\1${administrators_str}|g" ${aliases} > ${aliases}-${ts}
+  else
+
+    # Add our new list of administrators
+    echo "audit_warn:${administrators_str}" >> ${aliases}-${ts}
+  fi
+
+
+  # Make sure ${administrators_str} exists
+  if [ $(grep -c "^audit_warn:${administrators_str}$" ${aliases}-${ts}) -eq 0 ]; then
+    [ ${verbose} -eq 1 ] && print "An error occured adding users to ${aliases}-${ts}" 1
+    rm ${aliases}-${ts}
+  else
+    mv ${aliases}-${ts} ${aliases}
+  fi
+
+
+  # Get a list of currently defined users in ${aliases} for audit_warn
+  cur_aliases=( $(grep "^audit_warn" ${aliases} | cut -d: -f2 | sort -u | tr ',' ' ') )
+
+  # Import the aliases
+  newaliases &>/dev/null
   if [ $? -ne 0 ]; then
-    usage "${tfile}" && exit 1
+    [ ${verbose} -eq 1 ] && print "Could not import new aliases" 1
   fi
-
-  # Print friendly message regarding temporary file
-  [ ${verbose} -eq 1 ] && print "Created temporary file, '${tfile}'"
-
-
-  # Make sure ${#aliases[@]} > 0
-  if [ ${#aliases[@]} -eq 0 ]; then
-    [ ${verbose} -eq 1 ] && print "No aliases defined" 1
-    exit 1
-  fi
-
-
-  # Iterate ${aliases[@]}
-  for talias in ${aliases[@]}; do
-    #[ ${verbose} -eq 1 ] && print "Searching for '${talias}' in '${tfile}'"
-
-    # Get alias keyword from ${talias}
-    palias="$(echo "${talias}" | cut -d: -f1)"
-
-    # Get the current list of emails from ${talias}
-    IFS="," read -p lemails <<< "$(echo "${talias}" | cut -d: -f2)"
-
-    # Search for ${alias} in ${tfile}
-    tmp="$(grep "^${palias}" ${tfile})"
-
-    # If ${tmp} is empty then simply add it
-    if [ "${tmp}" == "" ]; then
-      [ ${verbose} -eq 1 ] && print "Nothing found for '${palias}' in '${tfile}'"
-
-      echo "${alias}" ${tfile}
-    else
-
-      # Since ${tmp} is not empty get list of emails
-      IFS="," read -p cemails <<< "$(echo "${tmp}" | cut -d: -f2)"
-
-      # Perform intersection of ${lemails[@]} with ${cemails[@]}
-      temails=($(comm -13 <(printf "%s\n" "$(echo "${lemails[@]}" | sort -u)") \
-                  <(printf "%s\n" "$(echo "${cemails[@]}" | sort -u)")))
-
-      [ ${verbose} -eq 1 ] && print "Performed intersection on current emails & defined emails"
-
-      # Skip if nothing found
-      if [ ${temails[@]} -eq 0 ]; then
-        [ ${verbose} -eq 1 ] && print "'${#temails[@]}' found for '${palias}', skipping"
-        contine
-      fi
-
-      # Combine ${temails[@]} w/ ${palias} and change entry in ${tfile}
-      sed -e "s|^${palias}.*|${palias}:$(echo "${temails[@]}" | tr ' ' ',')|g" ${file} > ${tfile}
-
-      [ ${verbose} -eq 1 ] && print "Updated '${palias}' to reflect missing notification addresses"
-      [ ${verbose} -eq 1 ] && print "  $(echo "{temails[@]}" | tr ' ' ',')"
-    fi
-  done
-
-  # Move ${tfile} into ${file}
-  mv ${tfile} ${file}
-
-  # Print friendly message regarding restoration of ${file} from ${tfile}
-  [ ${verbose} -eq 1 ] && print "Moved '${tfile}' to '${file}'"
-
-  # Load the new aliases (if any)
-  newaliases
 fi
 
 
-# Define an array to handle errors
-declare -a errs
+# Define an empty errors array
+declare -a errors
 
-# Iterate ${aliases[@]}
-for talias in ${aliases[@]}; do
-  [ ${verbose} -eq 1 ] && print "Searching for '${talias}' in '${file}'"
+# If ${#cur_aliases[@]} is empty add all of ${administrators[@]} to ${errors[@]}
+if [ ${#cur_aliases[@]} -eq 0 ]; then
+  errors=( "${administrators[@]}" )
+else
 
-  # Get ${settings} from ${file}
-  haystack="$(grep "^${talias}" ${file})"
+  # Iterate ${cur_aliases[@]}
+  for alias in ${cur_aliases[@]}; do
 
-  # If ${haystack} is empty
-  if [ "${haystack}" == "" ]; then
+    # Look for ${alias} in ${administrators[@]}
+    if [ $(in_array "${alias}" "${administrators[@]}") -eq 1 ]; then
 
-    # Set an error code
-    errs+=("${talias}")
-
-  fi
-done
-
-
-# If ${#errs[@]} > 0
-if [ ${#errs[@]} -gt 0 ]; then
-
-  # Print friendly message
-  print "Failed validation for '${stigid}'" 1
-
-  # Iterate ${errs[@]}
-  for err in ${errs[@]}; do
-
-    if [ ${verbose} -eq 1 ]; then
-      print "  Missing: ${err}" 1
+      # Add ${alias} to ${errors[@]}
+      errors+=("${alias}")
     fi
   done
+fi
 
+
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Could not validate '${stigid}'" 1
+
+  # Iterate ${errors[@]}
+  for error in ${errors[@]}; do
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "  - ${error}" 1
+  done
   exit 1
 fi
 
