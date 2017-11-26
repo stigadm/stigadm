@@ -125,11 +125,9 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
-# Obtain an array of audit folder(s)
-folders=( $(find / -type d -name "audit") )
-
-# Obtain an array of ZFS file systems
-zfs=( $(zfs list | awk '$5 ~ /^\//{printf("%s:%s\n", $1, $5)}') )
+# Obtain an array of audit settings regarding 'bin_file' plugin
+delcare -a settings
+settings=( $(auditconfig -getplugin audit_binfile | awk '$0 ~ /Attributes/{print $2}' | tr ';' ' ' | tr '=' ':') )
 
 
 # If ${change} = 1
