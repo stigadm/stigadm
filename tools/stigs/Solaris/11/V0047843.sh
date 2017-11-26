@@ -252,9 +252,6 @@ if [ ${change} -eq 1 ]; then
 fi
 
 
-# Print friendly message regarding validation
-[ ${verbose} -eq 1 ] && print "Validating '${file}' according to STIG ID '${stigid}'"
-
 # Define an array to handle errors
 declare -a errs
 
@@ -294,7 +291,7 @@ fi
 
 
 # Print friendly success
-[ ${verbose} -eq 1 ] && print "Success, '${file}' conforms to '${stigid}'"
+[ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
 
@@ -312,4 +309,3 @@ exit 0
 #
 # Title: The audit system must alert the System Administrator (SA) if there is any type of audit failure.
 # Description: Proper alerts to system administrators and Information Assurance (IA) officials of audit failures ensure a timely response to critical system issues.
-
