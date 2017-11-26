@@ -87,13 +87,12 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Remove once work is complete on module
-cat <<EOF
-[${stigid}] Warning: Not yet implemented...
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  print "'${stigid}' only applies to global zones" 1
+  exit 1
+fi
 
-$(get_meta_data "${cwd}" "${prog}")
-EOF
-exit 1
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
@@ -124,6 +123,13 @@ if [ ${restore} -eq 1 ]; then
 
   exit 0
 fi
+
+
+# Obtain an array of audit folder(s)
+folders=( $(find / -type d -name "audit") )
+
+# Obtain an array of ZFS file systems
+zfs=( $(zfs list | awk '$5 ~ /^\//{printf("%s:%s\n", $1, $5)}') )
 
 
 # If ${change} = 1
@@ -162,4 +168,3 @@ exit 0
 #
 # Title: The operating system must allocate audit record storage capacity.
 # Description: Proper audit storage capacity is crucial to ensuring the ongoing logging of critical events.
-
