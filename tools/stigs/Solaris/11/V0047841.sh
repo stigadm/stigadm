@@ -126,7 +126,7 @@ fi
 
 
 # Get an array of currently configured & running zones
-zones=( $(zoneadm list -vci | awk '$2 != "global"{print $2}' | sort -u) )
+zones=( $(zoneadm list -vci | awk '$2 !~ /global|NAME/{print $2}' | sort -u) )
 
 
 # If ${change} = 1
@@ -144,12 +144,12 @@ if [ ${change} -eq 1 ]; then
     config="$(find / -xdev -type f -name "${zone}.xml")"
 
     # Skip backup if ${config} doesn't exist
-    [ "${config}" != "" ] && continue
+    [ "${config}" == "" ] && continue
 
     # If ${config} is a file make a backup
     if [ -f ${config} ]; then
 
-      bu_file "${author}" "${aliases}"
+      bu_file "${author}" "${config}"
       if [ $? -ne 0 ]; then
 
         # Print friendly message
@@ -160,29 +160,74 @@ if [ ${change} -eq 1 ]; then
 
 
     # Acquire a list of devices for ${zone}
-    devices=( $(zonecfg -z ${zone} info | grep dev | sed 's/://g') )
+    devices=( $(zonecfg -z ${zone} info | awk '$0 ~ /^device/{if(total == ""){total=0}else{total++}print total}') )
 
     # If ${#devices[@]} is 0, skip
     [ ${#devices[@]} -eq 0 ] && continue
 
-    # Iterate ${devices[@]}
-    for device in ${devices[@]}; do
+    # Iterate ${devices[@]} (in reverse order)
+    for device in $(echo "${devices[@]}" | tr ' ' '\n' | sort -r); do
 
       # Remove ${device} from the zone
-      zonecfg -z ${zone} delete device ${device} 2>/dev/null
+      zonecfg -z ${zone} remove device ${device} 2>/dev/null
+      if [ $? -ne 0 ]; then
+        [ ${verbose} -eq 1 ] && print "Could not remove device '${device}'" 1
+      fi
     done
+
+    # Ensure the zone is commit'd of the recent device removals
+    zonecfg -z ${zone} commit 2>/dev/null
+    if [ $? -ne 0 ]; then
+      [ ${verbose} -eq 1 ] && print "Could not commit '${zone}'" 1
+    fi
+
+    # Ensure the zone is refreshed
+    zonecfg -z ${zone} refresh 2>/dev/null
+    if [ $? -ne 0 ]; then
+      [ ${verbose} -eq 1 ] && print "Could not refresh zone '${zone}'" 1
+    fi
   done
 
 
   # Make change according to ${stigid}
-  [ ${verbose} -eq 1 ] && print "Make change here"
+  [ ${verbose} -eq 1 ] && print "Removed ${#devices[@]} devices from '${zone}'"
 fi
 
 
-# Validate change according to ${stigid}
+# Define an array for configured zone device errors
+declare -a errors
+
+# Iterate ${zones[@]}
+for zone in ${zones[@]}; do
+
+  # Acquire a list of devices for ${zone}
+  devices=( $(zonecfg -z ${zone} info | awk '$0 ~ /^device/{if(total == ""){total=0}else{total++}print total}') )
+
+  # If ${#devices[@]} > 0
+  if [ ${#devices[@]} -gt 0 ]; then
+    errors+=("${zone}:${#devices[@]}")
+  fi
+done
 
 
-# Exit 1 if validation failed
+# If ${#errors[@]} is > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Could not validate '${stigid}'" 1
+
+  # Iterate ${errors[@]}
+  for error in ${errors[@]}; do
+
+    # Cut ${error} up
+    zone="$(echo "${error}" | cut -d: -f1)"
+    devices="$(echo "${error}" | cut -d: -f2)"
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "  - Zone: ${zone} Devices: ${devices}" 1
+  done
+  exit 1
+fi
 
 
 # Print friendly success
