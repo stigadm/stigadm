@@ -1,5 +1,25 @@
 #!/bin/bash
 
+# Find a directory
+function find_dir()
+{
+  local path="${1}"
+  local folder="${2}"
+
+  find ${path} -type d -name "${folder}"
+}
+
+
+# Find a file
+function find_file()
+{
+  local path="${1}"
+  local file="${2}"
+
+  find ${path} -type f -name "${file}"
+}
+
+
 # Search a haystack for the supplied needle
 # Arguments:
 #  args [Array]: Array of arguments supplied to in_array()

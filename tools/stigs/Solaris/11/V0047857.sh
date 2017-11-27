@@ -4,7 +4,14 @@
 audit_min_free_space=5
 
 # Quota percentage for auditing ZFS filesystem
-audit_fs_quota=75
+audit_fs_quota=25
+
+# Define an empty array to hold audit pluign settings
+declare -a audit_settings
+
+# Define an empty array to hold zfs settings
+declare -a zfs_settings
+
 
 # Global defaults for tool
 author=
@@ -132,7 +139,6 @@ fi
 
 
 # Obtain an array of audit settings regarding 'bin_file' plugin
-declare -a audit_settings
 audit_settings=( $(auditconfig -getplugin audit_binfile | awk '$0 ~ /Attributes/{print $2}' | tr ';' ' ' | tr '=' ':') )
 
 
@@ -154,7 +160,7 @@ for zfs_item in ${zfs_list[@]}; do
   zfs_dataset="$(echo "${zfs_item}" | cut -d: -f2)"
 
   # Look for ${audit_folder} in ${zfs_item}
-  needle="$(find ${zfs_dataset} -type d -name $(basename ${audit_folder}))"
+  needle="$(find_dir ${zfs_dataset} $(basename ${audit_folder}))"
 
   # If ${needle} exists we have our dataset name
   if [ "${needle}" != "" ]; then
@@ -171,18 +177,23 @@ fi
 
 
 # Obtain an array of ZFS values for the p_file value of ${audit_settings[@]}
-declare -a zfs_settings
 zfs_settings=( $(zfs get quota,compression "${zfs_fs}" | awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $2, $3)}') )
 
 
 # Get the current total size for ${zfs_fs}
-total="$(zfs list ${zfs_fs} | grep "^${zfs_fs}" | awk '{print $3}')"
+size="$(zfs list ${zfs_fs} | grep "^${zfs_fs}" | awk '{print $3}')"
 
 # Get the size type from ${total}
-size_type="$(echo "${total}" | sed "s|.*\([A-Z]\)$|\1|g")"
+size_type="$(echo "${size}" | sed "s|.*\([A-Z]\)$|\1|g")"
 
-# Get the calculation of ${audit_fs_quota}
+# Remove ${size_type} from ${size} to get ${total}
+total="$(echo "${size}" | sed "s|${size_type}||g")"
 
+# Convert ${total} to bytes
+total_bytes=$(tobytes "${size_type}" ${total})
+
+# Get the percentage of bytes based on ${audit_fs_quota} & ${total_bytes}
+quota_size=$(frombytes "${size_type}" $(percent ${total_bytes} ${audit_fs_quota}))${size_type}
 
 
 # If ${change} = 1

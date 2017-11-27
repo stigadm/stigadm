@@ -3,49 +3,70 @@
 # Calculate kilobytes to bytes
 function kb2b()
 {
-  echo $(expr ${1} \* 1024)
+  echo "${1} * 1024" | bc
 }
 
 
 # Calculate mb2bytes to bytes
 function mb2b()
 {
-  echo $(expr ${1} \* 1024 \* 1024)
-}
-
-
-# Calculate gigabytes to MB
-function gb2mb()
-{
-  echo $(expr ${1} \* 1024)
-}
-
-
-# Calculate gigabytes to KB
-function gb2kb()
-{
-  echo $(expr ${1} \* 1024 \* 1024)
+  echo "${1} * 1024 * 1024" | bc
 }
 
 
 # Calculate gigabytes to bytes
 function gb2b()
 {
-  echo $(expr ${1} \* 1024 \* 1024 \* 1024)
+  echo "${1} * 1024 * 1024 * 1024" | bc
 }
 
 
-# Calculate kilobytes to MB
-function kb2mb()
+# Calculate terrabytes to bytes
+function tb2b()
 {
-  echo $(expr ${1} / 1024)
+  echo "${1} * 1024 * 1024 * 1024 * 1024" | bc
 }
 
 
-# Calculate bytes to MB
+# Calculate petabytes to bytes
+function pb2b()
+{
+  echo "${1} * 1024 * 1024 * 1024 * 1024 * 1024" | bc
+}
+
+
+# Calculate bytes to kilobytes
+function b2kb()
+{
+  echo "${1} / 1024" | bc
+}
+
+
+# Calculate bytes to megabytes
 function b2mb()
 {
-  echo $(expr ${1} / 1024 / 1024)
+  echo "${1} / 1024 / 1024" | bc
+}
+
+
+# Calculate bytes to gigabytes
+function b2gb()
+{
+  echo "${1} / 1024 / 1024 / 1024" | bc
+}
+
+
+# Calculate bytes to terrabytes
+function b2tb()
+{
+  echo "${1} / 1024 / 1024 / 1024 / 1024" | bc
+}
+
+
+# Calculate bytes to petabytes
+function b2pb()
+{
+  echo "${1} / 1024 / 1024 / 1024 / 1024 / 1024" | bc
 }
 
 
@@ -55,5 +76,41 @@ function percent()
   total=${1}
   percent=${2}
 
-  echo $((${total} / 100 * ${percent}))
+  echo "${total} / 100 * ${percent}" | bc
+}
+
+
+# Perform conversion from requested size to bytes
+function tobytes()
+{
+  local type="${1}"
+  local size=${2}
+  local bytes=
+
+  case "${type}" in
+    K) bytes=$(kb2b ${size}) ;;
+    M) bytes=$(mb2b ${size}) ;;
+    G) bytes=$(gb2b ${size}) ;;
+    P) bytes=$(pb2b ${size}) ;;
+  esac
+
+  echo ${bytes}
+}
+
+
+# Perform conversion from bytes to requested size
+function frombytes()
+{
+  local type="${1}"
+  local size=${2}
+  local bytes=
+
+  case "${type}" in
+    K) bytes=$(b2kb ${size}) ;;
+    M) bytes=$(b2mb ${size}) ;;
+    G) bytes=$(b2gb ${size}) ;;
+    P) bytes=$(b2pb ${size}) ;;
+  esac
+
+  echo ${bytes}
 }
