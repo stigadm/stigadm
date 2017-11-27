@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# audit min free space
+audit_min_free_space=5
+
+# Quota percentage for auditing ZFS filesystem
+audit_fs_quota=75
+
 # Global defaults for tool
 author=
 verbose=0
@@ -126,18 +132,108 @@ fi
 
 
 # Obtain an array of audit settings regarding 'bin_file' plugin
-delcare -a settings
-settings=( $(auditconfig -getplugin audit_binfile | awk '$0 ~ /Attributes/{print $2}' | tr ';' ' ' | tr '=' ':') )
+declare -a audit_settings
+audit_settings=( $(auditconfig -getplugin audit_binfile | awk '$0 ~ /Attributes/{print $2}' | tr ';' ' ' | tr '=' ':') )
+
+
+# Get the auditing filesystem from ${audit_settings[@]}
+audit_folder="$(dirname $(get_inode "$(echo "${audit_settings[@]}" | tr ' ' '\n' | grep "^p_dir" | cut -d: -f2)"))"
+
+# Get the auditing min_free value from ${audit_settings[@]}
+fs_free="$(echo "${audit_settings[@]}" | tr ' '  '\n' | grep "^p_minfree" | cut -d: -f2)"
+
+
+# Obtain an array of zfs shares matching ${audit_folder}
+zfs_list=( $(zfs list | grep "${audit_folder}" | awk '{printf("%s:%s\n", $1, $5)}') )
+
+# Iterate ${zfs_list}
+for zfs_item in ${zfs_list[@]}; do
+
+  # Extract the zfs_path & dataset name
+  zfs_path="$(echo "${zfs_item}" | cut -d: -f1)"
+  zfs_dataset="$(echo "${zfs_item}" | cut -d: -f2)"
+
+  # Look for ${audit_folder} in ${zfs_item}
+  needle="$(find ${zfs_dataset} -type d -name $(basename ${audit_folder}))"
+
+  # If ${needle} exists we have our dataset name
+  if [ "${needle}" != "" ]; then
+    zfs_fs="${zfs_path}"
+    break
+  fi
+done
+
+# Break down if nothing exists for ${zfs_fs}
+if [ "${zfs_fs}" == "" ]; then
+  [ ${verbose} -eq 1 ] && print "Could not determine an audit filesystem to examine" 1
+  exit 1
+fi
+
+
+# Obtain an array of ZFS values for the p_file value of ${audit_settings[@]}
+declare -a zfs_settings
+zfs_settings=( $(zfs get quota,compression "${zfs_fs}" | awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $2, $3)}') )
+
+
+# Get the current total size for ${zfs_fs}
+total="$(zfs list ${zfs_fs} | grep "^${zfs_fs}" | awk '{print $3}')"
+
+# Get the size type from ${total}
+size_type="$(echo "${total}" | sed "s|.*\([A-Z]\)$|\1|g")"
+
+# Get the calculation of ${audit_fs_quota}
+
 
 
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
-  # Create backup of file(s), settings or permissions on inodes
-  # (see existing facilities in ${lib_path}/backup.sh)
+  # Create the backup env
+  backup_setup_env "${backup_path}"
 
-  # Make change according to ${stigid}
-  [ ${verbose} -eq 1 ] && print "Make change here"
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "audit_binfile:setplugin:$(echo "${audit_settings[@]}" | tr ' ' ',')"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of current audit plugin values failed..." 1
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot of current audit plugin values for 'audit_binfile'"
+
+
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "${zfs_settings[@]}"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of current audit plugin values failed..." 1
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot settings applied to '${zfs_fs}' ZFS dataset"
+
+
+  # Set the p_minfree value for the audit_binfile audit plugin
+  auditconfig -setplugin audit_binfile p_minfree=${audit_min_free_space}
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Error occurred setting the minimum free space..." 1
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+
+
 fi
 
 

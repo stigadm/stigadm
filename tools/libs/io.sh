@@ -68,7 +68,7 @@ function get_inode()
     inode="$(readlink -e ${inode})"
 
     # Test for null & return code
-    if [[ -z ${inode} ]] || [[ $? -eq 1 ]]; then
+    if [ "${inode}" == "" ]; then
       echo 1 && return 1
     fi
   fi
