@@ -1,3 +1,263 @@
+commit 2c1fc0ad3df798e9ca66f346493b28ea73cdbb33
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 28 03:41:19 2017 +0400
+
+    V0047857: ZFS audit filesystem settings
+    - Fixed calculations to determine value of quota for ZFS audit filesytem
+    - Added new file/folder searching functions to searching.sh library
+    - Removed unnecessary math functions in math.sh library & converted all existing to use 'bc' in order to handle decimals etc
+    - Added new functions to match.sh in order to automatically convert from specified size to bytes & vice versa
+
+commit d9085eb63dd9fe7fe2b009fb385fe418121bb069
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Mon Nov 27 06:16:52 2017 +0400
+
+    V0047857: 50% complete
+
+commit c0730fe0572ee4676186d26b8e07ce15a8fc4746
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Mon Nov 27 03:02:48 2017 +0400
+
+    Permissions fixes
+
+commit 6984844996d3f307c011c72ba81645081f1996d3
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Mon Nov 27 03:01:33 2017 +0400
+
+    Added new library to handle math conversions
+
+commit b4432f3a9fde4008deef09d288ce37eedce6e717
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 26 23:46:28 2017 +0400
+
+    EOD: V0047857
+
+commit f427aa6b5791172e188854539cf3b1c5d04a3615
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 26 23:14:33 2017 +0400
+
+    V0047843,5: Updated to reflect revisions from V0047835
+
+commit 9025d985ce591abc86784657904cfd4c332ea0ac
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 26 23:09:33 2017 +0400
+
+    V0047843: Updated verbage on verbose success messages
+
+commit 4c6f8d4b83603f3be663ed3c02da22221d57156c
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 26 22:31:07 2017 +0400
+
+    V0047841: Completed validation & remediation (including backup) of STIG module
+
+commit e5162089bae0e5d6f717e0da77f3c8f6f73c7d20
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 23 22:35:04 2017 -0700
+
+    Added README to build system
+
+commit 367115518981582acfe01b6e5858721e0508b79d
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 23 22:31:21 2017 -0700
+
+    Added exceptions to .gitignore regarding STIG docs
+
+commit 1ceba98666b9f6bab57d3644f913f79cd3e703af
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 23 22:30:23 2017 -0700
+
+    Removed all STIG documentation to minimize bloat
+
+commit 45ed81cda40863b016dcb1a28be49a3eab51bfe2
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 23 21:15:25 2017 -0700
+
+    EOD: 20171123
+
+commit 3d58e2a1ad6d7be5874d585dd101a9062e443c26
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 23 03:47:25 2017 -0700
+
+    V0047839: Validation & remediation (including backup) completed
+
+commit 4be5aa76509c7d800d1859801bd1eb534ab34d5c
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 23 03:38:53 2017 -0700
+
+    V0047837: Validation & remediation (including backup) completed
+
+commit 51542bd867c12136d3670f026ec0e85254aaf7c0
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 23 03:23:44 2017 -0700
+
+    V0047835: Validation & remediation (including backup) completed
+
+commit 017eadadefffb5bf8bb138a2988b2805fc7c61be
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 23 01:50:06 2017 -0700
+
+    V0047835: Nearing completion
+
+commit 299c700d241d7c23f282baa83d2da574fbf365c4
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 23 00:28:52 2017 -0700
+
+    V0047831: Validation & remediation (including backups) completed
+
+commit 495095e2d677ad1f2c90abeb3a12d562c5636f45
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Wed Nov 22 23:56:07 2017 -0700
+
+    Fixes for permissions
+
+commit e4f58d15c2a93b75036a438e9c63566e48f10711
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Wed Nov 22 02:02:06 2017 -0700
+
+    V0047827: Now validates, modifies system-log, auditd for remote logging
+
+commit 7f8871fec06f9910d4efd99d5c5aef899b1ae2da
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 21 23:56:11 2017 -0700
+
+    Fixes for patterns & additional work on V0047827
+
+commit 7e6976bfbc911c8dbd83cd8ef85ff1252f0ab185
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 21 23:26:12 2017 -0700
+
+    Added new in_array_loose() function & work nearing completion on V0047827
+
+commit aaacde2d6ca16a58fb81022c0a03c3d51d19b1f9
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 21 17:35:17 2017 -0700
+
+    V0047827: Fixes
+
+commit 60a0406f1bbbd1a5d7111990b9e04721bc227fc8
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 21 17:22:49 2017 -0700
+
+    Added regex patterns for standard IPv4, IPv6 & RFC-1123 hostnames
+
+commit 680c358a353bf01c42ba7f4375e0d9b1f8bec87b
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 21 08:57:29 2017 -0700
+
+    V0047821-5: Effeciency changes to minimize tool calls & fixes for variables refering to the non-attributable audit policies
+
+commit ee913b773a419b4c204c31b1d0d9c36ed342e741
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 21 08:51:32 2017 -0700
+
+    V0047811-9: Effeciency changes to minimize tool calls & fixes for variables refering to the non-attributable audit policies
+
+commit 136c95bd1c567a3be1be562a53043becef5a416d
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 21 08:47:20 2017 -0700
+
+    V0047805,7,9: Effeciency changes to minimize tool calls & fixes for variables refering to the non-attributable audit policies
+
+commit f5ffdc541bd92a8e104e1ce359e3e148389d1a8d
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 21 08:11:47 2017 -0700
+
+    V00477801,3: Fixed issues with conditional  not being set & re-validation of audit service daemon post initialization on change
+
+commit 328d326530ccd4baed24e871a9869bc532362052
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 21 08:03:58 2017 -0700
+
+    V004779[x]: Fixed issues with conditional  not being set & re-validation of audit service daemon post initialization on change
+
+commit 588e10cf767b8ae051d5324fb58155473f1b35d5
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 21 08:00:03 2017 -0700
+
+    V004778[x]: Fixed issues with conditional  not being set & re-validation of audit service daemon post initialization on change
+
+commit 2075ba61c0c2844b2168fc85185abcfd317fbaf0
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 19 20:19:03 2017 -0700
+
+    Speed improvement for menu system
+
+commit 245d7f1a8b62bfef9e52979ad3c4de6487960487
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 19 01:35:37 2017 -0700
+
+    Update to readme & stigadm
+
+commit 3d8aeb9a72f78152d64b289ec129593312db533e
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 19 01:27:20 2017 -0700
+
+    Permission modifications
+
+commit 5d412d8f3c1533670d15567860468d981a0a09f3
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 19 01:25:51 2017 -0700
+
+    Added generated STIG modules for additional UNIX/Linux OS(s)
+
+commit e6cde2888078fd9734d27bc7557c2da33531701f
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sat Nov 18 23:58:47 2017 -0700
+
+    Fixes for meta data & generator
+
+commit 965948be68de9fc0808aebf4ed31f27f5a1126b9
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 16 09:14:27 2017 -0700
+
+    Meta data fixes:
+    - Fixed Solaris Sparc/X86 architecture values
+    - Fixed all invalid calls to get_meta_data() function
+
+commit 3f7b764e57c2b7b5b2eeb0ea47f6b576e5752c81
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 16 00:33:25 2017 -0700
+
+    v0.0.6: New meta data option branch
+
+commit d3e46a0315c918fa729ff2c2728e6dec4b01626a
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 16 00:13:07 2017 -0700
+
+    Fixes; removed all of the latest scripts (stubs) for stig modules. Refactored template & added fixes for existing shell scripts to handle new meta data option
+
+commit 3bfb80f24b271653292a97b5e1fbff6caa4b347e
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Wed Nov 15 04:48:10 2017 -0700
+
+    Revert "V0047807-V0047825: Fixes for audit config implementation"
+    
+    This reverts commit 726265da01eadb26b03e5529341f3b9306e62afe.
+
+commit b7c6c4a95a868eb1764cea3bc423a4488161fd77
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 14 07:19:34 2017 -0700
+
+    New build system results of stubbed STIG modules
+
+commit 4b41d9bf927388dce3fde86432b0d455e10f783a
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 14 06:04:53 2017 -0700
+
+    Refactoring of stig parser tool to ensure accuracy
+
+commit db36d47038e444cd6cad4a801701872ea26beb6d
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 12 06:41:17 2017 -0700
+
+    Fixes for new meta data option
+
+commit dab21bb5847053925ee59d8f96f27b2e973309ef
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Nov 12 06:32:04 2017 -0700
+
+    Change log update
+
 commit d1080dfdef65a1b69bfe46f180668c484ae76bad
 Author: Jas <jason.gerfen@gmail.com>
 Date:   Sun Nov 12 06:31:50 2017 -0700
