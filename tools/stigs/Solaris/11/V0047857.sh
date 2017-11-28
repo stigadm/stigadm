@@ -6,6 +6,12 @@ audit_min_free_space=5
 # Quota percentage for auditing ZFS filesystem
 audit_fs_quota=25
 
+# Define an array of ZFS attributes to validate/modify
+declare -a zfs_attrs
+zfs_attrs+=('compression')
+zfs_attrs+=('reservation')
+zfs_attrs+=('quota')
+
 # Define an empty array to hold audit pluign settings
 declare -a audit_settings
 
@@ -176,8 +182,11 @@ if [ "${zfs_fs}" == "" ]; then
 fi
 
 
+# Set ${opts} from ${zfs_attrs[@]} array
+opts="$(echo "${zfs_attrs[@]}" | tr ' ' ',')"
+
 # Obtain an array of ZFS values for the p_file value of ${audit_settings[@]}
-zfs_settings=( $(zfs get quota,compression "${zfs_fs}" | awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $2, $3)}') )
+zfs_settings=( $(zfs get ${opts} "${zfs_fs}" | awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $2, $3)}') )
 
 
 # Get the current total size for ${zfs_fs}
@@ -193,7 +202,7 @@ total="$(echo "${size}" | sed "s|${size_type}||g")"
 total_bytes=$(tobytes "${size_type}" ${total})
 
 # Get the percentage of bytes based on ${audit_fs_quota} & ${total_bytes}
-quota_size=$(frombytes "${size_type}" $(percent ${total_bytes} ${audit_fs_quota}))${size_type}
+quota_size="$(frombytes "${size_type}" $(percent ${total_bytes} ${audit_fs_quota}))${size_type}"
 
 
 # If ${change} = 1
@@ -237,14 +246,46 @@ if [ ${change} -eq 1 ]; then
   if [ $? -ne 0 ]; then
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Error occurred setting the minimum free space..." 1
+    [ ${verbose} -eq 1 ] && print "Could not set the minimum free space for the audit service..." 1
 
     # Stop, we require a backup
     exit 1
   fi
 
+  # Restart the auditd service
+  audit -s
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Could not restart the audit service..." 1
+  fi
 
 
+  # Enable compression on the ZFS audit fs
+  zfs set compression=on ${zfs_fs}
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Could not enable compression on '${zfs_fs}'..." 1
+  fi
+
+
+  # Set the quota on ${zfs_fs} to ${quota_size}
+  zfs set quota=${quota_size} ${zfs_fs}
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Could not set quota on '${zfs_fs}' to '${quota_size}'..." 1
+  fi
+
+
+  # Set the space reservation on ${zfs_fs} to ${quota_size}
+  zfs set reservation=${quota_size} ${zfs_fs}
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Could not set space reservation on '${zfs_fs}' to '${quota_size}'..." 1
+  fi
 fi
 
 
