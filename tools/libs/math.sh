@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Test value for integer type
+function is_int()
+{
+  echo "${1}" | awk '{if($0 ~ /^[0-9.]+$/){print 1}else{print 0}}'
+}
+
 # Calculate kilobytes to bytes
 function kb2b()
 {

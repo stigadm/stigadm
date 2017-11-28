@@ -7,10 +7,12 @@ audit_min_free_space=5
 audit_fs_quota=25
 
 # Define an array of ZFS attributes to validate/modify
+#  - Syntax: <ZFS-Attribute>:<Value>
+#  INFO: All sizes should be as percentages
 declare -a zfs_attrs
-zfs_attrs+=('compression')
-zfs_attrs+=('reservation')
-zfs_attrs+=('quota')
+zfs_attrs+=('compression:on')
+zfs_attrs+=('reservation:25')
+zfs_attrs+=('quota:25')
 
 # Define an empty array to hold audit pluign settings
 declare -a audit_settings
@@ -261,35 +263,59 @@ if [ ${change} -eq 1 ]; then
   fi
 
 
-  # Enable compression on the ZFS audit fs
-  zfs set compression=on ${zfs_fs}
-  if [ $? -ne 0 ]; then
+  # Iterate ${zfs_attrs[@]}
+  for attr in ${zfs_attrs[@]}; do
+
+    # Split up ${attr} into the key & desired value
+    key="$(echo "${attr}" | cut -d: -f1)"
+    value="$(echo "${attr}" | cut -d: -f2)"
+
+    # Test ${value} for an integer & apply a percentage
+    if [ $(is_int ${value}) -eq 1 ]; then
+
+      # Copy ${value}
+      tvalue=${value}
+
+      # Convert ${total_bytes} to a percentage of ${value}
+      value="$(frombytes "${size_type}" $(percent ${total_bytes} ${value}))"
+
+      # If ${value} is 0 then skip & notify of issue
+      if [ ${value} -eq 0 ]; then
+
+        [ ${verbose} -eq 1 ] && print "Calculations for '${key} [${total_bytes} / 100 * ${tvalue}]' resulted in '${value}', skipping" 1
+        continue
+      fi
+
+      # Apply ${size_type} to ${value}
+      value="${value}${size_type}"
+    fi
+
+    # Enable compression on the ZFS audit fs
+    zfs set ${key}=${value} ${zfs_fs} 2>/dev/null
+    if [ $? -ne 0 ]; then
+
+      # Print friendly message
+      [ ${verbose} -eq 1 ] && print "Could set '${key}' to '${value}' on '${zfs_fs}'..." 1
+    fi
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Could not enable compression on '${zfs_fs}'..." 1
-  fi
+    [ ${verbose} -eq 1 ] && print "Set '${key}' to '${value}' on '${zfs_fs}'..."
+  done
 
 
-  # Set the quota on ${zfs_fs} to ${quota_size}
-  zfs set quota=${quota_size} ${zfs_fs}
-  if [ $? -ne 0 ]; then
+  # Obtain an array of audit settings regarding 'bin_file' plugin
+  audit_settings=( $(auditconfig -getplugin audit_binfile | awk '$0 ~ /Attributes/{print $2}' | tr ';' ' ' | tr '=' ':') )
 
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Could not set quota on '${zfs_fs}' to '${quota_size}'..." 1
-  fi
+  # Get the auditing min_free value from ${audit_settings[@]}
+  fs_free="$(echo "${audit_settings[@]}" | tr ' '  '\n' | grep "^p_minfree" | cut -d: -f2)"
 
+  # Obtain an array of ZFS values for the p_file value of ${audit_settings[@]}
+  zfs_settings=( $(zfs get ${opts} "${zfs_fs}" | awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $2, $3)}') )
 
-  # Set the space reservation on ${zfs_fs} to ${quota_size}
-  zfs set reservation=${quota_size} ${zfs_fs}
-  if [ $? -ne 0 ]; then
-
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Could not set space reservation on '${zfs_fs}' to '${quota_size}'..." 1
-  fi
 fi
 
 
-# Validate change according to ${stigid}
+# Validate
 
 
 # Exit 1 if validation failed
