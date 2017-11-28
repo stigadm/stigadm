@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/bash -x
+
 
 # audit min free space
 audit_min_free_space=5
@@ -309,13 +310,89 @@ if [ ${change} -eq 1 ]; then
   # Get the auditing min_free value from ${audit_settings[@]}
   fs_free="$(echo "${audit_settings[@]}" | tr ' '  '\n' | grep "^p_minfree" | cut -d: -f2)"
 
+  # Create a copy of ${zfs_settings[@]} prior to over writting it
+  declare -a orig_zfs_settings
+  orig_zfs_settings=( ${zfs_settings} )
+
   # Obtain an array of ZFS values for the p_file value of ${audit_settings[@]}
   zfs_settings=( $(zfs get ${opts} "${zfs_fs}" | awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $2, $3)}') )
 
+  # Get the parent folder for ${zfs_fs} & it's available size
+  zfs_fs_parent="$(zfs list $(dirname ${zfs_fs}) | awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $3, $5)}')"
 fi
 
 
-# Validate
+# Define an empty array ot handle errors
+declare -a errors
+
+
+# Get the current p_minfree value
+cur_audit_min_free_space=$(echo "${audit_settings[@]}" | tr ' ' '\n' | grep "p_minfree" | cut -d: -f2)
+
+# Validate p_minfree value for audit_binfile
+if [ ${cur_audit_min_free_space} -ne ${audit_min_free_space} ]; then
+  errors+=("p_minfree:${audit_min_free_space}:${cur_audit_min_free_space}")
+fi
+
+
+# Iterate ${zfs_attrs[@]}
+for attr in ${zfs_attrs[@]}; do
+
+  # Split up ${attr} into the key & desired value
+  key="$(echo "${attr}" | cut -d: -f1)"
+  value="$(echo "${attr}" | cut -d: -f2)"
+
+  # Test ${value} for an integer & apply a percentage
+  if [ $(is_int ${value}) -eq 1 ]; then
+
+    # Copy ${value}
+    tvalue=${value}
+
+    # If ${value} starts with a number
+    if [ $(echo "${value}" | awk '{if ($0 ~ /^[0-9]/){print 1}else{print 0}}') -eq 1 ]; then
+
+      # Get the current size for the parent file system
+      parent_size="$(echo "${zfs_fs_parent}" | cut -d: -f2)"
+
+      # Get the size type from ${total}
+      parent_size_type="$(echo "${parent_size}" | sed "s|.*\([A-Z]\)$|\1|g")"
+
+      # Remove ${size_type} from ${size} to get ${total}
+      parent_total="$(echo "${parent_size}" | sed "s|${parent_size_type}||g")"
+
+      # Convert ${total} to bytes
+      parent_total_bytes=$(tobytes "${parent_size_type}" ${parent_total})
+
+      # Add ${parent_total_bytes} with ${cur_total_bytes}
+      
+
+      # Get the percentage of bytes based on ${audit_fs_quota} & ${total_bytes}
+      parent_quota_size="$(frombytes "${parent_size_type}" $(percent ${parent_total_bytes} ${audit_fs_quota}))"
+
+      # Add ${parent_quota_size
+
+      # If ${value} is 0 then skip & notify of issue
+      if [ ${value} -eq 0 ]; then
+
+        [ ${verbose} -eq 1 ] && print "Calculations for '${key} [${total_bytes} / 100 * ${tvalue}]' resulted in '${value}', skipping" 1
+        continue
+      fi
+    fi
+
+    # Apply ${size_type} to ${value}
+    value="${value}${size_type}"
+  fi
+
+
+  # Pluck out the current value for ${key} from ${zfs_settings[@]}
+  cur_value="$(echo "${zfs_settings[@]}" | tr ' ' '\n' | grep "^${key}:" | cut -d: -f2)"
+
+  # Test ${value} against current ${cur_value} array element value
+  if [ "${cur_value}" != "${value}" ]; then
+
+    errors+=("${key}:${value}:${cur_value}")
+  fi
+done
 
 
 # Exit 1 if validation failed
