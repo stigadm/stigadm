@@ -364,12 +364,10 @@ for attr in ${zfs_attrs[@]}; do
       parent_total_bytes=$(tobytes "${parent_size_type}" ${parent_total})
 
       # Add ${parent_total_bytes} with ${cur_total_bytes}
-      
+      parent_total_bytes=$(( ${parent_total_bytes} ${total_bytes} ))
 
       # Get the percentage of bytes based on ${audit_fs_quota} & ${total_bytes}
       parent_quota_size="$(frombytes "${parent_size_type}" $(percent ${parent_total_bytes} ${audit_fs_quota}))"
-
-      # Add ${parent_quota_size
 
       # If ${value} is 0 then skip & notify of issue
       if [ ${value} -eq 0 ]; then

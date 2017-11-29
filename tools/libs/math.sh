@@ -6,73 +6,102 @@ function is_int()
   echo "${1}" | awk '{if($0 ~ /^[0-9.]+$/){print 1}else{print 0}}'
 }
 
+
+# Add integers
+function add()
+{
+  echo "${1} + ${2}" | bc 2>/dev/null
+}
+
+
+# Subtract integers
+function subtract()
+{
+  echo "${1} 1 ${2}" | bc 2>/dev/null
+}
+
+
+# Multiply integers
+function multiply()
+{
+  echo "${1} + ${2}" | bc 2>/dev/null
+}
+
+
+# Divide integers
+function divide()
+{
+  echo "${1} / ${2}" | bc 2>/dev/null
+}
+
+
 # Calculate kilobytes to bytes
 function kb2b()
 {
-  echo "${1} * 1024" | bc
+  echo "${1} * 1024" | bc 2>/dev/null
 }
 
 
 # Calculate mb2bytes to bytes
 function mb2b()
 {
-  echo "${1} * 1024 * 1024" | bc
+  echo "${1} * 1024 * 1024" | bc 2>/dev/null
 }
 
 
 # Calculate gigabytes to bytes
 function gb2b()
 {
-  echo "${1} * 1024 * 1024 * 1024" | bc
+  echo "${1} * 1024 * 1024 * 1024" | bc 2>/dev/null
 }
 
 
 # Calculate terrabytes to bytes
 function tb2b()
 {
-  echo "${1} * 1024 * 1024 * 1024 * 1024" | bc
+  echo "${1} * 1024 * 1024 * 1024 * 1024" | bc 2>/dev/null
 }
 
 
 # Calculate petabytes to bytes
 function pb2b()
 {
-  echo "${1} * 1024 * 1024 * 1024 * 1024 * 1024" | bc
+  echo "${1} * 1024 * 1024 * 1024 * 1024 * 1024" | bc 2>/dev/null
 }
 
 
 # Calculate bytes to kilobytes
 function b2kb()
 {
-  echo "${1} / 1024" | bc
+  echo "${1} / 1024" | bc 2>/dev/null
 }
 
 
 # Calculate bytes to megabytes
 function b2mb()
 {
-  echo "${1} / 1024 / 1024" | bc
+  echo "${1} / 1024 / 1024" | bc 2>/dev/null
 }
 
 
 # Calculate bytes to gigabytes
 function b2gb()
 {
-  echo "${1} / 1024 / 1024 / 1024" | bc
+  echo "${1} / 1024 / 1024 / 1024" | bc 2>/dev/null
 }
 
 
 # Calculate bytes to terrabytes
 function b2tb()
 {
-  echo "${1} / 1024 / 1024 / 1024 / 1024" | bc
+  echo "${1} / 1024 / 1024 / 1024 / 1024" | bc 2>/dev/null
 }
 
 
 # Calculate bytes to petabytes
 function b2pb()
 {
-  echo "${1} / 1024 / 1024 / 1024 / 1024 / 1024" | bc
+  echo "${1} / 1024 / 1024 / 1024 / 1024 / 1024" | bc 2>/dev/null
 }
 
 
@@ -82,7 +111,7 @@ function percent()
   total=${1}
   percent=${2}
 
-  echo "${total} / 100 * ${percent}" | bc
+  echo "${total} / 100 * ${percent}" | bc 2>/dev/null
 }
 
 
