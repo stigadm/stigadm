@@ -1,3 +1,33 @@
+commit 4d3d014f4bd53d83e287b3ae4f78d81bb81b3654
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 30 03:13:26 2017 +0400
+
+    math.sh: Added simply arithmetic functions
+
+commit 738afd06656a58ccaf16f5a87a35e5693b6848e1
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Wed Nov 29 01:23:34 2017 +0400
+
+    V0047857: Working towards validation pre/post remediation
+
+commit 72bb755717256ac7c178307b8e9bcf9c15023871
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 28 23:05:37 2017 +0400
+
+    Added new function to math.sh library to handle integer validation & completed work on remediation for V0047857
+
+commit 119440f76997814aea6da3e1b41e325e7382968f
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 28 04:41:52 2017 +0400
+
+    V0047857: Remediation complete; now changes min free space attribute to audit_binfile, locates audit rpool mount enables compression, sets quota & space reservation attributes
+
+commit c4dc273b5d2b77fa743d48d7a294e1852ef52928
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Tue Nov 28 03:44:53 2017 +0400
+
+    Updated changelog
+
 commit 2c1fc0ad3df798e9ca66f346493b28ea73cdbb33
 Author: Jas <jason.gerfen@gmail.com>
 Date:   Tue Nov 28 03:41:19 2017 +0400
