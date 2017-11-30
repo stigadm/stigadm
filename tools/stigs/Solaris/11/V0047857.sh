@@ -186,7 +186,8 @@ fi
 
 
 # Set ${opts} from ${zfs_attrs[@]} array
-opts="$(echo "${zfs_attrs[@]}" | tr ' ' ',')"
+opts="$(echo "${zfs_attrs[@]}" | tr ' ' '\n' | cut -d: -f1 | tr '\n' ',')"
+opts="$(echo "${opts}" | sed "s|,$||g")"
 
 # Obtain an array of ZFS values for the p_file value of ${audit_settings[@]}
 zfs_settings=( $(zfs get ${opts} "${zfs_fs}" | awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $2, $3)}') )
@@ -206,6 +207,10 @@ total_bytes=$(tobytes "${size_type}" ${total})
 
 # Get the percentage of bytes based on ${audit_fs_quota} & ${total_bytes}
 quota_size="$(frombytes "${size_type}" $(percent ${total_bytes} ${audit_fs_quota}))${size_type}"
+
+
+# Get the parent folder for ${zfs_fs} & it's available size
+zfs_fs_parent="$(zfs list $(dirname ${zfs_fs}) | awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $3, $5)}')"
 
 
 # If ${change} = 1
@@ -316,9 +321,6 @@ if [ ${change} -eq 1 ]; then
 
   # Obtain an array of ZFS values for the p_file value of ${audit_settings[@]}
   zfs_settings=( $(zfs get ${opts} "${zfs_fs}" | awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $2, $3)}') )
-
-  # Get the parent folder for ${zfs_fs} & it's available size
-  zfs_fs_parent="$(zfs list $(dirname ${zfs_fs}) | awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $3, $5)}')"
 fi
 
 
@@ -341,6 +343,10 @@ for attr in ${zfs_attrs[@]}; do
   # Split up ${attr} into the key & desired value
   key="$(echo "${attr}" | cut -d: -f1)"
   value="$(echo "${attr}" | cut -d: -f2)"
+
+  # Get the current ${key} from ${zfs_settings[@]}
+  cur_value="$(echo "${zfs_settings[@]}" | tr ' ' '\n' | grep "${key}" | cut -d: -f3)"
+
 
   # Test ${value} for an integer & apply a percentage
   if [ $(is_int ${value}) -eq 1 ]; then
@@ -367,33 +373,44 @@ for attr in ${zfs_attrs[@]}; do
       parent_total_bytes=$(add ${parent_total_bytes} ${total_bytes})
 
       # Get the percentage of bytes based on ${audit_fs_quota} & ${total_bytes}
-      parent_quota_size="$(frombytes "${parent_size_type}" $(percent ${parent_total_bytes} ${audit_fs_quota}))"
+      parent_quota_size="$(frombytes "${parent_size_type}" $(percent ${parent_total_bytes} ${audit_fs_quota}))${parent_size_type}"
 
-      # If ${value} is 0 then skip & notify of issue
-      if [ ${value} -eq 0 ]; then
 
-        [ ${verbose} -eq 1 ] && print "Calculations for '${key} [${total_bytes} / 100 * ${tvalue}]' resulted in '${value}', skipping" 1
+      # If ${parent_quota_size} != ${cur_value}
+      if [ $(echo "${cur_value}" | grep -c "^${parent_quota_size}$") -eq 0 ]; then
+#      if [ "${parent_quota_size}${parent_size_type}" != "${cur_value}" ]; then
+
+        errors+=("${zfs_fs}:${key}:${value}")
         continue
       fi
     fi
 
-    # Apply ${size_type} to ${value}
-    value="${value}${size_type}"
-  fi
-
-
-  # Pluck out the current value for ${key} from ${zfs_settings[@]}
-  cur_value="$(echo "${zfs_settings[@]}" | tr ' ' '\n' | grep "^${key}:" | cut -d: -f2)"
-
-  # Test ${value} against current ${cur_value} array element value
-  if [ "${cur_value}" != "${value}" ]; then
-
-    errors+=("${key}:${value}:${cur_value}")
+    # Test ${cur_value} against ${value}
+    if [ "${cur_value}" != "${value}" ]; then
+      errors+=("${zfs_fs}:${key}:${cur_value}")
+    fi
   fi
 done
 
 
-# Exit 1 if validation failed
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  [ ${verbose} -eq 1 ] && print "Could not validate '${stigid}'" 1
+
+  # Iterate ${errors[@]}
+  for error in ${errors[@]}; do
+
+    # Split up ${error}
+    fs="$(echo "${error}" | cut -d: -f1)"
+    key="$(echo "${error}" | cut -d: -f2)"
+    value="$(echo "${error}" | cut -d: -f3)"
+
+    [ ${verbose} -eq 1 ] && print " - ${fs} ${key} ${value}" 1
+
+  done
+  exit 1
+fi
 
 
 # Print friendly success

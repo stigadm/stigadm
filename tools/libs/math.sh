@@ -7,34 +7,6 @@ function is_int()
 }
 
 
-# Add integers
-function add()
-{
-  echo "${1} + ${2}" | bc 2>/dev/null
-}
-
-
-# Subtract integers
-function subtract()
-{
-  echo "${1} 1 ${2}" | bc 2>/dev/null
-}
-
-
-# Multiply integers
-function multiply()
-{
-  echo "${1} + ${2}" | bc 2>/dev/null
-}
-
-
-# Divide integers
-function divide()
-{
-  echo "${1} / ${2}" | bc 2>/dev/null
-}
-
-
 # Calculate kilobytes to bytes
 function kb2b()
 {
@@ -102,6 +74,34 @@ function b2tb()
 function b2pb()
 {
   echo "${1} / 1024 / 1024 / 1024 / 1024 / 1024" | bc 2>/dev/null
+}
+
+
+# Add integers
+function add()
+{
+  echo "${1} + ${2}" | bc 2>/dev/null
+}
+
+
+# Subtract integers
+function subtract()
+{
+  echo "${1} 1 ${2}" | bc 2>/dev/null
+}
+
+
+# Multiply integers
+function multiply()
+{
+  echo "${1} + ${2}" | bc 2>/dev/null
+}
+
+
+# Divide integers
+function divide()
+{
+  echo "${1} / ${2}" | bc 2>/dev/null
 }
 
 
