@@ -264,8 +264,16 @@ if [ ${#stigs[@]} -ne ${#list[@]} ]; then
   # Define an array for missing modules
   declare -a missing
 
-  # Get intersection from ${list[@]} & ${stigs[@]}
-  missing=( $(comm -3 <(printf '%s\n' "${list[@]}" | sort -u) <(printf '%s\n' "$(echo "${stigs[@]}" | tr ' ' '\n' | nawk '{system("basename " $0)}' | cut -d. -f1 | tr '\n' ' ')" | sort -u) ) )
+  # Iterate ${list[@]}
+  for module in ${list[@]}; do
+
+    # Look for ${module} in ${stigs[@]}
+    if [ $(in_array "${module}" "${stigs[@]}") -eq 1 ]; then
+
+      # Add to ${missing[@]} array
+      missing+=("${module}")
+    fi
+  done
 fi
 
 
@@ -275,11 +283,11 @@ fi
 [ ${verbose} -eq 1 ] && echo
 
 # Provide list from ${missing[@]}
-#if [[ ${verbose} -eq 1 ]] && [[ ${#missing[@]} -gt 0 ]]; then
-#  print "Missing modules:" 1
-#  print "  $(echo "${missing[@]}")" 1
-#  echo
-#fi
+if [[ ${verbose} -eq 1 ]] && [[ ${#missing[@]} -gt 0 ]]; then
+  print "Missing modules:" 1
+  print "  $(echo "${missing[@]}")" 1
+  echo
+fi
 
 
 # If ${change} = 1, ${os} is Solaris & ${bootenv} = 1 setup a new BE
