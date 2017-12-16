@@ -265,13 +265,13 @@ if [ ${#stigs[@]} -ne ${#list[@]} ]; then
   declare -a missing
 
   # Iterate ${list[@]}
-  for module in ${list[@]}; do
+  for item in ${list[@]}; do
 
-    # Look for ${module} in ${stigs[@]}
-    if [ $(in_array "${module}" "${stigs[@]}") -eq 1 ]; then
+    # Look for ${item} in ${stigs[@]}
+    if [ $(in_array_loose "${item}" "${stigs[@]}") -eq 1 ]; then
 
       # Add to ${missing[@]} array
-      missing+=("${module}")
+      missing+=("${item}")
     fi
   done
 fi
