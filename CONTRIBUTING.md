@@ -40,8 +40,8 @@ With regards to extending functionality; it is important to adhere to
 existing API calls, code formating & reporting. Failure to do so will
 result in rejected pull requests.
 
-It is best to use [existing modules](https://github.com/jas-/stigadm/tools/stigs) or the
-provided [template](https://github.com/jas-/stigadm/build/template.sh) to ensure
+It is best to use [existing modules](https://github.com/jas-/stigadm/tree/master/tools/stigs) or the
+provided [template](https://github.com/jas-/stigadm/tree/master/build/template.sh) to ensure
 your contribution will conform to the `stigadm` framework requirements.
 
 If adding modules manually it is important to include the required meta data to ensure
