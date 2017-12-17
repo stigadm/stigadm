@@ -34,14 +34,19 @@ $ git checkout -b my-feature-branch -t origin/master
 The branch name should be descriptive about the fixes/features it will
 address.
 
-### Step 3: Writing good tests
+### Step 3: Writing good modules
 
 With regards to extending functionality; it is important to adhere to
 existing API calls, code formating & reporting. Failure to do so will
 result in rejected pull requests.
 
-It is best to use existing tests or the provided template to ensure
-your contribution will conform to the toolkits requirements.
+It is best to use [existing modules](https://github.com/jas-/stigadm/tools/stigs) or the
+provided [template](https://github.com/jas-/stigadm/build/template.sh) to ensure
+your contribution will conform to the `stigadm` framework requirements.
+
+If adding modules manually it is important to include the required meta data to ensure
+your module can be included in those validation/remediation implementations that make use
+of filters to include various targets such as operating system, versioning or classification.
 
 ### Step 4: Commit
 

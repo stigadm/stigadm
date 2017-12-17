@@ -147,3 +147,18 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
+# Date:
+#
+# Severity:
+# Classification:
+# STIG_ID:
+# STIG_Version:
+# Rule_ID:
+#
+# OS:
+# Version:
+# Architecture:
+#
+# Title:
+# Description:
