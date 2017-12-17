@@ -201,7 +201,7 @@ if [ ${#success[@]} -gt 0 ]; then
     val="$(echo "${succ}" | cut -d: -f2)"
     prot="$(echo "${succ}" | cut -d: -f3)"
 
-    print "  - ${prop} = ${val} -> ${prot}"
+    print "  ${prop} = ${val} -> ${prot}"
   done
 fi
 
@@ -225,7 +225,7 @@ for err in ${errors[@]}; do
   eval="$(echo "${err}" | cut -d: -f2)"
   eprot="$(echo "${err}" | cut -d: -f3)"
 
-  print "  - ${eprop} = ${eval} -> ${eprot}" 1
+  print "  ${eprop} = ${eval} -> ${eprot}" 1
 done
 
 [ ${verbose} -eq 1 ] && print "Failed conformity to '${stigid}'" 1

@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# Define an empty array to hold audit pluign settings
+declare -a audit_settings
+
+# Define the owner of p_dir
+owner="root"
+
+# Define the group of p_dir
+group="root"
+
+# Define the octal for p_dir
+octal=00640
+
+
 # Global defaults for tool
 author=
 verbose=0
@@ -87,13 +100,12 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Remove once work is complete on module
-cat <<EOF
-[${stigid}] Warning: Not yet implemented...
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  print "'${stigid}' only applies to global zones" 1
+  exit 1
+fi
 
-$(get_meta_data "${cwd}" "${prog}")
-EOF
-exit 1
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
@@ -126,27 +138,120 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
+# Obtain an array of audit settings regarding 'bin_file' plugin
+audit_settings=( $(auditconfig -getplugin audit_binfile | awk '$0 ~ /Attributes/{print $2}' | tr ';' ' ' | tr '=' ':') )
+
+# Get the auditing filesystem from ${audit_settings[@]}
+audit_folder="$(dirname $(get_inode "$(echo "${audit_settings[@]}" | tr ' ' '\n' | grep "^p_dir" | cut -d: -f2)"))"
+
+# Define an empty array ot handle errors
+declare -a errors
+
+
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
-  # Create backup of file(s), settings or permissions on inodes
-  # (see existing facilities in ${lib_path}/backup.sh)
+  # Create the backup env
+  backup_setup_env "${backup_path}"
 
-  # Make change according to ${stigid}
-  [ ${verbose} -eq 1 ] && print "Make change here"
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "audit_binfile:setplugin:$(echo "${audit_settings[@]}" | tr ' ' ',')"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of current audit plugin values failed..." 1
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot of current audit plugin values for 'audit_binfile'"
+
+
+  # Set user ownership on ${audit_folder}
+  chown ${owner} ${audit_folder} 2>/dev/null
+  if [ $? -ne 0 ]; then
+
+    # Trap error
+    [ $? -ne 0 ] && errors+=("${audit_folder}:${owner}:$(get_inode_user "${audit_folder}")")
+  fi
+
+  # Set group ownership on ${audit_folder}
+  chgrp ${group} ${audit_folder} 2>/dev/null
+  if [ $? -ne 0 ]; then
+
+    # Trap error
+    [ $? -ne 0 ] && errors+=("${audit_folder}:${group}:$(get_inode_group "${audit_folder}")")
+  fi
+
+  # Set permissions on ${audit_folder}
+  chmod ${octal} ${audit_folder} 2>/dev/null
+  if [ $? -ne 0 ]; then
+
+    # Trap error
+    [ $? -ne 0 ] && errors+=("${audit_folder}:${octal}:$(get_inode_user "${audit_folder}")")
+  fi
+
+  # Restart the auditd service
+  audit -s
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Could not restart the audit service..." 1
+  fi
 fi
 
 
-# Validate change according to ${stigid}
+# Validate user ownership
+cowner="$(get_inode_user ${audit_folder})"
+if [ "${cowner}" != "${owner}" ]; then
 
+  # Trap error
+  errors+=("${audit_folder}:${owner}:${cowner}")
+fi
 
-# Exit 1 if validation failed
+# Validate group ownership
+cgroup="$(get_inode_group ${audit_folder})"
+if [ "${cowner}" != "${owner}" ]; then
+
+  # Trap error
+  errors+=("${audit_folder}:${group}:${cgroup}")
+fi
+
+# Validate octal
+coctal="$(get_octal ${audit_folder})"
+if [ ${coctal} -ne ${octal} ]; then
+
+  # Trap error
+  errors+=("${audit_folder}:${octal}:${coctal}")
+fi
+
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  [ ${verbose} -eq 1 ] && print "Could not validate '${stigid}'" 1
+
+  # Iterate ${errors[@]}
+  for error in ${errors[@]}; do
+
+    # Split up ${error}
+    fs="$(echo "${error}" | cut -d: -f1)"
+    key="$(echo "${error}" | cut -d: -f2)"
+    value="$(echo "${error}" | cut -d: -f3)"
+
+    [ ${verbose} -eq 1 ] && print "  ${fs} ${key} [${value}]" 1
+
+  done
+  exit 1
+fi
 
 
 # Print friendly success
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
 
 # Date: 2017-06-21
 #
@@ -162,4 +267,3 @@ exit 0
 #
 # Title: The operating system must protect audit information from unauthorized read access.
 # Description: The operating system must protect audit information from unauthorized read access.
-

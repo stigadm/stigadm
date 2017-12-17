@@ -117,6 +117,15 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
+# Remove once work is complete on module
+cat <<EOF
+[${stigid}] Warning: Not yet implemented...
+
+$(get_meta_data "${cwd}" "${prog}")
+EOF
+exit 1
+
+
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
@@ -425,7 +434,7 @@ if [ ${#success[@]} -gt 0 ]; then
 
   [ ${verbose} -eq 1 ] && print "'${#success[@]}/${#users[@]}' passed validation:"
   for successful in ${success[@]}; do
-    [ ${verbose} -eq 1 ] && print "  - '${successful}'"
+    [ ${verbose} -eq 1 ] && print "  '${successful}'"
   done
 fi
 
@@ -435,7 +444,7 @@ if [ ${#fails[@]} -gt 0 ]; then
 
   [ ${verbose} -eq 1 ] && print "'${#fails[@]}/${#users[@]}' passed validation:"
   for failed in ${fails[@]}; do
-    [ ${verbose} -eq 1 ] && print "  - '${failed}'"
+    [ ${verbose} -eq 1 ] && print "  '${failed}'"
   done
 fi
 
@@ -466,4 +475,3 @@ exit 0
 #
 # Title: The system must disable accounts after three consecutive unsuccessful login attempts.
 # Description: Allowing continued access to accounts on the system exposes them to brute-force password-guessing attacks.
-

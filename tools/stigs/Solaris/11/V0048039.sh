@@ -98,6 +98,15 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
+# Remove once work is complete on module
+cat <<EOF
+[${stigid}] Warning: Not yet implemented...
+
+$(get_meta_data "${cwd}" "${prog}")
+EOF
+exit 1
+
+
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
@@ -285,7 +294,7 @@ if [ ${#errs[@]} -gt 0 ]; then
     fi
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - ${efile} [${etype}: ${eowner}]" 1
+    [ ${verbose} -eq 1 ] && print "  ${efile} [${etype}: ${eowner}]" 1
   done
 
   exit 1
@@ -313,7 +322,7 @@ for val in ${vals[@]}; do
   fi
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "  - ${ofile}  [${oowner}: ${ogroup}]"
+  [ ${verbose} -eq 1 ] && print "  ${ofile}  [${oowner}: ${ogroup}]"
 done
 
 
@@ -337,4 +346,3 @@ exit 0
 #
 # Title: The operating system must have no unowned files.
 # Description: A new user who is assigned a deleted user's user ID or group ID may then end up owning these files, and thus have more access on the system than was intended.
-

@@ -280,7 +280,7 @@ if [ ${#errs[@]} -gt 0 ]; then
     fi
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - ${efile} (${eoctal})" 1
+    [ ${verbose} -eq 1 ] && print "  ${efile} (${eoctal})" 1
   done
 
   exit 1
@@ -300,7 +300,7 @@ for val in ${vals[@]}; do
   ooctal="$(echo "${val}" | cut -d: -f2)"
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "  - ${ofile} (${ooctal})"
+  [ ${verbose} -eq 1 ] && print "  ${ofile} (${ooctal})"
 done
 
 

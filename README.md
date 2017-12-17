@@ -1,6 +1,21 @@
 # stigadm
 
-DOD DISA IASE STIG validation & remediation for Linux/UNIX
+DISA IASE STIG validation & remediation for Linux/UNIX
+
+DISCLAIMER: Project coverage @ 93/3093 (3%) of STIG(s)
+
+Coverage report: 2018-04-20 
+
+| OS            | Version   | STIG Rule(s)   | Completed |
+| :---          | :---      | :---           | :---      |
+| AIX           | 6.1       | 505            | 0         |
+| HP-UX         | 11.31     | 518            | 0         |
+| Oracle Linux  | 5         | 569            | 0         |
+| Oracle Linux  | 6         | 262            | 0         |
+| Red Hat       | 6         | 259            | 0         |
+| Red Hat       | 7         | 232            | 0         |
+| Solaris       | 10        | 511            | 26        |
+| Solaris       | 11        | 237            | 80        |
 
 ## install ##
 No installer package; simply copy latest `stigadm` toolkit and use.
@@ -115,8 +130,12 @@ stigadm] Ok: Built list of STIG modules: 3/74
 Contributions are welcome & appreciated. Refer to the [contributing document](https://github.com/jas-/stigadm/blob/master/CONTRIBUTING.md)
 to help facilitate pull requests.
 
+## FAQ ##
+Pleae read the [FAQ](https://github.com/stigadm/stigadm/wiki/FAQ) to answer general questions about the project. Thanks.
+
+
 ## license ##
 
 This software is licensed under the [MIT License](https://github.com/jas-/stigadm/blob/master/LICENSE).
 
-Copyright Jason Gerfen, 2015-2017.
+Copyright Jason Gerfen, 2015-2018.

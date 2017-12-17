@@ -227,6 +227,9 @@ if [ ${#stigs[@]} -eq 0 ]; then
   # Get complete list of stig modules
   stigs=( $(find ${assets}/${os}/${version} -type f -name "*.sh") )
 
+  # Copy ${#stigs[@]} to ensure accurate counts
+  total_stigs=${#stigs[@]}
+
   # If ${classification} != ALL then filter ${stigs[@]} by ${classification}
   if [ "${classification}" != "ALL" ]; then
 
@@ -278,7 +281,7 @@ fi
 
 
 # Be verbose if asked
-[ ${verbose} -eq 1 ] && print "Built list of STIG modules: ${#stigs[@]}/${#list[@]}"
+[ ${verbose} -eq 1 ] && print "Built list of STIG modules: ${#stigs[@]}/${total_stigs}"
 [ ${verbose} -eq 1 ] && print "  OS: ${os} Version: ${version} Classification: ${classification}"
 [ ${verbose} -eq 1 ] && echo
 
@@ -328,7 +331,26 @@ for stig in ${stigs[@]}; do
   # Do work
   ./${stig} ${flags}
 
+  # Trap errors for summary
+  [ $? -ne 0 ] && errors+=("$(echo "${stig}" | cut -d. -f1)")
+
   [ ${verbose} -eq 1 ] && echo
 done
 
-exit 0
+
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${#stigs[@]} ${#errors[@]})
+
+# Be verbose if asked
+if [ ${verbose} -eq 1 ]; then
+cat <<EOF
+[${appname}]: ${timestamp}
+STIG Compliance: ${percentage}%
+ Details: ${#errors[@]}/${#stigs[@]} of ${total_stigs}
+
+EOF
+fi
+
+
+# Exit with the number of errors
+exit ${#errors[@]}

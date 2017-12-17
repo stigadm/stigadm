@@ -3,7 +3,7 @@
 
 # Define an array of default policy kernel params
 declare -a defpolicy
-defpolicy+=("+argv")
+defpolicy+=("argv")
 
 
 # Define an array of default audit flags
@@ -45,7 +45,6 @@ stigid="$(echo "${prog}" | cut -d. -f1)"
 
 # Ensure path is robust
 PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-
 
 # Define the library include path
 lib_path=${cwd}/../../../libs
@@ -327,7 +326,7 @@ if [ ${#err[@]} -gt 0 ]; then
     option="$(echo "${error}" | cut -d: -f2)"
 
     # Print friendly message
-    print "  - ${setting} (${option})" 1
+    print "  ${setting} (${option})" 1
   done | sort -u
 
   exit 1

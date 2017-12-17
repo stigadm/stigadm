@@ -3,7 +3,7 @@
 
 # Define an array of default policy kernel params
 declare -a defpolicy
-defpolicy+=("+argv")
+defpolicy+=("argv")
 
 
 # Define an array of default audit flags
@@ -327,7 +327,7 @@ if [ ${#err[@]} -gt 0 ]; then
     option="$(echo "${error}" | cut -d: -f2)"
 
     # Print friendly message
-    print "  - ${setting} (${option})" 1
+    print "  ${setting} (${option})" 1
   done | sort -u
 
   exit 1

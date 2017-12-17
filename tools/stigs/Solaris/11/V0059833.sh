@@ -286,7 +286,7 @@ if [ ${#errs[@]} -gt 0 ]; then
     fi
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - ${err}" 1
+    [ ${verbose} -eq 1 ] && print "  ${err}" 1
   done
 
   exit 1
@@ -308,7 +308,7 @@ if [ ${#vals[@]} -gt 0 ]; then
     fi
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - ${val}"
+    [ ${verbose} -eq 1 ] && print "  ${val}"
   done
 fi
 
