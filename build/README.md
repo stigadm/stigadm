@@ -32,4 +32,4 @@ to help facilitate pull requests.
 
 This software is licensed under the [MIT License](https://github.com/jas-/stigadm/blob/master/LICENSE).
 
-Copyright Jason Gerfen, 2015-2017.
+Copyright Jason Gerfen, 2015-2018.
