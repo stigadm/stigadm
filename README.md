@@ -5,6 +5,7 @@ DISA IASE STIG validation & remediation for Linux/UNIX
 DISCLAIMER: Project coverage @ 93/3093 (3%) of STIG(s)
 
 Coverage report: 2018-04-20 
+
 | OS            | Version   | STIG Rule(s)   | Completed |
 | :---          | :---      | :---           | :---      |
 | AIX           | 6.1       | 505            | 0         |
