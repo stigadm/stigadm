@@ -196,6 +196,10 @@ zfs_settings=( $(zfs get ${opts} "${zfs_fs}" | awk '$0 !~ /^NAME/{printf("%s:%s:
 # Get the current total size for ${zfs_fs}
 size="$(zfs list ${zfs_fs} | grep "^${zfs_fs}" | awk '{print $3}')"
 
+# Get the current free size for ${zfs_fs}
+free_size="$(zfs list ${zfs_fs} | grep "^${zfs_fs}" | awk '{print $4}')"
+
+
 # Get the size type from ${total}
 size_type="$(echo "${size}" | sed "s|.*\([A-Z]\)$|\1|g")"
 
@@ -302,6 +306,8 @@ if [ ${change} -eq 1 ]; then
 
       # Print friendly message
       [ ${verbose} -eq 1 ] && print "Could set '${key}' to '${value}' on '${zfs_fs}'..." 1
+
+      continue
     fi
 
     # Print friendly message
