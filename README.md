@@ -6,7 +6,7 @@ DISCLAIMER: Project coverage @ 93/3093 (3%) of STIG(s)
 Coverage report: 2018-04-20 
 
 | OS            | Version   | STIG Rule(s)   | Completed |
-| :---:         | :---:     | :---:          | :---:     |
+| :---          | :---      | :---           | :---      |
 | AIX           | 6.1       | 505            | 0         |
 | HP-UX         | 11.31     | 518            | 0         |
 | Oracle Linux  | 5         | 569            | 0         |
