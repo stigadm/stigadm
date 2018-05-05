@@ -15,7 +15,7 @@ Coverage report: 2018-04-20
 | Red Hat       | 6         | 259            | 0         |
 | Red Hat       | 7         | 232            | 0         |
 | Solaris       | 10        | 511            | 26        |
-| Solaris       | 11        | 237            | 67        |
+| Solaris       | 11        | 237            | 80        |
 
 ## install ##
 No installer package; simply copy latest `stigadm` toolkit and use.
