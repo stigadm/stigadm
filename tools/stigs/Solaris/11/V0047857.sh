@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# audit min free space
+audit_min_free_space=5
 
 # Define an array of ZFS attributes to validate/modify
 declare -a zfs_attrs

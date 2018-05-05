@@ -87,13 +87,12 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Remove once work is complete on module
-cat <<EOF
-[${stigid}] Warning: Not yet implemented...
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  print "'${stigid}' only applies to global zones" 1
+  exit 1
+fi
 
-$(get_meta_data "${cwd}" "${prog}")
-EOF
-exit 1
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
@@ -162,4 +161,3 @@ exit 0
 #
 # Title: The operating system must shut down by default upon audit failure (unless availability is an overriding concern).
 # Description: Continuing to operate a system without auditing working properly can result in undocumented access or system changes.
-
