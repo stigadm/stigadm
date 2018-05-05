@@ -92,6 +92,15 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
+# Remove once work is complete on module
+cat <<EOF
+[${stigid}] Warning: Not yet implemented...
+
+$(get_meta_data "${cwd}" "${prog}")
+EOF
+exit 1
+
+
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
@@ -106,7 +115,6 @@ if [ ${meta} -eq 1 ]; then
 fi
 
 
-print "Not yet implemented" && exit 0
 # Handle symlinks
 file="$(get_inode ${file})"
 
@@ -242,4 +250,3 @@ exit 0
 #
 # Title: The default umask for system and users must be 077.
 # Description: Setting a very secure default value for umask ensures that users make a conscious choice about their file permissions.
-
