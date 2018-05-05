@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Define an array of policy kernel params
+declare -a policy
+policy+=("ahlt")
+
+
 # Global defaults for tool
 author=
 verbose=0
@@ -87,17 +92,19 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Make sure we are operating on global zones
-if [ "$(zonename)" != "global" ]; then
-  print "'${stigid}' only applies to global zones" 1
-  exit 1
-fi
-
-
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
 fi
+
+
+# Make sure we have required defined values
+if [ ${#policy[@]} -eq 0 ]; then
+
+  print "Requires one or more default policies defined" 1
+  exit 1
+fi
+
 
 # If ${meta} is true
 if [ ${meta} -eq 1 ]; then
@@ -107,8 +114,15 @@ if [ ${meta} -eq 1 ]; then
 fi
 
 
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  print "'${stigid}' only applies to global zones" 1
+  exit 1
+fi
+
+
 # If ${restore} = 1 go to restoration mode
-if [ ${restore} -eq 1 ]; then
+if [[ ${restore} -eq 1 ]] && [[ ${cond} -eq 1 ]]; then
 
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
@@ -118,28 +132,103 @@ if [ ${restore} -eq 1 ]; then
 
   fi
 
-  # Print friendly message regarding restoration mode
-  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
+  # Do work
+  audit -t
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Unable to disable auditing" 1
+    exit 1
+  fi
 
   exit 0
 fi
 
 
-# If ${change} = 1
+# If ${change} == 1
 if [ ${change} -eq 1 ]; then
 
-  # Create backup of file(s), settings or permissions on inodes
-  # (see existing facilities in ${lib_path}/backup.sh)
+  # Get an array of default policy flags
+  cur_policy=($(auditconfig -getpolicy | awk '$1 ~ /^active/{print}' | cut -d= -f2 | tr ',' ' '))
 
-  # Make change according to ${stigid}
-  [ ${verbose} -eq 1 ] && print "Make change here"
+
+  # Create the backup env
+  backup_setup_env "${backup_path}"
+
+  # Create array to handle configuration backup
+  declare -a conf_bu
+  conf_bu+=("$(echo "setpolicy:${cur_policy[@]}" | tr ' ' ',')")
+
+  # Create a snapshot of ${cur_defflags[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "${conf_bu[@]}"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of current audit flags for '${stigid}' failed..."
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot of current default audit flags & policies"
+
+
+  # Combine & remove duplicates from ${policy[@]} & ${cur_policy[@]}
+  set_policy=( $(remove_duplicates "${policy[@]}" "${cur_policy[@]}") )
+
+  # Convert ${set_defpolicy[@]} into a string
+  defpol="$(echo "${set_policy[@]}" | tr ' ' ',')"
+
+
+  # Set the value(s) to the audit service
+  auditconfig -setpolicy ${defpol} &>/dev/null
+
+  # Handle results
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "An error occurred setting default audit policy: ${defpol}" 1
+  fi
 fi
 
 
-# Validate change according to ${stigid}
+# Declare an empty array for errors
+declare -a err
 
 
-# Exit 1 if validation failed
+# Get an array of default policy flags
+cur_policy=($(auditconfig -getpolicy 2>/dev/null | awk '$1 ~ /^active/{print}' | cut -d= -f2 | tr ',' ' '))
+
+# Iterate ${policy[@]}
+for pol in ${policy[@]}; do
+
+  # Check for ${flag} in ${cur_policy[@]}
+  [ $(in_array "${pol}" "${cur_policy[@]}") -eq 1 ] && err+=("policy:${pol}")
+done
+
+
+# If ${#err[@]} > 0
+if [ ${#err[@]} -gt 0 ]; then
+
+  # Print friendly message
+  print "Current audit settings does not conform to '${stigid}'" 1
+
+  # Iterate ${err[@]}
+  for error in ${err[@]}; do
+
+    # Get setting from ${error}
+    setting="$(echo "${error}" | cut -d: -f1)"
+
+    # Get options from ${error}
+    option="$(echo "${error}" | cut -d: -f2)"
+
+    # Print friendly message
+    print "  - ${setting} (${option})" 1
+  done | sort -u
+
+  exit 1
+fi
 
 
 # Print friendly success
