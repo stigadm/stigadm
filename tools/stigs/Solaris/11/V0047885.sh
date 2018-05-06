@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+# Define an array of properties
+declare -a properties
+properties+=("signature-policy:verify")
+
+
 # Global defaults for tool
 author=
 verbose=0
@@ -87,13 +93,14 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Remove once work is complete on module
-cat <<EOF
-[${stigid}] Warning: Not yet implemented...
+# Bail if ${#properties[@]} is 0
+if [ ${#properties[@]} -eq 0 ]; then
 
-$(get_meta_data "${cwd}" "${prog}")
-EOF
-exit 1
+  # Print friendly message regarding restoration mode
+  [ ${verbose} -eq 1 ] && print "Must define at least one pkg policy property" 1
+  exit 1
+fi
+
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
@@ -126,27 +133,103 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
+# Create a filter from ${properties[@]}
+filter="$(echo "${properties[@]}" | cut -d: -f1 | tr ' ' ',')"
+
+# Get blob of properties for packages
+declare -a cproperties
+cproperties=( $(pkg property | egrep ${properties} | awk '{printf("%s:%s\n", $1, $2)}') )
+
+
+# Get a blob to cache results of 'pkg verify'
+blob="$(pkg verify 2>/dev/null)"
+
+# Split ${blob} into chunks
+blobs=( $(echo "${blob}" | awk '{if ($1 ~ /^pkg/){printf("\n%s\n", $0)}else{print}}' | sed -n '/^pkg:/,/^$/p') )
+
+
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
-  # Create backup of file(s), settings or permissions on inodes
-  # (see existing facilities in ${lib_path}/backup.sh)
+  # Create the backup env
+  backup_setup_env "${backup_path}"
 
-  # Make change according to ${stigid}
-  [ ${verbose} -eq 1 ] && print "Make change here"
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "$(echo "${cproperties[@]}" | tr ' ' '\n')"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of package policy failed..." 1
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot of package policy"
+
+
+  # Iterate ${properties[@]}
+  for property in ${properties[@]}; do
+
+    # Split ${property} up
+    key="$(echo "${property}" | cut -d: -f1)"
+    value="$(echo "${property}" | cut -d: -f2)"
+
+    # Set ${key} = ${value}
+    pkg property set-property ${key} ${value} 2>/dev/null
+
+    # Trap error
+    [ $? -ne 0 ] && errors+=("${key}:${value}")
+  done
+
+  # Refresh ${cproperties[@]}
+  cproperties=( $(pkg property | egrep ${properties} | awk '{printf("%s:%s\n", $1, $2)}') )
 fi
 
 
-# Validate change according to ${stigid}
+# Iterate ${properties[@]}
+for property in ${properties[@]}; do
+
+  # Chop up ${property}
+  key="$(echo "${property}" | cut -d: -f1)"
+  value="$(echo "${property}" | cut -d: -f2)"
+
+  # Pluck ${property} from ${cproperties[@]}
+  cvalue="$(echo "${cproperties[@]}" | tr ' ' '\n' | grep "^${key}" | cut -d: -f2)"
+
+  # Trap error if ${cvalue} not equal to ${value}
+  [ "${cvalue}" != "${value}" ] && errors+=("${key}:${cvalue}:${value}")
+done
 
 
-# Exit 1 if validation failed
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Print friendly success
+  [ ${verbose} -eq 1 ] && print "Does not conform to '${stigid}'" 1
+
+  # Iterate ${errors[@]}
+  for error in ${errors[@]}; do
+
+    # Chop up ${error}
+    key="$(echo "${error}" | cut -d: -f1)"
+    cvalue="$(echo "${error}" | cut -d: -f2)"
+    value="$(echo "${error}" | cut -d: -f3)"
+
+    # Print friendly success
+    [ ${verbose} -eq 1 ] && print "  ${key} ${cvalue} [${value}]" 1
+  done
+
+  exit 1
+fi
 
 
 # Print friendly success
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
 
 # Date: 2017-06-21
 #
@@ -162,4 +245,3 @@ exit 0
 #
 # Title: The operating system must protect audit tools from unauthorized access.
 # Description: Failure to maintain system configurations may result in privilege escalation.
-

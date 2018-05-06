@@ -181,16 +181,48 @@ if [ ${change} -eq 1 ]; then
 fi
 
 
-# Validate change according to ${stigid}
+# Iterate ${properties[@]}
+for property in ${properties[@]}; do
+
+  # Chop up ${property}
+  key="$(echo "${property}" | cut -d: -f1)"
+  value="$(echo "${property}" | cut -d: -f2)"
+
+  # Pluck ${property} from ${cproperties[@]}
+  cvalue="$(echo "${cproperties[@]}" | tr ' ' '\n' | grep "^${key}" | cut -d: -f2)"
+
+  # Trap error if ${cvalue} not equal to ${value}
+  [ "${cvalue}" != "${value}" ] && errors+=("${key}:${cvalue}:${value}")
+done
 
 
-# Exit 1 if validation failed
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Print friendly success
+  [ ${verbose} -eq 1 ] && print "Does not conform to '${stigid}'" 1
+
+  # Iterate ${errors[@]}
+  for error in ${errors[@]}; do
+
+    # Chop up ${error}
+    key="$(echo "${error}" | cut -d: -f1)"
+    cvalue="$(echo "${error}" | cut -d: -f2)"
+    value="$(echo "${error}" | cut -d: -f3)"
+
+    # Print friendly success
+    [ ${verbose} -eq 1 ] && print "  ${key} ${cvalue} [${value}]" 1
+  done
+
+  exit 1
+fi
 
 
 # Print friendly success
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
 
 # Date: 2017-06-21
 #
