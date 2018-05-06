@@ -1,15 +1,17 @@
 #!/bin/bash
 
+# Define an empty array to hold audit pluign settings
+declare -a audit_settings
 
-
-# Minimum permissions octal
-octal=00640
-
-# Owner
+# Define the owner of p_dir
 owner="root"
 
-# Group
+# Define the group of p_dir
 group="root"
+
+# Define the octal for p_dir
+octal=00640
+
 
 # Global defaults for tool
 author=
@@ -98,11 +100,17 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  print "'${stigid}' only applies to global zones" 1
+  exit 1
+fi
+
+
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
 fi
-
 
 # If ${meta} is true
 if [ ${meta} -eq 1 ]; then
@@ -112,7 +120,6 @@ if [ ${meta} -eq 1 ]; then
 fi
 
 
-print "Not yet implemented" && exit 0
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
@@ -131,75 +138,112 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
-# Obtain the audit directory location
-audit_loc="$(pfexec auditconfig -getplugin audit_binfile | grep "^Attributes" | cut -d= -f2 | cut -d: -f1)"
+# Obtain an array of audit settings regarding 'bin_file' plugin
+audit_settings=( $(auditconfig -getplugin audit_binfile | awk '$0 ~ /Attributes/{print $2}' | tr ';' ' ' | tr '=' ':') )
 
-# Handle symlinks
-audit_loc="$(get_inode ${audit_loc})"
+# Get the auditing filesystem from ${audit_settings[@]}
+audit_folder="$(dirname $(get_inode "$(echo "${audit_settings[@]}" | tr ' ' '\n' | grep "^p_dir" | cut -d: -f2)"))"
 
-# Validate we have a location & it's valid
-if [ ! -d ${audit_loc} ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Could not obtain audit location" 1
-  exit 1
-fi
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtained audit location"
+# Define an empty array ot handle errors
+declare -a errors
 
 
-# If required do work
+# If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
-  # Get the current octal value of ${audit_loc}
-  coctal=$(get_octal ${audit_loc})
+  # Create the backup env
+  backup_setup_env "${backup_path}"
 
-  # Get current owner
-  cowner="$(get_inode_user ${audit_loc})"
-
-  # Get current group
-  cgroup="$(get_inode_group ${audit_loc})"
-
-  # Apply ${octal} if ${coctal} > ${octal}
-  if [ ${coctal} -gt ${octal} ]; then
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "audit_binfile:setplugin:$(echo "${audit_settings[@]}" | tr ' ' ',')"
+  if [ $? -ne 0 ]; then
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Setting '${octal}' on '${audit_loc}'"
-    chmod ${octal} ${audit_loc}
+    [ ${verbose} -eq 1 ] && print "Snapshot of current audit plugin values failed..." 1
+
+    # Stop, we require a backup
+    exit 1
   fi
 
-  # Apply ${owner}:${group} if ${cowner} != ${owner} or ${group} != ${cgroup}
-  if [[ "${owner}" != "${cowner}" ]] || [[ "${group}" != "${cgroup}" ]]; then
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot of current audit plugin values for 'audit_binfile'"
+
+
+  # Set user ownership on ${audit_folder}
+  chown ${owner} ${audit_folder} 2>/dev/null
+  if [ $? -ne 0 ]; then
+
+    # Trap error
+    [ $? -ne 0 ] && errors+=("${audit_folder}:${owner}:$(get_inode_user "${audit_folder}")")
+  fi
+
+  # Set group ownership on ${audit_folder}
+  chgrp ${group} ${audit_folder} 2>/dev/null
+  if [ $? -ne 0 ]; then
+
+    # Trap error
+    [ $? -ne 0 ] && errors+=("${audit_folder}:${group}:$(get_inode_group "${audit_folder}")")
+  fi
+
+  # Set permissions on ${audit_folder}
+  chmod ${octal} ${audit_folder} 2>/dev/null
+  if [ $? -ne 0 ]; then
+
+    # Trap error
+    [ $? -ne 0 ] && errors+=("${audit_folder}:${octal}:$(get_inode_user "${audit_folder}")")
+  fi
+
+  # Restart the auditd service
+  audit -s
+  if [ $? -ne 0 ]; then
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Setting '${owner}:${group}' on '${audit_loc}'"
-    chown ${owner}:${group} ${audit_loc}
+    [ ${verbose} -eq 1 ] && print "Could not restart the audit service..." 1
   fi
 fi
 
 
-# Get the current octal value of ${audit_loc}
-coctal=$(get_octal ${audit_loc})
+# Validate user ownership
+cowner="$(get_inode_user ${audit_folder})"
+if [ "${cowner}" != "${owner}" ]; then
 
-# Get current owner
-cowner="$(get_inode_user ${audit_loc})"
-
-# Get current group
-cgroup="$(get_inode_group ${audit_loc})"
-
-# Apply ${octal} if ${coctal} > ${octal}
-if [ ${coctal} -gt ${octal} ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "'${coctal}' is less than '${octal}' on '${audit_loc}'" 1
+  # Trap error
+  errors+=("${audit_folder}:${owner}:${cowner}")
 fi
 
-# Apply ${owner}:${group} if ${cowner} != ${owner} or ${group} != ${cgroup}
-if [[ "${owner}" != "${cowner}" ]] || [[ "${group}" != "${cgroup}" ]]; then
+# Validate group ownership
+cgroup="$(get_inode_group ${audit_folder})"
+if [ "${cowner}" != "${owner}" ]; then
 
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Invalid ownership on '${audit_loc}' (${cowner}:${cgroup})" 1
+  # Trap error
+  errors+=("${audit_folder}:${group}:${cgroup}")
+fi
+
+# Validate octal
+coctal="$(get_octal ${audit_folder})"
+if [ ${coctal} -ne ${octal} ]; then
+
+  # Trap error
+  errors+=("${audit_folder}:${octal}:${coctal}")
+fi
+
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  [ ${verbose} -eq 1 ] && print "Could not validate '${stigid}'" 1
+
+  # Iterate ${errors[@]}
+  for error in ${errors[@]}; do
+
+    # Split up ${error}
+    fs="$(echo "${error}" | cut -d: -f1)"
+    key="$(echo "${error}" | cut -d: -f2)"
+    value="$(echo "${error}" | cut -d: -f3)"
+
+    [ ${verbose} -eq 1 ] && print "  ${fs} ${key} [${value}]" 1
+
+  done
+  exit 1
 fi
 
 
@@ -207,6 +251,7 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
 
 # Date: 2017-06-21
 #
@@ -222,4 +267,3 @@ exit 0
 #
 # Title: The operating system must protect audit information from unauthorized deletion.
 # Description: The operating system must protect audit information from unauthorized deletion.
-
