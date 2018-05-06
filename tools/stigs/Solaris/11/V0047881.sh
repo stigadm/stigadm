@@ -1,7 +1,6 @@
 #!/bin/bash
 
 
-
 # Global defaults for tool
 author=
 verbose=0
@@ -103,8 +102,6 @@ if [ ${meta} -eq 1 ]; then
 fi
 
 
-print "Not yet implemented" && exit 0
-
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
@@ -123,42 +120,119 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Searching for updates"
+# Get list of published online repositories
+publishers=( $(pkg publisher | awk 'NR > 1 && $3 == "online"{printf("%s:%s\n", $1, $5)}') )
 
-# Obtain updates (if any)
-updates="$(pkg update -n)"
+# Make sure we have at least one or bail
+if [ ${#publishers[@]} -eq 0 ]; then
 
-if [ $? -ne 0 ]; then
-  print "An error occurred retrieving updates from configured repositories" 1
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "No defined repositories published" 1
+  exit 1
 fi
 
 
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtaining meta data"
+# Obtain the gateway
+gateway="$(netstat -nr | awk '$1 == "default"{print $2}')"
 
-# Get the package removal count from ${update}
-removal=($(echo "${updates}" | awk '{if ($0 ~ /Packages to remove/){obj=$4} if ($0 ~ /Removal instruction/){getline; obj1=$5} if (obj != "" && obj1 != ""){print obj":"obj1}}'))
+# Bail if no gateway defined
+if [ "${gateway}" == "" ]; then
 
-# Get the package installation count from ${update}
-install=($(echo "${updates}" | awk '{if ($0 ~ /Packages to install/){obj=$4} if ($0 ~ /Removal instruction/){getline; obj1=$5} if (obj != "" && obj1 != ""){print obj":"obj1}}'))
-install_cnt=$(echo "${updates}" | awk '$0 ~ /Packages to install/{print $4}')
-
-# Get the package update count from ${update}
-update_cnt=$(echo "${updates}" | awk '$0 ~ /Packages to update/{print $4}')
-
-# Get the removal command(s) to help with a restore point
-removal=("$(echo "${updates}" | sed -n '/Removal instruction/,/Generic Instructions/p' | grep "#")")
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "No gateway configured" 1
+  exit 1
+fi
 
 
-# Use the following for verbose error output
-#[ ${verbose} -eq 1 ] && print "error output, notice the 1 =>" 1
+# Iterate ${publishers[@]}
+for publisher in ${publishers[@]}; do
 
+  # Split up the name to test functionality
+  server="$(echo "${publisher}" | cut -d: -f3 | cut -d"/" -f3)"
+
+  # Test for resolution via nameserver
+  ip="$(nslookup -retry=2 -timeout=5 ${server} 2>/dev/null | awk '$1 ~ /^Name/{getline; print $2}')"
+
+  # Skip if ${ip} is null
+  [ "${ip}" == "" ] && continue
+
+  # Increment ${online} for each pass
+  online=$(add ${online:=0} 1)
+done
+
+
+# If ${online} is 0 bail
+if [ ${online:=0} -eq 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "${online} package repositories connecting" 1
+  exit 1
+fi
+
+
+# Get total number of packages to install/update
+pkgs=( $(pkg update -n 2>/dev/null | awk '$0 ~ /install|update/ && $4 ~ /^[0-9]/{print $4}') )
+
+# Bail early if already conforms
+if [ ${#pkgs[@]} -eq 0 ]; then
+
+  # Print friendly success
+  [ ${verbose} -eq 1 ] && print "Success, conforms to'${stigid}'"
+  exit 0
+fi
+
+
+# If ${change} = 1
+if [ ${change} -eq 1 ]; then
+
+  # Create the backup env
+  backup_setup_env "${backup_path}"
+
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "$(echo "${pkgs[@]}" | tr ' ' ',')"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of current packages to update failed..." 1
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot of installable/updateable packages"
+
+  # Update the system
+  pkg update -q 2>/dev/null
+
+  # Refresh ${pkgs[@]}
+  pkgs=( $(pkg update -n 2>/dev/null | awk '$0 ~ /install|update/ && $4 ~ /^[0-9]/{print $4}') )
+fi
+
+
+# Exit with errors
+if [ ${#pkgs[@]} -gt 0 ]; then
+
+  # Add up ${pkgs[@]}
+  for pkg in ${pkgs[@]}; do
+    total=$(add ${pkg} ${total:=0})
+  done
+
+  # Print friendly success
+  if [ ${verbose} -eq 1 ]; then
+
+    print "Does not conform to '${stigid}'" 1
+    [ ${total:=0} -gt 0 ] && print "  ${total} packages require installation/update" 1
+  fi
+
+  exit 1
+fi
 
 # Print friendly success
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
 
 # Date: 2017-06-21
 #
@@ -174,4 +248,3 @@ exit 0
 #
 # Title: The System packages must be up to date with the most recent vendor updates and security fixes.
 # Description: Failure to install security updates can provide openings for attack.
-

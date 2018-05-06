@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+# Define an array of properties
+declare -a properties
+properties+=("signature-policy:verify")
+
+
 # Global defaults for tool
 author=
 verbose=0
@@ -87,13 +93,14 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Remove once work is complete on module
-cat <<EOF
-[${stigid}] Warning: Not yet implemented...
+# Bail if ${#properties[@]} is 0
+if [ ${#properties[@]} -eq 0 ]; then
 
-$(get_meta_data "${cwd}" "${prog}")
-EOF
-exit 1
+  # Print friendly message regarding restoration mode
+  [ ${verbose} -eq 1 ] && print "Must define at least one pkg policy property" 1
+  exit 1
+fi
+
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
@@ -126,14 +133,51 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
+# Create a filter from ${properties[@]}
+filter="$(echo "${properties[@]}" | cut -d: -f1 | tr ' ' ',')"
+
+# Get blob of properties for packages
+declare -a cproperties
+cproperties=( $(pkg property | egrep ${properties} | awk '{printf("%s:%s\n", $1, $2)}') )
+
+
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
-  # Create backup of file(s), settings or permissions on inodes
-  # (see existing facilities in ${lib_path}/backup.sh)
+  # Create the backup env
+  backup_setup_env "${backup_path}"
 
-  # Make change according to ${stigid}
-  [ ${verbose} -eq 1 ] && print "Make change here"
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "$(echo "${cproperties[@]}" | tr ' ' '\n')"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of package policy failed..." 1
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot of package policy"
+
+
+  # Iterate ${properties[@]}
+  for property in ${properties[@]}; do
+
+    # Split ${property} up
+    key="$(echo "${property}" | cut -d: -f1)"
+    value="$(echo "${property}" | cut -d: -f2)"
+
+    # Set ${key} = ${value}
+    pkg property set-property ${key} ${value} 2>/dev/null
+
+    # Trap error
+    [ $? -ne 0 ] && errors+=("${key}:${value}")
+  done
+
+  # Refresh ${cproperties[@]}
+  cproperties=( $(pkg property | egrep ${properties} | awk '{printf("%s:%s\n", $1, $2)}') )
 fi
 
 
@@ -162,4 +206,3 @@ exit 0
 #
 # Title: The system must verify that package updates are digitally signed.
 # Description: Digitally signed packages ensure that the source of the package can be identified.
-
