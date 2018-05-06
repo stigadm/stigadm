@@ -195,11 +195,8 @@ mweeks=$(grep -i ^MAXWEEKS ${file} | cut -d= -f2)
 
 # Exit if value isn't set as an error
 if [ "${mweeks}" == "" ]; then
-
+  # Set an error so if changing we know to add the value
   err=1
-else
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Obtained current MAXWEEKS value from '${file}' (${mweeks})"
 fi
 
 
@@ -219,15 +216,14 @@ if [ ${mweeks:=0} -gt ${maxweeks} ]; then
       exit 1
     fi
 
-    # Make change for ${maxweeks} from ${tfile} into ${file}
-    sed -e "s/^MAXWEEKS=.*/MAXWEEKS=${maxweeks}/g" ${tfile} > ${file}
-
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Made changes to '${file}' reflecting 'MAXWEEKS=${maxweeks}'"
+    # Look for ${err} and add
+    if [ ${err:=0} -gt 0 ]; then
+      echo "MAXWEEKS=${maxweeks}" >> ${file}
+    else
+      # Make change for ${maxweeks} from ${tfile} into ${file}
+      sed -e "s/^MAXWEEKS=.*/MAXWEEKS=${maxweeks}/g" ${tfile} > ${file}
+    fi
   fi
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Obtained current MAXWEEKS value from '${file}' (${mweeks})"
 
   # Get current 'MAXWEEKS' configuration
   tmweeks=$(grep -i ^MAXWEEKS ${file} | cut -d= -f2)
@@ -257,10 +253,7 @@ if [ ${#user_list[@]} -eq 0 ]; then
 
   # Print friendly message
   [ ${verbose} -eq 1 ] && print "'${#user_list[@]}' users found meeting criteria for examination" 1
-
-else
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Obtained list of users to examine (Total: ${#user_list[@]})"
+  #exit 0
 fi
 
 
@@ -378,4 +371,3 @@ exit 0
 #
 # Title: User passwords must be changed at least every 56 days.
 # Description: Limiting the lifespan of authenticators limits the period of time an unauthorized user has access to the system while using compromised credentials and reduces the period of time available for password-guessing attacks to run against a single password.
-

@@ -337,9 +337,11 @@ for stig in ${stigs[@]}; do
   [ ${verbose} -eq 1 ] && echo
 done
 
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${#stigs[@]} ${#errors[@]})
+
 # Be verbose if asked
-[ ${verbose} -eq 1 ] && print "STIG Index:  $(percent ${#stigs[@]} ${#errors[@]})%"
-[ ${verbose} -eq 1 ] && print " Error(s): ${#errors[@]} Applied STIG rule(s): ${#stigs[@]} Total: ${total_stigs}"
+[ ${verbose} -eq 1 ] && print "STIG Compliance: ${percentage}% [${#errors[@]}/${#stigs[@]} of ${total_stigs}]"
 
 # Exit with the number of errors
 exit ${#errors[@]}
