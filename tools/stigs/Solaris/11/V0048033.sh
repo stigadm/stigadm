@@ -301,7 +301,7 @@ if [ ${#errs[@]} -gt 0 ]; then
   for err in ${errs[@]}; do
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - ${err}" 1
+    [ ${verbose} -eq 1 ] && print "  ${err}" 1
   done
 
   exit 1

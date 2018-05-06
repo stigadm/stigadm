@@ -307,7 +307,7 @@ if [ ${#errs[@]} -gt 0 ]; then
     fi
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - ${efile} [${egrp}]" 1
+    [ ${verbose} -eq 1 ] && print "  ${efile} [${egrp}]" 1
   done
 
   exit 1
@@ -332,7 +332,7 @@ for val in ${vals[@]}; do
   fi
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "  - ${vfile} [${vgrp}]"
+  [ ${verbose} -eq 1 ] && print "  ${vfile} [${vgrp}]"
 done
 
 

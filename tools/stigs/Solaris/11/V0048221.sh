@@ -380,7 +380,7 @@ if [[ ${#offenders[@]} -gt 0 ]] || [[ "${wrapper}" != "TRUE" ]] || [[ "$(grep -i
     for offender in ${offenders[@]}; do
 
       # Print friendly message
-      [ ${verbose} -eq 1 ] && print "  - ${offender}" 1
+      [ ${verbose} -eq 1 ] && print "  ${offender}" 1
     done
   fi
   exit 1

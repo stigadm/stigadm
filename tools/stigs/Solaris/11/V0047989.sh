@@ -220,7 +220,7 @@ if [ ${#err[@]} -gt 0 ]; then
   for error in ${err[@]}; do
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - ${error}" 1
+    [ ${verbose} -eq 1 ] && print "  ${error}" 1
   done
 
   exit 1

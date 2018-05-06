@@ -213,7 +213,7 @@ if [ ${#success[@]} -gt 0 ]; then
   for succ in ${succ[@]}; do
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - ${succ} [$(get_octal ${succ})]" 1
+    [ ${verbose} -eq 1 ] && print "  ${succ} [$(get_octal ${succ})]" 1
   done
 fi
 
@@ -228,7 +228,7 @@ if [ ${#errs[@]} -gt 0 ]; then
   for err in ${errs[@]}; do
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - ${err} [$(get_octal ${err})]" 1
+    [ ${verbose} -eq 1 ] && print "  ${err} [$(get_octal ${err})]" 1
   done
 
   exit 1

@@ -224,7 +224,7 @@ if [ ${#errors[@]} -gt 0 ]; then
     devices="$(echo "${error}" | cut -d: -f2)"
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - Zone: ${zone} Devices: ${devices}" 1
+    [ ${verbose} -eq 1 ] && print "  Zone: ${zone} Devices: ${devices}" 1
   done
   exit 1
 fi

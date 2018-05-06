@@ -175,7 +175,7 @@ if [ ${#vals[@]} -gt 0 ]; then
   for val in ${vals[@]}; do
 
     # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "  - ${val}"
+    [ ${verbose} -eq 1 ] && print "  ${val}"
   done
 fi
 
@@ -190,7 +190,7 @@ if [ ${#errs[@]} -gt 0 ]; then
   for err in ${errs[@]}; do
 
     # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "  - ${err}" 1
+    [ ${verbose} -eq 1 ] && print "  ${err}" 1
   done
 
   exit 1

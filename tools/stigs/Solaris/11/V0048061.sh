@@ -224,7 +224,7 @@ if [ ${#errs[@]} -gt 0 ]; then
   for err in ${errs[@]}; do
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - umask value defined in '${err}' incorrect" 1
+    [ ${verbose} -eq 1 ] && print "  umask value defined in '${err}' incorrect" 1
   done
 
   exit 1

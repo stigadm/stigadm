@@ -434,7 +434,7 @@ if [ ${#success[@]} -gt 0 ]; then
 
   [ ${verbose} -eq 1 ] && print "'${#success[@]}/${#users[@]}' passed validation:"
   for successful in ${success[@]}; do
-    [ ${verbose} -eq 1 ] && print "  - '${successful}'"
+    [ ${verbose} -eq 1 ] && print "  '${successful}'"
   done
 fi
 
@@ -444,7 +444,7 @@ if [ ${#fails[@]} -gt 0 ]; then
 
   [ ${verbose} -eq 1 ] && print "'${#fails[@]}/${#users[@]}' passed validation:"
   for failed in ${fails[@]}; do
-    [ ${verbose} -eq 1 ] && print "  - '${failed}'"
+    [ ${verbose} -eq 1 ] && print "  '${failed}'"
   done
 fi
 

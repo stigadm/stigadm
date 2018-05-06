@@ -315,7 +315,7 @@ if [ ${#errs[@]} -gt 0 ]; then
     fi
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - ${efile} [${eoctal}]" 1
+    [ ${verbose} -eq 1 ] && print "  ${efile} [${eoctal}]" 1
   done
 
   exit 1
@@ -343,7 +343,7 @@ if [ ${#vals[@]} -gt 0 ]; then
     fi
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  - ${vfile} [${voctal}]"
+    [ ${verbose} -eq 1 ] && print "  ${vfile} [${voctal}]"
   done
 
   exit 1
