@@ -3,7 +3,7 @@
 
 # Define an array of default policy kernel params
 declare -a defpolicy
-defpolicy+=("+argv")
+defpolicy+=("argv")
 
 
 # Define an array of default audit flags
