@@ -178,13 +178,6 @@ if [ ${change} -ne 0 ]; then
 fi
 
 
-# Capture current IFS value
-cIFS=$IFS
-
-# Set IFS to something else temporarilty
-IFS=+
-
-
 # Create an empty array for errors
 declare -a errs
 
@@ -203,39 +196,28 @@ for inode in ${files[@]}; do
 
       # Set {$file_perms} on ${inode}
       chmod ${file_perms} ${inode} 2> /dev/null
-      [ $? -ne 0 ] && errs+=("Couldn't set permissions on '${inode}' to '${file_perms}'")
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Set permissions on '${inode}' to '${file_perms}'"
-
+      [ $? -ne 0 ] && errs+=("${inode}:$(get_octal ${inode}):${file_perms}")
 
       # Change owner to ${file_owner} on ${inode}
       chown ${file_owner} ${inode} 2> /dev/null
-      [ $? -ne 0 ] && errs+=("Couldn't set ownership on '${inode}' to '${file_owner}'")
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Set owner on '${inode}' to '${file_owner}'"
-
+      [ $? -ne 0 ] && errs+=("${inode}:$(get_inode_user ${inode}):${file_owner}")
 
       # Change group to ${file_group} on ${inode}
       chgrp ${file_group} ${inode} 2> /dev/null
-      [ $? -ne 0 ] && errs+=("Couldn't set group ownership on '${inode}' to '${file_group}'")
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Set group on '${inode}' to '${file_group}'"
+      [ $? -ne 0 ] && errs+=("${inode}:$(get_inode_group ${inode}):${file_group}")
     fi
 
     # Get current octal value of ${inode}
     cperms="$(get_octal ${inode})"
-    [ ${cperms} != ${file_perms} ] && errs+=("Permissions on '${inode}' are set to '${cperms}' vs. '${file_perms}'")
+    [ ${cperms} != ${file_perms} ] && errs+=("${inode}:${cperms}:${file_perms}")
 
     # Get current owner of ${inode}
     cuser="$(get_inode_user ${inode})"
-    [ "${cuser}" != "${file_owner}" ] && errs+=("Ownership on '${inode}' is '${cuser}' vs. '${file_owner}'")
+    [ "${cuser}" != "${file_owner}" ] && errs+=("${inode}:${cuser}:${file_owner}")
 
     # Get current group owner of ${inode}
     cgroup="$(get_inode_group ${inode})"
-    [ "${cgroup}" != "${file_group}" ] && errs+=("Group ownership on '${inode}' is '${cgroup}' vs. '${file_group}'")
+    [ "${cgroup}" != "${file_group}" ] && errs+=("${inode}:${cgroup}:${file_group}")
   fi
 done
 
@@ -254,39 +236,28 @@ for folder in ${folders[@]}; do
 
       # Set ${folder_perms} on ${folder}
       chmod ${folder_perms} ${folder} 2> /dev/null
-      [ $? -ne 0 ] && errs+=("Couldn't set permissions on '${folder}' to '${folder_perms}'")
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Set permissions on '${folder}' to '${folder_perms}'"
-
+      [ $? -ne 0 ] && errs+=("${folder}:$(get_octal ${folder}):${folder_perms}")
 
       # Change owner to ${folder_owner} on ${folder}
       chown ${folder_owner} ${folder} 2> /dev/null
-      [ $? -ne 0 ] && errs+=("Couldn't set ownership on '${folder}' to '${folder_owner}'")
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Set owner on '${folder}' to '${folder_owner}'"
-
+      [ $? -ne 0 ] && errs+=("${folder}:$(get_inode_user ${folder}):${folder_owner}")
 
       # Change group to ${folder_group} on ${folder}
       chgrp ${folder_group} ${folder} 2> /dev/null
-      [ $? -ne 0 ] && errs+=("Couldn't set group ownership on '${folder}' to '${folder_group}'")
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Set group on '${folder}' to '${folder_group}'"
+      [ $? -ne 0 ] && errs+=("${folder}:$(get_inode_group ${folder}):${folder_group}")
     fi
 
     # Get current octal value of ${folder}
     cdperms="$(get_octal ${folder})"
-    [ ${cdperms} != ${folder_perms} ] && errs+=("Permissions on '${folder}' are set to '${cdperms}' vs. '${folder_perms}'")
+    [ ${cdperms} != ${folder_perms} ] && errs+=("${folder}:${cdperms}:${folder_perms}")
 
     # Get current owner of ${folder}
     cduser="$(get_inode_user ${folder})"
-    [ "${cduser}" != "${folder_owner}" ] && errs+=("Ownership on '${folder}' is '${cduser}' vs. '${folder_owner}'")
+    [ "${cduser}" != "${folder_owner}" ] && errs+=("${folder}:${cduser}:${folder_owner}")
 
     # Get current group owner of ${folder}
     cdgroup="$(get_inode_group ${folder})"
-    [ "${cdgroup}" != "${folder_group}" ] && errs+=("Group ownership on '${folder}' is '${cdgroup}' vs. '${folder_group}'")
+    [ "${cdgroup}" != "${folder_group}" ] && errs+=("${folder}:${cdgroup}:${folder_group}")
   fi
 done
 
@@ -295,21 +266,22 @@ done
 if [ ${#errs[@]} -gt 0 ]; then
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Errors were encountered regarding '${stigid}'" 1
+  [ ${verbose} -eq 1 ] && print "File/Folder User/Group/Permissions invalid according to '${stigid}'" 1
 
   # Iterate ${errs[@]}
   for err in ${errs[@]}; do
 
+    # Split up ${err}
+    inde="$(echo "${err}" | cut -d: -f1)"
+    cval="$(echo "${err}" | cut -d: -f2)"
+    tval="$(echo "${err}" | cut -d: -f3)"
+
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  ${err}" 1
+    [ ${verbose} -eq 1 ] && print "  ${inde} ${cval} [${tval}]" 1
   done
 
   exit 1
 fi
-
-
-# Reset the IFS
-IFS="${cIFS}"
 
 
 # Print friendly success
@@ -331,4 +303,3 @@ exit 0
 #
 # Title: The operating system must reveal error messages only to authorized personnel.
 # Description: Proper file permissions and ownership ensures that only designated personnel in the organization can access error messages.
-

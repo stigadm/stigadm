@@ -338,7 +338,7 @@ for stig in ${stigs[@]}; do
 done
 
 # Be verbose if asked
-[ ${verbose} -eq 1 ] && print "Summary: ${#errors[@]}/${total_stigs}"
+[ ${verbose} -eq 1 ] && print "Summary: ${#errors[@]}/${#stigs[@]}/${total_stigs} $(percent ${#stigs[@]} ${#errors[@]})%"
 
 # Exit with the number of errors
 exit ${#errors[@]}
