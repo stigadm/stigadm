@@ -141,6 +141,13 @@ declare -a cproperties
 cproperties=( $(pkg property | egrep ${properties} | awk '{printf("%s:%s\n", $1, $2)}') )
 
 
+# Get a blob to cache results of 'pkg verify'
+blob="$(pkg verify 2>/dev/null)"
+
+# Split ${blob} into chunks
+blobs=( $(echo "${blob}" | awk '{if ($1 ~ /^pkg/){printf("\n%s\n", $0)}else{print}}' | sed -n '/^pkg:/,/^$/p') )
+
+
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
