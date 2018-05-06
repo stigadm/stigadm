@@ -46,7 +46,6 @@ stigid="$(echo "${prog}" | cut -d. -f1)"
 # Ensure path is robust
 PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
-
 # Define the library include path
 lib_path=${cwd}/../../../libs
 
