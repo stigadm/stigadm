@@ -144,15 +144,6 @@ if [ "${gateway}" == "" ]; then
 fi
 
 
-# Test connectivity or bail
-if [ $(ping ${gateway} | grep -c "alive") -eq 0 ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Unable to reach gateway" 1
-  exit 1
-fi
-
-
 # Iterate ${publishers[@]}
 for publisher in ${publishers[@]}; do
 
@@ -165,11 +156,8 @@ for publisher in ${publishers[@]}; do
   # Skip if ${ip} is null
   [ "${ip}" == "" ] && continue
 
-  # Skip if ${ip} not online
-  [ $(ping ${gateway} | grep -c "alive") -eq 0 ] && continue
-
   # Increment ${online} for each pass
-  online=$(add ${online} 1)
+  online=$(add ${online:=0} 1)
 done
 
 
@@ -183,7 +171,7 @@ fi
 
 
 # Get total number of packages to install/update
-pkgs=( $(pkg update -n 2>/dev/null | awk '$0 ~ /install|update/{print $4}') )
+pkgs=( $(pkg update -n 2>/dev/null | awk '$0 ~ /install|update/ && $4 ~ /^[0-9]/{print $4}') )
 
 # Bail early if already conforms
 if [ ${#pkgs[@]} -eq 0 ]; then
@@ -217,16 +205,26 @@ if [ ${change} -eq 1 ]; then
   # Update the system
   pkg update -q 2>/dev/null
 
-  # If an error occurs trap it
-  [ $? -gt 0 ] && error=1
+  # Refresh ${pkgs[@]}
+  pkgs=( $(pkg update -n 2>/dev/null | awk '$0 ~ /install|update/ && $4 ~ /^[0-9]/{print $4}') )
 fi
 
 
 # Exit with errors
-if [ ${error:=0} -gt 0 ]; then
+if [ ${#pkgs[@]} -gt 0 ]; then
+
+  # Add up ${pkgs[@]}
+  for pkg in ${pkgs[@]}; do
+    total=$(add ${pkg} ${total:=0})
+  done
 
   # Print friendly success
-  [ ${verbose} -eq 1 ] && print "Does not conform to '${stigid}'"
+  if [ ${verbose} -eq 1 ]; then
+
+    print "Does not conform to '${stigid}'" 1
+    [ ${total:=0} -gt 0 ] && print "  ${total} packages require installation/update" 1
+  fi
+
   exit 1
 fi
 
