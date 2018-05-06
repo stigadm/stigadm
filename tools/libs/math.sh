@@ -111,7 +111,7 @@ function percent()
   total=${1}
   value=${2}
 
-  echo "${total} / 100 * ${value}" | bc 2>/dev/null
+  echo "100 * ${value} / ${total}" | bc 2>/dev/null
 }
 
 
