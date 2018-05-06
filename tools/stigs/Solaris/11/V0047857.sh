@@ -281,7 +281,7 @@ if [ ${#errors[@]} -gt 0 ]; then
     key="$(echo "${error}" | cut -d: -f2)"
     value="$(echo "${error}" | cut -d: -f3)"
 
-    [ ${verbose} -eq 1 ] && print " - ${fs} ${key} ${value}" 1
+    [ ${verbose} -eq 1 ] && print "  ${fs} ${key} [${value}]" 1
 
   done
   exit 1
