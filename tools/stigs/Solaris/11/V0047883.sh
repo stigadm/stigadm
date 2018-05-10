@@ -138,7 +138,7 @@ filter="$(echo "${properties[@]}" | cut -d: -f1 | tr ' ' ',')"
 
 # Get blob of properties for packages
 declare -a cproperties
-cproperties=( $(pkg property | egrep ${properties} | awk '{printf("%s:%s\n", $1, $2)}') )
+cproperties=( $(pkg property | egrep ${filter} | awk '{printf("%s:%s\n", $1, $2)}') )
 
 
 # If ${change} = 1
@@ -177,7 +177,7 @@ if [ ${change} -eq 1 ]; then
   done
 
   # Refresh ${cproperties[@]}
-  cproperties=( $(pkg property | egrep ${properties} | awk '{printf("%s:%s\n", $1, $2)}') )
+  cproperties=( $(pkg property | egrep ${filter} | awk '{printf("%s:%s\n", $1, $2)}') )
 fi
 
 

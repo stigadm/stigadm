@@ -2,9 +2,9 @@
 
 DISA IASE STIG validation & remediation for Linux/UNIX
 
-DISCLAIMER: Project coverage @ 93/3093 (3%) of STIG(s)
+DISCLAIMER: Project coverage @ 107/3093 (3%) of STIG(s)
 
-Coverage report: 2018-04-20 
+Coverage report: 2018-05-09
 
 | OS            | Version   | STIG Rule(s)   | Completed |
 | :---          | :---      | :---           | :---      |
@@ -15,7 +15,8 @@ Coverage report: 2018-04-20
 | Red Hat       | 6         | 259            | 0         |
 | Red Hat       | 7         | 232            | 0         |
 | Solaris       | 10        | 511            | 26        |
-| Solaris       | 11        | 237            | 80        |
+| Solaris       | 11        | 237            | 81        |
+| Totals        |           | 3093           | 107       |
 
 ## install ##
 No installer package; simply copy latest `stigadm` toolkit and use.
