@@ -14,6 +14,13 @@ function get_day_of_year()
 }
 
 
+# Get EPOCH (Time since 01/01/1970 in miliseconds)
+function gen_epoch()
+{
+  echo "$(date +%s)"
+}
+
+
 # Date to Julian Day of Year
 # Arguments:
 #  day [Integer]: Day of month
@@ -43,7 +50,7 @@ function conv_date_to_jdoy()
   sum=$(echo  "2 - ${year} / 100 + ${year} / 400" | bc)
   sum=$(echo  "(${sum} + 365.25 * (${year} + 4716)) / 1" | bc)
   sum=$(echo "(${sum} + 30.6001 * (${mon} + 1)) / 1" | bc)
-  
+
   echo $(echo "${sum} + ${day} - 1524.5" | bc)
 }
 

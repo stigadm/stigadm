@@ -3,6 +3,9 @@
 # stigadm
 # Apply/Validate STIG by OS, Version & Classification
 
+# Get EPOCH
+s_epoch="$(gen_epoch)"
+
 # Current working directory
 cwd="$(dirname $0)"
 
@@ -77,7 +80,7 @@ appname="$(echo "${prog}" | cut -d. -f1)"
 
 
 # Create a timestamp
-timestamp="$(date +%Y%m%d-%H%M)"
+timestamp="$(gen_date)"
 
 
 # Ensure path is robust
@@ -341,10 +344,13 @@ done
 # Calculate a percentage from applied modules & errors incurred
 percentage=$(percent ${#stigs[@]} ${#errors[@]})
 
+# Get EPOCH
+e_epoch="$(gen_epoch)"
+
 # Be verbose if asked
 if [ ${verbose} -eq 1 ]; then
 cat <<EOF
-[${appname}]: ${timestamp}
+[${appname}]: ${timestamp} Run time: $(divide $(subtract ${e_epoch} ${s_epoch}) / 60)M
 STIG Compliance: ${percentage}%
  Details: ${#errors[@]}/${#stigs[@]} of ${total_stigs}
 
