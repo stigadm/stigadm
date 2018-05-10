@@ -347,13 +347,19 @@ percentage=$(percent ${#stigs[@]} ${#errors[@]})
 # Get EPOCH
 e_epoch="$(gen_epoch)"
 
+seconds=$(subtract ${e_epoch} ${s_epoch})
+
+# Generate a run time
+[ ${seconds} -gt 60 ] && run_time="$(divide 60 ${seconds}) Min." || run_time="${seconds} Sec."
+
 # Be verbose if asked
 if [ ${verbose} -eq 1 ]; then
 cat <<EOF
-[${appname}]: ${timestamp} Run time: $(divide $(subtract ${e_epoch} ${s_epoch}) / 60)M
+[${appname}]: ${timestamp}
 STIG Compliance: ${percentage}%
  Details: ${#errors[@]}/${#stigs[@]} of ${total_stigs}
 
+Run time: ${run_time}
 EOF
 fi
 
