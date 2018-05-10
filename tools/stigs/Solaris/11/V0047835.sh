@@ -8,9 +8,6 @@ aliases=/etc/mail/aliases
 declare -a administrators
 administrators+=("root")
 
-# Create a timestamp
-ts=$(gen_date)
-
 
 # Global defaults for tool
 author=
@@ -76,6 +73,10 @@ for src in ${incs[@]}; do
   source ${src}
 
 done
+
+
+# Create a timestamp
+ts=$(gen_date)
 
 
 # Ensure we have permissions

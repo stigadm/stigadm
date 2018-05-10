@@ -3,9 +3,6 @@
 # stigadm
 # Apply/Validate STIG by OS, Version & Classification
 
-# Get EPOCH
-s_epoch="$(gen_epoch)"
-
 # Current working directory
 cwd="$(dirname $0)"
 
@@ -66,6 +63,9 @@ restore=0
 version=
 verbose=0
 list=
+
+# Get EPOCH
+s_epoch="$(gen_epoch)"
 
 # Global array of modules (reset)
 declare -a stigs

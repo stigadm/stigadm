@@ -14,7 +14,7 @@ function get_day_of_year()
 }
 
 
-# Get EPOCH (Time since 01/01/1970 in miliseconds)
+# Get EPOCH (Time since 01/01/1970 in seconds)
 function gen_epoch()
 {
   echo "$(date +%s)"

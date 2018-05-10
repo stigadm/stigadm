@@ -16,9 +16,6 @@ plugins+=("audit_syslog:p_flags=all")
 declare -a log_hosts
 log_hosts+=('solaris')
 
-# Create a timestamp
-ts=$(gen_date)
-
 # Global defaults for tool
 author=
 verbose=0
@@ -84,6 +81,8 @@ for src in ${incs[@]}; do
 
 done
 
+# Create a timestamp
+ts=$(gen_date)
 
 # Ensure we have permissions
 if [ $UID -ne 0 ] ; then
