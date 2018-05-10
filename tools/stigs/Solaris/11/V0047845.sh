@@ -8,7 +8,7 @@ declare -a administrators
 administrators+=("root")
 
 # Create a timestamp
-ts="$(date +%Y%m%d-%H%M)"
+ts=$(gen_date)
 
 
 # Global defaults for tool

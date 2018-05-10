@@ -15,7 +15,7 @@ output="${cwd}/output"
 template="${cwd}/template.sh"
 
 # Create a timestamp
-ts="$(date +%Y%m%d-%H%M%s)"
+ts=$(gen_date)
 
 
 # Set variables

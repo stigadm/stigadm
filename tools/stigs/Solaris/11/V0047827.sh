@@ -17,7 +17,7 @@ declare -a log_hosts
 log_hosts+=('solaris')
 
 # Create a timestamp
-ts="$(date +%Y%m%d-%H%M)"
+ts=$(gen_date)
 
 # Global defaults for tool
 author=
