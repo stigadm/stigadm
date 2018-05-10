@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 
 # Define an array of properties
@@ -139,6 +139,56 @@ filter="$(echo "${properties[@]}" | cut -d: -f1 | tr ' ' ',')"
 # Get blob of properties for packages
 declare -a cproperties
 cproperties=( $(pkg property | egrep ${filter} | awk '{printf("%s:%s\n", $1, $2)}') )
+
+
+# Get list of published online repositories
+publishers=( $(pkg publisher | awk 'NR > 1 && $3 == "online"{printf("%s:%s\n", $1, $5)}') )
+
+# Make sure we have at least one or bail
+if [ ${#publishers[@]} -eq 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "No defined repositories published" 1
+  exit 1
+fi
+
+
+# Obtain the gateway
+gateway="$(netstat -nr | awk '$1 == "default"{print $2}')"
+
+# Bail if no gateway defined
+if [ "${gateway}" == "" ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "No gateway configured" 1
+  exit 1
+fi
+
+
+# Iterate ${publishers[@]}
+for publisher in ${publishers[@]}; do
+
+  # Split up the name to test functionality
+  server="$(echo "${publisher}" | cut -d: -f3 | cut -d"/" -f3)"
+
+  # Test for resolution via nameserver
+  ip="$(nslookup -retry=2 -timeout=5 ${server} 2>/dev/null | awk '$1 ~ /^Name/{getline; print $2}')"
+
+  # Skip if ${ip} is null
+  [ "${ip}" == "" ] && continue
+
+  # Increment ${online} for each pass
+  online=$(add ${online:=0} 1)
+done
+
+
+# If ${online} is 0 bail
+if [ ${online:=0} -eq 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "${online} package repositories connecting" 1
+  exit 1
+fi
 
 
 # Get a blob to cache results of 'pkg verify'
