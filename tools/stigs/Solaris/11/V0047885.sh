@@ -189,8 +189,9 @@ pkgs=( $(echo "${blob}" | \
   sed "s|\(pkg:.*\)ERROR$|=\1|g" | tr '=' '\n' | \
   sed "s|file: \(.*\)$|/\1|g" | \
   sed "s|dir: \(.*\)$|/\1|g" | \
-  sed "s|ERROR:||g; s|\([Owner|Group]\): '\(.*\) .*'.*'\(.*\) .*$|\1:\2,\3|g" | \
-  sed "s|\([Hash|Size]\): \(.*\) should.*be \(.*\)$|\1:\2,\3|g" | \
+  sed "s|ERROR:||g" | \
+  sed "s|\([Owner|Group]\): '\(.*\) .*'.*'\(.*\) .*$|\1,\2,\3|g" | \
+  sed "s|\([Hash|Size]\): \(.*\) should.*be \(.*\)$|\1,\2,\3|g" | \
   sed "s| bytes||g" | \
   awk '{$1=$1;print}' | tr '\n' ':' | nawk '{gsub(/::/, " ", $0);print}') )
 
