@@ -183,17 +183,16 @@ fi
 blob="$(pkg verify -H 2>/dev/null)"
 
 
-# Split ${blob} into chunks
-#pkgs=( $(echo "${blob}" | sed "s|\(pkg:.*\)ERROR$|=\1|g" pkg.verify.out | tr '=' '\n') )
 # Split ${blob} up into a digestable data structure
 #  <PKG-NAME>:<FILE>,<OWNER|GROUP|HASH|SIZE|MODE>,<ACTUAL>,<REQUIRED>-[...]
-pkgs=( $(echo "${blob}" | sed "s|\(pkg:.*\)ERROR$|=\1|g" | tr '=' '\n' | \
+pkgs=( $(echo "${blob}" | \
+  sed "s|\(pkg:.*\)ERROR$|=\1|g" | tr '=' '\n' | \
   sed "s|file: \(.*\)$|/\1|g" | \
-  sed "s|ERROR:||g" | \
-  sed "s|\([Owner|Group]\): '\(.*\) .*'.*'\(.*\) .*$|\1:\2-\3|g" | \
-  sed "s|\([Hash|Size|Mode]\): \(.*\) should.*be \(.*\)$|\1:\2-\3|g" | \
-  sed "s| bytes||g" | awk '{$1=$1;print}' | tr '::' ' ') )
-pkgs=( $(echo "${blob}" | sed "s|\(pkg:.*\)ERROR$|=\1|g" | tr '=' '\n' | sed "s|file: \(.*\)$|/r|Group]\): '\(.*\) .*'.*'\(.*\) .*$|\1:\2,\3|g; s|\([Hash|Size]\): \(.*\) should.*be \(.*\)$|\1:\2,\3|g; s| bytes||g" | awk '{$1=$1;print}' | tr '\n' ':') )
+  sed "s|dir: \(.*\)$|/\1|g" | \
+  sed "s|ERROR:||g; s|\([Owner|Group]\): '\(.*\) .*'.*'\(.*\) .*$|\1:\2,\3|g" | \
+  sed "s|\([Hash|Size]\): \(.*\) should.*be \(.*\)$|\1:\2,\3|g" | \
+  sed "s| bytes||g" | \
+  awk '{$1=$1;print}' | tr '\n' ':' | nawk '{gsub(/::/, " ", $0);print}') )
 
 
 # If ${change} = 1
