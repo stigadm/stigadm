@@ -142,7 +142,9 @@ cproperties=( $(pkg property | egrep ${filter} | awk '{printf("%s:%s\n", $1, $2)
 
 
 # Get list of published online repositories
-publishers=( $(pkg publisher | awk 'NR > 1 && $3 == "online"{printf("%s:%s\n", $1, $5)}') )
+publishers=( $(pkg publisher | \
+  awk 'NR > 1 && $3 == "online"{printf("%s\n", $5)}' | \
+  cut -d/ -f3) )
 
 # Make sure we have at least one or bail
 if [ ${#publishers[@]} -eq 0 ]; then
@@ -153,11 +155,11 @@ if [ ${#publishers[@]} -eq 0 ]; then
 fi
 
 
-# Obtain the gateway
-gateway="$(netstat -nr | awk '$1 == "default"{print $2}')"
+# Obtain gateways on node
+gateways=( $(get_gateways) )
 
-# Bail if no gateway defined
-if [ "${gateway}" == "" ]; then
+# Bail if no gateways defined
+if [ ${#gateway[@]} -eq 0 ]; then
 
   # Print friendly message
   [ ${verbose} -eq 1 ] && print "No gateway configured" 1
@@ -165,28 +167,14 @@ if [ "${gateway}" == "" ]; then
 fi
 
 
-# Iterate ${publishers[@]}
-for publisher in ${publishers[@]}; do
+# Resolve ${publishers[@]} to IP's
+nodes=( $(resolve_hosts "${publishers[@]}") )
 
-  # Split up the name to test functionality
-  server="$(echo "${publisher}" | cut -d: -f3 | cut -d"/" -f3)"
-
-  # Test for resolution via nameserver
-  ip="$(nslookup -retry=2 -timeout=5 ${server} 2>/dev/null | awk '$1 ~ /^Name/{getline; print $2}')"
-
-  # Skip if ${ip} is null
-  [ "${ip}" == "" ] && continue
-
-  # Increment ${online} for each pass
-  online=$(add ${online:=0} 1)
-done
-
-
-# If ${online} is 0 bail
-if [ ${online:=0} -eq 0 ]; then
+# If ${#nodes[@]} is 0 bail
+if [ ${#nodes[@]} -eq 0 ]; then
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "${online} package repositories connecting" 1
+  [ ${verbose} -eq 1 ] && print "${#nodes[@]} package repositories connecting" 1
   exit 1
 fi
 
