@@ -180,10 +180,20 @@ fi
 
 
 # Get a blob to cache results of 'pkg verify'
-blob="$(pkg verify 2>/dev/null)"
+blob="$(pkg verify -H 2>/dev/null)"
+
 
 # Split ${blob} into chunks
-blobs=( $(echo "${blob}" | awk '{if ($1 ~ /^pkg/){printf("\n%s\n", $0)}else{print}}' | sed -n '/^pkg:/,/^$/p') )
+#pkgs=( $(echo "${blob}" | sed "s|\(pkg:.*\)ERROR$|=\1|g" pkg.verify.out | tr '=' '\n') )
+# Split ${blob} up into a digestable data structure
+#  <PKG-NAME>:<FILE>,<OWNER|GROUP|HASH|SIZE|MODE>,<ACTUAL>,<REQUIRED>-[...]
+pkgs=( $(echo "${blob}" | sed "s|\(pkg:.*\)ERROR$|=\1|g" | tr '=' '\n' | \
+  sed "s|file: \(.*\)$|/\1|g" | \
+  sed "s|ERROR:||g" | \
+  sed "s|\([Owner|Group]\): '\(.*\) .*'.*'\(.*\) .*$|\1:\2-\3|g" | \
+  sed "s|\([Hash|Size|Mode]\): \(.*\) should.*be \(.*\)$|\1:\2-\3|g" | \
+  sed "s| bytes||g" | awk '{$1=$1;print}' | tr '::' ' ') )
+pkgs=( $(echo "${blob}" | sed "s|\(pkg:.*\)ERROR$|=\1|g" | tr '=' '\n' | sed "s|file: \(.*\)$|/r|Group]\): '\(.*\) .*'.*'\(.*\) .*$|\1:\2,\3|g; s|\([Hash|Size]\): \(.*\) should.*be \(.*\)$|\1:\2,\3|g; s| bytes||g" | awk '{$1=$1;print}' | tr '\n' ':') )
 
 
 # If ${change} = 1
@@ -223,6 +233,8 @@ if [ ${change} -eq 1 ]; then
 
   # Refresh ${cproperties[@]}
   cproperties=( $(pkg property | egrep ${filter} | awk '{printf("%s:%s\n", $1, $2)}') )
+
+  #
 fi
 
 
@@ -239,6 +251,8 @@ for property in ${properties[@]}; do
   # Trap error if ${cvalue} not equal to ${value}
   [ "${cvalue}" != "${value}" ] && errors+=("${key}:${cvalue}:${value}")
 done
+
+
 
 
 # If ${#errors[@]} > 0
