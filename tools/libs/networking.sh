@@ -11,7 +11,7 @@ function get_gateways()
     echo 1 && return 1
   fi
 
-  echo "${gateway[@]}" && return 0
+  echo "${gateways[@]}" && return 0
 }
 
 
