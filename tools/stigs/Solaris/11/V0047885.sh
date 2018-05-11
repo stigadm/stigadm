@@ -174,7 +174,7 @@ nodes=( $(resolve_hosts "${publishers[@]}") )
 if [ ${#nodes[@]} -eq 0 ]; then
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "${#nodes[@]} package repositories connecting" 1
+  [ ${verbose} -eq 1 ] && print "${#nodes[@]} package repositories resolving" 1
   exit 1
 fi
 
