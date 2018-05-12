@@ -300,12 +300,13 @@ if [ ${#errors[@]} -gt 0 ]; then
       key="$(echo "${error}" | cut -d: -f1,2)"
       inode="$(echo "${error}" | cut -d: -f3)"
       flag="$(echo "${error}" |  cut -d: -f4)"
-      cvalue="$(echo "${error}"8 | cut -d: -f5)"
+      cvalue="$(echo "${error}" | cut -d: -f5)"
       value="$(echo "${error}" | cut -d: -f6)"
 
       # Print friendly success
       [ ${verbose} -eq 1 ] && print "  Package: ${key}" 1
-      [ ${verbose} -eq 1 ] && print "    Type: ${flag} ${cvalue} [${value}]" 1
+      [ ${verbose} -eq 1 ] && print "    Inode: ${inode}" 1
+      [ ${verbose} -eq 1 ] && print "      Type: ${type} ${cvalue} [${value}]" 1
     else
       key="$(echo "${error}" | cut -d: -f1)"
       cvalue="$(echo "${error}" | cut -d: -f2)"
