@@ -71,6 +71,6 @@ function verify_pkgs()
     # Bail if empty
     [ ${#inodes[@]} -eq 0 ] && (echo 1 && return 1)
 
-    #
+    # 
   done
 }
