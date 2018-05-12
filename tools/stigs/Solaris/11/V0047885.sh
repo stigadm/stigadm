@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 
 # Define an array of properties
@@ -140,17 +140,23 @@ filter="$(echo "${properties[@]}" | cut -d: -f1 | tr ' ' ',')"
 declare -a cproperties
 cproperties=( $(pkg property | egrep ${filter} | awk '{printf("%s:%s\n", $1, $2)}') )
 
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Obtained list of package properties"
+
 
 # Get list of published online repositories
 publishers=( $(get_pkg_publishers) )
 
-# Make sure we have at least one or bail
+# Make sure we have at least one or baill
 if [ ${#publishers[@]} -eq 0 ]; then
 
   # Print friendly message
   [ ${verbose} -eq 1 ] && print "No defined repositories published" 1
   exit 1
 fi
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Obtained package repository list"
 
 
 # Obtain gateways on node
@@ -176,9 +182,21 @@ if [ ${#nodes[@]} -eq 0 ]; then
   exit 1
 fi
 
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Performed rudimentary connectivity tests"
+
 
 # Get a blob to cache results of 'pkg verify'
 blob="$(pkg verify -H 2>/dev/null)"
+
+# Break ${blob} up into an easy to manage  array of packages
+pkgs=( $(parse_pkg_verify "${blob}") )
+
+# Define an empty array of errors
+declare -a errors
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Retrieved & filtered list of broken packages"
 
 
 # If ${change} = 1
@@ -219,7 +237,33 @@ if [ ${change} -eq 1 ]; then
   # Refresh ${cproperties[@]}
   cproperties=( $(pkg property | egrep ${filter} | awk '{printf("%s:%s\n", $1, $2)}') )
 
-  #
+
+  # If ${#pkgs[@]} > 0
+  if [ ${#pkgs[@]} -gt 0 ]; then
+
+    # Look at #{pkgs[@]} for invalid items (ignores false positives)
+    errors=( $(verify_pkgs "${pkgs[@]}") )
+
+    # If ${#errors[@]} > 0
+    if [ ${#errors[@]} -gt 0 ]; then
+
+      # Iterate ${errors[@]}
+      for error in ${errors[@]}; do
+
+        # Get our package name
+        pkg="$(echo "${error}" | cut -d: -f1)"
+
+        # Run "pkg fix ${pkg}"
+        pkg fix -Hq ${pkg} 2>/dev/null
+      done
+    fi
+
+    # Refresh data from `pkg verify`
+    blob="$(pkg verify -H 2>/dev/null)"
+
+    # Break ${blob} up into an easy to manage  array of packages
+    pkgs=( $(parse_pkg_verify "${blob}") )
+  fi
 fi
 
 
@@ -238,6 +282,8 @@ for property in ${properties[@]}; do
 done
 
 
+# Look at #{pkgs[@]} for invalid items (ignores false positives)
+errors+=( $(verify_pkgs "${pkgs[@]}") )
 
 
 # If ${#errors[@]} > 0
@@ -249,13 +295,25 @@ if [ ${#errors[@]} -gt 0 ]; then
   # Iterate ${errors[@]}
   for error in ${errors[@]}; do
 
-    # Chop up ${error}
-    key="$(echo "${error}" | cut -d: -f1)"
-    cvalue="$(echo "${error}" | cut -d: -f2)"
-    value="$(echo "${error}" | cut -d: -f3)"
+    # If ${key} a pkg name parse differently
+    if [ $(echo "${error}" | grep -c "^pkg") -gt 0 ]; then
+      key="$(echo "${error}" | cut -d: -f1,2)"
+      inode="$(echo "${error}" | cut -d: -f3)"
+      flag="$(echo "${error}" | cut -d: -f4)"
+      cvalue="$(echo "${error}" | cut -d: -f5)"
+      value="$(echo "${error}" | cut -d: -f6)"
 
-    # Print friendly success
-    [ ${verbose} -eq 1 ] && print "  ${key} ${cvalue} [${value}]" 1
+      # Print friendly success
+      [ ${verbose} -eq 1 ] && print "  Package: ${key}" 1
+      [ ${verbose} -eq 1 ] && print "    Type: ${flag} ${cvalue} [${value}]" 1
+    else
+      key="$(echo "${error}" | cut -d: -f1)"
+      cvalue="$(echo "${error}" | cut -d: -f2)"
+      value="$(echo "${error}" | cut -d: -f3)"
+
+      # Print friendly success
+      [ ${verbose} -eq 1 ] && print "  ${key} ${cvalue} [${value}]" 1
+    fi
   done
 
   exit 1

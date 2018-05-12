@@ -21,7 +21,7 @@ function user_uid()
   local uid
 
   # Pluck uid from ${accts}
-  uid=$(echo "${accts[@]}" | tr ' ' '\n' | grep "^${user}" | cut -d: -f3)
+  uid=$(echo "${accts[@]}" | tr ' ' '\n' | grep "^${user}:" | cut -d: -f3)
 
   # return ${uid}
   echo ${uid:=-1}
@@ -37,7 +37,7 @@ function user_gid()
   local gid
 
   # Pluck gid from ${accts}
-  gid=$(echo "${accts[@]}" | tr ' ' '\n' | grep "^${group}" | cut -d: -f4)
+  gid=$(echo "${accts[@]}" | tr ' ' '\n' | grep "^${group}:" | cut -d: -f4)
 
   # return ${gid}
   echo ${gid:=-1}
@@ -64,7 +64,7 @@ function group_gid()
   local gid
 
   # Pluck gid from ${accts}
-  gid=$(echo "${accts[@]}" | tr ' ' '\n' | grep "^${group}" | cut -d: -f3)
+  gid=$(echo "${accts[@]}" | tr ' ' '\n' | grep "^${group}:" | cut -d: -f3)
 
   # return ${gid}
   echo ${gid:=-1}

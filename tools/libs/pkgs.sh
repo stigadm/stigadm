@@ -30,7 +30,7 @@ function parse_pkg_verify()
     sed "s|\([Hash|Size]\): \(.*\) should.*be \(.*\)$|\1,\2,\3+|g" | \
     sed "s| bytes||g" | \
     awk '{$1=$1;print}' | tr '\n' ':' | \
-    nawk '{gsub(/::/, " ", $0);gsub(/\+:/, "+", $0);gsub(/,:/, ",", $0);print}') )
+    nawk '{gsub(/::/, " ", $0);gsub(/\+:/, "+", $0);gsub(/,:/, ",", $0);print}' 2>/dev/null) )
 
   # Return error if nothing parsed
   [ ${#pkgs[@]} -eq 0 ] && (echo 1 && return 1)
@@ -56,7 +56,7 @@ function verify_pkgs()
   for pkg in ${pkgs[@]}; do
 
     # Ensure we are filtering for garbage in ${pkgs[@]} first
-    res=$(echo "${pkg}" | awk '$0 ~ /pkg:/{print 1}' 2>/dev/null)
+    res=$(echo "${pkg}" | gawk '$0 ~ /pkg:/{print 1}' 2>/dev/null)
     [ ${res:=0} -eq 0 ] && continue
 
     # Split up ${pkg} into an initial array
@@ -75,29 +75,42 @@ function verify_pkgs()
     for inode in ${inodes[@]}; do
 
       # Handle our anomoly
-      [ $(echo "${inode}" | grep -c "^/") -eq 0 ] &&
+      anomoly=$(echo "${inode}" | grep -c "^/")
+
+      # Parse out ${node} this iteration or use last if ${anomoly} = 0
+      [ ${anomoly} -ne 0 ] &&
         node="$(echo "${inode}" | cut -d, -f1)"
 
       # Get the offending item
-      flag="$(echo "${inode}" | cut -d, -f2)"
+      [ ${anomoly} -eq 0 ] &&
+        flag="$(echo "${inode}" | cut -d, -f1)" ||
+        flag="$(echo "${inode}" | cut -d, -f2)"
 
       # Get current and expected values
-      current="$(echo "${inode}" | cut -d, -f3)"
-      expected="$(echo "${inode}" | cut -d, -f4)"
+      [ ${anomoly} -eq 0 ] &&
+        current="$(echo "${inode}" | cut -d, -f2)" ||
+        current="$(echo "${inode}" | cut -d, -f3)"
+
+      [ ${anomoly} -eq 0 ] &&
+        expected="$(echo "${inode}" | cut -d, -f3)" ||
+        expected="$(echo "${inode}" | cut -d, -f4)"
+
+      # Define a value for errors (if we need to push to ${errors[@]}
+      item="${pkg}:${node}:${flag}:${current}:${expected}"
 
       # Send through a decision tree in order to filter
       #  UID/GID values that are a false positive
       case "${flag}" in
         "Owner")
           [ $(user_uid ${current}) -gt $(user_uid ${expected}) ] &&
-            errors+=("${node}:${flag}:${current}:${expected}") && break ;;
+            errors+=("${item}") && break ;;
         "Group")
           [ $(group_gid ${current}) -gt $(group_gid ${expected}) ] &&
-            errors+=("${node}:${flag}:${current}:${expected}") && break ;;
+            errors+=("${item}") && break ;;
         "Size")
-          errors+=("${node}:${flag}:${current}:${expected}") && break ;;
+          errors+=("${item}") && break ;;
         "Hash")
-          errors+=("${node}:${flag}:${current}:${expected}") && break ;;
+          errors+=("${item}") && break ;;
       esac
     done
   done
