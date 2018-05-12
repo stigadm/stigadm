@@ -47,7 +47,7 @@ function verify_pkgs()
 {
   # Re-assign ${@} to locally scoped ${pkgs[@]} array
   local -a pkgs=( ${@} )
-  local -a error=()
+  local -a errors=()
 
   # Bail if ${pkgs[@]} is empty
   [ ${#pkgs[@]} -eq 0 ] && (echo 1 && return 1)
@@ -71,6 +71,37 @@ function verify_pkgs()
     # Bail if empty
     [ ${#inodes[@]} -eq 0 ] && (echo 1 && return 1)
 
-    # 
+    # Iterate ${inodes[@]}
+    for inode in ${inodes[@]}; do
+
+      # Handle our anomoly
+      [ $(echo "${inode}" | grep -c "^/") -eq 0 ] &&
+        node="$(echo "${inode}" | cut -d, -f1)"
+
+      # Get the offending item
+      flag="$(echo "${inode}" | cut -d, -f2)"
+
+      # Get current and expected values
+      current="$(echo "${inode}" | cut -d, -f3)"
+      expected="$(echo "${inode}" | cut -d, -f4)"
+
+      # Send through a decision tree in order to filter
+      #  UID/GID values that are a false positive
+      case "${flag}" in
+        "Owner")
+          [ $(user_uid ${current}) -gt $(user_uid ${expected}) ] &&
+            errors+=("${node}:${flag}:${current}:${expected}") && break ;;
+        "Group")
+          [ $(group_gid ${current}) -gt $(group_gid ${expected}) ] &&
+            errors+=("${node}:${flag}:${current}:${expected}") && break ;;
+        "Size")
+          errors+=("${node}:${flag}:${current}:${expected}") && break ;;
+        "Hash")
+          errors+=("${node}:${flag}:${current}:${expected}") && break ;;
+      esac
+    done
   done
+
+  # Return the ${errors[@]} array & set the return code
+  echo "${errors[@]}" && return ${#errors[@]}
 }
