@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+# Define an array of zone ppriv attributes any configured zone must use
+declare -a pprivs
+pprivs+=("limitpriv:default")
+
+
 # Global defaults for tool
 author=
 verbose=0
@@ -87,13 +93,11 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Remove once work is complete on module
-cat <<EOF
-[${stigid}] Warning: Not yet implemented...
-
-$(get_meta_data "${cwd}" "${prog}")
-EOF
-exit 1
+# Make sure ${ppriv[@]} is not empty
+if [ ${#pprivs[@]} -eq 0 ]; then
+  usage "Must define values corresponding to those available from ppriv"
+  exit 1
+fi
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
@@ -105,6 +109,13 @@ if [ ${meta} -eq 1 ]; then
 
   # Print meta data
   get_meta_data "${cwd}" "${prog}"
+fi
+
+
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  print "'${stigid}' only applies to global zones" 1
+  exit 1
 fi
 
 
@@ -126,27 +137,155 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
-# If ${change} = 1
-if [ ${change} -eq 1 ]; then
+# Create a filter based on ${pprivs[@]}
+filter="$(echo "${pprivs[@]}" | tr ' ' '\n' | cut -d: -f1)"
 
-  # Create backup of file(s), settings or permissions on inodes
-  # (see existing facilities in ${lib_path}/backup.sh)
 
-  # Make change according to ${stigid}
-  [ ${verbose} -eq 1 ] && print "Make change here"
+# Acquire list of configured/installed zones
+zones=( $(zoneadm list -cv | awk 'NR > 1 && $0 !~ /global|solaris-kz/{print $2}') )
+
+# If ${#zones[@]} == 0
+if [ ${#zones[@]} -eq 0 ]; then
+
+  # Print friendly message regarding restoration mode
+  [ ${verbose} -eq 1 ] && print "${#zones[@]} found on host"
+
+  # Print friendly success
+  [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
+  exit 0
+fi
+
+# Iterate ${zones[@]}
+for zone in ${zones[@]}; do
+
+  # Acquire properties for anything matching ${filter}
+  props+=( "${zone}:"$(zonecfg -z ${zone} info | egrep ${filter} | awk '{printf("%s%s\n", $1, $2)}') )
+done
+
+# If ${#props[@]} == 0
+if [ ${#props[@]} -eq 0 ]; then
+
+  # Print friendly message regarding restoration mode
+  [ ${verbose} -eq 1 ] && print "Unable to acquire list of zones & their attributes"
+  exit 1
 fi
 
 
-# Validate change according to ${stigid}
+# Print friendly success
+[ ${verbose} -eq 1 ] && print "Acquired list of zones and their attributes: ${#props[@]}"
+
+
+# Create an error array
+declare -a errors
+
+
+# If ${change} = 1
+if [ ${change} -eq 1 ]; then
+
+  # Create the backup env
+  backup_setup_env "${backup_path}"
+
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "${props[@]}"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of zones and properties failed..." 1
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot of zones and associated attributes"
+
+
+  # Iterate ${props[@]}
+  for prop in ${props[@]}; do
+
+    # Cut ${prop} into zone, key & values
+    zone="$(echo "${prop}" | cut -d: -f1)"
+    key="$(echo "${prop}" | cut -d: -f2)"
+    values=( $(echo "${prop}" | cut -d: -f3 | tr ',' ' ') )
+
+    # Make a needle out of ${pprivs[${key}]
+    needle="$(echo "${pprivs[@]}" | tr ' ' '\n' | grep "^${key}" | cut -d: -f2)"
+
+    # Bail if ${pprivs[@]} key/value exist
+    [ $(in_array "${needle}" "${values[@]}") -eq 0 ] &&
+      continue
+
+    # Create an array of configured property values from ${pprivs[@]}
+    dvalues=( $(echo "${pprivs[@]}" | tr ' ' '\n' | grep "^${key}" | cut -d: -f2 | tr ',' ' ') )
+
+    # Merge ${values[@]} w/ ${dvalues[@]} matching ${key}
+    values=( $(echo "${dvalues[@]}" "${values[@]}" | tr ' ' '\n' | sort -u) )
+
+    # Set ${key} on ${zone} to ${values[@]}
+    zonecfg -z ${zone} set ${key}=$(echo "${values[@]}" | tr ' ' ',') 2>/dev/null
+
+    # Determine if an error is to be raised
+    [ $? -ne 0 ] && errors+=("${prop}")
+
+    # Raise an error if ${values[@]} doesn't match
+    cval=$(zonecfg -z ${zone} info ${key} | grep -c "$(echo "${values[@]}" | tr ' ' ',')")
+    [ ${cval} -le 0 ] && errors+=("${prop}")
+  done
+
+  # Zero ${props[@]}
+  props=()
+
+  # Refresh ${props[@]}
+  for zone in ${zones[@]}; do
+
+    # Acquire properties for anything matching ${filter}
+    props+=( "${zone}:"$(zonecfg -z ${zone} info | egrep ${filter} | awk '{printf("%s%s\n", $1, $2)}') )
+  done
+fi
+
+
+# Iterate ${props[@]}
+for prop in ${props[@]}; do
+
+  # Cut ${prop} into zone, key & values
+  zone="$(echo "${prop}" | cut -d: -f1)"
+  key="$(echo "${prop}" | cut -d: -f2)"
+  values=( $(echo "${prop}" | cut -d: -f3 | tr ',' ' ') )
+
+  # Make a needle out of ${pprivs[${key}]
+  needle="$(echo "${pprivs[@]}" | tr ' ' '\n' | grep "^${key}" | cut -d: -f2)"
+
+  # Bail if ${pprivs[@]} key/value exist
+  [ $(in_array "${needle}" "${values[@]}") -eq 1 ] && errors+=("${prop}")
+done
 
 
 # Exit 1 if validation failed
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Print friendly success
+  [ ${verbose} -eq 1 ] && print "Host does not conform to '${stigid}'"
+
+  # Iterate ${errors[@]}
+  for error in ${errors[@]}; do
+
+    zone="$(echo "${error}" | cut -d: -f1)"
+    key="$(echo "${error}" | cut -d: -f2)"
+    values=( $(echo "${error}" | cut -d: -f3 | tr ',' ' ') )
+
+    # Print friendly success
+    [ ${verbose} -eq 1 ] && print "  ${zone} ${key} [${values[@]}]" 1
+  done
+
+  exit 1
+fi
 
 
 # Print friendly success
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
 
 # Date: 2017-06-21
 #
@@ -162,4 +301,3 @@ exit 0
 #
 # Title: The limitpriv zone option must be set to the vendor default or less permissive.
 # Description: The limitpriv zone option must be set to the vendor default or less permissive.
-

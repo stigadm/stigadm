@@ -97,7 +97,7 @@ done
 if [ ${#blacklisted[@]} -eq 0 ]; then
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Must have at least one blacklisted package defined" 1
+  [ ${verbose} -eq 1 ] && usage "Must have at least one blacklisted package defined"
   exit 1
 fi
 
