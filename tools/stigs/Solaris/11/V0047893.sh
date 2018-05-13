@@ -141,15 +141,25 @@ if [ ${#pkgs[@]} -eq 0 ]; then
 
   # Print friendly message
   [ ${verbose} -eq 1 ] && print "${#pkgs[@]} installed packages found matching blacklist" 1
-  exit 1
+  exit 0
 fi
 
+# Get a total before intersection
+pkg_total=${#pkgs[@]}
 
 # Perform intersecton of ${pkgs[@]} w/ ${blacklisted[@]} while obtaining actual FMRI
 pkgs=( $(comm -12 \
   <(printf "%s\n" "${blacklisted[@]}" | sort -u) \
   <(printf "%s\n" "${pkgs[@]}" | sort -u) | \
     xargs pkg info | awk '$0 ~ /FMRI:/{print $2}') )
+
+# Bail if ${#pkgs[@]} == ${pkg_total}
+if [ ${#pkgs[@]} -eq ${pkg_total} ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
+  exit 0
+fi
 
 # Print friendly message
 [ ${verbose} -eq 1 ] && print "Retrieved list of installed packages matching blacklist"
@@ -229,11 +239,21 @@ if [ ${change} -eq 1 ]; then
   # Refresh installed list
   pkgs=( $(pkg list | awk '$3 ~ /^i/{print $1}' | sort -u) )
 
+  # Get a total before intersection
+  pkg_total=${#pkgs[@]}
+
   # Filter ${pkgs[@]} w/ ${blacklisted[@]}
   pkgs=( $(comm -12 \
     <(printf "%s\n" "${blacklisted[@]}" | sort -u) \
     <(printf "%s\n" "${pkgs[@]}" | sort -u) | \
       xargs pkg info | awk '$0 ~ /FMRI:/{print $2}') )
+
+  # Bail if ${#pkgs[@]} == ${pkg_total}
+  if [ ${#pkgs[@]} -eq ${pkg_total} ]; then
+
+    # Set ${pkgs[@]} = an empty array
+    pkgs=()
+  fi
 fi
 
 
