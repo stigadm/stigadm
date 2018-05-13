@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+# Define an array of blacklisted packages
+declare -a blacklisted
+blacklisted+=("service/network/finger")
+
+
 # Global defaults for tool
 author=
 verbose=0
@@ -87,13 +93,14 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Remove once work is complete on module
-cat <<EOF
-[${stigid}] Warning: Not yet implemented...
+# Bail if ${blacklisted[@]} not defined
+if [ ${#blacklisted[@]} -eq 0 ]; then
 
-$(get_meta_data "${cwd}" "${prog}")
-EOF
-exit 1
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Must have at least one blacklisted package defined" 1
+  exit 1
+fi
+
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
@@ -126,21 +133,125 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
-# If ${change} = 1
-if [ ${change} -eq 1 ]; then
+# Obtain list of currently installed packages
+pkgs=( $(pkg list | awk '$3 ~ /^i/{print $1}' | sort -u) )
 
-  # Create backup of file(s), settings or permissions on inodes
-  # (see existing facilities in ${lib_path}/backup.sh)
+# Bail if nothing found
+if [ ${#pkgs[@]} -eq 0 ]; then
 
-  # Make change according to ${stigid}
-  [ ${verbose} -eq 1 ] && print "Make change here"
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "${#pkgs[@]} installed packages found matching blacklist" 1
+  exit 1
 fi
 
 
-# Validate change according to ${stigid}
+# Perform intersecton of ${pkgs[@]} w/ ${blacklisted[@]} while obtaining actual FMRI
+pkgs=( $(comm -12 \
+  <(printf "%s\n" "${blacklisted[@]}" | sort -u) \
+  <(printf "%s\n" "${pkgs[@]}" | sort -u) | \
+    xargs pkg info | awk '$0 ~ /FMRI:/{print $2}') )
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Retrieved list of installed packages matching blacklist"
 
 
-# Exit 1 if validation failed
+# If ${change} = 1
+if [ ${change} -eq 1 ]; then
+
+  # Create the backup env
+  backup_setup_env "${backup_path}"
+
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "${pkgs[@]} | tr ' ' '\n')"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of current installed packages failed..." 1
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Snapshot of current installed packages completed..."
+
+
+  # Get list of published online repositories
+  publishers=( $(get_pkg_publishers) )
+
+  # Make sure we have at least one or baill
+  if [ ${#publishers[@]} -eq 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "No defined repositories published" 1
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Obtained package repository list"
+
+
+  # Obtain gateways on node
+  gateways=( $(get_gateways) )
+
+  # Bail if no gateways defined
+  if [ ${#gateways[@]} -eq 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "No gateways configured" 1
+    exit 1
+  fi
+
+
+  # Resolve ${publishers[@]} to IP's
+  nodes=( $(resolve_hosts "${publishers[@]}") )
+
+  # If ${#nodes[@]} is 0 bail
+  if [ ${#nodes[@]} -eq 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "${#nodes[@]} package repositories resolving" 1
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Performed rudimentary connectivity tests"
+
+
+  # Iterate ${pkgs[@]}
+  for pkg in ${pkgs[@]}; do
+
+    # Remove ${pkg}
+    pkg uninstall -q ${pkg} 2>/dev/null
+    [ $? -ne 0 ] && errors+=("${pkg}")
+  done
+
+  # Refresh installed list
+  pkgs=( $(pkg list | awk '$3 ~ /^i/{print $1}' | sort -u) )
+
+  # Filter ${pkgs[@]} w/ ${blacklisted[@]}
+  pkgs=( $(comm -12 \
+    <(printf "%s\n" "${blacklisted[@]}" | sort -u) \
+    <(printf "%s\n" "${pkgs[@]}" | sort -u) | \
+      xargs pkg info | awk '$0 ~ /FMRI:/{print $2}') )
+fi
+
+
+# If ${#pkgs[@]} > 0
+if [ ${#pkgs[@]} -gt 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Host does not conform to '${stigid}'" 1
+
+  # Iterate ${pkgs[@]}
+  for pkg in ${pkgs[@]}; do
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "  ${pkg}" 1
+  done
+
+  exit 1
+fi
 
 
 # Print friendly success
@@ -162,4 +273,3 @@ exit 0
 #
 # Title: The finger daemon package must not be installed.
 # Description: Finger is an insecure protocol.
-
