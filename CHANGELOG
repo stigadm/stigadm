@@ -1,3 +1,404 @@
+commit 44272b4f7904f2e2808d4d2b11fff1ec45d7a982
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 13 09:02:27 2018 +0400
+
+    PKG: Validation/Remediation of package verification for Solaris
+    Fixed bug in tools/libs/networking.sh that allowed unchecked errors to propogate
+    Validation & Remediation for the following:
+     V0047885, V0047887, V0047889, V0047891
+
+commit 4a45c055d7288a73e0748954bd75aff3da66a48c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 12 21:35:00 2018 +0400
+
+    Fix for V0047885 regarding report
+
+commit 2bf859d4bacd8efd386fa39d5cce26559d91b571
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 12 21:28:31 2018 +0400
+
+    V0047885: Validation/Remediation for broken packages
+    tools/libs/accounts.sh: Added to address account UID/GID translations
+    tools/libs/pkgs.sh: Added to assist with handling OS specific package management subroutines
+
+commit 42461508829bff165cced3317c4caaf6472e8931
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 12 21:26:19 2018 +0400
+
+    V0047885: Validation/Remediation for broken packages
+    tools/libs/accounts.sh: Added to address account UID/GID translations
+    tools/libs/pkgs.sh: Added to assist with handling OS specific package management subroutines
+
+commit ae77e43479e8810470489009ed72d0430a573874
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 12 18:42:49 2018 +0400
+
+    pkgs.sh: Added decision tree to handle false positives with inode owner/group ownership
+
+commit f7591d6a04ff5f7b7eba5217905cd2375bec9837
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 12 18:15:42 2018 +0400
+
+    Fix for default values & key indexes for account property retrieval
+
+commit c2e4f8683c4ccace38697b14c978c921eb060242
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 12 16:46:02 2018 +0400
+
+    V0047885: Package verification & accounts
+    Added tools/libs/pkgs.sh to handle OS specific package manager functionality
+    Added tools/libs/accounts.sh to handle UNIX/Linux accounts helper functions
+
+commit 7cb68e9960203a7ebb6b1b24460340a6fd153f12
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 11 21:26:12 2018 +0400
+
+    V0047885: EOD staged changes
+
+commit b149fef8a0ff71cc5143d947bcab7fbc4427b1ba
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 11 21:14:32 2018 +0400
+
+    V0047885: Working on package validation parsing; wtf... part duex
+
+commit b0cd659c072e370f09471f20297b3875b0df97a9
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 11 20:50:03 2018 +0400
+
+    V0047885: Working on package validation parsing; wtf
+
+commit 04b6b623fe3e2bb6a8eda06275f8ecb20b87220d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 11 17:28:39 2018 +0400
+
+    Networking: Added library to handle networking functionality
+
+commit bc29a9c5d30b22a1a65eb86eb06cd813d9f2c0e2
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 11 17:23:50 2018 +0400
+
+    Networking: Added library to handle networking functionality
+
+commit e9e6ef905aa5ccde0a60c211afcc2d05656a788d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 11 17:11:22 2018 +0400
+
+    Networking: Added library to handle networking functionality
+
+commit 5c4d297c6069622e3a48b874de3eb2fb4a6ea4e0
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu May 10 19:50:43 2018 +0400
+
+    V0047885: Added package repository connection sub-routine prior to pkg verify call
+
+commit 903724b872684585b81fb50d47a2f96f4a417ea4
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu May 10 19:10:18 2018 +0400
+
+    Added a simple timer for execution metrics; needs more work
+
+commit e3315bf2c83bac28b30a399fc4e021d1bed476a5
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu May 10 18:32:52 2018 +0400
+
+    Fixes for gen_date() order of operations
+
+commit fd8a7d43b496365ac05b03071200dc2e4493ab56
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu May 10 18:21:05 2018 +0400
+
+    Datetime: Added gen_epoch() function
+
+commit 36667cf0f2ce2cf333a3d3a6b683b6497e7c8467
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu May 10 18:07:32 2018 +0400
+
+    Moved individual timestamp creation to use gen_date() function
+
+commit ab1964c177b867fdd8d48215f283da7780a51e1c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu May 10 17:05:12 2018 +0400
+
+    V0047883-5: Fix for filtering
+
+commit 4a80c47ec567fb4213c8d7d0c88a63f000962978
+Merge: 4635144 1b7e41c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 21:11:44 2018 +0400
+
+    Merge branch 'v0.1.0'
+
+commit 1b7e41cf8cce98f887b01c567821ed0c903b46e5
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 21:07:22 2018 +0400
+
+    V0047885: Staged
+
+commit 3ee1f3d8b7d174e8e19e48d2a081d8c02f081fd2
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 20:12:29 2018 +0400
+
+    V0047883-5: Fix for reporting errors
+
+commit 46351441cbea5b90367a74e6d010dcbcfbc1d08b
+Merge: 837bcd5 d42ed8c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 19:59:54 2018 +0400
+
+    Merge branch 'v0.1.0'
+
+commit d42ed8cff36ed245376537a6866462cd118234c9
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 19:57:43 2018 +0400
+
+    V0047881: Fix for validation/remediation
+
+commit 9ae7dade44e121a168bf5b99309709c63b80586c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 19:16:29 2018 +0400
+
+    V0047881-3: Package management modules
+
+commit 1df74ebcca73600f68bf9d97cfecea3e7fb8f1d5
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 18:33:14 2018 +0400
+
+    V0047881: Functionality framed in
+
+commit 837bcd5eebb282f92728fe49822331e53d1458bc
+Merge: c1cd674 3095ae8
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 13:46:00 2018 +0400
+
+    Fix for stigadm
+
+commit 3095ae8649da9f39645f75828ab291ebfce2f17e
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Dec 17 10:36:18 2017 +0400
+
+    Version: v0.1.0 Date 20180506
+    
+    README: Updated coverage map of completed/validated functional
+    modules
+    
+    Libraries: Fixed issue with percentage calculations
+    
+    STIG Modules: Updated, completed & validated 46;
+    V0047805, V0047807, V0047809, V0047811, V0047813, V0047815,
+    V0047817, V0047819, V0047821, V0047823, V0047825, V0047831,
+    V0047835, V0047841, V0047843, V0047845, V0047857, V0047863,
+    V0047869, V0047943, V0047971, V0047981, V0047989, V0047991,
+    V0048033, V0048039, V0048059, V0048061, V0048063, V0048079,
+    V0048083, V0048085, V0048133, V0048189, V0048193, V0048197,
+    V0048211, V0048221, V0048245, V0059831, V0059833, V0059835,
+    V0059837, V0059839, V0059841, V0059843
+    
+    All shell scripts have had their permissions modified to
+    assist with code injection vulnerabilities
+
+commit c1cd6741cecf8f9590da56ba9b53e27f0622f415
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 12:18:42 2018 +0400
+
+    Better reporting for summary
+
+commit fd539c1ef0a6b3fca7e10f0a37c00f27e9907a87
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 10:28:01 2018 +0400
+
+    V0047857: Reporting on error fix
+
+commit 5a2f052a4e915cecc4e38105d633ce280953d4b2
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 10:25:19 2018 +0400
+
+    20180506: Audit flag fixes
+     V0047805, V0047807, V0047811, V0047813, V0047815, V0047817, V0047819, V0047821, V0047823, V0047825
+
+commit ce846c3006cd70dbd635697d1cd7b5d698d793b8
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 10:25:01 2018 +0400
+
+    20180506: Audit flag fixes
+     V0047805, V0047807, V0047811, V0047813, V0047815, V0047817, V0047819, V0047821, V0047823, V0047825
+
+commit 7f5e6db83414a9b45e27fd1c2f6ae0cddedb660e
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 10:10:57 2018 +0400
+
+    STIG: Index report; part duex
+
+commit 5a04ac036b3a820b95f88f79b8ec2f2bc56778f3
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 10:02:45 2018 +0400
+
+    STIG: Index report
+
+commit 14fd32b26a45ea1986e4c3d19a70b96fd41554d2
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 09:54:27 2018 +0400
+
+    V0048033: Fix for error handling
+
+commit d217400061a10e7334aaef7b2086e6743b65c107
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 08:53:32 2018 +0400
+
+    Errors: Fixed printing of errors by removing a hyphen
+
+commit 8f0205db29f63f166cba91f4d54a32d937c96e1d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 6 08:25:58 2018 +0400
+
+    [stigadm.sh]: 20180506
+     V0047863: Auditing policy validation/remediation
+     stigadm.sh: Added fix for total number of STIG modules & report summary
+
+commit 0326016cc7fc9d7dca07e0cc6df1b9af403309ae
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 5 19:56:50 2018 +0400
+
+    V0047863: Validation/Remdiation for auditing policy on core dump/crashes
+
+commit 7a7455ec73460f8a4e0e6c6e1f707cce59576bc3
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 5 19:39:51 2018 +0400
+
+    V0047857: Fixed quota, compression & reservation calculations; part duex
+
+commit 7ebe8903f964de816d5bd90d7cb1dd3bf9598c7c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 5 19:34:47 2018 +0400
+
+    V0047857: Fixed quota, compression & reservation calculations
+
+commit fa7b13febaf6f1cfe88a2a650b4ac5a4b1f28b24
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 5 18:37:11 2018 +0400
+
+    V0048061: Fixed not implemented status
+
+commit 54e497c8f31163ed4558060e970b43999444d3b8
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 5 17:56:15 2018 +0400
+
+    V0048245: Fixed not implemented status
+
+commit 00c2b2fed1843597df0686d64b9f71cefc2ac56c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 5 17:41:51 2018 +0400
+
+    V0048039: Fixed not implemented status
+
+commit 52811ba47f9e52b36d4b2c05676f70f1a9644fe8
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 5 17:21:49 2018 +0400
+
+    Update counts on STIG modules
+
+commit b4ef627a4916017e78f004cbc08fc806d6953372
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Apr 21 12:40:09 2018 +0400
+
+    Fix for README coverage map
+
+commit 3f406cb9f3263e531414eb55a9779e26fc140555
+Merge: c9a97b1 f8142aa
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Apr 21 12:38:57 2018 +0400
+
+    Merge branch 'v0.0.9'
+
+commit f8142aa919dd7c2fe85598b5d59f6e0c72328ff3
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Apr 21 12:36:06 2018 +0400
+
+    General: 20180421 - Copyright dates
+
+commit c7bcea3733c5fc10a9b93a6d03f464aced565041
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Apr 21 12:33:32 2018 +0400
+
+    General: 20180421 - Permissions
+
+commit 97f49d238aa4e79b14c87bc2a4ab71103182f088
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Apr 21 12:32:03 2018 +0400
+
+    FAQ
+
+commit 2c384a44ad80c91851faa8a1554caed9c0915f53
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Apr 21 12:08:05 2018 +0400
+
+    Added coverage map fixed
+
+commit 5f3b878882785086d094baa22f165ecae4cfa4a2
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Apr 21 12:06:44 2018 +0400
+
+    Added coverage map 3
+
+commit f086663b748efd600bac4b983cf6ad28a9d29e7f
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Apr 21 12:03:18 2018 +0400
+
+    Added coverage map 2
+
+commit 032eeb37967dc28f118065ee4eb99da1e7025e41
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Apr 21 12:01:47 2018 +0400
+
+    Added coverage map
+
+commit c9a97b1d64358899fe85ded65194511d43dc1d76
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Apr 21 11:29:24 2018 +0400
+
+    V0047857: Staged changes
+
+commit da6a4d7b31d2adac5bbe212eb1931d80823c0739
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Apr 21 11:14:00 2018 +0400
+
+    V0047857: Staged changes
+
+commit 160ec883affc4d0fe6a05ab35a51a61f3272c770
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Dec 17 10:36:18 2017 +0400
+
+    Fix for URI's in CONTRIBUTING.md
+
+commit c29321f3787ee2214811b9bcd3391f14e6862cc7
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sun Dec 17 10:30:51 2017 +0400
+
+    Added documentation regarding modules & contributions of modules
+
+commit 37b3a47e239cd9b1e3440204b36db4e710eaf230
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sat Dec 16 16:23:44 2017 +0400
+
+    Fix part duex uses in_array_loose() to determine missing modules
+
+commit 5bc04973c8af2b2028b2e43e318b47be30d166f2
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Sat Dec 16 15:51:27 2017 +0400
+
+    Fixed problem with printing missing modules when -L option used
+
+commit bd87ac6e978eba6f498ead9f251c6dddd96a1a5b
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 30 21:37:10 2017 +0400
+
+    EOD 20171130
+
+commit 3e8e6fc51a65747d3bb86f46b80d38626d33063b
+Author: Jas <jason.gerfen@gmail.com>
+Date:   Thu Nov 30 04:20:42 2017 +0400
+
+    Updated changelog
+
 commit 4d3d014f4bd53d83e287b3ae4f78d81bb81b3654
 Author: Jas <jason.gerfen@gmail.com>
 Date:   Thu Nov 30 03:13:26 2017 +0400
