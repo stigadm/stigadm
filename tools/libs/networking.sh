@@ -25,7 +25,7 @@ function resolve_hosts()
 
   # Bail if nothing provided
   if [ ${#hosts[@]} -eq 0 ]; then
-    echo 1 && return 1
+    echo && return 1
   fi
 
   # Iterate ${hosts[@]} & try to resolve
@@ -37,7 +37,7 @@ function resolve_hosts()
 
   # Bail if ${#ips[@]} is 0
   if [ ${#ips[@]} -eq 0 ]; then
-    echo 2 && return 2
+    echo && return 2
   fi
 
   echo "${ips[@]}" && return 0
