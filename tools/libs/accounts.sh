@@ -1,12 +1,18 @@
 #!/bin/bash
 
 
+# UID values to determine system, applicaton or end user
+sysaccts="1:99"
+appaccts="100:499"
+usraccts="500:2147483647"
+
+
 # Function to obtain an array of accounts
 function get_accounts()
 {
   # Test and get array of accounts
   [ -f /etc/passwd ] &&
-    local -a accounts=( $(cat /etc/passwd) )
+    local -a accounts=( $(cat /etc/passwd | sed 's/ /_/g') )
 
   echo "${accounts[@]}" && return 0
 }
@@ -49,7 +55,7 @@ function get_groups()
 {
   # Test and get array of groups
   [ -f /etc/group ] &&
-    local -a groups=( $(cat /etc/group) )
+    local -a groups=( $(cat /etc/group | sed 's/ /_/g') )
 
   echo "${groups[@]}" && return 0
 }
@@ -68,4 +74,40 @@ function group_gid()
 
   # return ${gid}
   echo ${gid:=-1}
+}
+
+
+# Function to retrieve system accounts
+function get_system_accts()
+{
+  local min=$(echo "${sysaccts}" | cut -d: -f1)
+  local min=$(echo "${sysaccts}" | cut -d: -f2)
+  local -a accts=( $(get_accounts) )
+
+  echo "$(echo "${accts[@]}" | tr ' ' '\n' | \
+    nawk -v min=${min} -v max=${max} -F: '$3 >= min && $4 <= max{print $1}')"
+}
+
+
+# Function to retrieve application accounts
+function get_application_accts()
+{
+  local min=$(echo "${appaccts}" | cut -d: -f1)
+  local min=$(echo "${appaccts}" | cut -d: -f2)
+  local -a accts=( $(get_accounts) )
+
+  echo "$(echo "${accts[@]}" | tr ' ' '\n' | \
+    nawk -v min=${min} -v max=${max} -F: '$3 >= min && $4 <= max{print $1}')"
+}
+
+
+# Function to retrieve user accounts
+function get_user_accts()
+{
+  local min=$(echo "${usraccts}" | cut -d: -f1)
+  local min=$(echo "${usraccts}" | cut -d: -f2)
+  local -a accts=( $(get_accounts) )
+
+  echo "$(echo "${accts[@]}" | tr ' ' '\n' | \
+    nawk -v min=${min} -v max=${max} -F: '$3 >= min && $4 <= max{print $1}')"
 }
