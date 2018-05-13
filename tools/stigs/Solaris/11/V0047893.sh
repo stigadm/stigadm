@@ -233,7 +233,7 @@ if [ ${change} -eq 1 ]; then
 
     # Remove ${pkg}
     pkg uninstall -q ${pkg} 2>/dev/null
-    [ $? -ne 0 ] && errors+=("${pkg}")
+    [ $? -ne 0 ] && errors+=("${pkg}") || complete+=("${pkg}")
   done
 
   # Refresh installed list
@@ -273,6 +273,20 @@ if [ ${#pkgs[@]} -gt 0 ]; then
   exit 1
 fi
 
+
+# If ${#complete[@]} > 0
+if [ ${#complete[@]} -gt 0 ]; then
+
+  # Print friendly success
+  [ ${verbose} -eq 1 ] && print "Removed the following blacklisted packages"
+
+  # Iterate ${complete[@]}
+  for pkg in ${complete[@]}; do
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "  ${pkg}"
+  done
+fi
 
 # Print friendly success
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
