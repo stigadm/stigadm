@@ -1,30 +1,51 @@
 #!/bin/bash
 
 
-# Define an associative array of proc/mem/network limits per object
-#  - Each value must be in the following format due to limitations in bash's associative arrays
-#    Format: obj["user.name"]="projid:[int] comment:[text] users:[text,...,...] groups:[text,...,...] attribs:[text,...,...]"
-#    Example: obj["user.name"]="projid:1 comment:a user users:user1,user2,user3 groups:group1,group2,group3 attribs:process.max-file-descriptor=(basic,131072,deny),process.max-shm-memory(privileged,934584254464,deny)
-# For information regarding possible attributes please review the kernel options man page
-declare -A obj
-obj["dba"]="projid:104 comment: users: groups: attribs:"
-obj["default"]="projid:3 comment: users: groups: attribs:"
-obj["oinstall"]="projid:103 comment: users: groups: attribs:"
-obj["noproject"]="projid:2 comment: users: groups: attribs:"
-obj["system"]="projid:0 comment: users: groups: attribs:"
-obj["user.oracle"]="projid:105 comment: users: groups: attribs:process.max-file-descriptor=(basic,65536,deny),process.max-sem-nsems=(privileged,1024,deny),process.max-sem-ops=(privileged,512,deny),project.max-msg-ids=(privileged,4096,deny),project.max-sem-ids=(privileged,65535,deny),project.max-shm-ids=(privileged,4096,deny),project.max-shm-memory=(privileged,934584254464,deny)"
-obj["user.root"]="projid:1 comment: users: groups: attribs:"
-obj["group.dba"]="projid:104 comment: users: groups: attribs:process.max-file-descriptor=(basic,131072,deny)"
-obj["group.staff"]="projid:10 comment: users: groups: attribs:"
-obj["group.oinstall"]="projid:101 comment: users: groups: attribs:process.max-file-descriptor=(basic,131072,deny)"
-obj["group.root"]="projid:102 comment: users: groups: attribs:process.max-file-descriptor=(basic,131072,deny)"
+# Set some default actions
+priv_level="priv"
+log_level="notice"
+action="deny"
+
+# An associative array of project attributes for application user accounts
+declare -A application_accounts
+application_accounts["project.max-locked-memory"]="65%"
+application_accounts["project.max-shm-memory"]="75%"
+application_accounts["project.max-tasks"]=32000
+application_accounts["project.max-lwps"]=32000
+application_accounts["task.max-processes"]=16000
+application_accounts["task.max-processes"]=16000
+application_accounts["process.max-file-descriptor"]=16000
+application_accounts["process.max-stack-size"]="70%"
+application_accounts["process.max-address-space"]="60%"
 
 
-# The configuration file used for the 'projects' tool
-file=/etc/projects
+# An associative array of project attributes for end user accounts
+declare -A user_accounts
+user_accounts["project.max-locked-memory"]="40%"
+user_accounts["project.max-shm-memory"]="60%"
+user_accounts["project.max-tasks"]=16000
+user_accounts["project.max-lwps"]=16000
+user_accounts["task.max-processes"]=16000
+user_accounts["task.max-processes"]=16000
+user_accounts["process.max-file-descriptor"]=16000
+user_accounts["process.max-stack-size"]="50%"
+user_accounts["process.max-address-space"]="50%"
 
-# Attributes hive pattern
-pattern="^([a-z]+).([a-z]+)=\(([a-z]+,[a-z]+,[a-z]+)\)?,"
+
+# An associative array of zone specific project limits
+declare -A zone_limits
+zone_limits["zone.cpu-shares"]="50%"
+zone_limits["zone.max-lofi"]=8
+zone_limits["zone.max-lwps"]=16000
+zone_limits["zone.max-processes"]=32000
+zone_limits["zone.max-shm-ids"]=64000
+zone_limits["zone.max-shm-memory"]="75%"
+zone_limits["zone.max-swap"]="70%"
+
+
+# Define an whitelist of accounts to ignore
+declare -a whitelist
+whitelist+=("root")
 
 
 # Global defaults for tool
@@ -119,7 +140,6 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
   usage "Must specify an author name (use -a <initials>)" && exit 1
 fi
 
-
 # If ${meta} is true
 if [ ${meta} -eq 1 ]; then
 
@@ -128,7 +148,6 @@ if [ ${meta} -eq 1 ]; then
 fi
 
 
-print "Not yet implemented" && exit 0
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
 
@@ -147,95 +166,64 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
-# Make sure ${#obj[@]} != 0
-if [ ${#obj[@]} -eq 0 ]; then
-  usage "No profile options defined" && exit 1
-fi
+# If ${change} = 1
+if [ ${change} -eq 1 ]; then
 
+  # Create the backup env
+  backup_setup_env "${backup_path}"
 
-# If ${restore} = 1 go to restoration mode
-if [ ${restore} -eq 1 ]; then
+  # Create a snapshot of ${users[@]}
+  #bu_configuration "${backup_path}" "${author}" "${stigid}" "$(echo "${pkgs[@]}" | tr ' ' '\n')"
+  if [ $? -ne 0 ]; then
 
-  # If ${interactive} = 1 go to interactive restoration mode
-  if [ ${interactive} -eq 1 ]; then
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of broken packages failed..." 1
 
-    # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
-
+    # Stop, we require a backup
+    exit 1
   fi
-
-  # Print friendly message regarding restoration mode
-  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
-
-  exit 0
-fi
-
-
-# Iterate ${opts[@]}
-for key in ${!opts[@]}; do
 
   # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Evaluating '${key}'"
-
-  # Fudge ${opts[${key}]} from string into array
-  IFS=" " read -p values <<< ${opts[${key}]}
-
-  # Skip if empty
-  if [ ${#values[@]} -eq 0 ]; then
-
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Empty value for '${key}', skipping"
-    continue
-  fi
-
-  # Iterate ${values[@]}
-  for item in ${values[@]}; do
-
-    # Get defined project id
-    projid="$(echo "${values[${items}]}" | awk -F: '$0 ~ /^projid/{print $2}')"
-
-    # Get defined comment(s)
-    comment="$(echo "${values[${items}]}" | awk -F: '$0 ~ /^comment/{print $2}')"
-
-    # Get defined user(s)
-    users="$(echo "${values[${items}]}" | awk -F: '$0 ~ /^users/{print $2}')"
-
-    # Get defined groups(s)
-    groups="$(echo "${values[${items}]}" | awk -F: '$0 ~ /^groups/{print $2}')"
-
-    # Get defined attribute(s)
-    attribs="$(echo "${values[${items}]}" | awk -F: '$0 ~ /^attribs/{print $2}')"
-
-    # Do a quick validation on ${attribs} to determine if we can iteratively validate/change each hive.key=(rules)
-    vals=($(echo "${attribs}" | gawk -v pat="${pattern}" '{if (match($0, pat, obj)){ if (obj[1] != "" ) {print obj[1]} if (obj[2] != "") {print [obj[2]} if (obj[3] != "") {print obj[3]}}}'))
-
-    # If ${attribs} != "" & matches hive.key=(hive,value,rule)
-    #if [[ "${attribs}" != "" ]] && [[ ]]; then
-    #  print "Not yet implemented"
-    #fi
-
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Empty value for '${key}', skipping"
-
-    # Make changes if requested
-    if [ ${check} -eq 1 ]; then
-
-    fi
-  done
-done
-
+  [ ${verbose} -eq 1 ] && print "Created snapshot of broken packages"
 
 
 fi
 
-# Use the following for verbose error output
-#[ ${verbose} -eq 1 ] && print "error output, notice the 1 =>" 1
+
+# Look at #{pkgs[@]} for invalid items (ignores false positives)
+errors+=( $(verify_pkgs "${pkgs[@]}") )
+
+
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Print friendly success
+  [ ${verbose} -eq 1 ] && print "Does not conform to '${stigid}'" 1
+
+  # Iterate ${errors[@]}
+  for error in ${errors[@]}; do
+
+    key="$(echo "${error}" | cut -d: -f1,2)"
+    inode="$(echo "${error}" | cut -d: -f3)"
+    flag="$(echo "${error}" |  cut -d: -f4)"
+    cvalue="$(echo "${error}" | cut -d: -f5)"
+    value="$(echo "${error}" | cut -d: -f6)"
+
+    # Print friendly success
+    [ ${verbose} -eq 1 ] && print "  Package: ${key}" 1
+    [ ${verbose} -eq 1 ] && print "    Inode: ${inode}" 1
+    [ ${verbose} -eq 1 ] && print "      Type: ${type} ${cvalue} [${value}]" 1
+  done
+
+  exit 1
+fi
 
 
 # Print friendly success
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
 
 # Date: 2017-06-21
 #
@@ -251,4 +239,3 @@ exit 0
 #
 # Title: The operating system must manage excess capacity, bandwidth, or other redundancy to limit the effects of information flooding types of denial of service attacks.
 # Description: In the case of denial of service attacks, care must be taken when designing the operating system so as to ensure that the operating system makes the best use of system resources.
-
