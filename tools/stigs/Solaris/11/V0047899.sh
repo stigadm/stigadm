@@ -166,6 +166,10 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
+# Get total number of CPU's
+# Get total amount of physical memory
+
+
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
 
