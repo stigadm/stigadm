@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+# Define an array of packages to inspect
+declare -a packages
+packages+=("system/zones")
+
+
 # Global defaults for tool
 author=
 verbose=0
@@ -87,13 +93,14 @@ while getopts "ha:cmvri" OPTION ; do
 done
 
 
-# Remove once work is complete on module
-cat <<EOF
-[${stigid}] Warning: Not yet implemented...
+# Bail if ${#packages[@]} is 0
+if [ ${#packages[@]} -eq 0 ]; then
 
-$(get_meta_data "${cwd}" "${prog}")
-EOF
-exit 1
+  # Print friendly message regarding restoration mode
+  [ ${verbose} -eq 1 ] && print "Must define at least one package" 1
+  exit 1
+fi
+
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
@@ -126,27 +133,145 @@ if [ ${restore} -eq 1 ]; then
 fi
 
 
-# If ${change} = 1
-if [ ${change} -eq 1 ]; then
+# Get list of published online repositories
+publishers=( $(get_pkg_publishers) )
 
-  # Create backup of file(s), settings or permissions on inodes
-  # (see existing facilities in ${lib_path}/backup.sh)
+# Make sure we have at least one or baill
+if [ ${#publishers[@]} -eq 0 ]; then
 
-  # Make change according to ${stigid}
-  [ ${verbose} -eq 1 ] && print "Make change here"
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "No defined repositories published" 1
+  exit 1
+fi
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Obtained package repository list"
+
+
+# Obtain gateways on node
+gateways=( $(get_gateways) )
+
+# Bail if no gateways defined
+if [ ${#gateways[@]} -eq 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "No gateways configured" 1
+  exit 1
 fi
 
 
-# Validate change according to ${stigid}
+# Resolve ${publishers[@]} to IP's
+nodes=( $(resolve_hosts "${publishers[@]}") )
+
+# If ${#nodes[@]} is 0 bail
+if [ ${#nodes[@]} -eq 0 ]; then
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "${#nodes[@]} package repositories resolving" 1
+  exit 1
+fi
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Performed rudimentary connectivity tests"
 
 
-# Exit 1 if validation failed
+# Get a blob to cache results of 'pkg verify'
+blob="$(pkg verify -H "${packages[@]}" 2>/dev/null)"
+
+# Break ${blob} up into an easy to manage  array of packages
+pkgs=( $(parse_pkg_verify "${blob}") )
+
+# Define an empty array of errors
+declare -a errors
+
+# Print friendly message
+[ ${verbose} -eq 1 ] && print "Retrieved & filtered list of broken packages"
+
+
+# If ${change} = 1
+if [ ${change} -eq 1 ]; then
+
+  # Create the backup env
+  backup_setup_env "${backup_path}"
+
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "$(echo "${pkgs[@]}" | tr ' ' '\n')"
+  if [ $? -ne 0 ]; then
+
+    # Print friendly message
+    [ ${verbose} -eq 1 ] && print "Snapshot of broken packages failed..." 1
+
+    # Stop, we require a backup
+    exit 1
+  fi
+
+  # Print friendly message
+  [ ${verbose} -eq 1 ] && print "Created snapshot of broken packages"
+
+
+  # If ${#pkgs[@]} > 0
+  if [ ${#pkgs[@]} -gt 0 ]; then
+
+    # Look at #{pkgs[@]} for invalid items (ignores false positives)
+    errors=( $(verify_pkgs "${pkgs[@]}") )
+
+    # If ${#errors[@]} > 0
+    if [ ${#errors[@]} -gt 0 ]; then
+
+      # Iterate ${errors[@]}
+      for error in ${errors[@]}; do
+
+        # Get our package name
+        pkg="$(echo "${error}" | cut -d: -f1)"
+
+        # Run "pkg fix ${pkg}"
+        pkg fix -Hq ${pkg} 2>/dev/null
+      done
+    fi
+
+    # Refresh data from `pkg verify`
+    blob="$(pkg verify -H "${packages[@]}" 2>/dev/null)"
+
+    # Break ${blob} up into an easy to manage  array of packages
+    pkgs=( $(parse_pkg_verify "${blob}") )
+  fi
+fi
+
+
+# Look at #{pkgs[@]} for invalid items (ignores false positives)
+errors+=( $(verify_pkgs "${pkgs[@]}") )
+
+
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Print friendly success
+  [ ${verbose} -eq 1 ] && print "Does not conform to '${stigid}'" 1
+
+  # Iterate ${errors[@]}
+  for error in ${errors[@]}; do
+
+    key="$(echo "${error}" | cut -d: -f1,2)"
+    inode="$(echo "${error}" | cut -d: -f3)"
+    flag="$(echo "${error}" |  cut -d: -f4)"
+    cvalue="$(echo "${error}" | cut -d: -f5)"
+    value="$(echo "${error}" | cut -d: -f6)"
+
+    # Print friendly success
+    [ ${verbose} -eq 1 ] && print "  Package: ${key}" 1
+    [ ${verbose} -eq 1 ] && print "    Inode: ${inode}" 1
+    [ ${verbose} -eq 1 ] && print "      Type: ${type} ${cvalue} [${value}]" 1
+  done
+
+  exit 1
+fi
 
 
 # Print friendly success
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
 
 # Date: 2017-06-21
 #
@@ -162,4 +287,3 @@ exit 0
 #
 # Title: The /etc/zones directory, and its contents, must have the vendor default owner, group, and permissions.
 # Description: Incorrect ownership can result in unauthorized changes or theft of data.
-
