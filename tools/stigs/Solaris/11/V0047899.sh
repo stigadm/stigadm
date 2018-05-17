@@ -41,9 +41,21 @@ zone_limits["zone.max-shm-memory"]="75%"
 zone_limits["zone.max-swap"]="70%"
 
 
+# Define an associative array of virtual nic properties
+declare -A network_properties
+network_properties["zone"]="true" # Limit VNIC to zone where zone is configured to use vnic
+network_properties["protection"]="mac-nospoof,restricted,ip-nospoof,dhcp-nospoof" # See `man dladm` for info
+network_properties["allowed-ips"]="true" # Limits allowed outbound SRC datagrams on list ONLY
+network_properties["maxbw"]="75%" # Use ${network_whitelist[@]} array to exclude VNIC's, otherwise limit bandwidth
+
+
 # Define an whitelist of accounts to ignore
 declare -a whitelist
 whitelist+=("root")
+
+# Define a whitelist of VNIC's to exclude from ${network_properties[@]}
+declare -a network_whitelist
+network_whitelist+=("vnic1")
 
 
 # Global defaults for tool

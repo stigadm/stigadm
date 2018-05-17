@@ -335,7 +335,8 @@ for stig in ${stigs[@]}; do
   ./${stig} ${flags}
 
   # Trap errors for summary
-  [ $? -ne 0 ] && errors+=("$(echo "${stig}" | cut -d. -f1)")
+  [ $? -ne 0 ] && errors+=("$(echo $(basename ${stig}) | cut -d. -f1)")
+
 
   [ ${verbose} -eq 1 ] && echo
 done
@@ -350,7 +351,7 @@ e_epoch="$(gen_epoch)"
 seconds=$(subtract ${s_epoch} ${e_epoch})
 
 # Generate a run time
-[ ${seconds} -gt 60 ] && run_time="$(divide 60 ${seconds}) Min." || run_time="${seconds} Sec."
+[ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
 
 # Be verbose if asked
 if [ ${verbose} -eq 1 ]; then
