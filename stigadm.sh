@@ -342,12 +342,12 @@ done
 
 
 # Calculate a percentage from applied modules & errors incurred
-percentage=$(percent ${#stigs[@]} ${#errors[@]})
+percentage=$(subtract $(percent ${#stigs[@]} ${#errors[@]}) 100)
 
 # Get EPOCH
 e_epoch="$(gen_epoch)"
 
-seconds=$(subtract ${e_epoch} ${s_epoch})
+seconds=$(subtract ${s_epoch} ${e_epoch})
 
 # Generate a run time
 [ ${seconds} -gt 60 ] && run_time="$(divide 60 ${seconds}) Min." || run_time="${seconds} Sec."
@@ -357,9 +357,10 @@ if [ ${verbose} -eq 1 ]; then
 cat <<EOF
 [${appname}]: ${timestamp}
 STIG Compliance: ${percentage}%
- Details: ${#errors[@]}/${#stigs[@]} of ${total_stigs}
+ Failed: ${#errors[@]}/${#stigs[@]} of ${total_stigs}
+  Details: $(echo "${errors[@]}" | fold -sw 60)
 
-Run time: ${run_time}
+Run time: ${run_time} (${s_epoch} ${e_epoch})
 EOF
 fi
 

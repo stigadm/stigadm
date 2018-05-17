@@ -87,7 +87,7 @@ function add()
 # Subtract integers
 function subtract()
 {
-  echo "${1} - ${2}" | bc 2>/dev/null
+  echo "${2} - ${1}" | bc 2>/dev/null
 }
 
 
