@@ -13,7 +13,6 @@ application_accounts["project.max-shm-memory"]="75%"
 application_accounts["project.max-tasks"]=32000
 application_accounts["project.max-lwps"]=32000
 application_accounts["task.max-processes"]=16000
-application_accounts["task.max-processes"]=16000
 application_accounts["process.max-file-descriptor"]=16000
 application_accounts["process.max-stack-size"]="70%"
 application_accounts["process.max-address-space"]="60%"
@@ -25,7 +24,6 @@ user_accounts["project.max-locked-memory"]="40%"
 user_accounts["project.max-shm-memory"]="60%"
 user_accounts["project.max-tasks"]=16000
 user_accounts["project.max-lwps"]=16000
-user_accounts["task.max-processes"]=16000
 user_accounts["task.max-processes"]=16000
 user_accounts["process.max-file-descriptor"]=16000
 user_accounts["process.max-stack-size"]="50%"
@@ -168,6 +166,7 @@ fi
 
 # Get total number of CPU's
 # Get total amount of physical memory
+
 
 
 # If ${change} = 1

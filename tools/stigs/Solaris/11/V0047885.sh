@@ -140,9 +140,6 @@ filter="$(echo "${properties[@]}" | cut -d: -f1 | tr ' ' ',')"
 declare -a cproperties
 cproperties=( $(pkg property | egrep ${filter} | awk '{printf("%s:%s\n", $1, $2)}') )
 
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtained list of package properties"
-
 
 # Get list of published online repositories
 publishers=( $(get_pkg_publishers) )
