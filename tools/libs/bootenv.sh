@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # Create new boot envrionment and handle errors
 function create_be()
 {
@@ -49,6 +50,25 @@ function validate_be()
 
     # Handle Solaris 11 toolkit for managing boot environment status
     bechk=$(lustatus ""${name}"" | nawk '{if ($3 == "yes" && $4 == "yes"){print 0}else{print 1}}')
+  fi
+
+  return ${bechk}
+}
+
+
+# Create & mount new boot environment
+function mount_be()
+{
+  local name="${1}"
+  local version="${2}"
+  local path="${3}"
+
+  [ ! -d ${path} ] && mkdir -p ${path}
+
+  if [ ${version} -gt 11 ]; then
+    bechk=$(beadm mount ${name} ${path}; echo $?)
+  else
+    bechk=$(lumount ${name} ${path}; echo $?)
   fi
 
   return ${bechk}

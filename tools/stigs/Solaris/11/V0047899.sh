@@ -1,14 +1,24 @@
 #!/bin/bash
 
 
+# Boolean true/false to set properties per configured zone
+config_per_zone="true"
+
+
 # Set some default actions
 priv_level="priv"
-log_level="notice"
+log_level="warning"
 action="deny"
+
+
+# Define a log level for rctladm
+log_level="syslog"
+
 
 # An associative array of project attributes for application user accounts
 declare -A application_accounts
 application_accounts["project.max-locked-memory"]="65%"
+application_accounts["project.max-shm-ids"]=64000
 application_accounts["project.max-shm-memory"]="75%"
 application_accounts["project.max-tasks"]=32000
 application_accounts["project.max-lwps"]=32000
@@ -21,6 +31,7 @@ application_accounts["process.max-address-space"]="60%"
 # An associative array of project attributes for end user accounts
 declare -A user_accounts
 user_accounts["project.max-locked-memory"]="40%"
+user_accounts["project.max-shm-ids"]=16000
 user_accounts["project.max-shm-memory"]="60%"
 user_accounts["project.max-tasks"]=16000
 user_accounts["project.max-lwps"]=16000
@@ -34,8 +45,8 @@ user_accounts["process.max-address-space"]="50%"
 declare -A zone_limits
 zone_limits["zone.cpu-shares"]="50%"
 zone_limits["zone.max-lofi"]=8
-zone_limits["zone.max-lwps"]=16000
-zone_limits["zone.max-processes"]=32000
+zone_limits["zone.max-lwps"]=32000
+zone_limits["zone.max-processes"]=64000
 zone_limits["zone.max-shm-ids"]=64000
 zone_limits["zone.max-shm-memory"]="75%"
 zone_limits["zone.max-swap"]="70%"
@@ -45,7 +56,7 @@ zone_limits["zone.max-swap"]="70%"
 declare -A network_properties
 network_properties["zone"]="true" # Limit VNIC to zone where zone is configured to use vnic
 network_properties["protection"]="mac-nospoof,restricted,ip-nospoof,dhcp-nospoof" # See `man dladm` for info
-network_properties["allowed-ips"]="true" # Limits allowed outbound SRC datagrams on list ONLY
+network_properties["allowed-ips"]="true" # Limits allowed outbound SRC datagrams on list ONLY (Acquires from configured IP's)
 network_properties["maxbw"]="75%" # Use ${network_whitelist[@]} array to exclude VNIC's, otherwise limit bandwidth
 
 
@@ -53,9 +64,18 @@ network_properties["maxbw"]="75%" # Use ${network_whitelist[@]} array to exclude
 declare -a whitelist
 whitelist+=("root")
 
+
 # Define a whitelist of VNIC's to exclude from ${network_properties[@]}
 declare -a network_whitelist
 network_whitelist+=("vnic1")
+
+
+# Define the project file
+file=/etc/project
+
+
+# Define the location of the nsswitch.conf
+nsswitch=/etc/nsswitch.conf
 
 
 # Global defaults for tool
@@ -178,7 +198,10 @@ fi
 
 # Get total number of CPU's
 # Get total amount of physical memory
+# Get number of configured zones
 
+# Calculate percentages for the following:
+#  - CPU / [Memory | Zone] / X (Where X is the project|network limit)
 
 
 # If ${change} = 1
@@ -200,13 +223,7 @@ if [ ${change} -eq 1 ]; then
 
   # Print friendly message
   [ ${verbose} -eq 1 ] && print "Created snapshot of broken packages"
-
-
 fi
-
-
-# Look at #{pkgs[@]} for invalid items (ignores false positives)
-errors+=( $(verify_pkgs "${pkgs[@]}") )
 
 
 # If ${#errors[@]} > 0

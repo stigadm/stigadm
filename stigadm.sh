@@ -83,6 +83,10 @@ appname="$(echo "${prog}" | cut -d. -f1)"
 timestamp="$(gen_date)"
 
 
+# Default bootenv directory
+bootenv_dir="${cwd}/.${appname}"
+
+
 # Ensure path is robust
 PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
@@ -312,7 +316,7 @@ if [[ "$(to_lower "${os}")" == "solaris" ]] && [[ ${bootenv} -eq 1 ]] && [[ ${ch
     1) print "Could not create boot environment; ${bename}" 1 && exit 1 ;;
     2) print "Could not activate boot environment; ${bename}" 1 && exit 1 ;;
     3) print "Could not validate boot environment; ${bename}" 1 && exit 1 ;;
-    0) [ ${verbose} -eq 1 ] && print "Created, activated & validated boot env; ${bename}" ;;
+    0) [ ${verbose} -eq 1 ] && print "Created, activated & validated boot env; ${bename}" ;; # Fix running env
     ?) print "Unknown error occurred with boot env. ${bename}; ${ret}" 1 && exit 1 ;;
   esac
 fi
@@ -359,9 +363,10 @@ cat <<EOF
 [${appname}]: ${timestamp}
 STIG Compliance: ${percentage}%
  Failed: ${#errors[@]}/${#stigs[@]} of ${total_stigs}
-  Details: $(echo "${errors[@]}" | fold -sw 60)
+  Details:
+$(echo "${errors[@]}" | fold -sw 60)
 
-Run time: ${run_time} (${s_epoch} ${e_epoch})
+Run time: ${run_time}
 EOF
 fi
 

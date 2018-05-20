@@ -101,17 +101,20 @@ function multiply()
 # Divide integers
 function divide()
 {
-  echo "${1} / ${2}" | bc 2>/dev/null
+  local scale=${1}
+
+  echo "scale=${scale:=2}; ${1} / ${2}" | bc 2>/dev/null
 }
 
 
 # Return bytes based on % of total
 function percent()
 {
-  total=${1}
-  value=${2}
+  local total=${1}
+  local value=${2}
+  local scale=${3}
 
-  echo "100 * ${value} / ${total}" | bc 2>/dev/null
+  echo "scale=${scale:=2}; 100 * ${value} / ${total}" | bc 2>/dev/null
 }
 
 

@@ -95,6 +95,7 @@ $(get_meta_data "${cwd}" "${prog}")
 EOF
 exit 1
 
+
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
@@ -162,4 +163,3 @@ exit 0
 #
 # Title: The legacy remote network access utilities daemons must not be installed.
 # Description: Legacy remote access utilities allow remote control of a system without proper authentication.
-
