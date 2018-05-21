@@ -45,7 +45,7 @@ function get_meta_data()
 
 cat <<EOF
 [${stigid_parsed}] Meta Data
-$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${stigid} | sed "s|^[# |#$]| |g")
+$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${stigid} | sed "s|^[# |#$]| |g" | fold -sw 60)
 
 EOF
 }
