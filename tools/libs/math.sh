@@ -103,7 +103,7 @@ function divide()
 {
   local scale=${1}
 
-  echo "scale=${scale:=2}; ${1} / ${2}" | bc 2>/dev/null
+  echo "scale=${scale:=0}; ${1} / ${2}" | bc 2>/dev/null
 }
 
 
@@ -114,7 +114,16 @@ function percent()
   local value=${2}
   local scale=${3}
 
-  echo "scale=${scale:=2}; 100 * ${value} / ${total}" | bc 2>/dev/null
+  echo "scale=${scale:=0}; 100 * ${value} / ${total}" | bc 2>/dev/null
+}
+
+
+# Convert decimal to fraction
+function dec2frac()
+{
+  local dec=${1}
+
+  echo "${dec} / 1" | bc 2>/dev/null
 }
 
 

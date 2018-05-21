@@ -17,33 +17,35 @@ log_level="syslog"
 
 # An associative array of project attributes for application user accounts
 declare -A application_accounts
+application_accounts["process.max-file-descriptor"]=16000
+application_accounts["process.max-stack-size"]="70%"
+application_accounts["process.max-address-space"]="60%"
 application_accounts["project.max-locked-memory"]="65%"
+application_accounts["project.cpu-shares"]="80%"
 application_accounts["project.max-shm-ids"]=64000
 application_accounts["project.max-shm-memory"]="75%"
 application_accounts["project.max-tasks"]=32000
 application_accounts["project.max-lwps"]=32000
 application_accounts["task.max-processes"]=16000
-application_accounts["process.max-file-descriptor"]=16000
-application_accounts["process.max-stack-size"]="70%"
-application_accounts["process.max-address-space"]="60%"
 
 
 # An associative array of project attributes for end user accounts
 declare -A user_accounts
+user_accounts["process.max-file-descriptor"]=16000
+user_accounts["process.max-stack-size"]="50%"
+user_accounts["process.max-address-space"]="50%"
+user_accounts["project.cpu-shares"]="60%"
 user_accounts["project.max-locked-memory"]="40%"
 user_accounts["project.max-shm-ids"]=16000
 user_accounts["project.max-shm-memory"]="60%"
 user_accounts["project.max-tasks"]=16000
 user_accounts["project.max-lwps"]=16000
 user_accounts["task.max-processes"]=16000
-user_accounts["process.max-file-descriptor"]=16000
-user_accounts["process.max-stack-size"]="50%"
-user_accounts["process.max-address-space"]="50%"
 
 
 # An associative array of zone specific project limits
 declare -A zone_limits
-zone_limits["zone.cpu-shares"]="50%"
+zone_limits["zone.cpu-shares"]="75%"
 zone_limits["zone.max-lofi"]=8
 zone_limits["zone.max-lwps"]=32000
 zone_limits["zone.max-processes"]=64000
