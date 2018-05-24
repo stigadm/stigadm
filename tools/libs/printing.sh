@@ -5,7 +5,7 @@
 #  [String]: Provided message for error printing
 function perror()
 {
-  printf "[${stigid:=${appname}}] Error: %s\n" "${1}" | fold -sw 60
+  printf "[${stigid:=${appname}}] Error: %s\n" "${1}"
 }
 
 
@@ -14,7 +14,7 @@ function perror()
 #  [String]: Provided message for successful printing
 function psuccess()
 {
-  printf "[${stigid:=${appname}}] Ok: %s\n" "${1}" | fold -sw 60
+  printf "[${stigid:=${appname}}] Ok: %s\n" "${1}"
 }
 
 
@@ -23,7 +23,7 @@ function psuccess()
 #  [String]: Provided message for warning
 function pwarning()
 {
-  printf "[${stigid:=${appname}}] Warning: %s\n" "${1}" | fold -sw 60
+  printf "[${stigid:=${appname}}] Warning: %s\n" "${1}"
 }
 
 

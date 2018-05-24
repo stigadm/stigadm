@@ -364,7 +364,7 @@ cat <<EOF
 STIG Compliance: ${percentage}%
  Failed: ${#errors[@]}/${#stigs[@]} of ${total_stigs}
   Details:
-$(echo "${errors[@]}" | fold -sw 60)
+$(echo "${errors[@]}")
 
 Run time: ${run_time}
 EOF
