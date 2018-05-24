@@ -4,9 +4,12 @@
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
+xml=0
+
 
 # Working directory
 cwd="$(dirname $0)"
@@ -78,10 +81,12 @@ while getopts "ha:cjmvrix" OPTION ; do
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -162,4 +167,3 @@ exit 0
 #
 # Title: The /etc/security/audit_user file must not define a different auditing level for specific users.
 # Description: The audit_user file may be used to selectively audit more, or fewer, auditing features for specific individuals.  If used this way it could subject the activity to a lawsuit and could cause the loss of valuable auditing data in the case of a system compromise.  If an item is audited for one individual (other than for root and administrative users - who have more auditing features) it must be audited for all.
-

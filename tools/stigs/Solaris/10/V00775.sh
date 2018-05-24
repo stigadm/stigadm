@@ -9,9 +9,12 @@ perm=00700
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
+xml=0
+
 
 # Working directory
 cwd="$(dirname $0)"
@@ -83,10 +86,12 @@ while getopts "ha:cjmvrix" OPTION ; do
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -238,4 +243,3 @@ exit 0
 #
 # Title: The root account's home directory (other than /) must have mode 0700.
 # Description: Permissions greater than 0700 could allow unauthorized users access to the root home directory.
-

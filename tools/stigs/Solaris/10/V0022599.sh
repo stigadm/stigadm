@@ -4,9 +4,12 @@
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
+xml=0
+
 
 # Working directory
 cwd="$(dirname $0)"
@@ -78,10 +81,12 @@ while getopts "ha:cjmvrix" OPTION ; do
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -162,4 +167,3 @@ exit 0
 #
 # Title: The /etc/security/audit_user file must not have an extended ACL.
 # Description: Audit_user is a sensitive file that, if compromised, would allow a malicious user to select auditing parameters to ignore their sessions.  This would allow malicious operations the auditing subsystem would not detect for that user.  It could also result in long-term system compromise possibly leading to the compromise of other systems and networks.
-
