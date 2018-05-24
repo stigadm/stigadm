@@ -12,10 +12,11 @@ gowners+=("sys")
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
-
+xml=0
 # Working directory
 cwd="$(dirname $0)"
 
@@ -81,15 +82,17 @@ fi
 
 
 # Set variables
-while getopts "ha:cmvri" OPTION ; do
+while getopts "ha:cjmvrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -207,4 +210,3 @@ exit 0
 #
 # Title: The centralized process core dump data directory must be group-owned by root, bin, or sys.
 # Description: Process core dumps contain the memory in use by the process when it crashed. Any data the process was handling may be contained in the core file, and it must be protected accordingly. If the centralized process core dump data directory is not group-owned by a system group, the core dumps contained in the directory may be subject to unauthorized access.
-

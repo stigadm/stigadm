@@ -4,10 +4,11 @@
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
-
+xml=0
 # Working directory
 cwd="$(dirname $0)"
 
@@ -73,15 +74,17 @@ fi
 
 
 # Set variables
-while getopts "ha:cmvri" OPTION ; do
+while getopts "ha:cjmvrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -162,4 +165,3 @@ exit 0
 #
 # Title: X11 forwarding for SSH must be disabled.
 # Description: As enabling X11 Forwarding on the host can permit a malicious user to secretly open another X11 connection to another remote client during the session and perform unobtrusive activities such as keystroke monitoring, if the X11 services are not required for the system's intended function, they should be disabled or restricted as appropriate to the user's needs.
-

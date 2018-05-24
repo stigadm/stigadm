@@ -4,10 +4,11 @@
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
-
+xml=0
 # Working directory
 cwd="$(dirname $0)"
 
@@ -73,15 +74,17 @@ fi
 
 
 # Set variables
-while getopts "ha:cmvri" OPTION ; do
+while getopts "ha:cjmvrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -162,4 +165,3 @@ exit 0
 #
 # Title: The operator must document all file system objects that have non-standard access control list settings.
 # Description: Access Control Lists allow an object owner to expand permissions on an object to specific users and groups in addition to the standard permission model. Non-standard Access Control List settings can allow unauthorized users to modify critical files.
-

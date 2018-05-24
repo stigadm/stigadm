@@ -4,10 +4,11 @@
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
-
+xml=0
 # Working directory
 cwd="$(dirname $0)"
 
@@ -73,15 +74,17 @@ fi
 
 
 # Set variables
-while getopts "ha:cmvri" OPTION ; do
+while getopts "ha:cjmvrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -162,4 +165,3 @@ exit 0
 #
 # Title: All manual editing of system-relevant files shall be done using the pfedit command, which logs changes made to the files.
 # Description: Editing a system file with common tools such as vi, emacs, or gedit does not allow the auditing of changes made by an operator. This reduces the capability of determining which operator made security-relevant changes to the system.
-

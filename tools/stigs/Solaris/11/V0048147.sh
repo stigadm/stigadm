@@ -32,10 +32,11 @@ user_excp+=('splunk')
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
-
+xml=0
 # Working directory
 cwd="$(dirname $0)"
 
@@ -101,15 +102,17 @@ fi
 
 
 # Set variables
-while getopts "ha:cmvri" OPTION ; do
+while getopts "ha:cjmvrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -307,4 +310,3 @@ exit 0
 #
 # Title: The operating system must prevent remote devices that have established a non-remote connection with the system from communicating outside of the communication path with resources in external networks.
 # Description: This control enhancement is implemented within the remote device (e.g., notebook/laptop computer) via configuration settings not configurable by the user of the device. An example of a non-remote communications path from a remote device is a virtual private network. When a non-remote connection is established using a virtual private network, the configuration settings prevent split-tunneling. Split-tunneling might otherwise be used by remote users to communicate with the information system as an extension of the system and to communicate with local resources, such as a printer or file server. The remote device, when connected by a non-remote connection, becomes an extension of the information system allowing dual communications paths, such as split-tunneling, in effect allowing unauthorized external connections into the system. This is a split-tunneling requirement that can be controlled via the operating system by disabling interfaces.
-

@@ -1,0 +1,12 @@
+  {
+    id: "{STIGID}",
+    title: "{TITLE}",
+    description: "{DESCRIPTION}",
+    meta: {
+      rule_id: "{RULEID}",
+      classification: "{CLASSIFICATION}",
+      version: "{STIGVER}",
+      severity: "{SEVERITY}",
+    },
+    results: "{RESULTS}"
+  }

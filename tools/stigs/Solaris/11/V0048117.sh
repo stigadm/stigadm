@@ -4,10 +4,11 @@
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
-
+xml=0
 # Working directory
 cwd="$(dirname $0)"
 
@@ -73,15 +74,17 @@ fi
 
 
 # Set variables
-while getopts "ha:cmvri" OPTION ; do
+while getopts "ha:cjmvrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -162,4 +165,3 @@ exit 0
 #
 # Title: The use of FTP must be restricted.
 # Description: FTP is an insecure protocol that transfers files and credentials in clear text, and can be replaced by using SFTP. However, if FTP is permitted for use in the environment, it is important to ensure that the default "system" accounts are not permitted to transfer files via FTP, especially the root role. Consider also adding the names of other privileged or shared accounts that may exist on the system such as user "oracle" and the account which the web server process runs under.
-

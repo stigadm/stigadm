@@ -1,0 +1,9 @@
+  <Group id="{STIGID}">
+    <title>{TITLE}</title>
+    <description>{DESCRIPTION}</description>
+    <Rule id="{RULEID}" classification="{CLASSIFICATION}" weight="10.0">
+      <version>{STIGVER}</version>
+      <severity>{SEVERITY}</severity>
+      <results>{RESULTS}</results>
+    </Rule>
+  </Group>

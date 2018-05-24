@@ -57,12 +57,14 @@ classification=
 flags=
 debug=0
 interactive=0
+json=1
 meta=0
 os=
 restore=0
 version=
 verbose=0
 list=
+xml=0
 
 # Get EPOCH
 s_epoch="$(gen_epoch)"
@@ -144,6 +146,10 @@ Usage ./${appname} [options]
     -r  Perform rollback of changes
     -i  Interactive mode, to be used with -r
 
+  Reporting:
+    -j  JSON reporting structure
+    -x  XML reporting structure
+
 EOF
 }
 
@@ -158,7 +164,7 @@ fi
 
 
 # Set variables
-while getopts "a:bcdhimrvC:O:L:V:" OPTION ; do
+while getopts "a:bcdhijmrvC:O:L:V:x" OPTION ; do
   case $OPTION in
     a) author=$OPTARG ;;
     b) bootenv=1 ;;
@@ -166,6 +172,7 @@ while getopts "a:bcdhimrvC:O:L:V:" OPTION ; do
     d) debug=1 && set +x ;;
     h) usage && exit 1 ;;
     i) interactive=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     r) restore=1 ;;
     v) verbose=1 ;;
@@ -173,6 +180,7 @@ while getopts "a:bcdhimrvC:O:L:V:" OPTION ; do
     L) list=$OPTARG ;;
     O) os=$OPTARG ;;
     V) version=$OPTARG ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
