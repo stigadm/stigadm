@@ -4,9 +4,10 @@
     description: "{DESCRIPTION}",
     meta: {
       rule_id: "{RULEID}",
-      classification: "{CLASSIFICATION}",
       version: "{STIGVER}",
       severity: "{SEVERITY}",
+      classification: "{CLASSIFICATION}"
     },
+    {METRICS},
     results: "{RESULTS}"
   }

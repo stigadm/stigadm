@@ -1,5 +1,12 @@
 {
   title: "{REPORT}",
   description: "{DETAIL}",
+  meta: {
+    OS: "{OS}",
+    version: "{OSVER}",
+    modules: "{STIGS}",
+    selected: "{MODULES}",
+  },
+  {METRICS},
   {ITEM}
 }
