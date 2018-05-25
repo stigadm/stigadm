@@ -4,9 +4,12 @@
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
+xml=0
+
 
 # Working directory
 cwd="$(dirname $0)"
@@ -78,10 +81,12 @@ while getopts "ha:cjmvrix" OPTION ; do
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -158,8 +163,7 @@ exit 0
 #
 # OS: HP-UX
 # Version: 11.31
-# Architecture: 
+# Architecture:
 #
 # Title: The system must impose the same restrictions on root logins that are already applied to non-root users.
 # Description: Best practices standard operating procedures for computing systems includes account management. If the root account is allowed to be configured without a password, or not configured to lock if there have been no logins to the root account for an organization defined time interval, the entire system can be compromised.
-
