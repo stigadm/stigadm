@@ -4,9 +4,12 @@
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
+xml=0
+
 
 # Working directory
 cwd="$(dirname $0)"
@@ -78,10 +81,12 @@ while getopts "ha:cjmvrix" OPTION ; do
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -158,8 +163,7 @@ exit 0
 #
 # OS: AIX
 # Version: 6.1
-# Architecture: 
+# Architecture:
 #
 # Title: The system must not have the rstatd service active.
-# Description: The rstatd can give out information on the running system, such as  the CPU usage,  the system uptime, its network usage, and other system information that could potentially aid in an attack.  The rstatd service is unnecessary and it weakens the defensive posture of the system.  If systems monitoring is needed,  use a third party tool or SNMP.   
-
+# Description: The rstatd can give out information on the running system, such as  the CPU usage,  the system uptime, its network usage, and other system information that could potentially aid in an attack.  The rstatd service is unnecessary and it weakens the defensive posture of the system.  If systems monitoring is needed,  use a third party tool or SNMP.
