@@ -29,6 +29,10 @@ Usage ./${prog} [options]
     -r  Perform rollback of changes
     -i  Interactive mode, to be used with -r
 
+  Reporting:
+    -j  JSON reporting structure (default)
+    -x  XML reporting structure
+
 EOF
 }
 

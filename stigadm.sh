@@ -147,7 +147,7 @@ Usage ./${appname} [options]
     -i  Interactive mode, to be used with -r
 
   Reporting:
-    -j  JSON reporting structure
+    -j  JSON reporting structure (default)
     -x  XML reporting structure
 
 EOF
