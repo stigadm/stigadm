@@ -4,9 +4,12 @@
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
+xml=0
+
 
 # Working directory
 cwd="$(dirname $0)"
@@ -78,10 +81,12 @@ while getopts "ha:cjmvrix" OPTION ; do
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -158,8 +163,7 @@ exit 0
 #
 # OS: Red_Hat
 # Version: 7
-# Architecture: 
+# Architecture:
 #
 # Title: Passwords for new users must be restricted to a 60-day maximum lifetime.
 # Description: Any password, no matter how complex, can eventually be cracked. Therefore, passwords need to be changed periodically. If the operating system does not limit the lifetime of passwords and force users to change their passwords, there is the risk that the operating system passwords could be compromised.
-

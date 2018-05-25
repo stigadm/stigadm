@@ -4,9 +4,12 @@
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
+xml=0
+
 
 # Working directory
 cwd="$(dirname $0)"
@@ -78,10 +81,12 @@ while getopts "ha:cjmvrix" OPTION ; do
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -158,8 +163,7 @@ exit 0
 #
 # OS: Red_Hat
 # Version: 6
-# Architecture: 
+# Architecture:
 #
 # Title: The x86 Ctrl-Alt-Delete key sequence must be disabled.
 # Description: A locally logged-in user who presses Ctrl-Alt-Delete, when at the console, can reboot the system. If accidentally pressed, as could happen in the case of mixed OS environment, this can create the risk of short-term loss of availability of systems due to unintentional reboot. In the GNOME graphical environment, risk of unintentional reboot from the Ctrl-Alt-Delete sequence is reduced because the user will be prompted before any action is taken.
-

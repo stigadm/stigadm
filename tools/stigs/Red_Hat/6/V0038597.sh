@@ -4,9 +4,12 @@
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
+xml=0
+
 
 # Working directory
 cwd="$(dirname $0)"
@@ -78,10 +81,12 @@ while getopts "ha:cjmvrix" OPTION ; do
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -158,8 +163,7 @@ exit 0
 #
 # OS: Red_Hat
 # Version: 6
-# Architecture: 
+# Architecture:
 #
 # Title: The system must limit the ability of processes to have simultaneous write and execute access to memory.
 # Description: ExecShield uses the segmentation feature on all x86 systems to prevent execution in memory higher than a certain address. It writes an address as a limit in the code segment descriptor, to control where code can be executed, on a per-process basis. When the kernel places a process's memory regions such as the stack and heap higher than this address, the hardware prevents execution in that address range.
-

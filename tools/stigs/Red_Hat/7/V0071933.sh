@@ -4,9 +4,12 @@
 author=
 verbose=0
 change=0
+json=1
 meta=0
 restore=0
 interactive=0
+xml=0
+
 
 # Working directory
 cwd="$(dirname $0)"
@@ -78,10 +81,12 @@ while getopts "ha:cjmvrix" OPTION ; do
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    j) json=1 ;;
     m) meta=1 ;;
     v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
+    x) xml=1 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -158,8 +163,7 @@ exit 0
 #
 # OS: Red_Hat
 # Version: 7
-# Architecture: 
+# Architecture:
 #
 # Title: Passwords must be prohibited from reuse for a minimum of five generations.
 # Description: Password complexity, or strength, is a measure of the effectiveness of a password in resisting attempts at guessing and brute-force attacks. If the information system or application allows the user to consecutively reuse their password when that password has exceeded its defined lifetime, the end result is a password that is not changed per policy requirements.
-
