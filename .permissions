@@ -3121,7 +3121,6 @@ tools/stigs/Solaris/11/V0071495.sh;701;jas;jas
 tools/stigs/Solaris/11/V0071497.sh;701;jas;jas
 tools/stigs/Solaris/11/V0072827.sh;701;jas;jas
 tools/templates/json/item.json;664;jas;jas
-tools/templates/json/metrics.json;664;jas;jas
 tools/templates/json/report.json;664;jas;jas
 tools/templates/xml/item.xml;664;jas;jas
 tools/templates/xml/report.xml;664;jas;jas

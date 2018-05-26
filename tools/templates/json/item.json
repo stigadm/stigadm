@@ -8,6 +8,10 @@
       severity: "{SEVERITY}",
       classification: "{CLASSIFICATION}"
     },
-    {METRICS},
-    results: "{RESULTS}"
-  }
+    results: "{RESULTS}",
+    metrics: {
+      date: "{DATE}",
+      start: "{START}",
+      end: "{END}"
+    }
+  },

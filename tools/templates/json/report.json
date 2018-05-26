@@ -7,6 +7,10 @@
     modules: "{STIGS}",
     selected: "{MODULES}",
   },
-  {METRICS},
-  {ITEM}
+  {STIG}
+  metrics: {
+    date: "{DATE}",
+    start: "{START}",
+    end: "{END}"
+  }
 }
