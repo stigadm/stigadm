@@ -381,3 +381,4 @@ fi
 
 # Exit with the number of errors
 exit ${#errors[@]}
+
