@@ -21,31 +21,16 @@ function architecture()
 }
 
 
-# Get desired folder path
-function get_path()
+# Validate target OS & Version
+function set_env()
 {
-  local cwd="${1}"
-  local dir="${2}"
+  # Get OS & Version
+  local os="$(os)"
+  local ver="$(version)"
 
-  local cur="$(pwd)"
+  if [[ "${os}" == "" ]] || [[ "${ver}" == "" ]]; then
+    echo 1 && return 1
+  fi
 
-  local path
-
-  path="$(find ${cwd:=${cur}} -type d -name ${dir} | head -1)"
-
-  echo "${path}"
-}
-
-# Print meta data
-function get_meta_data()
-{
-  local cwd="${1}"
-  local stigid="${2}"
-  local stigid_parsed="$(echo "${stigid}" | cut -d. -f1)"
-
-cat <<EOF
-[${stigid_parsed}] Meta Data
-$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${stigid} | sed "s|^[# |#$]| |g")
-
-EOF
+  echo "${os}" "${ver}" && return 0
 }

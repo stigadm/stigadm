@@ -12,6 +12,9 @@ assets=${cwd}/tools/stigs/
 # Define the library include path
 lib_path=${cwd}/tools/libs
 
+# Define the library template path(s)
+templates=${cwd}/tools/templates/
+
 # Define the system backup path
 backup_path=${cwd}/tools/backups/$(uname -n | awk '{print tolower($0)}')
 
@@ -55,14 +58,12 @@ bootenv=0
 change=0
 classification=
 flags=
-debug=0
 interactive=0
 json=1
 meta=0
 os=
 restore=0
 version=
-verbose=0
 list=
 xml=0
 
@@ -164,18 +165,16 @@ fi
 
 
 # Set variables
-while getopts "a:bcdhijmrvC:O:L:V:x" OPTION ; do
+while getopts "a:bchijmrC:O:L:V:x" OPTION ; do
   case $OPTION in
     a) author=$OPTARG ;;
     b) bootenv=1 ;;
     c) change=1 ;;
-    d) debug=1 && set +x ;;
     h) usage && exit 1 ;;
     i) interactive=1 ;;
     j) json=1 ;;
     m) meta=1 ;;
     r) restore=1 ;;
-    v) verbose=1 ;;
     C) classification=$OPTARG ;;
     L) list=$OPTARG ;;
     O) os=$OPTARG ;;
@@ -189,15 +188,19 @@ done
 # Make sure we have the necessary OS & Version
 if [[ "${os}" == "" ]] && [[ "${version}" == "" ]]; then
 
-  # Run the wizard to walk the user through a target STIG
-  wizard "${assets}"
+  # If nothing supplied try to get it ourselves
+  declare -a t_env
+  t_env=( $(set_env) )
 
-  # Handle return
-  if [ $? -ne 0 ]; then
-    print "An occurred with wizard implementation, exiting"
-    exit 1
+  if [ ${#t_env[@]} -ne 2 ]; then
+
+      # Alert to requirements
+    usage "Must provide OS & Version" && exit 1
   fi
-  echo
+
+  # Break up ${t_env[@]} into elements
+  os="${t_env[0]}"
+  version="${t_env[1]}"
 fi
 
 
@@ -207,16 +210,10 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
 fi
 
 
-# Turn on verbosity flag if defined
-[ ${verbose} -eq 1 ] && flags=" -v"
-
-# Turn on debug flag if defined
-[ ${debug} -eq 1 ] && flags="${flags} -d"
-
 # Enable change w/ author argument
 if [ ${change} -eq 1 ]; then
   flags="${flags} -c"
-  [ "${author}" != "" ] && flags="${flags} -a ${author}"
+  [ "${author}" != "" ] && flags=" -a ${author}"
 fi
 
 # Enable restoration mode
@@ -269,8 +266,8 @@ fi
 # If ${#stigs[@]} = 0 exit
 if [ ${#stigs[@]} -eq 0 ]; then
 
-  print "'${#stigs[@]}' STIG modules found; aborting" 1
-  exit 1
+  # Notify and provide usage menu
+  usage "'${#stigs[@]}' STIG modules found; aborting" && exit 1
 fi
 
 # Re-sort & remove duplicates from ${stigs[@]}
@@ -321,11 +318,11 @@ if [[ "$(to_lower "${os}")" == "solaris" ]] && [[ ${bootenv} -eq 1 ]] && [[ ${ch
   bootenv "${bename}" ${version}
   ret=$?
   case ${ret} in
-    1) print "Could not create boot environment; ${bename}" 1 && exit 1 ;;
-    2) print "Could not activate boot environment; ${bename}" 1 && exit 1 ;;
-    3) print "Could not validate boot environment; ${bename}" 1 && exit 1 ;;
-    0) [ ${verbose} -eq 1 ] && print "Created, activated & validated boot env; ${bename}" ;; # Fix running env
-    ?) print "Unknown error occurred with boot env. ${bename}; ${ret}" 1 && exit 1 ;;
+    1) usage "Could not create boot environment; ${bename}" && exit 1 ;;
+    2) usage "Could not activate boot environment; ${bename}" && exit 1 ;;
+    3) usage "Could not validate boot environment; ${bename}" && exit 1 ;;
+    0) break ;; # Mount bename, copy stigadm toolkit & chroot to env FIX!!
+    ?) usage "Unknown error occurred with boot env. ${bename}; ${ret}" && exit 1 ;;
   esac
 fi
 
@@ -381,4 +378,3 @@ fi
 
 # Exit with the number of errors
 exit ${#errors[@]}
-

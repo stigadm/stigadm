@@ -25,7 +25,6 @@ tools/libs/pkgs.sh;701;jas;jas
 tools/libs/printing.sh;701;jas;jas
 tools/libs/searching.sh;701;jas;jas
 tools/libs/strings.sh;701;jas;jas
-tools/libs/wizard.sh;701;jas;jas
 tools/stigs/AIX/6.1/V001010.sh;701;jas;jas
 tools/stigs/AIX/6.1/V001011.sh;701;jas;jas
 tools/stigs/AIX/6.1/V001013.sh;701;jas;jas
@@ -3120,7 +3119,8 @@ tools/stigs/Solaris/11/V0061031.sh;701;jas;jas
 tools/stigs/Solaris/11/V0071495.sh;701;jas;jas
 tools/stigs/Solaris/11/V0071497.sh;701;jas;jas
 tools/stigs/Solaris/11/V0072827.sh;701;jas;jas
-tools/templates/json/item.json;664;jas;jas
+tools/templates/json/metrics.json;664;jas;jas
 tools/templates/json/report.json;664;jas;jas
+tools/templates/json/stig.json;664;jas;jas
 tools/templates/xml/item.xml;664;jas;jas
 tools/templates/xml/report.xml;664;jas;jas

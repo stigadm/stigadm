@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# Determine template(s) to use
+function get_template_path()
+{
+  local path="${1}"
+  local template="${2}"
+
+  # Test ${path}/${template} combination
+  [ ! -d ${path}/${template} ] && (echo 0 && return 0)
+
+  # Return the template path
+  echo "${path}/${template}/" && return 0
+}
+
+
 # Print errors
 # Arguments:
 #  [String]: Provided message for error printing

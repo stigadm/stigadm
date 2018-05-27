@@ -183,3 +183,19 @@ function get_classification()
 
   echo "${classes[@]}" | tr ' ' '|'
 }
+
+
+# Print meta data
+function get_meta_data()
+{
+  local cwd="${1}"
+  local stigid="${2}"
+  local stigid_parsed="$(echo "${stigid}" | cut -d. -f1)"
+
+cat <<EOF
+[${stigid_parsed}] Meta Data
+$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${stigid} | sed "s|^[# |#$]| |g")
+
+EOF
+}
+
