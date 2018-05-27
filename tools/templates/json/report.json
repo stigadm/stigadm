@@ -7,8 +7,6 @@
     modules: "{STIGS}",
     selected: "{MODULES}",
   },
-  stigs: [
-    {STIG}
-  ],
+  stigs: {STIG}
   {METRICS}
 }
