@@ -8,8 +8,8 @@
       severity: "{SEVERITY}",
       classification: "{CLASSIFICATION}"
     },
-    {INFO}
-    {WARNINGS}
-    {ERRORS}
-    {METRICS}
+    results: {RESULTS}
+    metrics: {
+      {METRICS}
+    }
   },

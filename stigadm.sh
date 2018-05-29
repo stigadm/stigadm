@@ -56,11 +56,11 @@ done
 author=
 bootenv=0
 change=0
+count=0
 classification=
 flags=
 interactive=0
 json=1
-meta=0
 os=
 restore=0
 version=
@@ -118,7 +118,7 @@ Usage ./${appname} [options]
   Help:
     -h  Show this message
 
-  Required:
+  Targeting:
     -O  Operating System
       Supported: [${os_list}]
 
@@ -139,15 +139,13 @@ Usage ./${appname} [options]
     -a  Author name (required when using -c)
     -b  Use new boot environment (Solaris only)
     -c  Make the change
-    -d  Debug mode
-    -m  Display meta data for STIG
-    -v  Enable verbosity mode
 
   Restoration:
     -r  Perform rollback of changes
     -i  Interactive mode, to be used with -r
 
   Reporting:
+    -l  Default: /var/log/stigadm-<OS>-<VER>-<DATE>.json)
     -j  JSON reporting structure (default)
     -x  XML reporting structure
 
@@ -165,7 +163,7 @@ fi
 
 
 # Set variables
-while getopts "a:bchijmrC:O:L:V:x" OPTION ; do
+while getopts "a:bchijlrC:O:L:V:x" OPTION ; do
   case $OPTION in
     a) author=$OPTARG ;;
     b) bootenv=1 ;;
@@ -173,13 +171,13 @@ while getopts "a:bchijmrC:O:L:V:x" OPTION ; do
     h) usage && exit 1 ;;
     i) interactive=1 ;;
     j) json=1 ;;
-    m) meta=1 ;;
+    l) log=1 ;;
     r) restore=1 ;;
     C) classification=$OPTARG ;;
     L) list=$OPTARG ;;
     O) os=$OPTARG ;;
     V) version=$OPTARG ;;
-    x) xml=1 ;;
+    x) xml=1 && ext="xml" && json=0 ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -188,13 +186,15 @@ done
 # Make sure we have the necessary OS & Version
 if [[ "${os}" == "" ]] && [[ "${version}" == "" ]]; then
 
-  # If nothing supplied try to get it ourselves
+  # Setup a temporary array for env vars
   declare -a t_env
+
+  # If nothing supplied try to get it ourselves
   t_env=( $(set_env) )
 
   if [ ${#t_env[@]} -ne 2 ]; then
 
-      # Alert to requirements
+    # Alert to requirements
     usage "Must provide OS & Version" && exit 1
   fi
 
@@ -222,11 +222,12 @@ if [ ${restore} -eq 1 ]; then
   [ ${interative} -eq 1 ] && flags="${flags} -i"
 fi
 
-# Enable meta data in the output
-if [ ${meta} -eq 1 ]; then
-  flags="${flags} -m"
-fi
 
+# Set the default log if nothing provided (/var/log/stigadm/<OS>-<VER>-<DATE>.json|xml)
+log="${log:=/var/log/${appname}/${os}-${version}-${timestamp}.${ext:=json}}"
+
+# If ${log} doesn't exist make it
+[ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})
 
 
 # Set a default value for classification if null
@@ -292,19 +293,6 @@ if [ ${#stigs[@]} -ne ${#list[@]} ]; then
 fi
 
 
-# Be verbose if asked
-[ ${verbose} -eq 1 ] && print "Built list of STIG modules: ${#stigs[@]}/${total_stigs}"
-[ ${verbose} -eq 1 ] && print "  OS: ${os} Version: ${version} Classification: ${classification}"
-[ ${verbose} -eq 1 ] && echo
-
-# Provide list from ${missing[@]}
-if [[ ${verbose} -eq 1 ]] && [[ ${#missing[@]} -gt 0 ]]; then
-  print "Missing modules:" 1
-  print "  $(echo "${missing[@]}")" 1
-  echo
-fi
-
-
 # If ${change} = 1, ${os} is Solaris & ${bootenv} = 1 setup a new BE
 if [[ "$(to_lower "${os}")" == "solaris" ]] && [[ ${bootenv} -eq 1 ]] && [[ ${change} -eq 1 ]]; then
 
@@ -330,24 +318,17 @@ fi
 # Iterate ${stigs[@]}
 for stig in ${stigs[@]}; do
 
-  if [ ! -f ${stig} ]; then
+  # Get a nicer name for the ${stig} file
+  stig_name="$(basename ${stig} | cut -d. -f1)"
 
-    # Let the user know what is happening
-    print "'$(basename ${stig})' is not a valid VMS ID or has not yet been implemented" 1
-    continue
-  fi
+  # Capture results from ${stig} ${flags} execution
+  cat <<EOF
+${results:=""}
+results="$(./${stig} ${flags})"
+EOF
 
-  # Let the user know what is happening
-  [ ${verbose} -eq 1 ] && print "Executing '$(basename ${stig}) ${flags}'"
-
-  # Do work
-  ./${stig} ${flags}
-
-  # Trap errors for summary
-  [ $? -ne 0 ] && errors+=("$(echo $(basename ${stig}) | cut -d. -f1)")
-
-
-  [ ${verbose} -eq 1 ] && echo
+  # Capture any errors
+  [ $? -ne 0 ] && errors+=("${stig_name}");
 done
 
 
@@ -362,8 +343,7 @@ seconds=$(subtract ${s_epoch} ${e_epoch})
 # Generate a run time
 [ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
 
-# Be verbose if asked
-if [ ${verbose} -eq 1 ]; then
+# Print something out
 cat <<EOF
 [${appname}]: ${timestamp}
 STIG Compliance: ${percentage}%
@@ -373,7 +353,6 @@ $(echo "${errors[@]}")
 
 Run time: ${run_time}
 EOF
-fi
 
 
 # Exit with the number of errors

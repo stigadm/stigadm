@@ -8,5 +8,7 @@
     selected: "{MODULES}",
   },
   stigs: {STIG}
-  {METRICS}
+  metrics: {
+    {METRICS}
+  }
 }
