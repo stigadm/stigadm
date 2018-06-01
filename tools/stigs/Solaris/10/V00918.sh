@@ -17,7 +17,6 @@ uid_excp+=(65534) # noaccess
 
 # Global defaults for tool
 author=
-verbose=0
 change=0
 json=1
 meta=0

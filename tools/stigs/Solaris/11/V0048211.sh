@@ -13,7 +13,6 @@ properties['_conn_req_max_q']=1024
 
 # Global defaults for tool
 author=
-verbose=0
 change=0
 json=1
 meta=0

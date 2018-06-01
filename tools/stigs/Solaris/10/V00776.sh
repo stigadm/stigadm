@@ -16,7 +16,6 @@ path="PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/ucb
 
 # Global defaults for tool
 author=
-verbose=0
 change=0
 json=1
 meta=0
