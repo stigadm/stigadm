@@ -107,7 +107,6 @@ while getopts "ha:cjmvrix" OPTION ; do
     c) change=1 ;;
     j) json=1 ;;
     m) meta=1 ;;
-    v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
     x) xml=1 ;;
