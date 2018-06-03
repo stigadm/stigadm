@@ -2,9 +2,9 @@
 
 # Global defaults for tool
 author=
+verbose=0
 change=0
 json=1
-meta=0
 restore=0
 interactive=0
 xml=0
@@ -75,14 +75,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cjmvrix" OPTION ; do
+while getopts "ha:cjrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
     j) json=1 ;;
-    m) meta=1 ;;
-    v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
     x) xml=1 ;;
@@ -152,6 +150,7 @@ fi
 
 exit 0
 
+
 # Date: 2017-05-19
 #
 # Severity: CAT-II
@@ -162,7 +161,8 @@ exit 0
 #
 # OS: HP-UX
 # Version: 11.31
-# Architecture:
+# Architecture: 
 #
 # Title: Users must not be able to change passwords more than once every 24 hours.
 # Description: The ability to change passwords frequently facilitates users reusing the same password. This can result in users effectively never changing their passwords. This would be accomplished by users changing their passwords when required and then immediately changing it to the original value.
+

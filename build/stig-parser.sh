@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # Parse STIG XML into meta data
 

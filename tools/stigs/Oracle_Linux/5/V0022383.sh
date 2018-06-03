@@ -2,9 +2,9 @@
 
 # Global defaults for tool
 author=
+verbose=0
 change=0
 json=1
-meta=0
 restore=0
 interactive=0
 xml=0
@@ -75,14 +75,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cjmvrix" OPTION ; do
+while getopts "ha:cjrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
     j) json=1 ;;
-    m) meta=1 ;;
-    v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
     x) xml=1 ;;
@@ -152,6 +150,7 @@ fi
 
 exit 0
 
+
 # Date: 2017-05-18
 #
 # Severity: CAT-II
@@ -162,7 +161,8 @@ exit 0
 #
 # OS: Oracle_Linux
 # Version: 5
-# Architecture:
+# Architecture: 
 #
 # Title: The audit system must be configured to audit the loading and unloading of dynamic kernel modules.
 # Description: Actions concerning dynamic kernel modules must be recorded as they are substantial events.  Dynamic kernel modules can increase the attack surface of a system.  A malicious kernel module can be used to substantially alter the functioning of a system, often with the purpose of hiding a compromise from the SA.
+

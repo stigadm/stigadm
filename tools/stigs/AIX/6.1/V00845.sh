@@ -2,9 +2,9 @@
 
 # Global defaults for tool
 author=
+verbose=0
 change=0
 json=1
-meta=0
 restore=0
 interactive=0
 xml=0
@@ -75,14 +75,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cjmvrix" OPTION ; do
+while getopts "ha:cjrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
     j) json=1 ;;
-    m) meta=1 ;;
-    v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
     x) xml=1 ;;
@@ -152,6 +150,7 @@ fi
 
 exit 0
 
+
 # Date: 2016-12-20
 #
 # Severity: CAT-III
@@ -162,7 +161,8 @@ exit 0
 #
 # OS: AIX
 # Version: 6.1
-# Architecture:
+# Architecture: 
 #
 # Title: The FTP daemon must be configured for logging or verbose mode.
 # Description: The -l option allows logging of connections.  This extra logging makes it possible to easily track which files are being transferred onto or from a system.  If they are not configured, the only option for tracking is the audit files.  The audit files are much harder to read.  If auditing is not properly configured, then there would be no record at all of the file transfer transactions.
+

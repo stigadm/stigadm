@@ -2,9 +2,9 @@
 
 # Global defaults for tool
 author=
+verbose=0
 change=0
 json=1
-meta=0
 restore=0
 interactive=0
 xml=0
@@ -75,14 +75,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cjmvrix" OPTION ; do
+while getopts "ha:cjrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
     j) json=1 ;;
-    m) meta=1 ;;
-    v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
     x) xml=1 ;;
@@ -152,6 +150,7 @@ fi
 
 exit 0
 
+
 # Date: 2017-05-19
 #
 # Severity: CAT-II
@@ -162,7 +161,8 @@ exit 0
 #
 # OS: Red_Hat
 # Version: 6
-# Architecture:
+# Architecture: 
 #
 # Title: The system must be configured to use TCP syncookies when experiencing a TCP SYN flood.
 # Description: A TCP SYN flood attack can cause a denial of service by filling a system's TCP connection table with connections in the SYN_RCVD state. Syncookies can be used to track a connection when a subsequent ACK is received, verifying the initiator is attempting a valid connection and is not a flood source. This feature is activated when a flood condition is detected, and enables the system to continue servicing valid connection requests.
+

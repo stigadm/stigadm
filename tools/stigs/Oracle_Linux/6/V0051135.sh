@@ -2,9 +2,9 @@
 
 # Global defaults for tool
 author=
+verbose=0
 change=0
 json=1
-meta=0
 restore=0
 interactive=0
 xml=0
@@ -75,14 +75,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cjmvrix" OPTION ; do
+while getopts "ha:cjrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
     j) json=1 ;;
-    m) meta=1 ;;
-    v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
     x) xml=1 ;;
@@ -152,6 +150,7 @@ fi
 
 exit 0
 
+
 # Date: 2017-03-01
 #
 # Severity: CAT-III
@@ -162,7 +161,8 @@ exit 0
 #
 # OS: Oracle_Linux
 # Version: 6
-# Architecture:
+# Architecture: 
 #
 # Title: The audit system must be configured to audit changes to the /etc/sudoers file.
 # Description: The actions taken by system administrators should be audited to keep a record of what was executed on the system, as well as, for accountability purposes.
+

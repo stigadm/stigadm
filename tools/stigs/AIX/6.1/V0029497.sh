@@ -2,9 +2,9 @@
 
 # Global defaults for tool
 author=
+verbose=0
 change=0
 json=1
-meta=0
 restore=0
 interactive=0
 xml=0
@@ -75,14 +75,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cjmvrix" OPTION ; do
+while getopts "ha:cjrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
     j) json=1 ;;
-    m) meta=1 ;;
-    v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
     x) xml=1 ;;
@@ -152,6 +150,7 @@ fi
 
 exit 0
 
+
 # Date: 2016-12-20
 #
 # Severity: CAT-II
@@ -162,7 +161,8 @@ exit 0
 #
 # OS: AIX
 # Version: 6.1
-# Architecture:
+# Architecture: 
 #
 # Title: The system must provide protection for the TCP stack against connection resets, SYN, and data injection attacks.
 # Description: The tcp_tcpsecure parameter provides protection for TCP connections from fake SYN's, fake RST, and data injections on established connections.  The first vulnerability involves sending a fake SYN to an established connection to abort the connection. The second vulnerability involves sending a fake RST to an established connection to abort the connection. The third vulnerability involves injecting fake data in an established TCP connection.
+

@@ -2,9 +2,9 @@
 
 # Global defaults for tool
 author=
+verbose=0
 change=0
 json=1
-meta=0
 restore=0
 interactive=0
 xml=0
@@ -75,14 +75,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cjmvrix" OPTION ; do
+while getopts "ha:cjrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
     j) json=1 ;;
-    m) meta=1 ;;
-    v) verbose=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
     x) xml=1 ;;
@@ -152,6 +150,7 @@ fi
 
 exit 0
 
+
 # Date: 2017-05-19
 #
 # Severity: CAT-II
@@ -162,7 +161,8 @@ exit 0
 #
 # OS: HP-UX
 # Version: 11.31
-# Architecture:
+# Architecture: 
 #
 # Title: During a password change, the system must determine if password aging attributes are inherited from the /etc/default/security file attributes when no password aging is specified in the shadow file for local users.
 # Description: Password aging attributes are stored in /etc/default/security and /etc/shadow. Anytime a password aging policy is changed, policy requirements are updated in /etc/default/security. If the system is allowed to override or ignore updates made to /etc/default/security, deprecated password aging policies will remain intact and never enforce newer requirements.
+
