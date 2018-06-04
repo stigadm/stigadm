@@ -1,4 +1,5 @@
 {
+  date: "{DATE}",
   title: "{REPORT}",
   description: "{DETAIL}",
   meta: {
@@ -9,6 +10,8 @@
   },
   stigs: {STIG}
   metrics: {
-    {METRICS}
+    date: "{DATE}",
+    start: "{START}",
+    end: "{END}"
   }
 }

@@ -190,12 +190,25 @@ function get_meta_data()
 {
   local cwd="${1}"
   local stigid="${2}"
+  local template="${3}"
   local stigid_parsed="$(echo "${stigid}" | cut -d. -f1)"
+  local blob="$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${stigid} | sed "s|^[# |#$]| |g")"
+  local -a obj
 
-cat <<EOF
-[${stigid_parsed}] Meta Data
-$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${stigid} | sed "s|^[# |#$]| |g")
+  # Cut ${blob} up and assign to ${obj[@]}
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Date:/{print $3}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Severity:/{print $3}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Classification:/{print $3}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /# STIG_ID:/{print $3}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /# STIG_Version:/{print $3}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Rule_ID:/{print $3}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /# OS:/{print $3}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Version:/{print $3}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Architecture:/{print $3}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Title:/{print $3}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Description:/{print $3}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Architecture:/{if ($4 != ""){print $3","$4}else{print $3}}')")
 
-EOF
+  echo "${obj[@]}"
 }
 

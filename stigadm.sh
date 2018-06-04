@@ -163,7 +163,7 @@ fi
 
 
 # Set variables
-while getopts "a:bchijlrC:O:L:V:x" OPTION ; do
+while getopts "a:bchijl:rC:O:L:V:x" OPTION ; do
   case $OPTION in
     a) author=$OPTARG ;;
     b) bootenv=1 ;;
@@ -171,7 +171,7 @@ while getopts "a:bchijlrC:O:L:V:x" OPTION ; do
     h) usage && exit 1 ;;
     i) interactive=1 ;;
     j) json=1 ;;
-    l) log=1 ;;
+    l) log=$OPTARG ;;
     r) restore=1 ;;
     C) classification=$OPTARG ;;
     L) list=$OPTARG ;;
@@ -210,6 +210,13 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
 fi
 
 
+# Set the default log if nothing provided (/var/log/stigadm/<OS>-<VER>-<DATE>.json|xml)
+log="${log:=/var/log/${appname}/${os}-${version}-${timestamp}.${ext:=json}}"
+
+# If ${log} doesn't exist make it
+[ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})
+
+
 # Enable change w/ author argument
 if [ ${change} -eq 1 ]; then
   flags="${flags} -c"
@@ -222,12 +229,8 @@ if [ ${restore} -eq 1 ]; then
   [ ${interative} -eq 1 ] && flags="${flags} -i"
 fi
 
-
-# Set the default log if nothing provided (/var/log/stigadm/<OS>-<VER>-<DATE>.json|xml)
-log="${log:=/var/log/${appname}/${os}-${version}-${timestamp}.${ext:=json}}"
-
-# If ${log} doesn't exist make it
-[ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})
+# Tell each module which ${log} to append
+flags="${flags} -l ${log}"
 
 
 # Set a default value for classification if null

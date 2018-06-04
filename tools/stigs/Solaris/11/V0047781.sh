@@ -33,6 +33,9 @@ lib_path=${cwd}/../../../libs
 # Define the tools include path
 tools_path=${cwd}/../../../stigs
 
+# Define the library template path(s)
+templates=${cwd}/tools/templates/
+
 # Define the system backup path
 backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
 
@@ -51,7 +54,7 @@ incs=($(ls ${lib_path}/*.sh))
 
 # Exit if nothing is found
 if [ ${#incs[@]} -eq 0 ]; then
-  echo "'${#incs[@]}' libraries found in '${lib_path}'" && exit 1
+  echo "${#incs[@]} libraries found in '${lib_path}'" && exit 1
 fi
 
 
@@ -60,13 +63,12 @@ for src in ${incs[@]}; do
 
   # Make sure ${src} exists
   if [ ! -f ${src} ]; then
-    echo "Skipping '$(basename ${src})'; not a real file (block device, symlink etc)"
+    echo "Skipping $(basename ${src}); not a real file"
     continue
   fi
 
   # Include $[src} making any defined functions available
   source ${src}
-
 done
 
 
@@ -77,19 +79,27 @@ fi
 
 
 # Set variables
-while getopts "ha:cjmvrix" OPTION ; do
+while getopts "ha:cjl:mvrix" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
     j) json=1 ;;
+    l) log=$OPTARG ;;
     m) meta=1 ;;
     r) restore=1 ;;
     i) interactive=1 ;;
-    x) xml=1 ;;
+    x) xml=1 && ext="xml" && json=0 ;;
     ?) usage && exit 1 ;;
   esac
 done
+
+
+# Get EPOCH
+s_epoch="$(gen_epoch)"
+
+# Create a timestamp
+timestamp="$(gen_date)"
 
 
 # Make sure we have an author if we are not restoring or validating
@@ -98,18 +108,25 @@ if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; t
 fi
 
 
-# If ${meta} is true
-if [ ${meta} -eq 1 ]; then
-
-  # Print meta data
-  get_meta_data "${cwd}" "${prog}"
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  usage "${stigid} only applies to global zones" && exit 1
 fi
 
 
-# Make sure we are operating on global zones
-if [ "$(zonename)" != "global" ]; then
-  print "'${stigid}' only applies to global zones" 1
-  exit 1
+# Set the default log if nothing provided (/var/log/stigadm/<OS>-<VER>-<DATE>.json|xml)
+log="${log:=/var/log/${appname}/${os}-${version}-${timestamp}.${ext:=json}}"
+
+# If ${log} doesn't exist make it
+[ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})
+
+# Acquire array of meta data
+declare -a meta
+meta=( $(get_meta_data "${cwd}" "${prog}") )
+
+# Bail if ${#meta[@]} >= 0
+if [ ${#meta[@]} -le 0 ]; then
+  usage "Unable to acquire meta data for ${stigid}" && exit 1
 fi
 
 
@@ -126,26 +143,16 @@ if [[ ${restore} -eq 1 ]] && [[ ${cond} -eq 1 ]]; then
   # If ${interactive} = 1 go to interactive restoration mode
   if [ ${interactive} -eq 1 ]; then
 
-    # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
-
+    print "Not yet implemented"
   fi
 
   # Do work
   audit -t
-  if [ $? -ne 0 ]; then
-
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Unable to disable auditing" 1
-    exit 1
-  fi
+  [ $? -ne 0 ] && exit 1
 
   exit 0
 fi
 
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Validating auditing"
 
 # If ${change} == 1 & ${cond} = 0
 if [[ ${change} -eq 1 ]] && [[ ${cond} -eq 0 ]]; then
@@ -153,15 +160,21 @@ if [[ ${change} -eq 1 ]] && [[ ${cond} -eq 0 ]]; then
   # Do work
   audit -s
   if [ $? -ne 0 ]; then
-
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Unable to enable auditing" 1
-    exit 1
+    [ $? -ne 0 ] && exit 1
   fi
 
   # Get boolean of current status
   cond=$(auditconfig -getcond | nawk '$1 ~ /^audit/ && $4 ~ /^auditing/{print 1}')
 fi
+
+
+# Get EPOCH
+e_epoch="$(gen_epoch)"
+
+seconds=$(subtract ${s_epoch} ${e_epoch})
+
+# Generate a run time
+[ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
 
 
 # If ${cond} != 1
@@ -177,6 +190,7 @@ fi
 [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
 exit 0
+
 
 # Date: 2017-06-21
 #

@@ -3,6 +3,7 @@
     title: "{TITLE}",
     description: "{DESCRIPTION}",
     meta: {
+      date: "{RELEASE_DATE}",
       rule_id: "{RULEID}",
       version: "{STIGVER}",
       severity: "{SEVERITY}",
@@ -10,6 +11,8 @@
     },
     results: {RESULTS}
     metrics: {
-      {METRICS}
+      date: "{STIG_DATE}",
+      start: "{STIG_START}",
+      end: "{STIG_END}"
     }
   },
