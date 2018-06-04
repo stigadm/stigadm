@@ -31,19 +31,21 @@ No installer package; simply copy latest `stigadm` toolkit and use.
 ## help system ##
 
 ```sh
+$ ./stigadm -h
 stigadm - Facilitates STIG Validation & Modifications
+
 
 Usage ./stigadm [options]
 
   Help:
     -h  Show this message
 
-  Required:
+  Targeting:
     -O  Operating System
-      Supported: [Solaris|RedHat]
+      Supported: [AIX|HP-UX|Oracle_Linux|Red_Hat|Solaris]
 
     -V  OS Version
-      Supported: [5|6|10|11]
+      Supported: [7|6.1|6|5|11.31|11|10]
 
   Filters:
     -A  Application
@@ -59,75 +61,39 @@ Usage ./stigadm [options]
     -a  Author name (required when using -c)
     -b  Use new boot environment (Solaris only)
     -c  Make the change
-    -d  Debug mode
-    -m  Display meta data for STIG
-    -v  Enable verbosity mode
 
   Restoration:
     -r  Perform rollback of changes
     -i  Interactive mode, to be used with -r
 
   Reporting:
+    -l  Default: /var/log/stigadm-<OS>-<VER>-<DATE>.json)
     -j  JSON reporting structure (default)
     -x  XML reporting structure
-
 ```
 
 ## examples ##
 Here are a few usage examples to get you started with the toolkit.
 
-### default (wizard mode)
-By default the toolkit will ask you a series of questions about how you would like it to run;
-
-```sh
-$ ./stigadm.sh
-[stigadm]: Wizard mode for stigadm
-  Target OS [Solaris]: Solaris
-  Use new boot environment [True|False]: True
-  OS Version [10|11]: 11
-  Severity [ALL|CAT-I|CAT-II|CAT-III]: ALL
-  Mode [Change|Validate|Restore]: Validate
-  Enable verbosity [True|False]: True
-  Display meta data [True|False]: True
-  Enable debug [True|False]: False
-
-[stigadm] Ok: Built list of STIG modules: 74/74
-[stigadm] Ok:   OS: Solaris Version: 11 Classification: ALL
-
-...
-```
-
 ### OS targeting
 Targeting the OS allows for greater flexibility with regards to an automated solution;
 
 ```sh
-$ ./stigadm.sh -vO Solaris
-stigadm] Ok: Built list of STIG modules: 74/74
-[stigadm] Ok:   OS: Solaris Version: 11 Classification: ALL
-
-...
+$ ./stigadm.sh -O Solaris -V 10
 ```
 
 ### Classification targeting
-Targeting the STIG classification can be used to filter tests
+Targeting the STIG classification can be used to filter tests or remediation
 
 ```sh
-$ ./stigadm.sh -vO Solaris -V 11 -C CAT-II
-stigadm] Ok: Built list of STIG modules: 23/74
-[stigadm] Ok:   OS: Solaris Version: 11 Classification: CAT-II
-
-...
+$ ./stigadm.sh -C CAT-II
 ```
 
 ### Vulnability targeting
-Providing a comma separated list of VMS ID's can also assist with filtering tests
+Providing a comma separated list of VMS ID's can also assist with filtering tests or remediation
 
 ```sh
-$ ./stigadm.sh -vO Solaris -V 11 -L V0047799,V0048211,V0048189
-stigadm] Ok: Built list of STIG modules: 3/74
-[stigadm] Ok:   OS: Solaris Version: 11 Classification: ALL
-
-...
+$ ./stigadm.sh -L V0047799,V0048211,V0048189
 ```
 
 ## contributing ##

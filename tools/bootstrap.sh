@@ -6,15 +6,14 @@
 author=
 arch=
 change=0
+ext="json"
 hostname="$(hostname)"
-json=1
 meta=0
 os=
 restore=0
 timestamp=
 verbose=0
 ver=
-xml=0
 
 
 # Working directory
@@ -42,7 +41,7 @@ lib_path=${cwd}/../../../libs
 tools_path=${cwd}/../../../stigs
 
 # Define the library template path(s)
-templates=${cwd}/tools/templates/
+templates=${cwd}/../../../templates
 
 # Define the system backup path
 backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
@@ -89,12 +88,12 @@ while getopts "ha:cjl:mrvx" OPTION ; do
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
-    j) json=1 ;;
+    j) ext="json" ;;
     l) log=$OPTARG ;;
     m) meta=1 ;;
     r) restore=1 ;;
     v) verbose=1 ;;
-    x) xml=1 && ext="xml" && json=0 ;;
+    x) ext="xml" ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -123,8 +122,23 @@ fi
 # Pick up the environment
 read -r os version arch <<< $(set_env)
 
-# Set the default log if nothing provided (/var/log/stigadm/<HOSTNAME>-<OS>-<VER>-<ARCH>-<DATE>.json|xml)
+# Set the default log if nothing provided
+#  /var/log/stigadm/<HOSTNAME>-<OS>-<VER>-<ARCH>-<DATE>.json|xml
 log="${log:=/var/log/${appname}/${hostname}-${os}-${version}-${arch}-${timestamp}.${ext:=json}}"
 
 # If ${log} doesn't exist make it
 [ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})
+
+
+# Re-define the ${templates} based on ${ext}
+templates="${templates}/${ext}"
+
+# Bail if ${templates} is not a folder
+if [ ! -d ${templates} ]; then
+  usage "Could not find a templates directory for report generation" && exit 1
+fi
+
+# Make sure there are template files available in ${templates}
+if [ $(ls ${templates} | wc -l) -eq 0 ]; then
+  usage "Could not find the necessary reporting templates" && exit 1
+fi

@@ -66,7 +66,6 @@ seconds=$(subtract ${s_epoch} ${e_epoch})
 # Generate a run time
 [ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
 
-
 # If ${cond} != 1
 if [ ${cond:=0} -ne 1 ]; then
 
