@@ -10,6 +10,7 @@ build/stig-parser.sh;775;jas;jas
 build/template.sh;775;jas;jas
 stigadm;777;jas;jas
 stigadm.sh;701;jas;jas
+tools/bootstrap.sh;664;jas;jas
 tools/libs/accounts.sh;701;jas;jas
 tools/libs/backup.sh;701;jas;jas
 tools/libs/bootenv.sh;701;jas;jas
