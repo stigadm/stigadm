@@ -48,7 +48,6 @@ for src in ${incs[@]}; do
 
   # Include $[src} making any defined functions available
   source ${src}
-
 done
 
 

@@ -192,22 +192,21 @@ function get_meta_data()
   local stigid="${2}"
   local template="${3}"
   local stigid_parsed="$(echo "${stigid}" | cut -d. -f1)"
-  local blob="$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${stigid} | sed "s|^[# |#$]| |g")"
+  local blob="$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${stigid} | sed "s|^[# |#$|  ]||g")"
   local -a obj
 
-  # Cut ${blob} up and assign to ${obj[@]}
-  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Date:/{print $3}')")
-  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Severity:/{print $3}')")
-  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Classification:/{print $3}')")
-  obj+=("$(echo "${blob}" | nawk '$0 ~ /# STIG_ID:/{print $3}')")
-  obj+=("$(echo "${blob}" | nawk '$0 ~ /# STIG_Version:/{print $3}')")
-  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Rule_ID:/{print $3}')")
-  obj+=("$(echo "${blob}" | nawk '$0 ~ /# OS:/{print $3}')")
-  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Version:/{print $3}')")
-  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Architecture:/{print $3}')")
-  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Title:/{print $3}')")
-  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Description:/{print $3}')")
-  obj+=("$(echo "${blob}" | nawk '$0 ~ /# Architecture:/{if ($4 != ""){print $3","$4}else{print $3}}')")
+  # Cut ${blob} up and assign to ${obj[@]} (UGLY!!! refactor)
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /Date:/{print $2}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /Severity:/{print $2}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /Classification:/{print $2}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /STIG_ID:/{print $2}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /STIG_Version:/{print $2}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /Rule_ID:/{print $2}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /OS:/{print $2}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /Version:/ && $0 !~ /STIG/{print $2}')")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /Title/{print substr($0,index($0,$2))}' | tr ' ' "_")")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /Description/{print substr($0,index($0,$2))}' | tr ' ' "_")")
+  obj+=("$(echo "${blob}" | nawk '$0 ~ /Architecture:/{if ($3 != ""){print $2","$3}else{print $2}}')")
 
   echo "${obj[@]}"
 }
