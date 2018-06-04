@@ -4,12 +4,16 @@
 
 # Global defaults for tool
 author=
-verbose=0
+arch=
 change=0
+hostname="$(hostname)"
 json=1
 meta=0
+os=
 restore=0
-interactive=0
+timestamp=
+verbose=0
+ver=
 xml=0
 
 
@@ -22,6 +26,9 @@ prog="$(basename $0)"
 
 # Copy ${prog} to DISA STIG ID this tool handles
 stigid="$(echo "${prog}" | cut -d. -f1)"
+
+# If ${appname} doesn't exist define it
+appname="${appname:=stigadm}"
 
 
 # Ensure path is robust
@@ -39,9 +46,6 @@ templates=${cwd}/tools/templates/
 
 # Define the system backup path
 backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
-
-
-# Robot, do work
 
 
 # Error if the ${inc_path} doesn't exist
@@ -80,7 +84,7 @@ fi
 
 
 # Set variables
-while getopts "ha:cjl:mvrix" OPTION ; do
+while getopts "ha:cjl:mrvx" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
@@ -89,22 +93,20 @@ while getopts "ha:cjl:mvrix" OPTION ; do
     l) log=$OPTARG ;;
     m) meta=1 ;;
     r) restore=1 ;;
-    i) interactive=1 ;;
+    v) verbose=1 ;;
     x) xml=1 && ext="xml" && json=0 ;;
     ?) usage && exit 1 ;;
   esac
 done
 
 
+# Create a timestamp
+timestamp="$(gen_date)"
+
+
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
-fi
-
-
-# Make sure we are operating on global zones
-if [ "$(zonename)" != "global" ]; then
-  usage "${stigid} only applies to global zones" && exit 1
 fi
 
 
@@ -118,8 +120,11 @@ if [ ${#meta[@]} -lt 11 ]; then
 fi
 
 
-# Set the default log if nothing provided (/var/log/stigadm/<OS>-<VER>-<DATE>.json|xml)
-log="${log:=/var/log/${appname}/${os}-${version}-${timestamp}.${ext:=json}}"
+# Pick up the environment
+read -r os version arch <<< $(set_env)
+
+# Set the default log if nothing provided (/var/log/stigadm/<HOSTNAME>-<OS>-<VER>-<ARCH>-<DATE>.json|xml)
+log="${log:=/var/log/${appname}/${hostname}-${os}-${version}-${arch}-${timestamp}.${ext:=json}}"
 
 # If ${log} doesn't exist make it
 [ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})

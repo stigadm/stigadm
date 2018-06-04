@@ -16,6 +16,12 @@ fi
 source ${bootstrap}
 
 
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  usage "${stigid} only applies to global zones" && exit 1
+fi
+
+
 # Get EPOCH
 s_epoch="$(gen_epoch)"
 
@@ -46,9 +52,6 @@ if [[ ${change} -eq 1 ]] && [[ ${cond} -eq 0 ]]; then
 
   # Do work
   audit -s
-  if [ $? -ne 0 ]; then
-    [ $? -ne 0 ] && exit 1
-  fi
 
   # Get boolean of current status
   cond=$(auditconfig -getcond | nawk '$1 ~ /^audit/ && $4 ~ /^auditing/{print 1}')

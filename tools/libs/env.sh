@@ -27,10 +27,11 @@ function set_env()
   # Get OS & Version
   local os="$(os)"
   local ver="$(version)"
+  local arch="$(architecture)"
 
   if [[ "${os}" == "" ]] || [[ "${ver}" == "" ]]; then
     echo 1 && return 1
   fi
 
-  echo "${os}" "${ver}" && return 0
+  echo "${os}" "${ver}" "${arch}" && return 0
 }

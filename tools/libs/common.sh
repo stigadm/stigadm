@@ -192,7 +192,7 @@ function get_meta_data()
   local stigid="${2}"
   local template="${3}"
   local stigid_parsed="$(echo "${stigid}" | cut -d. -f1)"
-  local blob="$(sed -n '/^# Severity/,/^# Description/p' ${cwd}/${stigid} | sed "s|^[# |#$|  ]||g")"
+  local blob="$(sed -n '/^# Date/,/^# Description/p' ${cwd}/${stigid} | sed "s|^[# |#$|  ]||g")"
   local -a obj
 
   # Cut ${blob} up and assign to ${obj[@]} (UGLY!!! refactor)
@@ -210,4 +210,3 @@ function get_meta_data()
 
   echo "${obj[@]}"
 }
-
