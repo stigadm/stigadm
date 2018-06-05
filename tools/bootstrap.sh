@@ -139,6 +139,22 @@ if [ ! -d ${templates} ]; then
 fi
 
 # Make sure there are template files available in ${templates}
-if [ $(ls ${templates} | wc -l) -eq 0 ]; then
+if [ $(ls ${templates} | wc -l) -lt 2 ]; then
   usage "Could not find the necessary reporting templates" && exit 1
 fi
+
+# Make sure our report exists
+if [ ! -f ${templates}/report.${ext} ]; then
+  usage "The stigadm template is missing" && exit 1
+fi
+
+# Make sure our report exists
+if [ ! -f ${templates}/stig.${ext} ]; then
+  usage "The STIG module template is missing" && exit 1
+fi
+
+# Define variable for module report
+report_module="${templates}/stig.${ext}"
+
+# Define variable for stigadm report
+stigadm_report="${templates}/report.${ext}"

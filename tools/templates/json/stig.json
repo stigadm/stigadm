@@ -9,10 +9,10 @@
       severity: "{SEVERITY}",
       classification: "{CLASSIFICATION}"
     },
-    results: {RESULTS}
+    results: "{RESULTS}"
     metrics: {
-      date: "{STIG_DATE}",
-      start: "{STIG_START}",
-      end: "{STIG_END}"
+      start: "{START}",
+      end: "{END}",
+      time: "{ELAPSED}"
     }
   },
