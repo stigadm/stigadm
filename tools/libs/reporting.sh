@@ -36,7 +36,7 @@ function report()
   report="$(echo "${report}" |
     sed "s|{DATE}|${timestamp}|g" |
     sed "s|{REPORT}|$(hostname)|g" |
-    sed "s|{DETAIL}||g" |
+    sed "s|{DETAIL}|pe|g" |
     sed "s|{OS}|${os}|g" |
     sed "s|{OSVER}|${version}|g" |
     sed "s|{STIGS}|${total_stigs}|g" |
