@@ -9,10 +9,4 @@
       severity: "{SEVERITY}",
       classification: "{CLASSIFICATION}"
     },
-    results: "{RESULTS}"
-    metrics: {
-      start: "{START}",
-      end: "{END}",
-      time: "{ELAPSED}"
-    }
-  },
+    results: "{RESULTS}",

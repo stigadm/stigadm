@@ -1,0 +1,7 @@
+  ],
+  metrics: {
+    start: "{START}",
+    end: "{END}",
+    time: "{ELAPSED}"
+  }
+}

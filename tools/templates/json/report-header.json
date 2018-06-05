@@ -8,9 +8,4 @@
     modules: "{STIGS}",
     selected: "{MODULES}",
   },
-  metrics: {
-    start: "{START}",
-    end: "{END}",
-    time: "{ELAPSED}"
-  },
-  stigs: 
+  stigs: [

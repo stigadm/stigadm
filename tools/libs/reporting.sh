@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# Handle printing module reports
-function stig_module_report()
+# Handle printing module header
+function module_header()
 {
   local results="${@}"
 
   # Capture the STIG module template to ${report}
-  local report="$(cat ${report_module})"
+  local header="$(cat ${module_header})"
 
   # Apply the meta data & report specifics
-  report="$(echo "${report}" |
+  header="$(echo "${header}" |
     sed "s|{STIGID}|${stigid}|g" |
     sed "s|{TITLE}|$( echo "${meta[8]}" | tr '_' ' ')|g" |
     sed "s|{DESCRIPTION}|$( echo "${meta[9]}" | tr '_' ' ')|g" |
@@ -18,32 +18,64 @@ function stig_module_report()
     sed "s|{STIGVER}|${meta[4]}|g" |
     sed "s|{SEVERITY}|${meta[1]}|g" |
     sed "s|{CLASSIFICATION}|${meta[2]}|g" |
-    sed "s|{RESULTS}|${results}|g" |
+    sed "s|{RESULTS}|${results}|g")"
+
+  # Send everything to the ${log}
+  cat <<EOF >> ${log}
+${header}
+EOF
+}
+
+
+# Handle printing module footer
+function module_footer()
+{
+  local results="${@}"
+
+  # Capture the STIG module template to ${report}
+  local footer="$(cat ${module_footer})"
+
+  footer="$(echo "${footer}" |
     sed "s|{START}|${s_epoch}|g" |
     sed "s|{END}|${e_epoch}|g" |
     sed "s|{ELAPSED}|${run_time}|g")"
 
-  echo "${report}"
+  # Send everything to the ${log}
+  cat <<EOF >> ${log}
+${footer}
+EOF
 }
 
 
 # Handle printing stigadm report
-function report()
+function report_header()
 {
-  local report="$(cat ${stigadm_report})"
+  local report="$(cat ${report_header})"
 
   # Apply the meta data & report specifics
   report="$(echo "${report}" |
     sed "s|{DATE}|${timestamp}|g" |
-    sed "s|{REPORT}|$(hostname)|g" |
-    sed "s|{DETAIL}|pe|g" |
+    sed "s|{REPORT}|$(hostname)w00t???|g" |
+    sed "s|{DETAIL}|w00t????|g" |
     sed "s|{OS}|${os}|g" |
     sed "s|{OSVER}|${version}|g" |
     sed "s|{STIGS}|${total_stigs}|g" |
-    sed "s|{MODULES}|${#stigs[@]}|g" |
+    sed "s|{MODULES}|${#stigs[@]}|g")"
+
+  echo "${report}" > ${log}
+}
+
+
+# Handle printing stigadm report
+function report_footer()
+{
+  local report="$(cat ${report_footer})"
+
+  # Apply the meta data & report specifics
+  report="$(echo "${report}" |
     sed "s|{START}|${s_epoch}|g" |
     sed "s|{END}|${e_epoch}|g" |
     sed "s|{ELAPSED}|${run_time}|g")"
 
-  echo "${report}"
+  echo "${report}" >> ${log}
 }

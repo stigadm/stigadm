@@ -91,12 +91,6 @@ fi
 [ ${status} -eq 1 ] && results="Passed validation"
 
 
-# Print friendly success (This could be easier to discern)
-if [ ${verbose} -eq 1 ]; then
-  results="${results}\", Details: \"${blob}\","
-fi
-
-
 # If ${caller} = 0
 if [ ${caller} -eq 0 ]; then
 
@@ -104,24 +98,30 @@ if [ ${caller} -eq 0 ]; then
   stigs=("${stigid}")
   total_stigs=${#stigs[@]}
 
-  # Generate report ourselves
-  report="$(report "${report}")"
-
-  echo "${report}" > ${log}
+  # Generate the primary report header
+  report_header
 fi
-
 
 # Capture module report to ${log}
-stig_module_report "${results}" >> ${log}
+module_header "${results}"
 
+
+# Provide detailed results to ${log}
+if [ ${verbose} -eq 1 ]; then
+  details="Details: \"${blob}\"," >> ${log}
+fi
+
+# Print the modul footer
+module_footer
 
 if [ ${caller} -eq 0 ]; then
-  # Finish up the report
-  echo "}" >> ${log}
 
-  # Print ${log}
-  cat ${log}
+  # Print the report footer
+  report_footer
 fi
+
+# Print the entire ${log}
+cat ${log}
 
 
 # Return an error/success code
