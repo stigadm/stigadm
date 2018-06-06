@@ -1,7 +1,11 @@
 #!/bin/bash -x
 
 # stigadm
-# Apply/Validate STIG by OS, Version & Classification
+
+
+###############################################
+# Environment setup
+###############################################
 
 # Current working directory
 cwd="$(dirname $0)"
@@ -17,9 +21,6 @@ templates=${cwd}/tools/templates/
 
 # Define the system backup path
 backup_path=${cwd}/tools/backups/$(uname -n | awk '{print tolower($0)}')
-
-
-# Robot, do work
 
 
 # Error if the ${inc_path} doesn't exist
@@ -51,6 +52,10 @@ for src in ${incs[@]}; do
 done
 
 
+###############################################
+# Global variable definitions
+###############################################
+
 # Global defaults for tool
 author=
 bootenv=0
@@ -76,14 +81,11 @@ stigs=()
 # Tool name
 prog="$(basename $0)"
 
-
 # Copy ${prog} to ${appname} for friendly messages
 appname="$(echo "${prog}" | cut -d. -f1)"
 
-
 # Create a timestamp
 timestamp="$(gen_date)"
-
 
 # Default bootenv directory
 bootenv_dir="${cwd}/.${appname}"
@@ -97,7 +99,6 @@ log="${log:=/var/log/${appname}/$(hostname)-${os}-${version}-${arch}-${timestamp
 
 # If ${log} doesn't exist make it
 [ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})
-
 
 # Re-define the ${templates} based on ${ext}
 templates="${templates}/${ext}"
@@ -134,6 +135,10 @@ report_footer="${templates}/report-footer.${ext}"
 # Ensure path is robust
 PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 
+
+###############################################
+# Usage menu function
+###############################################
 
 # Displays available arg list
 function usage()
@@ -193,8 +198,9 @@ EOF
 }
 
 
-# Robot, do work
-
+###############################################
+# Root priv & options processing
+###############################################
 
 # Ensure we have permissions
 if [ $UID -ne 0 ] ; then
@@ -223,6 +229,10 @@ while getopts "a:bchijl:rC:O:L:V:x" OPTION ; do
 done
 
 
+###############################################
+# OS & Version is detected or defined
+###############################################
+
 # Make sure we have the necessary OS & Version
 if [[ "${os}" == "" ]] && [[ "${version}" == "" ]]; then
 
@@ -244,18 +254,19 @@ if [[ "${os}" == "" ]] && [[ "${version}" == "" ]]; then
 fi
 
 
+###############################################
+# Make sure we have an author if remediating
+###############################################
+
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
   usage "Must specify an author name (use -a <initials>)" && exit 1
 fi
 
 
-# Set the default log if nothing provided (/var/log/stigadm/<OS>-<VER>-<DATE>.json|xml)
-log="${log:=/var/log/${appname}/${os}-${version}-${timestamp}.${ext:=json}}"
-
-# If ${log} doesn't exist make it
-[ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})
-
+###############################################
+# Bootstrap the module flags
+###############################################
 
 # Enable change w/ author argument
 if [ ${change} -eq 1 ]; then
@@ -272,10 +283,13 @@ fi
 # Tell each module which ${log} to append
 flags="${flags} -l ${log}"
 
-
 # Set a default value for classification if null
 classificiation="${classification:=ALL}"
 
+
+###############################################
+# Seek out modules list for OS & Version
+###############################################
 
 # If ${#stigs[@]} is greater than 0
 if [ ${#stigs[@]} -eq 0 ]; then
@@ -336,6 +350,10 @@ if [ ${#stigs[@]} -ne ${#list[@]} ]; then
 fi
 
 
+###############################################
+# Solaris only alternate boot environment
+###############################################
+
 # If ${change} = 1, ${os} is Solaris & ${bootenv} = 1 setup a new BE
 if [[ "$(to_lower "${os}")" == "solaris" ]] && [[ ${bootenv} -eq 1 ]] && [[ ${change} -eq 1 ]]; then
 
@@ -358,9 +376,20 @@ if [[ "$(to_lower "${os}")" == "solaris" ]] && [[ ${bootenv} -eq 1 ]] && [[ ${ch
 fi
 
 
+###############################################
+# Start work by generating report header
+###############################################
+
 # Generate the primary report header
 report_header
 
+
+###############################################
+# Begin iteration of target stigs
+###############################################
+
+# Define a counter
+counter=${#stigs[@]}
 
 # Iterate ${stigs[@]}
 for stig in ${stigs[@]}; do
@@ -376,7 +405,15 @@ for stig in ${stigs[@]}; do
 
   # Capture any errors
   [ $? -ne 0 ] && errors+=("${stig_name}");
+
+  # Increment ${counter}
+  counter=$(subtract ${counter} 1)
 done
+
+
+###############################################
+# Get some metrics of overall time spent
+###############################################
 
 # Calculate a percentage from applied modules & errors incurred
 percentage=$(subtract $(percent ${#stigs[@]} ${#errors[@]}) 100)
@@ -389,8 +426,17 @@ seconds=$(subtract ${s_epoch} ${e_epoch})
 # Generate a run time
 [ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
 
+
+###############################################
+# Generate the report footer
+###############################################
+
 report_footer
 
+
+###############################################
+# Exit with the number of errors found
+###############################################
 
 # Exit with the number of errors
 exit ${#errors[@]}

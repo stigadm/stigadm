@@ -29,6 +29,7 @@ if [ "$(zonename)" != "global" ]; then
   usage "${stigid} only applies to global zones" && exit 1
 fi
 
+
 ###############################################
 # Metrics start
 ###############################################
@@ -44,7 +45,7 @@ caller=$(ps $PPID | grep -c stigadm)
 
 
 ###############################################
-# Begin bulk logic
+# STIG validation/remediation/restoration
 ###############################################
 
 # Set ${status} to false
