@@ -1,6 +1,10 @@
-#!/bin/bash -x
+#!/bin/bash
 
-# stigadm
+
+# stigadm - A minimalist approach to STIG validation/remediation
+# Project: https://github.com/stigadm/stigadm
+# Copyright(c) 2013-2018 Jason Gerfen <jason.gerfen@gmail.com>
+# License: MIT
 
 
 ###############################################
@@ -68,6 +72,7 @@ interactive=0
 os=
 restore=0
 version=
+verbose=0
 list=
 
 # Get EPOCH
@@ -289,6 +294,11 @@ if [ ${verbose} -eq 1 ]; then
   flags="${flags} -v"
 fi
 
+# Use XML templates if requested
+if [ "${ext}" == "xml" ]; then
+  flags="${flags} -x"
+fi
+
 # Tell each module which ${log} to append
 flags="${flags} -l ${log}"
 
@@ -416,7 +426,7 @@ for stig in ${stigs[@]}; do
   [ $? -ne 0 ] && errors+=("${stig_name}");
 
   # If necessary, append "," to ${log} for each iteration
-  [ ${counter} -ne 0 ] && echo "," >> ${log}
+  [[ ${counter} -ne 0 ]] && [[ "${ext}" != "xml" ]] && echo "," >> ${log}
 
 done
 

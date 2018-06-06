@@ -1,6 +1,6 @@
-    <metrics>
-      <start>{START}</start>
-      <end>{END}</end>
-      <time>{ELAPSED}</time>
-    </metrics>
-  </stig>
+      <metrics>
+        <start>{START}</start>
+        <end>{END}</end>
+        <time>{ELAPSED}</time>
+      </metrics>
+    </stig>
