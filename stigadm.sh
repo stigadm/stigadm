@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # stigadm
 # Apply/Validate STIG by OS, Version & Classification
@@ -88,6 +88,48 @@ timestamp="$(gen_date)"
 # Default bootenv directory
 bootenv_dir="${cwd}/.${appname}"
 
+# Pick up the environment
+read -r os version arch <<< $(set_env)
+
+# Set the default log if nothing provided
+#  /var/log/stigadm/<HOSTNAME>-<OS>-<VER>-<ARCH>-<DATE>.json|xml
+log="${log:=/var/log/${appname}/$(hostname)-${os}-${version}-${arch}-${timestamp}.${ext:=json}}"
+
+# If ${log} doesn't exist make it
+[ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})
+
+
+# Re-define the ${templates} based on ${ext}
+templates="${templates}/${ext}"
+
+# Bail if ${templates} is not a folder
+if [ ! -d ${templates} ]; then
+  usage "Could not find a templates directory for report generation" && exit 1
+fi
+
+# Make sure there are template files available in ${templates}
+if [ $(ls ${templates} | wc -l) -lt 4 ]; then
+  usage "Could not find the necessary reporting templates" && exit 1
+fi
+
+# Make sure our report exists
+if [[ ! -f ${templates}/report-header.${ext} ]] || [[ ! -f ${templates}/report-footer.${ext} ]]; then
+  usage "The stigadm template is missing" && exit 1
+fi
+
+# Make sure our report exists
+if [[ ! -f ${templates}/stig-header.${ext} ]] || [[ ! -f ${templates}/stig-footer.${ext} ]]; then
+  usage "The STIG module template is missing" && exit 1
+fi
+
+# Define variable for module report
+module_header="${templates}/stig-header.${ext}"
+module_footer="${templates}/stig-footer.${ext}"
+
+# Define variable for stigadm report
+report_header="${templates}/report-header.${ext}"
+report_footer="${templates}/report-footer.${ext}"
+
 
 # Ensure path is robust
 PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
@@ -141,10 +183,9 @@ Usage ./${appname} [options]
 
   Restoration:
     -r  Perform rollback of changes
-    -i  Interactive mode, to be used with -r
 
   Reporting:
-    -l  Default: /var/log/stigadm-<OS>-<VER>-<DATE>.json)
+    -l  Default: /var/log/stigadm/<HOST>-<OS>-<VER>-<ARCH>-<DATE>.json
     -j  JSON reporting structure (default)
     -x  XML reporting structure
 
@@ -317,6 +358,10 @@ if [[ "$(to_lower "${os}")" == "solaris" ]] && [[ ${bootenv} -eq 1 ]] && [[ ${ch
 fi
 
 
+# Generate the primary report header
+report_header
+
+
 # Iterate ${stigs[@]}
 for stig in ${stigs[@]}; do
 
@@ -324,15 +369,14 @@ for stig in ${stigs[@]}; do
   stig_name="$(basename ${stig} | cut -d. -f1)"
 
   # Capture results from ${stig} ${flags} execution
-  cat <<EOF
-${results:=""}
-results="$(./${stig} ${flags})"
-EOF
+  ./${stig} ${flags}
+
+  # Append the necessary "," to ${log} for each iteration
+  echo "," >> ${log} # Kinda lame I know
 
   # Capture any errors
   [ $? -ne 0 ] && errors+=("${stig_name}");
 done
-
 
 # Calculate a percentage from applied modules & errors incurred
 percentage=$(subtract $(percent ${#stigs[@]} ${#errors[@]}) 100)
@@ -345,16 +389,7 @@ seconds=$(subtract ${s_epoch} ${e_epoch})
 # Generate a run time
 [ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
 
-# Print something out
-cat <<EOF
-[${appname}]: ${timestamp}
-STIG Compliance: ${percentage}%
- Failed: ${#errors[@]}/${#stigs[@]} of ${total_stigs}
-  Details:
-$(echo "${errors[@]}")
-
-Run time: ${run_time}
-EOF
+report_footer
 
 
 # Exit with the number of errors

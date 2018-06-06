@@ -27,9 +27,9 @@ Usage ./${prog} [options]
 
   Restoration options:
     -r  Perform rollback of changes
-    -i  Interactive mode, to be used with -r
 
   Reporting:
+    -l  Default: /var/log/stigadm/<HOST>-<OS>-<VER>-<ARCH>-<DATE>.json
     -j  JSON reporting structure (default)
     -x  XML reporting structure
 

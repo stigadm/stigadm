@@ -1,6 +1,10 @@
 #!/bin/bash
 
 
+###############################################
+# Bootstrapping environment setup
+###############################################
+
 # Get our working directory
 cwd="$(pwd)"
 
@@ -16,11 +20,18 @@ fi
 source ${bootstrap}
 
 
+###############################################
+# Global zones only check
+###############################################
+
 # Make sure we are operating on global zones
 if [ "$(zonename)" != "global" ]; then
   usage "${stigid} only applies to global zones" && exit 1
 fi
 
+###############################################
+# Metrics start
+###############################################
 
 # Get EPOCH
 s_epoch="$(gen_epoch)"
@@ -28,10 +39,13 @@ s_epoch="$(gen_epoch)"
 # Create a timestamp
 timestamp="$(gen_date)"
 
-
-# Whos is calling?
+# Whos is calling? 0 = singular, 1 is as group
 caller=$(ps $PPID | grep -c stigadm)
 
+
+###############################################
+# Begin bulk logic
+###############################################
 
 # Set ${status} to false
 status=0
@@ -68,14 +82,23 @@ if [[ ${change} -eq 1 ]] && [[ ${status} -eq 0 ]]; then
 fi
 
 
+###############################################
+# Finish metrics
+###############################################
+
 # Get EPOCH
 e_epoch="$(gen_epoch)"
 
+# Determine miliseconds from start
 seconds=$(subtract ${s_epoch} ${e_epoch})
 
 # Generate a run time
 [ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
 
+
+###############################################
+# Results for printable report
+###############################################
 
 # If ${status} != 1
 if [ ${status:=0} -ne 1 ]; then
@@ -91,6 +114,10 @@ fi
 [ ${status} -eq 1 ] && results="Passed validation"
 
 
+###############################################
+# Report generation specifics
+###############################################
+
 # If ${caller} = 0
 if [ ${caller} -eq 0 ]; then
 
@@ -104,7 +131,6 @@ fi
 
 # Capture module report to ${log}
 module_header "${results}"
-
 
 # Provide detailed results to ${log}
 if [ ${verbose} -eq 1 ]; then
@@ -124,8 +150,12 @@ fi
 cat ${log}
 
 
-# Return an error/success code
-[ ${status} -eq 1 ] && exit 0 || exit 1
+###############################################
+# Return code for larger report
+###############################################
+
+# Return an error/success code (0/1)
+exit ${status}
 
 
 # Date: 2017-06-21

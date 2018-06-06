@@ -1,7 +1,7 @@
 {
   date: "{DATE}",
-  title: "{REPORT}",
-  description: "{DETAIL}",
+  hostname: "{HOST}",
+  kernel: "{KERNEL}",
   meta: {
     OS: "{OS}",
     version: "{OSVER}",

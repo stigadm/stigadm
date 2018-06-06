@@ -55,8 +55,8 @@ function report_header()
   # Apply the meta data & report specifics
   report="$(echo "${report}" |
     sed "s|{DATE}|${timestamp}|g" |
-    sed "s|{REPORT}|$(hostname)w00t???|g" |
-    sed "s|{DETAIL}|w00t????|g" |
+    sed "s|{HOST}|$(hostname)|g" |
+    sed "s|{KERNEL}|$(uname -a)|g" |
     sed "s|{OS}|${os}|g" |
     sed "s|{OSVER}|${version}|g" |
     sed "s|{STIGS}|${total_stigs}|g" |
