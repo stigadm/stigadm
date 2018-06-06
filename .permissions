@@ -3125,5 +3125,7 @@ tools/templates/json/report-footer.json;664;jas;jas
 tools/templates/json/report-header.json;664;jas;jas
 tools/templates/json/stig-footer.json;664;jas;jas
 tools/templates/json/stig-header.json;664;jas;jas
-tools/templates/xml/item.xml;664;jas;jas
-tools/templates/xml/report.xml;664;jas;jas
+tools/templates/xml/report-footer.xml;664;jas;jas
+tools/templates/xml/report-header.xml;664;jas;jas
+tools/templates/xml/stig-footer.xml;664;jas;jas
+tools/templates/xml/stig-header.xml;664;jas;jas

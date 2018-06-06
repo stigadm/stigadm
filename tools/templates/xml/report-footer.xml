@@ -1,0 +1,12 @@
+  ]</stigs>
+  <summary>
+    <passed>{PASSED}</passed>
+    <failed>{FAILED}</failed>
+    <failure_rate>{RATE}%</failure_rate>
+  </summary>
+  <metrics>
+    <start>{START}</start>
+    <end>{END}</end>
+    <time>{ELAPSED}</end>
+  </metrics>
+</stigadm>

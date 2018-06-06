@@ -135,7 +135,9 @@ module_header "${results}"
 
 # Provide detailed results to ${log}
 if [ ${verbose} -eq 1 ]; then
-  details="Details: \"${blob}\"," >> ${log}
+
+  # Print a singular line based on ${log} extention
+  print_line ${log} "details" "${blob}"
 fi
 
 # Print the modul footer
@@ -163,7 +165,7 @@ fi
 ###############################################
 
 # Return an error/success code (0/1)
-exit ${status}
+[ ${status} -eq 1 ] && exit 0 || exit 1
 
 
 # Date: 2017-06-21

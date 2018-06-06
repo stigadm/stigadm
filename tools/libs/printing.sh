@@ -1,18 +1,4 @@
-#!/bin/bash
-
-# Determine template(s) to use
-function get_template_path()
-{
-  local path="${1}"
-  local template="${2}"
-
-  # Test ${path}/${template} combination
-  [ ! -d ${path}/${template} ] && (echo 0 && return 0)
-
-  # Return the template path
-  echo "${path}/${template}/" && return 0
-}
-
+#!/bin/bash -x
 
 # Print errors
 # Arguments:
@@ -58,4 +44,21 @@ function print()
   fi
 
   psuccess "${1}" && return 0
+}
+
+
+# Print a single line
+function print_line()
+{
+  local -a obj=("${@}")
+  local log="${obj[0]}"
+  local key="${obj[1]}"
+  local value="${obj[@]:2}"
+  local ext="$(basename ${log} | cut -d. -f2)"
+
+  if [ "${ext}" == "json" ]; then
+    echo "${key}: \"${value}\"," >> ${log}
+  else
+    echo "<${key}>${value}</${key}>" >> ${log}
+  fi
 }

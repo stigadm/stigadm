@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<stigadm>
+  <date>{DATE}</date>
+  <hostname>{HOST}</hostname>
+  <kernel>{KERNEL}</kernel>
+  <meta>
+    <OS>{OS}</OS>
+    <version>{OSVER}</version>
+    <modules>{STIGS}</modules>
+    <selected>{MODULES}</selected>
+  </meta>
+  <stigs>

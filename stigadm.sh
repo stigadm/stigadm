@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # stigadm
 
@@ -91,45 +91,6 @@ bootenv_dir="${cwd}/.${appname}"
 
 # Pick up the environment
 read -r os version arch <<< $(set_env)
-
-# Set the default log if nothing provided
-#  /var/log/stigadm/<HOSTNAME>-<OS>-<VER>-<ARCH>-<DATE>.json|xml
-log="${log:=/var/log/${appname}/$(hostname)-${os}-${version}-${arch}-${timestamp}.${ext:=json}}"
-
-# If ${log} doesn't exist make it
-[ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})
-
-# Re-define the ${templates} based on ${ext}
-templates="${templates}/${ext}"
-
-# Bail if ${templates} is not a folder
-if [ ! -d ${templates} ]; then
-  usage "Could not find a templates directory for report generation" && exit 1
-fi
-
-# Make sure there are template files available in ${templates}
-if [ $(ls ${templates} | wc -l) -lt 4 ]; then
-  usage "Could not find the necessary reporting templates" && exit 1
-fi
-
-# Make sure our report exists
-if [[ ! -f ${templates}/report-header.${ext} ]] || [[ ! -f ${templates}/report-footer.${ext} ]]; then
-  usage "The stigadm template is missing" && exit 1
-fi
-
-# Make sure our report exists
-if [[ ! -f ${templates}/stig-header.${ext} ]] || [[ ! -f ${templates}/stig-footer.${ext} ]]; then
-  usage "The STIG module template is missing" && exit 1
-fi
-
-# Define variable for module report
-module_header="${templates}/stig-header.${ext}"
-module_footer="${templates}/stig-footer.${ext}"
-
-# Define variable for stigadm report
-report_header="${templates}/report-header.${ext}"
-report_footer="${templates}/report-footer.${ext}"
-
 
 # Ensure path is robust
 PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
@@ -228,6 +189,49 @@ while getopts "a:bchijl:rC:O:L:V:vx" OPTION ; do
     ?) usage && exit 1 ;;
   esac
 done
+
+
+###############################################
+# Setup the necessary templates for logging
+###############################################
+
+# Set the default log if nothing provided
+#  /var/log/stigadm/<HOSTNAME>-<OS>-<VER>-<ARCH>-<DATE>.json|xml
+log="${log:=/var/log/${appname}/$(hostname)-${os}-${version}-${arch}-${timestamp}.${ext:=json}}"
+
+# If ${log} doesn't exist make it
+[ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})
+
+# Re-define the ${templates} based on ${ext}
+templates="${templates}/${ext}"
+
+# Bail if ${templates} is not a folder
+if [ ! -d ${templates} ]; then
+  usage "Could not find a templates directory for report generation" && exit 1
+fi
+
+# Make sure there are template files available in ${templates}
+if [ $(ls ${templates} | wc -l) -lt 4 ]; then
+  usage "Could not find the necessary reporting templates" && exit 1
+fi
+
+# Make sure our report exists
+if [[ ! -f ${templates}/report-header.${ext} ]] || [[ ! -f ${templates}/report-footer.${ext} ]]; then
+  usage "The stigadm template is missing" && exit 1
+fi
+
+# Make sure our report exists
+if [[ ! -f ${templates}/stig-header.${ext} ]] || [[ ! -f ${templates}/stig-footer.${ext} ]]; then
+  usage "The STIG module template is missing" && exit 1
+fi
+
+# Define variable for module report
+module_header="${templates}/stig-header.${ext}"
+module_footer="${templates}/stig-footer.${ext}"
+
+# Define variable for stigadm report
+report_header="${templates}/report-header.${ext}"
+report_footer="${templates}/report-footer.${ext}"
 
 
 ###############################################
@@ -408,11 +412,12 @@ for stig in ${stigs[@]}; do
   # Capture results from ${stig} ${flags} execution
   ./${stig} ${flags}
 
+  # Capture any errors
+  [ $? -ne 0 ] && errors+=("${stig_name}");
+
   # If necessary, append "," to ${log} for each iteration
   [ ${counter} -ne 0 ] && echo "," >> ${log}
 
-  # Capture any errors
-  [ $? -ne 0 ] && errors+=("${stig_name}");
 done
 
 
@@ -425,7 +430,7 @@ passed=$(subtract ${#errors[@]} ${#stigs[@]})
 failed=${#errors[@]}
 
 # Calculate a percentage from applied modules & errors incurred
-percentage=$(subtract $(percent ${#stigs[@]} ${#errors[@]}) 100)
+percentage=$(percent ${#stigs[@]} ${#errors[@]})
 
 
 ###############################################

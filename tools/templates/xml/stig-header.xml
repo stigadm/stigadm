@@ -1,0 +1,12 @@
+  <stig>
+    <id>{STIGID}</id>
+    <title>{TITLE}</title>
+    <description>{DESCRIPTION}</description>
+    <meta>
+      <date>{RELEASE_DATE}</date>
+      <rule_id>{RULEID}</rule_id>
+      <version>{STIGVER}</version>
+      <severity>{SEVERITY}</severity>
+      <classification>{CLASSIFICATION}</classification>
+    </meta>
+    <results>{RESULTS}</results>
