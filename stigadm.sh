@@ -3,7 +3,7 @@
 
 # stigadm - A minimalist approach to STIG validation/remediation
 # Project: https://github.com/stigadm/stigadm
-# Copyright(c) 2013-2018 Jason Gerfen <jason.gerfen@gmail.com>
+# Copyright(c) 2015-2018 Jason Gerfen <jason.gerfen@gmail.com>
 # License: MIT
 
 

@@ -7,9 +7,9 @@ Each module implements a standard API to ensure consistency while addressing the
 An example of the standardized API can be seen below:
 
 ```sh
-Handles DISA STIG <STIG-ID>
+Handles DISA STIG [STIG ID]
 
-Usage ./<STIG-ID>.sh [options]
+Usage ./[STIG ID].sh [options]
 
   Options:
     -h  Show this message
@@ -22,9 +22,9 @@ Usage ./<STIG-ID>.sh [options]
 
   Restoration options:
     -r  Perform rollback of changes
-    -i  Interactive mode, to be used with -r
 
   Reporting:
+    -l  Default: /var/log/stigadm/<HOST>-<OS>-<VER>-<ARCH>-<DATE>.json
     -j  JSON reporting structure (default)
     -x  XML reporting structure
 ```

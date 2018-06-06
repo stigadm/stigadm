@@ -42,10 +42,10 @@ Usage ./stigadm [options]
 
   Targeting:
     -O  Operating System
-      Supported: [AIX|HP-UX|Oracle_Linux|Red_Hat|Solaris]
+      Supported: [Solaris]
 
     -V  OS Version
-      Supported: [7|6.1|6|5|11.31|11|10]
+      Supported: [11|10]
 
   Filters:
     -A  Application
@@ -61,12 +61,13 @@ Usage ./stigadm [options]
     -a  Author name (required when using -c)
     -b  Use new boot environment (Solaris only)
     -c  Make the change
+    -v  Enable verbose messages
 
   Restoration:
     -r  Perform rollback of changes
 
   Reporting:
-    -l  Default: /var/log/stigadm-<OS>-<VER>-<DATE>.json)
+    -l  Default: /var/log/stigadm/<HOST>-<OS>-<VER>-<ARCH>-<DATE>.json
     -j  JSON reporting structure (default)
     -x  XML reporting structure
 ```
