@@ -143,6 +143,13 @@ module_footer
 
 if [ ${caller} -eq 0 ]; then
 
+  # Apply some values expected for report footer
+  [ ${status} -eq 1 ] && passed=${status} || passed=0
+  [ ${status} -eq 1 ] && failed=0 || failed=${status}
+
+  # Calculate a percentage from applied modules & errors incurred
+  percentage=$(percent ${passed} ${failed})
+
   # Print the report footer
   report_footer
 

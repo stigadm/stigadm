@@ -400,7 +400,7 @@ counter=${#stigs[@]}
 for stig in ${stigs[@]}; do
 
   # Decrement ${counter}
-  counter=$(subtract ${counter} 1)
+  counter=$(subtract 1 ${counter})
 
   # Get a nicer name for the ${stig} file
   stig_name="$(basename ${stig} | cut -d. -f1)"
@@ -417,11 +417,20 @@ done
 
 
 ###############################################
-# Get some metrics of overall time spent
+# Calculate some statistics
 ###############################################
+
+# Provide passed vs. failed
+passed=$(subtract ${#errors[@]} ${#stigs[@]})
+failed=${#errors[@]}
 
 # Calculate a percentage from applied modules & errors incurred
 percentage=$(subtract $(percent ${#stigs[@]} ${#errors[@]}) 100)
+
+
+###############################################
+# Get some metrics of overall time spent
+###############################################
 
 # Get EPOCH
 e_epoch="$(gen_epoch)"

@@ -73,6 +73,9 @@ function report_footer()
 
   # Apply the meta data & report specifics
   report="$(echo "${report}" |
+    sed "s|{PASSED}|${passed}|g" |
+    sed "s|{FAILED}|${failed}|g" |
+    sed "s|{RATE}|${percentage}|g" |
     sed "s|{START}|${s_epoch}|g" |
     sed "s|{END}|${e_epoch}|g" |
     sed "s|{ELAPSED}|${run_time}|g")"

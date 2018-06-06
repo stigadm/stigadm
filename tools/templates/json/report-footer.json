@@ -1,4 +1,9 @@
   ],
+  summary: {
+    passed: "{PASSED}",
+    failed: "{FAILED}",
+    failure_rate: "{RATE}%"
+  },
   metrics: {
     start: "{START}",
     end: "{END}",
