@@ -145,10 +145,10 @@ if [ ${caller} -eq 0 ]; then
 
   # Print the report footer
   report_footer
-fi
 
-# Print the entire ${log}
-cat ${log}
+  # Print ${log} since we were called alone
+  cat ${log}
+fi
 
 
 ###############################################

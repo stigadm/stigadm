@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 # stigadm
 
@@ -62,14 +62,13 @@ bootenv=0
 change=0
 count=0
 classification=
+ext="json"
 flags=
 interactive=0
-json=1
 os=
 restore=0
 version=
 list=
-xml=0
 
 # Get EPOCH
 s_epoch="$(gen_epoch)"
@@ -185,6 +184,7 @@ Usage ./${appname} [options]
     -a  Author name (required when using -c)
     -b  Use new boot environment (Solaris only)
     -c  Make the change
+    -v  Enable verbose messages
 
   Restoration:
     -r  Perform rollback of changes
@@ -209,21 +209,22 @@ fi
 
 
 # Set variables
-while getopts "a:bchijl:rC:O:L:V:x" OPTION ; do
+while getopts "a:bchijl:rC:O:L:V:vx" OPTION ; do
   case $OPTION in
     a) author=$OPTARG ;;
     b) bootenv=1 ;;
     c) change=1 ;;
     h) usage && exit 1 ;;
     i) interactive=1 ;;
-    j) json=1 ;;
+    j) ext="json" ;;
     l) log=$OPTARG ;;
     r) restore=1 ;;
     C) classification=$OPTARG ;;
     L) list=$OPTARG ;;
     O) os=$OPTARG ;;
     V) version=$OPTARG ;;
-    x) xml=1 && ext="xml" && json=0 ;;
+    v) verbose=1 ;;
+    x) ext="xml" ;;
     ?) usage && exit 1 ;;
   esac
 done
@@ -277,7 +278,11 @@ fi
 # Enable restoration mode
 if [ ${restore} -eq 1 ]; then
   flags="${flags} -r"
-  [ ${interative} -eq 1 ] && flags="${flags} -i"
+fi
+
+# Enable verbosity option
+if [ ${verbose} -eq 1 ]; then
+  flags="${flags} -v"
 fi
 
 # Tell each module which ${log} to append
@@ -394,20 +399,20 @@ counter=${#stigs[@]}
 # Iterate ${stigs[@]}
 for stig in ${stigs[@]}; do
 
+  # Decrement ${counter}
+  counter=$(subtract ${counter} 1)
+
   # Get a nicer name for the ${stig} file
   stig_name="$(basename ${stig} | cut -d. -f1)"
 
   # Capture results from ${stig} ${flags} execution
   ./${stig} ${flags}
 
-  # Append the necessary "," to ${log} for each iteration
-  echo "," >> ${log} # Kinda lame I know
+  # If necessary, append "," to ${log} for each iteration
+  [ ${counter} -ne 0 ] && echo "," >> ${log}
 
   # Capture any errors
   [ $? -ne 0 ] && errors+=("${stig_name}");
-
-  # Increment ${counter}
-  counter=$(subtract ${counter} 1)
 done
 
 
@@ -437,6 +442,9 @@ report_footer
 ###############################################
 # Exit with the number of errors found
 ###############################################
+
+# Print ${log}
+cat ${log}
 
 # Exit with the number of errors
 exit ${#errors[@]}
