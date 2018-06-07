@@ -84,7 +84,7 @@ fi
 
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
-
+  usage "Not yet implemented" && exit 1
 fi
 
 
@@ -167,9 +167,15 @@ fi
 # Declare an empty array for errors
 declare -a err
 
+# Declare an empty array of verbose inspections
+declare -a inspected
+
 
 # Iterate ${defpolicy[@]}
 for pol in ${defpolicy[@]}; do
+
+  # Add to ${inspected[@]} array
+  inspected+=("policy:${pol}")
 
   # Check for ${flag} in ${cur_defpolicy[@]}
   [ $(in_array "${pol}" "${cur_defpolicy[@]}") -eq 1 ] &&
@@ -179,6 +185,9 @@ done
 # Iterate ${defflags[@]}
 for flag in ${defflags[@]}; do
 
+  # Add to ${inspected[@]} array
+  inspected+=("defflags:${flag}")
+
   # Check for ${flag} in ${cur_defflags[@]}
   [ $(in_array "${flag}" "${cur_defflags[@]}") -eq 1 ] &&
     err+=("defflags:${flag}")
@@ -186,6 +195,9 @@ done
 
 # Iterate ${defnaflags[@]}
 for naflag in ${defnaflags[@]}; do
+
+  # Add to ${inspected[@]} array
+  inspected+=("defnaflags:${naflag}")
 
   # Check for ${flag} in ${cur_defflags[@]}
   [ $(in_array "${naflag}" "${cur_defnaflags[@]}") -eq 1 ] &&
@@ -246,8 +258,15 @@ module_header "${results}"
 # Provide detailed results to ${log}
 if [ ${verbose} -eq 1 ]; then
 
-  # Print a singular line based on ${log} extention
-  print_array ${log} "${errs[@]}"
+  # Print an array of inspected items
+  print_array ${log} "inspected" "${inspected[@]}"
+fi
+
+# If we have accumulated errors
+if [ ${#err[@]} -gt 0 ]; then
+
+  # Print an array of the accumulated errors
+  print_array ${log} "errors" "${err[@]}"
 fi
 
 # Print the modul footer
@@ -275,7 +294,7 @@ fi
 ###############################################
 
 # Return an error/success code (0/1)
-[ ${status} -eq 1 ] && exit 0 || exit 1
+exit ${#errors[@]}
 
 
 # Date: 2017-06-21
