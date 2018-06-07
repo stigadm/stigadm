@@ -127,7 +127,7 @@ read -r os version arch <<< $(set_env)
 log="${log:=/var/log/${appname}/${hostname}-${os}-${version}-${arch}-${timestamp}.${ext:=json}}"
 
 # If ${log} doesn't exist make it
-[ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})
+[ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log} && chmod 700 ${log})
 
 
 # Re-define the ${templates} based on ${ext}
