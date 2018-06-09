@@ -12,7 +12,7 @@ function usage()
   cat <<EOF
 ${error}
 
-Handles DISA STIG ${stigid}
+DISA STIG ${stigid}
 
 Usage ./${prog} [options]
 
@@ -23,7 +23,6 @@ Usage ./${prog} [options]
   Required:
     -c  Make the change
     -a  Author name (required when making change)
-    -m  Display meta data associated with module
 
   Restoration options:
     -r  Perform rollback of changes

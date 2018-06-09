@@ -77,7 +77,6 @@ caller=$(ps $PPID | grep -c stigadm)
 
 # Make sure we have required defined values
 if [[ ${#defpolicy[@]} -eq 0 ]] || [[ ${#defflags[@]} -eq 0 ]] || [[ ${#defnaflags[@]} -eq 0 ]]; then
-
   usage "One or more default policies, flags or non-attributable flags defined" && exit 1
 fi
 

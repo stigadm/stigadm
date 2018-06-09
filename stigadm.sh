@@ -205,7 +205,11 @@ done
 log="${log:=/var/log/${appname}/$(hostname)-${os}-${version}-${arch}-${timestamp}.${ext:=json}}"
 
 # If ${log} doesn't exist make it
-[ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log})
+if [ ! -f ${log} ]; then
+  mkdir -m 700 -p $(dirname ${log})
+  touch ${log}
+  chmod 400 ${log}
+fi
 
 # Re-define the ${templates} based on ${ext}
 templates="${templates}/${ext}"

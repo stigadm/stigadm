@@ -8,7 +8,6 @@ arch=
 change=0
 ext="json"
 hostname="$(hostname)"
-meta=0
 os=
 restore=0
 timestamp=
@@ -83,14 +82,13 @@ fi
 
 
 # Set variables
-while getopts "ha:cjl:mrvx" OPTION ; do
+while getopts "ha:cjl:rvx" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
     j) ext="json" ;;
     l) log=$OPTARG ;;
-    m) meta=1 ;;
     r) restore=1 ;;
     v) verbose=1 ;;
     x) ext="xml" ;;
@@ -127,7 +125,11 @@ read -r os version arch <<< $(set_env)
 log="${log:=/var/log/${appname}/${hostname}-${os}-${version}-${arch}-${timestamp}.${ext:=json}}"
 
 # If ${log} doesn't exist make it
-[ ! -f ${log} ] && (mkdir -p $(dirname ${log}) && touch ${log} && chmod 700 ${log})
+if [ ! -f ${log} ]; then
+  mkdir -m 700 -p $(dirname ${log})
+  touch ${log}
+  chmod 400 ${log}
+fi
 
 
 # Re-define the ${templates} based on ${ext}

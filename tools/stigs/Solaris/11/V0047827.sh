@@ -1,7 +1,14 @@
 #!/bin/bash
 
 
-# Define an array of loggin services that should be enabled
+###############################################
+# STIG specific audit flags
+###############################################
+
+# Define the hosts file
+host=/etc/hosts
+
+# Define an array of logging services that should be enabled
 declare -a services
 services+=('auditd')
 services+=('system-log')
@@ -11,256 +18,108 @@ services+=('system-log')
 declare -a plugins
 plugins+=("audit_syslog:p_flags=all")
 
-# Define an array of remote logging hosts
-#  - Can be defined as: <IP>:<HOSTNAME> or <HOSTNAME>
-declare -a log_hosts
-log_hosts+=('solaris')
 
-# Global defaults for tool
-author=
-change=0
-json=1
-meta=0
-restore=0
-interactive=0
-xml=0
+###############################################
+# Bootstrapping environment setup
+###############################################
 
+# Get our working directory
+cwd="$(pwd)"
 
-# Working directory
-cwd="$(dirname $0)"
+# Define our bootstrapper location
+bootstrap="${cwd}/tools/bootstrap.sh"
 
-# Tool name
-prog="$(basename $0)"
-
-
-# Copy ${prog} to DISA STIG ID this tool handles
-stigid="$(echo "${prog}" | cut -d. -f1)"
-
-
-# Ensure path is robust
-PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-
-
-# Define the library include path
-lib_path=${cwd}/../../../libs
-
-# Define the tools include path
-tools_path=${cwd}/../../../stigs
-
-# Define the system backup path
-backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
-
-
-# Robot, do work
-
-
-# Error if the ${inc_path} doesn't exist
-if [ ! -d ${lib_path} ] ; then
-  echo "Defined library path doesn't exist (${lib_path})" && exit 1
+# Bail if it cannot be found
+if [ ! -f ${bootstrap} ]; then
+  echo "Unable to locate bootstrap; ${bootstrap}" && exit 1
 fi
 
-
-# Include all .sh files found in ${lib_path}
-incs=($(ls ${lib_path}/*.sh))
-
-# Exit if nothing is found
-if [ ${#incs[@]} -eq 0 ]; then
-  echo "'${#incs[@]}' libraries found in '${lib_path}'" && exit 1
-fi
+# Load our bootstrap
+source ${bootstrap}
 
 
-# Iterate ${incs[@]}
-for src in ${incs[@]}; do
-
-  # Make sure ${src} exists
-  if [ ! -f ${src} ]; then
-    echo "Skipping '$(basename ${src})'; not a real file (block device, symlink etc)"
-    continue
-  fi
-
-  # Include $[src} making any defined functions available
-  source ${src}
-
-done
-
-# Create a timestamp
-ts=$(gen_date)
-
-# Ensure we have permissions
-if [ $UID -ne 0 ] ; then
-  usage "Requires root privileges" && exit 1
-fi
-
-
-# Set variables
-while getopts "ha:cjmvrix" OPTION ; do
-  case $OPTION in
-    h) usage && exit 1 ;;
-    a) author=$OPTARG ;;
-    c) change=1 ;;
-    j) json=1 ;;
-    m) meta=1 ;;
-    r) restore=1 ;;
-    i) interactive=1 ;;
-    x) xml=1 ;;
-    ?) usage && exit 1 ;;
-  esac
-done
-
+###############################################
+# Global zones only check
+###############################################
 
 # Make sure we are operating on global zones
 if [ "$(zonename)" != "global" ]; then
-  print "'${stigid}' only applies to global zones" 1
-  exit 1
+  usage "${stigid} only applies to global zones" && exit 1
 fi
 
 
-# Make sure we have an author if we are not restoring or validating
-if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
-  usage "Must specify an author name (use -a <initials>)" && exit 1
-fi
+###############################################
+# Metrics start
+###############################################
 
+# Get EPOCH
+s_epoch="$(gen_epoch)"
+
+# Create a timestamp
+timestamp="$(gen_date)"
+
+# Whos is calling? 0 = singular, 1 is as group
+caller=$(ps $PPID | grep -c stigadm)
+
+
+###############################################
+# Validate configuration definitions
+###############################################
 
 # Ensure a logging service is defined
 if [ ${#services[@]} -eq 0 ]; then
-  print "'${#services[@]}' remote logging services are defined" 1
-  exit 1
+  usage "${#services[@]} remote logging services are defined" && exit 1
 fi
 
 # Ensure audit plugins are defined
 if [ ${#plugins[@]} -eq 0 ]; then
-  print "'${#plugins[@]}' audit plug ins are defined" 1
-  exit 1
-fi
-
-# Ensure configuration options are defined
-if [ ${#log_hosts[@]} -eq 0 ]; then
-  print "'${#log_hosts[@]}' remote syslog/rsyslog hosts defined" 1
-  exit 1
+  usage "${#plugins[@]} audit plug ins are defined" && exit 1
 fi
 
 
-# If ${meta} is true
-if [ ${meta} -eq 1 ]; then
-
-  # Print meta data
-  get_meta_data "${cwd}" "${prog}"
-fi
-
-
-# Validate ${#plugins[@]} defined
-if [ ${#plugins[@]} -eq 0 ]; then
-  usage "'${#plugins[@]}' plugins that should be enabled defined"
-  exit 1
-fi
-
+###############################################
+# Perform restoration
+###############################################
 
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
-
-  # If ${interactive} = 1 go to interactive restoration mode
-  if [ ${interactive} -eq 1 ]; then
-
-    # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
-
-  fi
-
-  # Print friendly message regarding restoration mode
-  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
-
-  exit 0
+  usage "Not yet implemented" && exit 1
 fi
 
 
-# Define an array for inactive audit plugins
-declare -a inactive
+###############################################
+# STIG validation/remediation
+###############################################
 
-# Define an array for active audit plugins
-declare -a active
+# Double check ${host}
+host="$(get_inode ${host})"
 
-
-# Define an associative array for errors
-declare -A err
-
+# Obtain an array of hosts in /etc/hosts
+declare -a hosts
+hosts=( $(grep -v "^#" ${host} | sort -u) )
 
 # Find syslog.conf or rsyslog.conf & make a backup
-log="$(find / -xdev -type f -name "syslog.conf")"
+conf="$(find / -xdev -type f -name "syslog.conf")"
 
 # If ${log} is empty, try rsyslog.conf
-if [ "${log}" == "" ]; then
-  log="$(find / -xdev -type f -name "rsyslog.conf")"
+if [ "${conf}" == "" ]; then
+  conf="$(find / -xdev -type f -name "rsyslog.conf")"
 fi
 
-
-# Use /etc/hosts
-hosts="/etc/hosts"
-
-# Make sure we are working on the actual file
-hosts="$(get_inode "${hosts}")"
-
-
-# If ${hosts} doesn't exist make it
-if [ ! -f ${hosts} ]; then
-  hosts=/etc/inet/hosts
-  touch ${hosts}
-  chown root:sys ${hosts}
-  chmod 00644 ${hosts}
+# If ${conf} doesn't exist bail
+if [ ! -f ${conf} ]; then
+  usage "Unable to locate syslog/rsyslog configuration" && exit 1
 fi
 
-# If ${log} doesn't exist make it
-if [ ! -f ${log} ]; then
-  log=/etc/syslog.conf
-  touch ${log}
-  chown root:sys ${log}
-  chmod 00644 ${log}
-fi
+# Since ${log} was found get an array of hosts for audit.*
+declare -a logging_hosts
+logging_hosts=( $(grep "^audit" ${conf} |
+  nawk '$2 ~ /\@/{gsub(/\@/, "", $2);print $2}') )
 
-
-# Iterate ${log_hosts[@]}
-for log_host in ${log_hosts[@]}; do
-
-  # If both IP & Hostname defined in ${log_host} split it up
-  if [ $(echo "${log_host}" | grep -c ":") -gt 0 ]; then
-    ip="$(echo "${log_host}" | cut -d: -f1)"
-    hname="$(echo "${log_host}" | cut -d: -f2)"
-  else
-    hname="$(echo "${log_host}")"
-  fi
-
-  # Determine if ${log_host} is an RFC-1123 hostname
-  if [ $(echo "${hname}" | nawk -v regex_hostname="${regex_hostname}" '{if($0 ~ regex_hostname){print 0}else{print 1}}') -ne 0 ]; then
-    print "'${hname}' did not pass RFC-1123 validation..." 1
-  fi
-
-  # If ${ip} is defined
-  if [ -z ${ip} ]; then
-
-    # Determine if ${log_host} is an IPv4 or IPv6 address
-    if [ $(echo "${ip}" | nawk -v regex_ipv4="${regex_ipv4}" -v regex_ipv6=${regex_ipv6} '{if($0 ~ regex_ipv4 || $0 ~ regex_ipv6){print 0}else{print 1}}') -eq 0 ]; then
-      print "'${hname}' did not pass RFC-1123 validation..." 1
-    fi
-  fi
-
-
-  # If only ${ip} OR ${hname} exist try to rely on DNS
-  if [[ "${ip}" == "" ]] || [[ "${hname}" == "" ]]; then
-
-    # If only the IP exists
-    if [[ "${ip}" != "" ]] && [[ "${hname}" == "" ]]; then
-      hname="$(nslookup ${ip} 2> /dev/null | awk '$1 ~ /^Name/{getline; print $2}')"
-    fi
-
-    # If only the hostname exists
-    if [[ "${ip}" == "" ]] && [[ "${hname}" != "" ]]; then
-      ip="$(nslookup ${hname} 2> /dev/null | awk '$1 ~ /^Name/{getline; print $2}')"
-    fi
-  fi
-
-  # Create a new value for ${hosts[@]} (set default ${ip} to localhost (127.0.0.1)
-  loghosts+=("${ip:=127.0.0.1}:${hname}")
-done
-
+# Get an array of active audit plugins
+declare -a audit_plugins
+audit_plugins=( $(auditconfig -getplugin 2>/dev/null |
+  nawk '$1 ~ /^Plugin/ && $3 !~ /inactive/{print $2}') )
 
 # If ${change} = 1
 if [ ${change} -eq 1 ]; then
@@ -268,72 +127,45 @@ if [ ${change} -eq 1 ]; then
   # Create the backup env
   backup_setup_env "${backup_path}"
 
-  # Get a list of active audit plugins
-  active=($(auditconfig -getplugin | awk '$1 ~ /^Plugin/ && $3 !~ /inactive/{print $2}'))
-
   # Create array to handle configuration backup
   declare -a conf_bu
-  conf_bu+=("$(echo "setplugin:${active[@]}" | tr ' ' ',')")
+  conf_bu+=( $(echo "setplugin:${audit_plugins[@]}" | tr ' ' ',') )
 
   # Create a snapshot of ${cur_defflags[@]}
   bu_configuration "${backup_path}" "${author}" "${stigid}" "${conf_bu[@]}"
   if [ $? -ne 0 ]; then
 
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Snapshot of current audit plugins for '${stigid}' failed..." 1
-
-    # Stop, we require a backup
-    exit 1
+    # Bail and notify
+    usage "Could not create backup of audit plugins" && exit 1
   fi
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Created snapshot of current audit plugins for '${stigid}'"
 
   # If ${log} exists make a backup
   if [ -f ${log} ]; then
     bu_file "${author}" "${log}"
     if [ $? -ne 0 ]; then
 
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Could not create a backup of '${log}', exiting..." 1
-      exit 1
+      # Bail & notify
+      usage "Could backup ${log}, exiting..." && exit 1
     fi
   fi
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Created backup of '${log}'"
-
 
   # If ${hosts} exists make a backup
   if [ -f ${hosts} ]; then
     bu_file "${author}" "${hosts}"
     if [ $? -ne 0 ]; then
 
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Could not create a backup of '${hosts}', exiting..." 1
-      exit 1
+      # Bail and notify
+      usage "Could backup of ${hosts}, exiting..." && exit 1
     fi
   fi
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Created backup of '${hosts}'"
-
 
   # Iterate ${services[@]}
   for service in ${services[@]}; do
 
     # Disable any ${services[@]}
     svcadm disable ${service} 2>/dev/null
-    if [ $? -ne 0 ]; then
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "An error occurred disabling '${service}'" 1
-    fi
+    [ $? -ne 0 ] && errors+=("service:${service}")
   done
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Disabled requested services; [$(truncate_cols "$(echo "${services[@]}" | tr ' ' '|')")]"
-
 
   # Make a copy of ${log}
   cp -p ${log} ${log}-${ts}
