@@ -5,9 +5,6 @@
 # STIG specific audit flags
 ###############################################
 
-# Define the hosts file
-host=/etc/hosts
-
 # Define an array of logging services that should be enabled
 declare -a services
 services+=('auditd')
@@ -91,12 +88,11 @@ fi
 # STIG validation/remediation
 ###############################################
 
-# Double check ${host}
-host="$(get_inode ${host})"
+# Define an array of inspected items
+declare -a inspected
 
-# Obtain an array of hosts in /etc/hosts
-declare -a hosts
-hosts=( $(grep -v "^#" ${host} | sort -u) )
+# Define an array of errors
+declare -a errors
 
 # Find syslog.conf or rsyslog.conf & make a backup
 conf="$(find / -xdev -type f -name "syslog.conf")"
@@ -153,6 +149,9 @@ if [ ${change} -eq 1 ]; then
 
     # Add to ${errors[@]}
     [ $? -ne 0 ] && errors+=("${plugin}:${flags}")
+
+    # If verbosity enabled
+    [ ${verbose} -eq 1 ] && inspected+=("${plugin}:${flags}")
   done
 
   # Iterate ${services[@]}
@@ -170,135 +169,107 @@ if [ ${change} -eq 1 ]; then
     # Add to ${errors[@]}
     [ $? -ne 0 ] && errors+=("service:${service}")
   done
+
+  # Refresh the audit plugins list
+  audit_plugins=( $(auditconfig -getplugin 2>/dev/null |
+    nawk '$1 ~ /^Plugin/ && $3 !~ /inactive/{print $2}') )
+fi
+
+# Validate remote logging hosts in ${log}
+[ ${#logging_hosts[@]} -eq 0 ] && errors+=("logging:${conf}")
+
+# If verbosity enabled
+[ ${verbose} -eq 1 ] && inspected+=("logging:${conf}")
+
+
+###############################################
+# Finish metrics
+###############################################
+
+# Get EPOCH
+e_epoch="$(gen_epoch)"
+
+# Determine miliseconds from start
+seconds=$(subtract ${s_epoch} ${e_epoch})
+
+# Generate a run time
+[ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
+
+
+###############################################
+# Results for printable report
+###############################################
+
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Set ${results} error message
+  results="Failed validation"
+fi
+
+# Set ${results} passed message
+[ ${#errors[@]} -eq 0 ] && results="Passed validation"
+
+
+###############################################
+# Report generation specifics
+###############################################
+
+# If ${caller} = 0
+if [ ${caller} -eq 0 ]; then
+
+  # Apply some values expected for general report
+  stigs=("${stigid}")
+  total_stigs=${#stigs[@]}
+
+  # Generate the primary report header
+  report_header
+fi
+
+# Capture module report to ${log}
+module_header "${results}"
+
+# Provide detailed results to ${log}
+if [ ${verbose} -eq 1 ]; then
+
+  # Print an array of inspected items
+  print_array ${log} "inspected" "${inspected[@]}"
+fi
+
+# If we have accumulated errors
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Print an array of the accumulated errors
+  print_array ${log} "errors" "${errors[@]}"
+fi
+
+# Print the modul footer
+module_footer
+
+if [ ${caller} -eq 0 ]; then
+
+  # Apply some values expected for report footer
+  [ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
+  [ ${#errors[@]} -ge 1 ] && failed=1 || failed=0
+
+  # Calculate a percentage from applied modules & errors incurred
+  percentage=$(percent ${passed} ${failed})
+
+  # Print the report footer
+  report_footer
+
+  # Print ${log} since we were called alone
+  cat ${log}
 fi
 
 
-# Check ${log} for audit.notice @loghost entry
-if [ $(grep -c "^audit.notice.*@loghost" ${log}) -le 0 ]; then
+###############################################
+# Return code for larger report
+###############################################
 
-  # If the ${err['Syslog']} key exists
-  if [ -z ${err['Syslog']} ]; then
-    err['Syslog']="No_remote_loghosts_defined"
-  else
-    err['Syslog']="${err['Servers']}:No_remote_loghosts_defined"
-  fi
-fi
+# Return an error/success code (0/1)
+exit ${#errors[@]}
 
-
-# Get currently configured 'loghost' entries from ${hosts} file
-cur_hosts=( $(grep "loghost$" ${hosts} | awk '{printf("%s:%s\n", $1, $2)}') )
-
-# Push to ${err['Servers']} if empty
-if [ ${#cur_hosts[@]} -eq 0 ]; then
-
-  # If the ${err['Services']} key exists
-  if [ -z ${err['Servers']} ]; then
-    err['Servers']="No_loghosts_defined"
-  else
-    err['Servers']="${err['Servers']}:No_loghosts_defined"
-  fi
-fi
-
-# Iterate ${hosts[@]}
-for log_host in ${cur_hosts[@]}; do
-
-  # Split ${log_host} into ${ip} & ${hname}
-  ip="$(echo "${log_host}" | cut -d: -f1)"
-  hname="$(echo "${log_host}" | cut -d: -f2)"
-
-  # Flag ${ip} if a local address (default)
-  if [ "${ip}" == "127.0.0.1" ]; then
-
-    # If the ${err['Services']} key exists
-    if [ -z ${err['Servers']} ]; then
-      err['Servers']="${ip}_${hname}"
-    else
-      err['Servers']="${err['Servers']}:${ip}_${hname}"
-    fi
-  fi
-done
-
-
-# Acquire all running (online) services
-cur_services=( $(svcs -a | awk '$1 ~ /^online/{split($3, obj, ":");print obj[2]}' | sort -u) )
-
-# Iterate ${services[@]}
-for service in ${services[@]}; do
-
-  # Determine if ${service} exists in ${cur_services[@]}
-  if [ $(in_array_loose "${service}" "${cur_services[@]}") -ne 0 ]; then
-
-    # If the ${err['Services']} key exists
-    if [ -z ${err['Services']} ]; then
-      err['Services']="${service}"
-    else
-      err['Services']="${err['Services']}:${service}"
-    fi
-  fi
-done
-
-
-# Get a list of inactive audit plugins
-inactive=($(auditconfig -getplugin | awk '$1 ~ /^Plugin/ && $3 ~ /inactive/{print $2}'))
-
-# Get a list of active audit plugins
-active=($(auditconfig -getplugin | awk '$1 ~ /^Plugin/ && $3 !~ /inactive/{print $2}'))
-
-# Iterate ${plugins[@]}
-for plugin in ${plugins[@]}; do
-
-  # If ${plugin} contains a ':' split it up to get the necessary flags
-  if [ $(echo "${plugin}" | grep -c ":") -gt 0 ]; then
-    plugin="$(echo "${plugin}" | cut -d: -f1)"
-  fi
-
-  # If ${plugin} doesn't exist in ${inactive[@]} & ${active[@]}
-  if [[ $(in_array "${plugin}" "${inactive[@]}") -eq 1 ]] && [[ $(in_array "${plugin}" "${active[@]}") -ne 0 ]]; then
-
-    # If the ${err['Plugins']} key exists
-    if [ -z ${err['Plugins']} ]; then
-      err['Plugins']="${plugin}"
-    else
-      err['Plugins']="${err['Plugins']}:${plugin}"
-    fi
-  fi
-done
-
-
-# If ${#err[@]} > 0
-if [ ${#err[@]} -gt 0 ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Could not validate '${stigid}'" 1
-
-  # Iterate ${err[@]}
-  for error in ${!err[@]}; do
-
-    # Split ${error} into an array
-    errors=( $(echo "${err[${error}]}" | tr ':' ' ') )
-
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  ${error}:  " 1
-
-    # Iterate ${errors[@]}
-    for e in ${errors[@]}; do
-
-      # Break ${e} up if need be
-      e="$(echo "${e}" | tr '_' ' ')"
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "     ${e}" 1
-    done | sort -u
-  done
-
-  exit 1
-fi
-
-
-# Print friendly success
-[ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
-
-exit 0
 
 # Date: 2017-06-21
 #

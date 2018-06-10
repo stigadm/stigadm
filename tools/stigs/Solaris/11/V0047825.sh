@@ -88,14 +88,17 @@ fi
 
 
 # Get an array of default policy flags
+declare -a cur_defpolicy
 cur_defpolicy=($(auditconfig -getpolicy |
   nawk '$1 ~ /^active/{print}' | cut -d= -f2 | tr ',' ' '))
 
 # Get an array of default flags
+declare -a cur_defflags
 cur_defflags=($(auditconfig -getflags |
   nawk '$1 ~ /^active/{split($7, obj, "(");print obj[1]}' | tr ',' ' '))
 
 # Get an array of default non-attributable flags
+declare -a cur_defnaflags
 cur_defnaflags=($(auditconfig -getnaflags |
   nawk '$1 ~ /^active/{split($6, obj, "(");print obj[1]}' | tr ',' ' '))
 
@@ -121,12 +124,15 @@ if [ ${change} -eq 1 ]; then
 
 
   # Combine & remove duplicates from ${defpolicy[@]} & ${cur_defpolicy[@]}
+  declare -a set_defpolicy
   set_defpolicy=( $(remove_duplicates "${defpolicy[@]}" "${cur_defpolicy[@]}") )
 
   # Combine & remove duplicates from ${defflags[@]} & ${cur_defflags[@]}
+  declare -a set_defflags
   set_defflags=( $(remove_duplicates "${defflags[@]}" "${cur_defflags[@]}") )
 
   # Combine & remove duplicates from ${defnaflags[@]} & ${cur_defnaflags[@]}
+  declare -a set_defnaflags
   set_defnaflags=( $(remove_duplicates "${defnaflags[@]}" "${cur_defnaflags[@]}") )
 
 
@@ -167,14 +173,14 @@ fi
 declare -a err
 
 # Declare an empty array of verbose inspections
-declare -a inspected
+[ ${verbose} -eq 1 ] && declare -a inspected
 
 
 # Iterate ${defpolicy[@]}
 for pol in ${defpolicy[@]}; do
 
   # Add to ${inspected[@]} array
-  inspected+=("policy:${pol}")
+  [ ${verbose} -eq 1 ] && inspected+=("policy:${pol}")
 
   # Check for ${flag} in ${cur_defpolicy[@]}
   [ $(in_array "${pol}" "${cur_defpolicy[@]}") -eq 1 ] &&
@@ -185,7 +191,7 @@ done
 for flag in ${defflags[@]}; do
 
   # Add to ${inspected[@]} array
-  inspected+=("defflags:${flag}")
+  [ ${verbose} -eq 1 ] && inspected+=("defflags:${flag}")
 
   # Check for ${flag} in ${cur_defflags[@]}
   [ $(in_array "${flag}" "${cur_defflags[@]}") -eq 1 ] &&
@@ -196,7 +202,7 @@ done
 for naflag in ${defnaflags[@]}; do
 
   # Add to ${inspected[@]} array
-  inspected+=("defnaflags:${naflag}")
+  [ ${verbose} -eq 1 ] && inspected+=("defnaflags:${naflag}")
 
   # Check for ${flag} in ${cur_defflags[@]}
   [ $(in_array "${naflag}" "${cur_defnaflags[@]}") -eq 1 ] &&
@@ -228,8 +234,8 @@ if [ ${#err[@]} -gt 0 ]; then
   # Set ${results} error message
   results="Failed validation"
 
-  # Populate a value in ${errors[@]} if ${caller} is > 0
-  [ ${caller} -gt 0 ] && errors=("${stigid}")
+  # Populate a value in ${errors[@]} if ${caller} is <= 0
+  [ ${caller} -eq 0 ] && errors=("${stigid}")
 fi
 
 # Set ${results} passed message

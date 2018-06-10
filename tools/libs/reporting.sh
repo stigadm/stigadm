@@ -75,7 +75,7 @@ function report_footer()
   report="$(echo "${report}" |
     sed "s|{PASSED}|${passed}|g" |
     sed "s|{FAILED}|${failed}|g" |
-    sed "s|{RATE}|${percentage}|g" |
+    sed "s|{RATE}|${percentage:=0}|g" |
     sed "s|{START}|${s_epoch}|g" |
     sed "s|{END}|${e_epoch}|g" |
     sed "s|{ELAPSED}|${run_time}|g")"
