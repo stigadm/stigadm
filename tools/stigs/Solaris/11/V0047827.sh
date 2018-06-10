@@ -139,117 +139,6 @@ if [ ${change} -eq 1 ]; then
     usage "Could not create backup of audit plugins" && exit 1
   fi
 
-  # If ${log} exists make a backup
-  if [ -f ${log} ]; then
-    bu_file "${author}" "${log}"
-    if [ $? -ne 0 ]; then
-
-      # Bail & notify
-      usage "Could backup ${log}, exiting..." && exit 1
-    fi
-  fi
-
-  # If ${hosts} exists make a backup
-  if [ -f ${hosts} ]; then
-    bu_file "${author}" "${hosts}"
-    if [ $? -ne 0 ]; then
-
-      # Bail and notify
-      usage "Could backup of ${hosts}, exiting..." && exit 1
-    fi
-  fi
-
-  # Iterate ${services[@]}
-  for service in ${services[@]}; do
-
-    # Disable any ${services[@]}
-    svcadm disable ${service} 2>/dev/null
-    [ $? -ne 0 ] && errors+=("service:${service}")
-  done
-
-  # Make a copy of ${log}
-  cp -p ${log} ${log}-${ts}
-
-  # Add/Modify ${log} 'audit.notice @loghost'
-  if [ $(grep -c "^audit.notice" ${log}) -gt 0 ]; then
-    sed "s|^\(audit.notice\).*$|\1                                    @loghost|g" ${log} > ${log}-${ts}
-  else
-
-    # Make sure the formatting is accurate when appending
-    cat <<EOF >> ${log}-${ts}
-
-audit.notice                                    @loghost
-
-EOF
-  fi
-
-  # Double check addition/modification
-  if [ $(grep -c "^audit.notice.*@loghost$" ${log}-${ts}) -gt 0 ]; then
-
-    # Move ${log}-${ts} back in place
-    mv ${log}-${ts} ${log}
-  else
-
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "'audit.notice' was not found in '${log}-${ts}'..." 1
-    rm ${log}-${ts}
-  fi
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Remote logging enabled to '@loghost' (defined in ${hosts})"
-
-
-  # If ${#loghosts[@]} > 0
-  if [ ${#loghosts[@]} -gt 0 ]; then
-
-    # Iterate ${hosts[@]}
-    for log_host in ${loghosts[@]}; do
-
-      # Split ${log_host} into ${ip} & ${hname}
-      ip="$(echo "${log_host}" | cut -d: -f1)"
-      hname="$(echo "${log_host}" | cut -d: -f2)"
-
-      # Flag ${ip} if a local address (default)
-      if [ "${ip}" == "127.0.0.1" ]; then
-
-        # If the ${err['Services']} key exists
-        if [ -z ${err['Servers']} ]; then
-          err['Servers']="${ip}_${hname}"
-        else
-          err['Servers']="${err['Servers']}:${ip}_${hname}"
-        fi
-      fi
-
-
-      # Make a copy of ${hosts} to preserve permissions
-      cp -p ${hosts} ${hosts}-${ts}
-
-      # Add/modify the entry to ${hosts}
-      if [ $(grep -c "^${ip}" ${hosts}) -gt 0 ]; then
-        sed "s|^${ip}.*$|${ip} ${hname} loghost|g" ${hosts} > ${hosts}-${ts}
-      else
-        echo "${ip} ${hname} loghost" >> ${hosts}-${ts}
-      fi
-
-
-      # Double check addition/modification
-      if [ $(grep -c "^${ip}.*${hname}.*loghost$" ${hosts}-${ts}) -gt 0 ]; then
-
-        # Move ${hosts}-${ts} back in place
-        mv ${hosts}-${ts} ${hosts}
-      else
-
-        # Print friendly message
-        [ ${verbose} -eq 1 ] && print "'${ip} ${hname} loghost' was not found in '${hosts}-${ts}'..." 1
-        rm ${hosts}-${ts}
-      fi
-    done
-
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Configured remote logging hosts; [$(truncate_cols "$(echo "${loghosts[@]}" | tr ' ' '\n' | cut -d: -f1 | tr ' ' '|')")]"
-  fi
-
-
   # Iterate ${plugins[@]}
   for plugin in ${plugins[@]}; do
 
@@ -261,39 +150,26 @@ EOF
 
     # Make change according to ${stigid}
     auditconfig -setplugin ${plugin} active "${flags}" 2> /dev/null
-    if [ $? -ne 0 ]; then
 
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Unable to enable audit plug-in '${plugin}'" 1
-    fi
+    # Add to ${errors[@]}
+    [ $? -ne 0 ] && errors+=("${plugin}:${flags}")
   done
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Enabled audit plug-ins; [$(truncate_cols "$(echo "${plugins[@]}" | tr ' ' '\n' | cut -d: -f1 | tr ' ' '|')")]"
-
 
   # Iterate ${services[@]}
   for service in ${services[@]}; do
 
     # Refresh ${services[@]}
     svcadm refresh ${service} 2>/dev/null
-    if [ $? -ne 0 ]; then
 
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "An error occurred refreshing '${service}'" 1
-    fi
+    # Add to ${errors[@]}
+    [ $? -ne 0 ] && errors+=("service:${service}")
 
     # Enable any ${services[@]}
     svcadm enable ${service} 2>/dev/null
-    if [ $? -ne 0 ]; then
 
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "An error occurred enabling '${service}'" 1
-    fi
+    # Add to ${errors[@]}
+    [ $? -ne 0 ] && errors+=("service:${service}")
   done
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Re-enabled services; [$(truncate_cols "$(echo "${services[@]}" | tr ' ' '|')")]"
 fi
 
 
