@@ -12,7 +12,7 @@ function get_accounts()
 {
   # Test and get array of accounts
   [ -f /etc/passwd ] &&
-    local -a accounts=( $(cat /etc/passwd | sed 's/ /_/g') )
+    local -a accounts=( $(cat /etc/passwd | sort -t: -k1 | tr ' ' '_') )
 
   echo "${accounts[@]}" && return 0
 }
@@ -110,4 +110,15 @@ function get_user_accts()
 
   echo "$(echo "${accts[@]}" | tr ' ' '\n' | \
     nawk -v min=${min} -v max=${max} -F: '$3 >= min && $4 <= max{print $1}')"
+}
+
+
+# Function to filter accounts
+function filter_accounts()
+{
+  local -a args=( ${@} )
+  local index="${args[0]}"
+  local -a obj=( ${args[@]:1} )
+
+  echo "${obj[@]}" | tr ' ' '\n' | cut -d: -f${index}
 }
