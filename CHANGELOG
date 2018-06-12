@@ -1,3 +1,389 @@
+commit e876ea2d83124a55965758a18cd0c4b2b237089f
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Jun 12 05:55:33 2018 +0400
+
+    v0.1.2: Removed un-implemented STIG modules for Solaris 10 & 11
+
+commit 40b0b323068537b8c23fc13af0cbf1cf35d4c93d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Jun 11 17:47:41 2018 +0400
+
+    v0.1.2: V0047831 & accounts.sh: Validation & remedation completed & added new filtering function to retrieve specific values from get_accounts()
+
+commit 9c8dfc6869c40e294fa298f6b8a07455e1f381db
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Jun 10 08:46:43 2018 +0400
+
+    v0.1.2: V0047827 - Simplified & abstracted away false positive regarding remote logging hosts on remediation
+
+commit 6266a86bae862b9dd8e0c4be51691bec93d27fb0
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Jun 10 06:20:34 2018 +0400
+
+    v0.1.2: README: Updated readme docs
+
+commit 80d31bc16da4cfeb5d44ec93b5debddb235d33b4
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Jun 10 06:11:20 2018 +0400
+
+    v0.1.2: V0047827 - Revisions to remove false positive regarding remote host config
+
+commit 276db9c810cb672a09b3cacd6beebb8baaa17298
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Jun 9 19:58:16 2018 +0400
+
+    v0.1.2: Fix for permissions on log file
+
+commit 8024985daa2b2660a581987a5f3afb84f8d2c3a1
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Jun 7 06:21:08 2018 +0400
+
+    v0.1.2: V0047807-V0047825 updated
+
+commit f693de8d81151318140f5977792236a7b7f0c2f3
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Jun 7 06:17:19 2018 +0400
+
+    v0.1.2: V0047805 & XML/JSON array printing
+
+commit 6bc0c93e980b1029a2b093bd0bded895e0c9c42f
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Jun 7 04:52:02 2018 +0400
+
+    v0.1.2: V0047805
+
+commit 812df6e6e7c5f3b1a0e76a064a3b43066689a672
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Jun 6 19:40:25 2018 +0400
+
+    v0.1.2: Revisions for V0047785-V0047803
+
+commit c293336b3b80d26d9de87aecb11ad1cb61035f02
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Jun 6 19:17:00 2018 +0400
+
+    v0.1.2: Module readme update
+
+commit 08387aa7ea779a591187e419b07ce20ca3fd2a26
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Jun 6 19:10:23 2018 +0400
+
+    v0.1.2: Removed OS STIGS not yet implemented
+
+commit 58dfbba8b0b84407209d7e27c31a6793222117a6
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Jun 6 18:56:21 2018 +0400
+
+    v0.1.2: Upgraded reporting options for XML types
+
+commit dc82e6d928c6403c818a62c76599a3256025aa79
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Jun 6 18:36:01 2018 +0400
+
+    v0.1.2: XML templating
+
+commit de00ab97bf254693b2b1eba32ba6334a74e3426f
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Jun 6 10:45:37 2018 +0400
+
+    v0.1.2: Added report summary to handle pass/fail information for bulk or singular run
+
+commit 325b2950a122c48cae2b476f1e6b119a08cc8a8a
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Jun 6 06:22:47 2018 +0400
+
+    v0.1.2: Fixed dupe print issue
+
+commit b7377f33215abaac332883d1d5213903c33c2840
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Jun 6 05:58:25 2018 +0400
+
+    v0.1.2: Commented stigadm, added counter & removed dupes
+
+commit 65ca66e7e12b8a9ed093c30b5cc831afb19c1493
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Jun 6 05:11:55 2018 +0400
+
+    v0.1.2: Reporting & bootstrap for stigadm loader
+
+commit ed1de2a0866d5474298f27bacc2cf2bf0a00cbcc
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Jun 5 18:02:57 2018 +0400
+
+    v0.1.2: Reporting structure for JSON complete for singular module call
+
+commit e1e7c4dad9923de952cda4eaa54e4b161b8c8910
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Jun 5 16:25:30 2018 +0400
+
+    v0.1.2: Reporting prototype for JSON structure; part duex
+
+commit 8d387c870f1bbd684c5f25a3a5c2e84686a95502
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Jun 5 16:21:59 2018 +0400
+
+    v0.1.2: Reporting prototype for JSON structure
+
+commit 31f2bc8436f75e3ee3df3915aaf7f5a2d94d657e
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Jun 4 19:22:25 2018 +0400
+
+    v0.1.2: Templates folder & error handling
+
+commit 0293c0b542b9195a57220709f9f97b64f5b8300d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Jun 4 18:57:32 2018 +0400
+
+    v0.1.2: Fixes for bootstrap & env
+
+commit cdbba941cdd9a6672c85a0c702cf09a4c3eb8de9
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Jun 4 18:34:37 2018 +0400
+
+    v0.1.2: Bootstrapper in place to abstract away bulk code changes from individual modules; part duex
+
+commit 5d29b205a17532810205183a846b9cb7b632ded2
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Jun 4 18:33:40 2018 +0400
+
+    v0.1.2: Bootstrapper in place to abstract away bulk code changes from individual modules
+
+commit 2ccc9e9a3955a5fd7bdf3136d32af174e6e6eb9a
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Jun 4 17:49:52 2018 +0400
+
+    20180604 - v0.1.2: Reporting revamp snapshot
+
+commit a6e03b1a4ed66e869f3d7e54d52d3510124a3898
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Jun 3 06:40:46 2018 +0400
+
+    Rebuilt modules from STIG XML docs
+
+commit 0b070eb1acbc208d12b0fbd433cdf092cd2082e6
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Jun 1 19:28:39 2018 +0400
+
+    Removed verbosity menu options from Solaris 10
+
+commit 6f6e546825179686347ebc5f618578f3898fecf6
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Jun 1 19:13:09 2018 +0400
+
+    Removed verbosity menu options from Solaris 11
+
+commit 8d701439310fba48d3ac93a7137726b14ea8b5e8
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Jun 1 19:03:46 2018 +0400
+
+    Removed verbosity variable
+
+commit f7be53c9f0482b06c8a23ec503f5696edd72dd0d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue May 29 17:33:35 2018 +0400
+
+    Reporting: Working on default JSON reporting in stigadm.sh
+
+commit 79cf2ad695213f11e466c651b5d37c95f4b5cc75
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 27 14:08:12 2018 +0400
+
+    Added symlink
+
+commit a0dc779ef1161d16722140e28b0df0a700da214c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 27 13:39:50 2018 +0400
+
+    v0.1.2: Templates, OS, versioning & removal of wizardry
+    - Nuked wizard.sh in favor of auto OS & Version detection
+    - Working on templating reports. Removed global verbose & debug options
+
+commit ab614e602e90c1528a3b9c93cd7391fb2713f69f
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 26 18:06:51 2018 +0400
+
+    Added permissions on post/checkout git actions
+
+commit c63a68d172f036d7ab01de650742385da53bf4b9
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 26 17:42:10 2018 +0400
+
+    Added symlink
+
+commit 8c5c831e776da3993f3b9dff5092793a065b5cd6
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat May 26 17:28:57 2018 +0400
+
+    Added symlink to stigadm.sh
+
+commit e2176bf6bab7268c4c3f88e09c61ead2d5d6ad33
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 25 11:19:35 2018 +0400
+
+    v0.1.2: Reporting - Added metrics
+
+commit 7f32f570efabbd50bd97487b9c6d27bfd1843b91
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 25 11:19:09 2018 +0400
+
+    v0.1.2: Reporting
+
+commit ba88eea0c392f414304ec01edb398a8b40aec035
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 25 11:08:05 2018 +0400
+
+    v0.1.2: Documentation: Added new reporting options
+
+commit c309b7aadb7eb686aef61ea97c0e27cd6c544f9e
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 25 11:07:02 2018 +0400
+
+    v0.1.2: Reporting; Added reporting options to common.sh usage() function
+
+commit e5c1fc1ed97635dea5d455f672a1a3c21aa4a53d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 25 09:53:16 2018 +0400
+
+    v0.1.2: Reporting; added default JSON & XML reporting templates and arguments to AIX modules
+
+commit 80d92af0f00e058ed08e5e1157a4472f2d70544f
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 25 09:37:26 2018 +0400
+
+    v0.1.2: Reporting; added default JSON & XML reporting templates and arguments to HP-UX modules
+
+commit 5d0f4b9b756667af7645e7b1f7cf4f15103fe529
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 25 09:21:23 2018 +0400
+
+    v0.1.2: Reporting; added default JSON & XML reporting templates and arguments to Oracle Linux modules
+
+commit 92b2cc983619b8fc4e16c0b190ab10b8ae3a8c04
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 25 09:02:20 2018 +0400
+
+    v0.1.2: Reporting; added default JSON & XML reporting templates and arguments to Oracle Linux modules
+
+commit 415bec26ee0a9fa8e6d288e597ba50d81aad4b92
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri May 25 06:25:20 2018 +0400
+
+    v0.1.2: Reporting; added default JSON & XML reporting templates and arguments to Red Hat modules
+
+commit 54737f1ece11719695241a99bbd552d9e102cfa2
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu May 24 20:24:51 2018 +0400
+
+    v0.1.2: Reporting; added default JSON & XML reporting templates and arguments to Solaris modules
+
+commit debba162c9c5e63119910039302d4f4c98b4cf7c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu May 24 19:25:25 2018 +0400
+
+    v0.1.2: Reporting; added default JSON & XML reporting templates and arguments to Solaris modules
+
+commit 8785551d2e6506f8c090a75fe44103327467ad2e
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu May 24 05:47:29 2018 +0400
+
+    Removed column wrapping
+
+commit 1109a181a3462b66ed358307cd3c9e0ba7ae0537
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon May 21 17:30:36 2018 +0400
+
+    EOD: 20180521
+
+commit a0af2064e77be157e11a9bd5ad6cb06e02731f77
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon May 21 12:01:52 2018 +0400
+
+    Math: Fix for default scale
+
+commit b9f4038dec47d1f8e76324601c834e1a3fc18fe8
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 20 09:54:07 2018 +0400
+
+    V0047899 & math: Conifguration options for resource limits & handling floating points
+
+commit 74e60973c3c061a65dbf628f7970b11b700ccd77
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu May 17 16:05:28 2018 +0400
+
+    Fix for reporting & V0047899 network limitations
+
+commit 921a0c7d0aaeb7e9df88a4e0211eedad33adf4ce
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu May 17 15:30:08 2018 +0400
+
+    Math & reporting; fixed percentage of successful compliance and math order of operations
+
+commit 0061d1dbbcbf2e25e4260aa047b2203c7dd01e1c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu May 17 08:49:50 2018 +0400
+
+    Fixes for extraneous verbage w/ package object notifications
+
+commit 51e1b7e181f653d861e57131e99e473e09429f09
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 13 20:32:49 2018 +0400
+
+    Comments added
+
+commit a1be0cbf9194379f52b5ae639e3c55655ba79d29
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 13 20:27:36 2018 +0400
+
+    V0047899: Project data structures for application, user & zone limits
+
+commit 23e2ce2b17ae6908769f4d703eea884d1780c378
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 13 15:31:35 2018 +0400
+
+    accounts.sh: Added functions to retrieve system, application & user accounts based on UID ranges
+
+commit 23cddd25c809d73c5188d3b449e6ef2ddac46a1d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 13 14:33:55 2018 +0400
+
+    V0047897: Validation/Backup/Remediation completed
+
+commit 40aa00dd9b47490b6ee51572b91e55fc300a5aff
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 13 14:23:43 2018 +0400
+
+    V0047895: Validation/Remediation functionality complete
+
+commit 45761338612b117f19aae45fa2fc6b99778ef0fe
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 13 11:14:28 2018 +0400
+
+    Fixes for V0047893 more fixes
+
+commit f864a15ccba6056c8153eefd26a11fadcadd8e36
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 13 11:04:25 2018 +0400
+
+    Fixes for V0047893 regarding bailing on 0 blacklisted packages removed
+
+commit 8e77604cc6a2847a9518bdfce69c0e8df57fa6dc
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 13 10:34:58 2018 +0400
+
+    Updated README project coverage
+
+commit be04f6fd8d27480d84b80352e06e86459467d8f7
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 13 10:30:59 2018 +0400
+
+    V0047893: Validation/Backup/Remediation functionality confirmed
+
+commit 1062e7165cb52e6d27193d47801aeb76b58a426c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun May 13 09:06:29 2018 +0400
+
+    Updated coverage & changelog
+
 commit 44272b4f7904f2e2808d4d2b11fff1ec45d7a982
 Author: jas- <Jason.Gerfen@gmail.com>
 Date:   Sun May 13 09:02:27 2018 +0400
