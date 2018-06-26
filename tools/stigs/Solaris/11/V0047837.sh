@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Declare audit policies to remove
+declare -a audit_policies
+audit_policies+=("perzone")
+
+
 ###############################################
 # Bootstrapping environment setup
 ###############################################
@@ -82,22 +87,33 @@ if [ ${change} -eq 1 ]; then
     usage "Failed to create backup of audit policies" && exit 1
   fi
 
-  # Remove perzone audit flag
-  auditconfig -setpolicy -perzone
 
-  # Trap errors
-  [ $? -ne 0 ] && errors+=("auditconfig:setpolicy:perzone")
+  # Iterate ${audit_policies[@]}
+  for audit_policy in ${audit_policies[@]}; do
+
+    # Remove ${audit_policy} from auditconfig
+    auditconfig -setpolicy -${audit_policy} 2>/dev/null
+
+    # Trap errors
+    [ $? -ne 0 ] && errors+=("auditconfig:setpolicy:${audit_policy}")
+  done
 
   # Refresh audit policies
   policies=( $(auditconfig -getpolicy | grep "^active" | nawk '{print $5}' | tr ',' ' ') )
 fi
 
 
-# Look for perzone in ${policies[@]} array
-[ $(in_array "perzone" "${policies[@]}") -eq 0 ] && errors+=("auditconfig:getpolicy:perzone")
+# Iterate ${audit_policies[@]}
+for audit_policy in ${audit_policies[@]}; do
 
-# Make sure we populate ${inspected}
-inspected+=("auditconfig:getpolicy:perzone")
+  # Look for perzone in ${policies[@]} array
+  if [ $(in_array "${audit_policy}" "${policies[@]}") -eq 0 ]; then
+    errors+=("auditconfig:getpolicy:${audit_policy}")
+  fi
+
+  # Make sure we populate ${inspected}
+  inspected+=("auditconfig:getpolicy:${audit_policy}")
+done
 
 
 ###############################################
