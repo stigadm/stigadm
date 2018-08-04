@@ -1,3 +1,39 @@
+commit 25ef4c7ced19f0b982aa2d453ede55f1a35d77ba
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Aug 4 01:39:17 2018 -0600
+
+    v0.1.2: Math.sh: Fix for argument scope re-assignment
+
+commit 61feee60ed2427f0087359300638d29e73a3f2ee
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Jun 26 15:01:32 2018 +0400
+
+    v0.1.2: V0047837-9: Validation/Remediation completed
+
+commit 8bfe6b6a9c3e75e3872fc2573fc9427d82e1ba81
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Jun 26 14:35:42 2018 +0400
+
+    v0.1.2: V0047837: Completed validation
+
+commit cc4087772631c441a2af290a5b20da503a3ebc56
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Jun 26 14:14:16 2018 +0400
+
+    v0.1.2: V0047835 - Validation of functionality complete
+
+commit 3f9be22a6d9b7e54d5aebe02f252a7f7254be907
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Jun 26 12:48:55 2018 +0400
+
+    v0.1.2: V0047835 - Moved to new framework
+
+commit 603dd399900adc39e08bf5c5a4ba86d95c931a77
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Jun 12 05:58:03 2018 +0400
+
+    v0.1.2: Updated changelog
+
 commit e876ea2d83124a55965758a18cd0c4b2b237089f
 Author: jas- <Jason.Gerfen@gmail.com>
 Date:   Tue Jun 12 05:55:33 2018 +0400
