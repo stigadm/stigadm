@@ -7,8 +7,4 @@
     <OS>{OS}</OS>
     <version>{OSVER}</version>
   </system>
-  <job>
-    <modules>{STIGS}</modules>
-    <selected>{MODULES}</selected>
-  </job>
   <stigs>

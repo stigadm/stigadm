@@ -6,8 +6,4 @@
     OS: "{OS}",
     version: "{OSVER}",
   },
-  job: {
-    modules: "{STIGS}",
-    selected: "{MODULES}",
-  },
   stigs: [

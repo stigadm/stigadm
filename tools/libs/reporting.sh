@@ -58,9 +58,7 @@ function report_header()
     sed "s|{HOST}|$(hostname)|g" |
     sed "s|{KERNEL}|$(uname -a)|g" |
     sed "s|{OS}|${os}|g" |
-    sed "s|{OSVER}|${version}|g" |
-    sed "s|{STIGS}|${total_stigs}|g" |
-    sed "s|{MODULES}|${#stigs[@]}|g")"
+    sed "s|{OSVER}|${version}|g")"
 
   echo "${report}" > ${log}
 }
@@ -73,6 +71,8 @@ function report_footer()
 
   # Apply the meta data & report specifics
   report="$(echo "${report}" |
+    sed "s|{STIGS}|${total_stigs}|g" |
+    sed "s|{MODULES}|${#stigs[@]}|g" |
     sed "s|{PASSED}|${passed}|g" |
     sed "s|{FAILED}|${failed}|g" |
     sed "s|{RATE}|${percentage:=0}|g" |
@@ -89,5 +89,5 @@ function report()
 {
   local args=( ${@} )
 
-  
+
 }

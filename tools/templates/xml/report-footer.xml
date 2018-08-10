@@ -1,5 +1,7 @@
   </stigs>
   <summary>
+    <modules>{STIGS}</modules>
+    <selected>{MODULES}</selected>
     <passed>{PASSED}</passed>
     <failed>{FAILED}</failed>
     <failure_rate>{RATE}%</failure_rate>
