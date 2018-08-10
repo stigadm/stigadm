@@ -11,8 +11,8 @@ function module_header()
   # Apply the meta data & report specifics
   header="$(echo "${header}" |
     sed "s|{STIGID}|${stigid}|g" |
-    sed "s|{TITLE}|$( echo "${meta[8]}" | tr '_' ' ')|g" |
-    sed "s|{DESCRIPTION}|$( echo "${meta[9]}" | tr '_' ' ')|g" |
+    sed "s|{TITLE}|$(echo "${meta[8]}" | tr '_' ' ')|g" |
+    sed "s|{DESCRIPTION}|$(echo "${meta[9]}" | tr '_' ' ')|g" |
     sed "s|{RELEASE_DATE}|${meta[0]}|g" |
     sed "s|{RULEID}|${meta[5]}|g" |
     sed "s|{STIGVER}|${meta[4]}|g" |
@@ -81,4 +81,13 @@ function report_footer()
     sed "s|{ELAPSED}|${run_time}|g")"
 
   echo "${report}" >> ${log}
+}
+
+
+# Act as interface to module/general report
+function report()
+{
+  local args=( ${@} )
+
+  
 }
