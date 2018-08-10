@@ -45,9 +45,8 @@ fi
 # Iterate ${incs[@]}
 for src in ${incs[@]}; do
 
-  # Make sure ${src} exists
-  if [ ! -f ${src} ]; then
-    echo "Skipping '$(basename ${src})'; not a real file (block device, symlink etc)"
+  # Make sure ${src} exists & is executable
+  if [[ ! -f ${src} ]] && [[ ! -x ${src} ]]; then
     continue
   fi
 
