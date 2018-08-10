@@ -1,10 +1,12 @@
 {
   date: "{DATE}",
-  hostname: "{HOST}",
-  kernel: "{KERNEL}",
-  meta: {
+  system: {
+    hostname: "{HOST}",
+    kernel: "{KERNEL}",
     OS: "{OS}",
     version: "{OSVER}",
+  },
+  job: {
     modules: "{STIGS}",
     selected: "{MODULES}",
   },
