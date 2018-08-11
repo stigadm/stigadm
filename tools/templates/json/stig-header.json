@@ -1,12 +1,12 @@
-  {
-    id: "{STIGID}",
-    title: "{TITLE}",
-    description: "{DESCRIPTION}",
-    meta: {
-      date: "{RELEASE_DATE}",
-      rule_id: "{RULEID}",
-      version: "{STIGVER}",
-      severity: "{SEVERITY}",
-      classification: "{CLASSIFICATION}"
-    },
-    results: "{RESULTS}",
+    {
+      "id": "{STIGID}",
+      "title": "{TITLE}",
+      "description": "{DESCRIPTION}",
+      "meta": {
+        "date": "{RELEASE_DATE}",
+        "rule_id": "{RULEID}",
+        "version": "{STIGVER}",
+        "severity": "{SEVERITY}",
+        "classification": "{CLASSIFICATION}"
+      },
+      "results": "{RESULTS}",

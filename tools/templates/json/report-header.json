@@ -1,9 +1,9 @@
 {
-  date: "{DATE}",
-  system: {
-    hostname: "{HOST}",
-    kernel: "{KERNEL}",
-    OS: "{OS}",
-    version: "{OSVER}",
+  "date": "{DATE}",
+  "system": {
+    "hostname": "{HOST}",
+    "kernel": "{KERNEL}",
+    "OS": "{OS}",
+    "version": "{OSVER}"
   },
-  stigs: [
+  "stigs": [

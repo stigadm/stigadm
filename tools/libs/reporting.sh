@@ -89,5 +89,19 @@ function report()
 {
   local args=( ${@} )
 
+  # Re-assign local in scope from ${args[@]}
+  local caller="${args[0]}"
+
+
+  # If ${caller} = 0
+  if [ ${caller} -eq 0 ]; then
+
+    # Apply some values expected for general report
+    stigs=("${stigid}")
+    total_stigs=${#stigs[@]}
+
+    # Generate the primary report header
+    report_header
+  fi
 
 }

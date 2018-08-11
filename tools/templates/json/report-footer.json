@@ -1,14 +1,14 @@
   ],
-  summary: {
-    modules: "{STIGS}",
-    selected: "{MODULES}",
-    passed: "{PASSED}",
-    failed: "{FAILED}",
-    failure_rate: "{RATE}%"
+  "summary": {
+    "modules": "{STIGS}",
+    "selected": "{MODULES}",
+    "passed": "{PASSED}",
+    "failed": "{FAILED}",
+    "failure_rate": "{RATE}%"
   },
-  metrics: {
-    start: "{START}",
-    end: "{END}",
-    time: "{ELAPSED}"
+  "metrics": {
+    "start": "{START}",
+    "end": "{END}",
+    "time": "{ELAPSED}"
   }
 }

@@ -21,16 +21,6 @@ source ${bootstrap}
 
 
 ###############################################
-# Global zones only check
-###############################################
-
-# Make sure we are operating on global zones
-if [ "$(zonename)" != "global" ]; then
-  usage "${stigid} only applies to global zones" && exit 1
-fi
-
-
-###############################################
 # Metrics start
 ###############################################
 
@@ -42,6 +32,18 @@ timestamp="$(gen_date)"
 
 # Whos is calling? 0 = singular, 1 is as group
 caller=$(ps $PPID | grep -c stigadm)
+
+
+###############################################
+# Global zones only check
+###############################################
+
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+
+  # Report warning & exit module
+  usage "${stigid} only applies to global zones" && exit 1
+fi
 
 
 ###############################################
@@ -63,8 +65,12 @@ if [[ ${restore} -eq 1 ]] && [[ ${status} -eq 1 ]]; then
 
   # Do work
   audit -t
-  [ $? -ne 0 ] && exit 1
+  if [ $? -ne 0 ]; then
+    # Report & exit module
+    exit 1
+  fi
 
+  # Report & exit module
   exit 0
 fi
 
@@ -73,7 +79,7 @@ fi
 if [[ ${change} -eq 1 ]] && [[ ${status} -eq 0 ]]; then
 
   # Do work
-  audit -s
+  audit -s 2>/dev/null
 
   # Get a blob of the current status
   blob="$(auditconfig -getcond)"
