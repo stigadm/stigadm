@@ -21,16 +21,6 @@ source ${bootstrap}
 
 
 ###############################################
-# Global zones only check
-###############################################
-
-# Make sure we are operating on global zones
-if [ "$(zonename)" != "global" ]; then
-  usage "${stigid} only applies to global zones" && exit 1
-fi
-
-
-###############################################
 # Metrics start
 ###############################################
 
@@ -40,47 +30,58 @@ s_epoch="$(gen_epoch)"
 # Create a timestamp
 timestamp="$(gen_date)"
 
-# Whos is calling? 0 = singular, 1 is as group
+# Whos is calling? 0 = singular, 1 is from stigadm
 caller=$(ps $PPID | grep -c stigadm)
+
+
+###############################################
+# Global zones only check
+###############################################
+
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+
+  # Report warning & exit module
+  report "${stigid} only applies to global zones" && exit 1
+fi
 
 
 ###############################################
 # STIG validation/remediation/restoration
 ###############################################
 
-# Define a validated status
+# Set ${status} to false
 status=0
 
-# Perform restoration if requested
-if [ ${restore} -eq 1 ]; then
 
-  exit 0 # 0 for success, 1 for error
+# If ${restore} = 1 go to restoration mode
+if [[ ${restore} -eq 1 ]] && [[ ${status} -eq 1 ]]; then
+
+  # Do work
+  # STIG command to restore previous values
+  if [ $? -ne 0 ]; then
+
+    # Report & exit module
+    report "Failed to stop audit service" && exit 1
+  fi
+
+  # Report & exit module
+  report "Successfully disabled audit service" && exit 0
 fi
 
 
-# Perform initial STIG validation here
+# If ${change} == 1 & ${status} = 0
+if [[ ${change} -eq 1 ]] && [[ ${status} -eq 0 ]]; then
 
+  # Do work
+  # STIG command to fix finding
 
-# If ${change} == 1
-if [ ${change} -eq 1 ]; then
+  # Get a blob of the current status
+  #blob="$(auditconfig -getcond)"
 
-  # Perform STIG remediation here
-  echo "NOT YET IMPLEMENTED"
+  # Get boolean of current status
+  #status=$(echo "${blob}" | nawk '$1 ~ /^audit/ && $4 ~ /^auditing/{print 1}')
 fi
-
-
-###############################################
-# Finish metrics
-###############################################
-
-# Get EPOCH
-e_epoch="$(gen_epoch)"
-
-# Determine miliseconds from start
-seconds=$(subtract ${s_epoch} ${e_epoch})
-
-# Generate a run time
-[ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
 
 
 ###############################################
@@ -105,30 +106,7 @@ fi
 # Report generation specifics
 ###############################################
 
-# If ${caller} = 0
-if [ ${caller} -eq 0 ]; then
-
-  # Apply some values expected for general report
-  stigs=("${stigid}")
-  total_stigs=${#stigs[@]}
-
-  # Generate the primary report header
-  report_header
-fi
-
-# Capture module report to ${log}
-module_header "${results}"
-
-# Provide detailed results to ${log}
-if [ ${verbose} -eq 1 ]; then
-
-  # Print a singular line based on ${log} extention
-  print_line ${log} "details" "${blob}"
-fi
-
-# Print the modul footer
-module_footer
-
+# If the caller was only independant
 if [ ${caller} -eq 0 ]; then
 
   # Apply some values expected for report footer
@@ -138,11 +116,35 @@ if [ ${caller} -eq 0 ]; then
   # Calculate a percentage from applied modules & errors incurred
   percentage=$(percent ${passed} ${failed})
 
-  # Print the report footer
-  report_footer
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
 
-  # Print ${log} since we were called alone
+    # Print a singular line based on ${log} extention
+    print_line ${log} "details" "${blob}"
+
+    # Print an array of details to ${log}
+    #print_array ${log} "details" "${blob[@]}"
+  fi
+
+  # Generate the report
+  report "${results}"
+
+  # Display the report
   cat ${log}
+else
+
+  # Since we were called from stigadm
+  module_header "${results}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print a singular line based on ${log} extention
+    print_line ${log} "details" "${blob}"
+  fi
+
+  # Finish up the module specific report
+  module_footer
 fi
 
 
@@ -153,3 +155,18 @@ fi
 # Return an error/success code (0/1)
 [ ${status} -eq 1 ] && exit 0 || exit 1
 
+
+# Date:
+#
+# Severity:
+# Classification:
+# STIG_ID:
+# STIG_Version:
+# Rule_ID:
+#
+# OS:
+# Version:
+# Architecture:
+#
+# Title:
+# Description:

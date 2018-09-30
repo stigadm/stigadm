@@ -21,7 +21,7 @@ function print_line()
   local ext="$(basename ${log} | cut -d. -f2)"
 
   if [ "${ext}" == "json" ]; then
-    echo "      ${key}: \"${value}\"," >> ${log}
+    echo "      \"${key}\": \"${value}\"," >> ${log}
   else
     echo "        <${key}>${value}</${key}>" >> ${log}
   fi
@@ -50,7 +50,7 @@ function print_array()
 
   # Create a header for the JSON/XML array
   if [ "${ext}" == "json" ]; then
-    echo "    ${key}: [" >> ${log}
+    echo "    \"${key}\": [" >> ${log}
   else
     echo "      <${key}>" >> ${log}
   fi
