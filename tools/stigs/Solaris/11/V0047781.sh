@@ -30,7 +30,7 @@ s_epoch="$(gen_epoch)"
 # Create a timestamp
 timestamp="$(gen_date)"
 
-# Whos is calling? 0 = singular, 1 is as group
+# Whos is calling? 0 = singular, 1 is from stigadm
 caller=$(ps $PPID | grep -c stigadm)
 
 
@@ -42,7 +42,7 @@ caller=$(ps $PPID | grep -c stigadm)
 if [ "$(zonename)" != "global" ]; then
 
   # Report warning & exit module
-  usage "${stigid} only applies to global zones" && exit 1
+  report "${stigid} only applies to global zones" && exit 1
 fi
 
 
@@ -66,12 +66,13 @@ if [[ ${restore} -eq 1 ]] && [[ ${status} -eq 1 ]]; then
   # Do work
   audit -t
   if [ $? -ne 0 ]; then
+
     # Report & exit module
-    exit 1
+    report "Failed to stop audit service" && exit 1
   fi
 
   # Report & exit module
-  exit 0
+  report "Successfully disabled audit service" && exit 0
 fi
 
 
@@ -87,20 +88,6 @@ if [[ ${change} -eq 1 ]] && [[ ${status} -eq 0 ]]; then
   # Get boolean of current status
   status=$(echo "${blob}" | nawk '$1 ~ /^audit/ && $4 ~ /^auditing/{print 1}')
 fi
-
-
-###############################################
-# Finish metrics
-###############################################
-
-# Get EPOCH
-e_epoch="$(gen_epoch)"
-
-# Determine miliseconds from start
-seconds=$(subtract ${s_epoch} ${e_epoch})
-
-# Generate a run time
-[ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
 
 
 ###############################################
@@ -125,30 +112,7 @@ fi
 # Report generation specifics
 ###############################################
 
-# If ${caller} = 0
-if [ ${caller} -eq 0 ]; then
-
-  # Apply some values expected for general report
-  stigs=("${stigid}")
-  total_stigs=${#stigs[@]}
-
-  # Generate the primary report header
-  report_header
-fi
-
-# Capture module report to ${log}
-module_header "${results}"
-
-# Provide detailed results to ${log}
-if [ ${verbose} -eq 1 ]; then
-
-  # Print a singular line based on ${log} extention
-  print_line ${log} "details" "${blob}"
-fi
-
-# Print the modul footer
-module_footer
-
+# If the caller was only independant
 if [ ${caller} -eq 0 ]; then
 
   # Apply some values expected for report footer
@@ -158,11 +122,32 @@ if [ ${caller} -eq 0 ]; then
   # Calculate a percentage from applied modules & errors incurred
   percentage=$(percent ${passed} ${failed})
 
-  # Print the report footer
-  report_footer
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
 
-  # Print ${log} since we were called alone
+    # Print a singular line based on ${log} extention
+    print_line ${log} "details" "${blob}"
+  fi
+
+  # Generate the report
+  report "${results}"
+
+  # Display the report
   cat ${log}
+else
+
+  # Since we were called from stigadm
+  module_header "${results}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print a singular line based on ${log} extention
+    print_line ${log} "details" "${blob}"
+  fi
+
+  # Finish up the module specific report
+  module_footer
 fi
 
 
