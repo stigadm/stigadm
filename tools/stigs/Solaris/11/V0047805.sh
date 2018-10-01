@@ -244,7 +244,7 @@ if [ ${caller} -eq 0 ]; then
 
     # Print array of failed & validated items
     [ ${#err[@]} -gt 0 ] && print_array ${log} "errors" "${err[@]}"
-    print_array ${log} "validated" "${inspected[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
   # Generate the report
@@ -262,7 +262,7 @@ else
 
     # Print array of failed & validated items
     [ ${#err[@]} -gt 0 ] && print_array ${log} "errors" "${err[@]}"
-    print_array ${log} "validated" "${inspected[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
   # Finish up the module specific report
