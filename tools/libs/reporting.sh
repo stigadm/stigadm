@@ -50,7 +50,7 @@ function print_array()
 
   # Create a header for the JSON/XML array
   if [ "${ext}" == "json" ]; then
-    echo "    \"${key}\": [" >> ${log}
+    echo "      \"${key}\": [" >> ${log}
   else
     echo "      <${key}>" >> ${log}
   fi
@@ -58,7 +58,7 @@ function print_array()
   # Iterate the array
   for value in ${values[@]}; do
     if [ "${ext}" == "json" ]; then
-      echo "      \"$(echo "${value}" | tr ':' ' ')\"" >> ${log}
+      echo "        \"$(echo "${value}" | tr ':' ' ')\"" >> ${log}
     else
       echo "        <item>$(echo "${value}" | tr ':' ' ')</item>" >> ${log}
     fi
@@ -66,7 +66,7 @@ function print_array()
 
   # Close out the JSON/XML array
   if [ "${ext}" == "json" ]; then
-    echo "    ]," >> ${log}
+    echo "      ]," >> ${log}
   else
     echo "      </${key}>" >> ${log}
   fi
