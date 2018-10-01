@@ -243,7 +243,7 @@ if [ ${caller} -eq 0 ]; then
   if [ ${verbose} -eq 1 ]; then
 
     # Print array of failed & validated items
-    print_array ${log} "errors" "${err[@]}"
+    [ ${#err[@]} -gt 0 ] && print_array ${log} "errors" "${err[@]}"
     print_array ${log} "validated" "${inspected[@]}"
   fi
 
@@ -261,7 +261,7 @@ else
   if [ ${verbose} -eq 1 ]; then
 
     # Print array of failed & validated items
-    print_array ${log} "errors" "${err[@]}"
+    [ ${#err[@]} -gt 0 ] && print_array ${log} "errors" "${err[@]}"
     print_array ${log} "validated" "${inspected[@]}"
   fi
 
