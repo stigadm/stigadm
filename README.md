@@ -1,10 +1,8 @@
 # stigadm
 
-DISA IASE STIG validation & remediation for Linux/UNIX
+DISA IASE STIG validation & remediation for [Linux/UNIX](https://iase.disa.mil/stigs/os/unix-linux/Pages/index.aspx)
 
-DISCLAIMER: Project coverage @ 111/3093 (3%) of STIG(s)
-
-Coverage report: 2018-05-13
+Code Coverage: 2018-09-30
 
 | OS            | Version   | STIG Rule(s)   | Completed | Percentage |
 | :---          | :---      | :---           | :---      | :---       |
@@ -14,9 +12,10 @@ Coverage report: 2018-05-13
 | Oracle Linux  | 6         | 262            | 0         | 0%         |
 | Red Hat       | 6         | 259            | 0         | 0%         |
 | Red Hat       | 7         | 232            | 0         | 0%         |
-| Solaris       | 10        | 511            | 26        | 5%         |
-| Solaris       | 11        | 237            | 85        | 36%        |
-| Totals        |           | 3093           | 111       | 3%         |
+| Solaris       | 10        | 510            | 26        | 5%         |
+| Solaris       | 11        | 236            | 85        | 36%        |
+| Ubuntu        | 16.04     | 230            | 0         | 0%         |
+| Totals        |           | 3321           | 111       | 2%         |
 
 ## install ##
 No installer package; simply copy latest `stigadm` toolkit and use.

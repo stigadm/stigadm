@@ -156,17 +156,3 @@ fi
 [ ${status} -eq 1 ] && exit 0 || exit 1
 
 
-# Date:
-#
-# Severity:
-# Classification:
-# STIG_ID:
-# STIG_Version:
-# Rule_ID:
-#
-# OS:
-# Version:
-# Architecture:
-#
-# Title:
-# Description:
