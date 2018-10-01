@@ -47,13 +47,13 @@ backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
 
 
 # Error if the ${inc_path} doesn't exist
-if [ ! -d ${lib_path} ] ; then
+if [ ! -d "${lib_path}" ] ; then
   echo "Defined library path doesn't exist (${lib_path})" && exit 1
 fi
 
 
 # Include all .sh files found in ${lib_path}
-incs=($(ls ${lib_path}/*.sh))
+incs=("$(ls ${lib_path}/*.sh)")
 
 # Exit if nothing is found
 if [ ${#incs[@]} -eq 0 ]; then
@@ -65,12 +65,12 @@ fi
 for src in ${incs[@]}; do
 
   # Make sure ${src} exists & is executable
-  if [[ ! -f ${src} ]] && [[ ! -x ${src} ]]; then
+  if [[ ! -f "${src}" ]] && [[ ! -x "${src}" ]]; then
     continue
   fi
 
   # Include $[src} making any defined functions available
-  source ${src}
+  source "${src}"
 done
 
 
@@ -91,7 +91,7 @@ while getopts "ha:cjl:rvx" OPTION ; do
     r) restore=1 ;;
     v) verbose=1 ;;
     x) ext="xml" ;;
-    ?) usage && exit 1 ;;
+    ?) report "Argument parsing error" && exit 1 ;;
   esac
 done
 
@@ -102,7 +102,7 @@ timestamp="$(gen_date)"
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
-  usage "Must specify an author name (use -a <initials>)" && exit 1
+  report "Must specify an author name (use -a <initials>)" && exit 1
 fi
 
 
@@ -112,7 +112,7 @@ meta=( $(get_meta_data "${cwd}" "${prog}") )
 
 # Bail if ${#meta[@]} >= 0
 if [ ${#meta[@]} -lt 11 ]; then
-  usage "Unable to acquire meta data for ${stigid}" && exit 1
+  report "Unable to acquire meta data for ${stigid}" && exit 1
 fi
 
 
@@ -135,23 +135,23 @@ fi
 templates="${templates}/${ext}"
 
 # Bail if ${templates} is not a folder
-if [ ! -d ${templates} ]; then
-  usage "Could not find a templates directory for report generation" && exit 1
+if [ ! -d "${templates}" ]; then
+  report "Could not find a templates directory for report generation" && exit 1
 fi
 
 # Make sure there are template files available in ${templates}
-if [ $(ls ${templates} | wc -l) -lt 4 ]; then
-  usage "Could not find the necessary reporting templates" && exit 1
+if [ $(ls "${templates}" | wc -l) -lt 4 ]; then
+  report "Could not find the necessary reporting templates" && exit 1
 fi
 
 # Make sure our report exists
-if [[ ! -f ${templates}/report-header.${ext} ]] || [[ ! -f ${templates}/report-footer.${ext} ]]; then
-  usage "The stigadm template is missing" && exit 1
+if [[ ! -f "${templates}/report-header.${ext}" ]] || [[ ! -f "${templates}/report-footer.${ext}" ]]; then
+  report "The stigadm template is missing" && exit 1
 fi
 
 # Make sure our report exists
-if [[ ! -f ${templates}/stig-header.${ext} ]] || [[ ! -f ${templates}/stig-footer.${ext} ]]; then
-  usage "The STIG module template is missing" && exit 1
+if [[ ! -f "${templates}/stig-header.${ext}" ]] || [[ ! -f "${templates}/stig-footer.${ext}" ]]; then
+  report "The STIG module template is missing" && exit 1
 fi
 
 # Define variable for module report
