@@ -169,7 +169,7 @@ EOF
 
 # Ensure we have permissions
 if [ $UID -ne 0 ] ; then
-  usage "Requires root privileges" && exit 1
+  report "Requires root privileges" && exit 1
 fi
 
 
@@ -179,7 +179,7 @@ while getopts "a:bchijl:rC:O:L:V:vx" OPTION ; do
     a) author=$OPTARG ;;
     b) bootenv=1 ;;
     c) change=1 ;;
-    h) usage && exit 1 ;;
+    h) report && exit 1 ;;
     i) interactive=1 ;;
     j) ext="json" ;;
     l) log=$OPTARG ;;
@@ -190,7 +190,7 @@ while getopts "a:bchijl:rC:O:L:V:vx" OPTION ; do
     V) version=$OPTARG ;;
     v) verbose=1 ;;
     x) ext="xml" ;;
-    ?) usage && exit 1 ;;
+    ?) report && exit 1 ;;
   esac
 done
 
@@ -215,22 +215,22 @@ templates="${templates}/${ext}"
 
 # Bail if ${templates} is not a folder
 if [ ! -d ${templates} ]; then
-  usage "Could not find a templates directory for report generation" && exit 1
+  report "Could not find a templates directory for report generation" && exit 1
 fi
 
 # Make sure there are template files available in ${templates}
 if [ $(ls ${templates} | wc -l) -lt 4 ]; then
-  usage "Could not find the necessary reporting templates" && exit 1
+  report "Could not find the necessary reporting templates" && exit 1
 fi
 
 # Make sure our report exists
 if [[ ! -f ${templates}/report-header.${ext} ]] || [[ ! -f ${templates}/report-footer.${ext} ]]; then
-  usage "The stigadm template is missing" && exit 1
+  report "The stigadm template is missing" && exit 1
 fi
 
 # Make sure our report exists
 if [[ ! -f ${templates}/stig-header.${ext} ]] || [[ ! -f ${templates}/stig-footer.${ext} ]]; then
-  usage "The STIG module template is missing" && exit 1
+  report "The STIG module template is missing" && exit 1
 fi
 
 # Define variable for module report
@@ -258,7 +258,7 @@ if [[ "${os}" == "" ]] && [[ "${version}" == "" ]]; then
   if [ ${#t_env[@]} -ne 2 ]; then
 
     # Alert to requirements
-    usage "Must provide OS & Version" && exit 1
+    report "Must provide OS & Version" && exit 1
   fi
 
   # Break up ${t_env[@]} into elements
@@ -273,7 +273,7 @@ fi
 
 # Make sure we have an author if we are not restoring or validating
 if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
-  usage "Must specify an author name (use -a <initials>)" && exit 1
+  report "Must specify an author name (use -a <initials>)" && exit 1
 fi
 
 
@@ -346,8 +346,8 @@ fi
 # If ${#stigs[@]} = 0 exit
 if [ ${#stigs[@]} -eq 0 ]; then
 
-  # Notify and provide usage menu
-  usage "'${#stigs[@]}' STIG modules found; aborting" && exit 1
+  # Notify and provide report menu
+  report "'${#stigs[@]}' STIG modules found; aborting" && exit 1
 fi
 
 # Re-sort & remove duplicates from ${stigs[@]}
@@ -389,11 +389,11 @@ if [[ "$(to_lower "${os}")" == "solaris" ]] && [[ ${bootenv} -eq 1 ]] && [[ ${ch
   bootenv "${bename}" ${version}
   ret=$?
   case ${ret} in
-    1) usage "Could not create boot environment; ${bename}" && exit 1 ;;
-    2) usage "Could not activate boot environment; ${bename}" && exit 1 ;;
-    3) usage "Could not validate boot environment; ${bename}" && exit 1 ;;
+    1) report "Could not create boot environment; ${bename}" && exit 1 ;;
+    2) report "Could not activate boot environment; ${bename}" && exit 1 ;;
+    3) report "Could not validate boot environment; ${bename}" && exit 1 ;;
     0) break ;; # Mount bename, copy stigadm toolkit & chroot to env FIX!!
-    ?) usage "Unknown error occurred with boot env. ${bename}; ${ret}" && exit 1 ;;
+    ?) report "Unknown error occurred with boot env. ${bename}; ${ret}" && exit 1 ;;
   esac
 fi
 
