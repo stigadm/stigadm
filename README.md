@@ -74,26 +74,55 @@ Usage ./stigadm [options]
 ## examples ##
 Here are a few usage examples to get you started with the toolkit.
 
-### OS targeting
+### Validation mode
+This is the default mode of the library. It evaluates each STIG rule and outputs the
+current state. Use the `-v` for additional details"
+
+#### OS targeting
 Targeting the OS allows for greater flexibility with regards to an automated solution;
 
 ```sh
 $ ./stigadm.sh -O Solaris -V 10
 ```
 
-### Classification targeting
+#### Classification targeting
 Targeting the STIG classification can be used to filter tests or remediation
 
 ```sh
 $ ./stigadm.sh -C CAT-II
 ```
 
-### Vulnability targeting
+#### Vulnability targeting
 Providing a comma separated list of VMS ID's can also assist with filtering tests or remediation
 
 ```sh
 $ ./stigadm.sh -L V0047799,V0048211,V0048189
 ```
+
+### Remediation mode
+Remeditaion mode will find and resolve STIG ID's.
+
+#### OS targeting
+Targeting the OS allows for greater flexibility with regards to an automated solution;
+
+```sh
+$ ./stigadm.sh -O Solaris -V 10 -ca jlg
+```
+
+#### Classification targeting
+Targeting the STIG classification can be used to filter tests or remediation
+
+```sh
+$ ./stigadm.sh -C CAT-II -ca jlg
+```
+
+#### Vulnability targeting
+Providing a comma separated list of VMS ID's can also assist with filtering tests or remediation
+
+```sh
+$ ./stigadm.sh -L V0047799,V0048211,V0048189 -ca jlg
+```
+
 
 ## contributing ##
 
