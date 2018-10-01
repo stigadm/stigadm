@@ -30,7 +30,7 @@ source ${bootstrap}
 
 # Make sure we are operating on global zones
 if [ "$(zonename)" != "global" ]; then
-  usage "${stigid} only applies to global zones" && exit 1
+  report "${stigid} only applies to global zones" && exit 1
 fi
 
 
@@ -54,7 +54,7 @@ caller=$(ps $PPID | grep -c stigadm)
 
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
-  usage "Not yet implemented" && exit 1
+  report "Not yet implemented" && exit 1
 fi
 
 
@@ -84,7 +84,7 @@ if [ ${change} -eq 1 ]; then
   if [ $? -ne 0 ]; then
 
     # Bail if we can't create a backup
-    usage "Failed to create backup of audit policies" && exit 1
+    report "Failed to create backup of audit policies" && exit 1
   fi
 
 
@@ -117,20 +117,6 @@ done
 
 
 ###############################################
-# Finish metrics
-###############################################
-
-# Get EPOCH
-e_epoch="$(gen_epoch)"
-
-# Determine miliseconds from start
-seconds=$(subtract ${s_epoch} ${e_epoch})
-
-# Generate a run time
-[ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
-
-
-###############################################
 # Results for printable report
 ###############################################
 
@@ -149,51 +135,44 @@ fi
 # Report generation specifics
 ###############################################
 
-# If ${caller} = 0
-if [ ${caller} -eq 0 ]; then
-
-  # Apply some values expected for general report
-  stigs=("${stigid}")
-  total_stigs=${#stigs[@]}
-
-  # Generate the primary report header
-  report_header
-fi
-
-# Capture module report to ${log}
-module_header "${results}"
-
-# Provide detailed results to ${log}
-if [ ${verbose} -eq 1 ]; then
-
-  # Print an array of inspected items
-  print_array ${log} "inspected" "${inspected[@]}"
-fi
-
-# If we have accumulated errors
-if [ ${#errors[@]} -gt 0 ]; then
-
-  # Print an array of the accumulated errors
-  print_array ${log} "errors" "${errors[@]}"
-fi
-
-# Print the modul footer
-module_footer
-
+# If the caller was only independant
 if [ ${caller} -eq 0 ]; then
 
   # Apply some values expected for report footer
-  [ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
-  [ ${#errors[@]} -ge 1 ] && failed=1 || failed=0
+  [ ${status} -eq 1 ] && passed=${status} || passed=0
+  [ ${status} -eq 1 ] && failed=0 || failed=${status}
 
   # Calculate a percentage from applied modules & errors incurred
   percentage=$(percent ${passed} ${failed})
 
-  # Print the report footer
-  report_footer
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
 
-  # Print ${log} since we were called alone
+    # Print array of failed & validated items
+    [ ${#err[@]} -gt 0 ] && print_array ${log} "errors" "${err[@]}"
+    print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Generate the report
+  report "${results}"
+
+  # Display the report
   cat ${log}
+else
+
+  # Since we were called from stigadm
+  module_header "${results}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#err[@]} -gt 0 ] && print_array ${log} "errors" "${err[@]}"
+    print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Finish up the module specific report
+  module_footer
 fi
 
 
