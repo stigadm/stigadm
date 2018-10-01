@@ -48,16 +48,6 @@ source ${bootstrap}
 
 
 ###############################################
-# Global zones only check
-###############################################
-
-# Make sure we are operating on global zones
-if [ "$(zonename)" != "global" ]; then
-  usage "${stigid} only applies to global zones" && exit 1
-fi
-
-
-###############################################
 # Metrics start
 ###############################################
 
@@ -67,8 +57,20 @@ s_epoch="$(gen_epoch)"
 # Create a timestamp
 timestamp="$(gen_date)"
 
-# Whos is calling? 0 = singular, 1 is as group
+# Whos is calling? 0 = singular, 1 is from stigadm
 caller=$(ps $PPID | grep -c stigadm)
+
+
+###############################################
+# Global zones only check
+###############################################
+
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+
+  # Report warning & exit module
+  report "${stigid} only applies to global zones" && exit 1
+fi
 
 
 ###############################################
@@ -78,13 +80,13 @@ caller=$(ps $PPID | grep -c stigadm)
 # Make sure we have required defined values
 if [[ ${#defpolicy[@]} -eq 0 ]] || [[ ${#defflags[@]} -eq 0 ]] || [[ ${#defnaflags[@]} -eq 0 ]]; then
 
-  usage "One or more default policies, flags or non-attributable flags defined" && exit 1
+  report "One or more default policies, flags or non-attributable flags defined" && exit 1
 fi
 
 
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
-  usage "Not yet implemented" && exit 1
+  report "Not yet implemented" && exit 1
 fi
 
 
@@ -117,7 +119,7 @@ if [ ${change} -eq 1 ]; then
   bu_configuration "${backup_path}" "${author}" "${stigid}" "${conf_bu[@]}"
   if [ $? -ne 0 ]; then
     # Stop, we require a backup
-    usage "Unable to create snapshot of audit flags" && exit 1
+    report "Unable to create snapshot of audit flags" && exit 1
   fi
 
 
@@ -206,20 +208,6 @@ done
 
 
 ###############################################
-# Finish metrics
-###############################################
-
-# Get EPOCH
-e_epoch="$(gen_epoch)"
-
-# Determine miliseconds from start
-seconds=$(subtract ${s_epoch} ${e_epoch})
-
-# Generate a run time
-[ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
-
-
-###############################################
 # Results for printable report
 ###############################################
 
@@ -241,37 +229,7 @@ fi
 # Report generation specifics
 ###############################################
 
-# If ${caller} = 0
-if [ ${caller} -eq 0 ]; then
-
-  # Apply some values expected for general report
-  stigs=("${stigid}")
-  total_stigs=${#stigs[@]}
-
-  # Generate the primary report header
-  report_header
-fi
-
-# Capture module report to ${log}
-module_header "${results}"
-
-# Provide detailed results to ${log}
-if [ ${verbose} -eq 1 ]; then
-
-  # Print an array of inspected items
-  print_array ${log} "inspected" "${inspected[@]}"
-fi
-
-# If we have accumulated errors
-if [ ${#err[@]} -gt 0 ]; then
-
-  # Print an array of the accumulated errors
-  print_array ${log} "errors" "${err[@]}"
-fi
-
-# Print the modul footer
-module_footer
-
+# If the caller was only independant
 if [ ${caller} -eq 0 ]; then
 
   # Apply some values expected for report footer
@@ -281,11 +239,34 @@ if [ ${caller} -eq 0 ]; then
   # Calculate a percentage from applied modules & errors incurred
   percentage=$(percent ${passed} ${failed})
 
-  # Print the report footer
-  report_footer
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
 
-  # Print ${log} since we were called alone
+    # Print array of failed & validated items
+    print_array ${log} "errors" "${err[@]}"
+    print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Generate the report
+  report "${results}"
+
+  # Display the report
   cat ${log}
+else
+
+  # Since we were called from stigadm
+  module_header "${results}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    print_array ${log} "errors" "${err[@]}"
+    print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Finish up the module specific report
+  module_footer
 fi
 
 
