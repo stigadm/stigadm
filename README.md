@@ -72,7 +72,8 @@ Usage ./stigadm [options]
 ```
 
 ## examples ##
-Here are a few usage examples to get you started with the toolkit.
+Here are a few usage examples to get you started with the toolkit. If you are interested
+in the XML or JSON reporting that is generated see [here](https://gist.github.com/jas-/431d107d3d744ba7ba41bf3b8d5cbdcf)
 
 ### Validation mode
 This is the default mode of the library. It evaluates each STIG rule and outputs the
@@ -100,7 +101,8 @@ $ ./stigadm.sh -L V0047799,V0048211,V0048189
 ```
 
 ### Remediation mode
-Remeditaion mode will find and resolve STIG ID's.
+Remeditaion mode will find and resolve STIG ID's. Note that an author name/initials is required for
+any `-c` flag.
 
 #### OS targeting
 Targeting the OS allows for greater flexibility with regards to an automated solution;
@@ -121,6 +123,13 @@ Providing a comma separated list of VMS ID's can also assist with filtering test
 
 ```sh
 $ ./stigadm.sh -L V0047799,V0048211,V0048189 -ca jlg
+
+#### Solaris boot environment
+Because Solaris offers an alternate boot environment for changes you can make use of the `-b` option
+for changes. **Please note this is alpha stage of implementation**
+
+```sh
+$ ./stigadm.sh -C CAT-I -bca jlg
 ```
 
 
