@@ -123,6 +123,7 @@ Providing a comma separated list of VMS ID's can also assist with filtering test
 
 ```sh
 $ ./stigadm.sh -L V0047799,V0048211,V0048189 -ca jlg
+```
 
 #### Solaris boot environment
 Because Solaris offers an alternate boot environment for changes you can make use of the `-b` option
