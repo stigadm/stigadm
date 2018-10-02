@@ -74,7 +74,7 @@ administrators=( "$(remove_duplicates "${cur_aliases[@]}" "${administrators[@]}"
 # Create a string from ${administrators[@]}
 administrators_str="$(echo "${administrators[@]}" | tr ' ' ',')"
 
-# Stop off the ending ","
+# Chop the ending ","
 administrators_str="$(echo "${administrators_str}" | sed "s|,$||g")"
 
 
@@ -114,7 +114,7 @@ if [ ${change} -eq 1 ]; then
 
   # Make sure ${administrators_str} exists
   if [ $(grep -c "^audit_warn:${administrators_str}$" ${aliases}-${ts}) -eq 0 ]; then
-    [ ${verbose} -eq 1 ] && print "An error occured adding users to ${aliases}-${ts}" 1
+    err+=("Error:adding:${administrators_str}:to:${aliases}")
     rm ${aliases}-${ts}
   else
     mv ${aliases}-${ts} ${aliases}
@@ -137,7 +137,7 @@ fi
 # Flag error if ${#cur_aliases[@]} is 0
 [ ${#cur_aliases[@]} -eq 0 ] && err+=("Missing:${administrators_str}")
 
-inpsected+=("${administrators_str}")
+inpsected+=("${aliases}:audit_warn:${administrators_str}")
 
 
 ###############################################
@@ -159,15 +159,16 @@ fi
 # Report generation specifics
 ###############################################
 
+# Apply some values expected for report footer
+[ ${#errors[@]} -le 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -ge 1 ] && failed=${#errors[@]} || failed=0
+
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${passed} ${failed})
+
+
 # If the caller was only independant
 if [ ${caller} -eq 0 ]; then
-
-  # Apply some values expected for report footer
-  [ ${status} -eq 1 ] && passed=${status} || passed=0
-  [ ${status} -eq 1 ] && failed=0 || failed=${status}
-
-  # Calculate a percentage from applied modules & errors incurred
-  percentage=$(percent ${passed} ${failed})
 
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then

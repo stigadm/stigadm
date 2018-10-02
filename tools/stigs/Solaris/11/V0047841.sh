@@ -58,7 +58,7 @@ fi
 ###############################################
 
 # Get an array of currently configured & running zones
-zones=( $(zoneadm list -v | awk '$2 !~ /global|NAME/{print $2}' | sort -u) )
+zones=( $(zoneadm list -vci | awk '$2 !~ /global|NAME/{print $2}' | sort -u) )
 
 
 # If ${change} = 1
@@ -154,7 +154,10 @@ fi
 for zone in ${zones[@]}; do
 
   # Acquire a list of devices for ${zone}
-  devices=( $(zonecfg -z ${zone} info | awk '$0 ~ /^device/{if(total == ""){total=0}else{total++}print total}') )
+  devices=( $(zonecfg -z ${zone} info 2>/dev/null | awk '$0 ~ /^device/{if(total == ""){total=0}else{total++}print total}') )
+
+  # Trap errors
+  [ $? -ne 0 ] && errors+=("Examining:configuration:${zone}")
 
   # If ${#devices[@]} > 0
   [ ${#devices[@]} -gt 0 ] &&
@@ -162,7 +165,10 @@ for zone in ${zones[@]}; do
     inspected+=("Configured:${zone}")
 
   # Acquire a list of devices for ${zone}
-  devices=( $(zonecfg -r -z ${zone} info | awk '$0 ~ /^device/{if(total == ""){total=0}else{total++}print total}') )
+  devices=( $(zonecfg -r -z ${zone} info 2>/dev/null | awk '$0 ~ /^device/{if(total == ""){total=0}else{total++}print total}') )
+
+  # Trap errors
+  [ $? -ne 0 ] && errors+=("Examining:running:configuration:${zone}")
 
   # If ${#devices[@]} > 0
   [ ${#devices[@]} -gt 0 ] &&
@@ -190,21 +196,21 @@ fi
 # Report generation specifics
 ###############################################
 
+# Apply some values expected for report footer
+[ ${#errors[@]} -le 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -ge 1 ] && failed=${#errors[@]} || failed=0
+
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${passed} ${failed})
+
 # If the caller was only independant
 if [ ${caller} -eq 0 ]; then
-
-  # Apply some values expected for report footer
-  [ ${status} -eq 1 ] && passed=${status} || passed=0
-  [ ${status} -eq 1 ] && failed=0 || failed=${status}
-
-  # Calculate a percentage from applied modules & errors incurred
-  percentage=$(percent ${passed} ${failed})
 
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
 
     # Print array of failed & validated items
-    [ ${#err[@]} -gt 0 ] && print_array ${log} "errors" "${err[@]}"
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
     [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
@@ -222,7 +228,7 @@ else
   if [ ${verbose} -eq 1 ]; then
 
     # Print array of failed & validated items
-    [ ${#err[@]} -gt 0 ] && print_array ${log} "errors" "${err[@]}"
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
     [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 

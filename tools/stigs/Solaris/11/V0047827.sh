@@ -201,19 +201,17 @@ fi
 # Report generation specifics
 ###############################################
 
-###############################################
-# Report generation specifics
-###############################################
+# Apply some values expected for report footer
+[ ${#errors[@]} -le 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -ge 1 ] && failed=${#errors[@]} || failed=0
+
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${passed} ${failed})
+
 
 # If the caller was only independant
 if [ ${caller} -eq 0 ]; then
 
-  # Apply some values expected for report footer
-  [ ${status} -eq 1 ] && passed=${status} || passed=0
-  [ ${status} -eq 1 ] && failed=0 || failed=${status}
-
-  # Calculate a percentage from applied modules & errors incurred
-  percentage=$(percent ${passed} ${failed})
 
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
