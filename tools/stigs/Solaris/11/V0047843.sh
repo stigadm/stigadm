@@ -113,20 +113,20 @@ if [ ${change} -eq 1 ]; then
 
 
   # Make sure ${administrators_str} exists
-  if [ $(grep -c "^audit_warn:${administrators_str}$" ${aliases}-${ts}) -eq 0 ]; then
-    err+=("Error:adding:${administrators_str}:to:${aliases}")
+  if [ $(grep -c "^audit_warn:${administrators_str}" ${aliases}-${ts}) -eq 0 ]; then
+
+    # Trap the error
+    errors+=("Error:adding:${administrators_str}:to:${aliases}")
     rm ${aliases}-${ts}
   else
     mv ${aliases}-${ts} ${aliases}
+
+    # Import the aliases
+    newaliases &>/dev/null
+
+    # Trap error
+    [ $? -ne 0 ] && errors+=("Error:importing:${administrators_str}")
   fi
-
-
-  # Get a list of currently defined users in ${aliases} for audit_warn
-  cur_aliases=( $(grep "^audit_warn" ${aliases} | cut -d: -f2 | sort -u | tr ',' ' ') )
-
-  # Import the aliases
-  newaliases &>/dev/null
-  [ $? -ne 0 ] && err+=("Error:importing:${administrators_str}")
 
 
   # Refresh ${cur_aliases[@]}
@@ -135,7 +135,7 @@ fi
 
 
 # Flag error if ${#cur_aliases[@]} is 0
-[ ${#cur_aliases[@]} -eq 0 ] && err+=("Missing:${administrators_str}")
+[ ${#cur_aliases[@]} -eq 0 ] && errors+=("Missing:${administrators_str}")
 
 inpsected+=("${aliases}:audit_warn:${administrators_str}")
 
@@ -144,15 +144,15 @@ inpsected+=("${aliases}:audit_warn:${administrators_str}")
 # Results for printable report
 ###############################################
 
-# If ${#err[@]} > 0
-if [ ${#err[@]} -gt 0 ]; then
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
 
   # Set ${results} error message
   results="Failed validation"
 fi
 
 # Set ${results} passed message
-[ ${#err[@]} -eq 0 ] && results="Passed validation"
+[ ${#errors[@]} -eq 0 ] && results="Passed validation"
 
 
 ###############################################
@@ -160,8 +160,8 @@ fi
 ###############################################
 
 # Apply some values expected for report footer
-[ ${#errors[@]} -le 0 ] && passed=1 || passed=0
-[ ${#errors[@]} -ge 1 ] && failed=${#errors[@]} || failed=0
+[ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -gt 0 ] && failed=${#errors[@]} || failed=0
 
 # Calculate a percentage from applied modules & errors incurred
 percentage=$(percent ${passed} ${failed})
@@ -174,7 +174,7 @@ if [ ${caller} -eq 0 ]; then
   if [ ${verbose} -eq 1 ]; then
 
     # Print array of failed & validated items
-    [ ${#err[@]} -gt 0 ] && print_array ${log} "errors" "${err[@]}"
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
     [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
@@ -192,7 +192,7 @@ else
   if [ ${verbose} -eq 1 ]; then
 
     # Print array of failed & validated items
-    [ ${#err[@]} -gt 0 ] && print_array ${log} "errors" "${err[@]}"
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
     [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
