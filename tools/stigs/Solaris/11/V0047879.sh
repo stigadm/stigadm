@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Define an empty array to hold audit pluign settings
-declare -a audit_settings
-
 # Define the owner of p_dir
 owner="root"
 
@@ -13,142 +10,70 @@ group="root"
 octal=00640
 
 
-# Global defaults for tool
-author=
-change=0
-json=1
-meta=0
-restore=0
-interactive=0
-xml=0
+###############################################
+# Bootstrapping environment setup
+###############################################
 
+# Get our working directory
+cwd="$(pwd)"
 
-# Working directory
-cwd="$(dirname $0)"
+# Define our bootstrapper location
+bootstrap="${cwd}/tools/bootstrap.sh"
 
-# Tool name
-prog="$(basename $0)"
-
-
-# Copy ${prog} to DISA STIG ID this tool handles
-stigid="$(echo "${prog}" | cut -d. -f1)"
-
-
-# Ensure path is robust
-PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-
-
-# Define the library include path
-lib_path=${cwd}/../../../libs
-
-# Define the tools include path
-tools_path=${cwd}/../../../stigs
-
-# Define the system backup path
-backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
-
-
-# Robot, do work
-
-
-# Error if the ${inc_path} doesn't exist
-if [ ! -d ${lib_path} ] ; then
-  echo "Defined library path doesn't exist (${lib_path})" && exit 1
+# Bail if it cannot be found
+if [ ! -f ${bootstrap} ]; then
+  echo "Unable to locate bootstrap; ${bootstrap}" && exit 1
 fi
 
-
-# Include all .sh files found in ${lib_path}
-incs=($(ls ${lib_path}/*.sh))
-
-# Exit if nothing is found
-if [ ${#incs[@]} -eq 0 ]; then
-  echo "'${#incs[@]}' libraries found in '${lib_path}'" && exit 1
-fi
+# Load our bootstrap
+source ${bootstrap}
 
 
-# Iterate ${incs[@]}
-for src in ${incs[@]}; do
-
-  # Make sure ${src} exists
-  if [ ! -f ${src} ]; then
-    echo "Skipping '$(basename ${src})'; not a real file (block device, symlink etc)"
-    continue
-  fi
-
-  # Include $[src} making any defined functions available
-  source ${src}
-
-done
-
-
-# Ensure we have permissions
-if [ $UID -ne 0 ] ; then
-  usage "Requires root privileges" && exit 1
-fi
-
-
-# Set variables
-while getopts "ha:cjmvrix" OPTION ; do
-  case $OPTION in
-    h) usage && exit 1 ;;
-    a) author=$OPTARG ;;
-    c) change=1 ;;
-    j) json=1 ;;
-    m) meta=1 ;;
-    r) restore=1 ;;
-    i) interactive=1 ;;
-    x) xml=1 ;;
-    ?) usage && exit 1 ;;
-  esac
-done
-
+###############################################
+# Global zones only check
+###############################################
 
 # Make sure we are operating on global zones
 if [ "$(zonename)" != "global" ]; then
-  print "'${stigid}' only applies to global zones" 1
-  exit 1
+  report "${stigid} only applies to global zones" && exit 1
 fi
 
 
-# Make sure we have an author if we are not restoring or validating
-if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
-  usage "Must specify an author name (use -a <initials>)" && exit 1
-fi
+###############################################
+# Metrics start
+###############################################
 
-# If ${meta} is true
-if [ ${meta} -eq 1 ]; then
+# Get EPOCH
+s_epoch="$(gen_epoch)"
 
-  # Print meta data
-  get_meta_data "${cwd}" "${prog}"
-fi
+# Create a timestamp
+timestamp="$(gen_date)"
 
+# Whos is calling? 0 = singular, 1 is as group
+caller=$(ps $PPID | grep -c stigadm)
+
+
+###############################################
+# Perform restoration
+###############################################
 
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
-
-  # If ${interactive} = 1 go to interactive restoration mode
-  if [ ${interactive} -eq 1 ]; then
-
-    # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
-
-  fi
-
-  # Print friendly message regarding restoration mode
-  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
-
-  exit 0
+  report "Not yet implemented" && exit 1
 fi
 
 
+###############################################
+# STIG validation/remediation
+###############################################
+
 # Obtain an array of audit settings regarding 'bin_file' plugin
-audit_settings=( $(auditconfig -getplugin audit_binfile | awk '$0 ~ /Attributes/{print $2}' | tr ';' ' ' | tr '=' ':') )
+audit_settings=( $(auditconfig -getplugin audit_binfile |
+  awk '$0 ~ /Attributes/{print $2}' | tr ';' ' ' | tr '=' ':') )
 
 # Get the auditing filesystem from ${audit_settings[@]}
-audit_folder="$(dirname $(get_inode "$(echo "${audit_settings[@]}" | tr ' ' '\n' | grep "^p_dir" | cut -d: -f2)"))"
-
-# Define an empty array ot handle errors
-declare -a errors
+audit_folder="$(dirname $(get_inode "$(echo "${audit_settings[@]}" |
+  tr ' ' '\n' | grep "^p_dir" | cut -d: -f2)"))"
 
 
 # If ${change} = 1
@@ -157,103 +82,149 @@ if [ ${change} -eq 1 ]; then
   # Create the backup env
   backup_setup_env "${backup_path}"
 
+  # Create a backup value
+  bu_blob="audit_binfile:setplugin:$(echo "${audit_settings[@]}" | tr ' ' ',')"
+
   # Create a snapshot of ${users[@]}
-  bu_configuration "${backup_path}" "${author}" "${stigid}" "audit_binfile:setplugin:$(echo "${audit_settings[@]}" | tr ' ' ',')"
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "${bu_blob}"
   if [ $? -ne 0 ]; then
 
     # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Snapshot of current audit plugin values failed..." 1
+    report "Snapshot of current audit plugin values failed..."
 
     # Stop, we require a backup
     exit 1
   fi
 
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Created snapshot of current audit plugin values for 'audit_binfile'"
-
 
   # Set user ownership on ${audit_folder}
   chown ${owner} ${audit_folder} 2>/dev/null
-  if [ $? -ne 0 ]; then
 
-    # Trap error
-    [ $? -ne 0 ] && errors+=("${audit_folder}:${owner}:$(get_inode_user "${audit_folder}")")
-  fi
+  # Trap error
+  [ $? -ne 0 ] && errors+=("${audit_folder}:${owner}:$(get_inode_user "${audit_folder}")")
+
 
   # Set group ownership on ${audit_folder}
   chgrp ${group} ${audit_folder} 2>/dev/null
-  if [ $? -ne 0 ]; then
 
-    # Trap error
-    [ $? -ne 0 ] && errors+=("${audit_folder}:${group}:$(get_inode_group "${audit_folder}")")
-  fi
+  # Trap error
+  [ $? -ne 0 ] && errors+=("${audit_folder}:${group}:$(get_inode_group "${audit_folder}")")
+
 
   # Set permissions on ${audit_folder}
   chmod ${octal} ${audit_folder} 2>/dev/null
-  if [ $? -ne 0 ]; then
 
-    # Trap error
-    [ $? -ne 0 ] && errors+=("${audit_folder}:${octal}:$(get_inode_user "${audit_folder}")")
-  fi
+  # Trap error
+  [ $? -ne 0 ] && errors+=("${audit_folder}:${octal}:$(get_inode_user "${audit_folder}")")
+
 
   # Restart the auditd service
-  audit -s
-  if [ $? -ne 0 ]; then
+  audit -s 2>/dev/null
 
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Could not restart the audit service..." 1
-  fi
+  # Trap error
+  [ $? -ne 0 ] && errors+=("auditconfig:service:restart")
 fi
 
 
 # Validate user ownership
 cowner="$(get_inode_user ${audit_folder})"
-if [ "${cowner}" != "${owner}" ]; then
 
-  # Trap error
-  errors+=("${audit_folder}:${owner}:${cowner}")
-fi
+# Trap the error
+[ "${cowner}" != "${owner}" ] &&
+  errors+=("Owner:${audit_folder}:${owner}:${cowner}")
+
+# Show what we examined
+inspected+=("Owner:${audit_folder}:${cowner}")
+
 
 # Validate group ownership
 cgroup="$(get_inode_group ${audit_folder})"
-if [ "${cowner}" != "${owner}" ]; then
 
-  # Trap error
-  errors+=("${audit_folder}:${group}:${cgroup}")
-fi
+# Trap the error
+[ "${cowner}" != "${owner}" ] &&
+  errors+=("Group:${audit_folder}:${group}:${cgroup}")
+
+# Show what we examined
+inspected+=("Group:${audit_folder}:${cgroup}")
 
 # Validate octal
 coctal="$(get_octal ${audit_folder})"
-if [ ${coctal} -ne ${octal} ]; then
 
-  # Trap error
-  errors+=("${audit_folder}:${octal}:${coctal}")
-fi
+# Trap the error
+[ ${coctal} -gt ${octal} ] &&
+  errors+=("Permissions:${audit_folder}:${octal}:${coctal}")
+
+# Show what we examined
+inspected+=("Permissons:${audit_folder}:${coctal}")
+
+
+###############################################
+# Results for printable report
+###############################################
 
 # If ${#errors[@]} > 0
 if [ ${#errors[@]} -gt 0 ]; then
 
-  [ ${verbose} -eq 1 ] && print "Could not validate '${stigid}'" 1
+  # Set ${results} error message
+  results="Failed validation"
+fi
 
-  # Iterate ${errors[@]}
-  for error in ${errors[@]}; do
+# Set ${results} passed message
+[ ${#errors[@]} -eq 0 ] && results="Passed validation"
 
-    # Split up ${error}
-    fs="$(echo "${error}" | cut -d: -f1)"
-    key="$(echo "${error}" | cut -d: -f2)"
-    value="$(echo "${error}" | cut -d: -f3)"
 
-    [ ${verbose} -eq 1 ] && print "  ${fs} ${key} [${value}]" 1
+###############################################
+# Report generation specifics
+###############################################
 
-  done
-  exit 1
+# Apply some values expected for report footer
+[ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -gt 0 ] && failed=${#errors[@]} || failed=0
+
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${passed} ${failed})
+
+
+# If the caller was only independant
+if [ ${caller} -eq 0 ]; then
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Generate the report
+  report "${results}"
+
+  # Display the report
+  cat ${log}
+else
+
+  # Since we were called from stigadm
+  module_header "${results}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Finish up the module specific report
+  module_footer
 fi
 
 
-# Print friendly success
-[ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
+###############################################
+# Return code for larger report
+###############################################
 
-exit 0
+# Return an error/success code (0/1)
+exit ${#errors[@]}
 
 
 # Date: 2017-06-21
