@@ -58,7 +58,7 @@ fi
 ###############################################
 
 # Get an array of currently configured & running zones
-zones=( $(zoneadm list -vci | awk '$2 !~ /global|NAME/{print $2}' | sort -u) )
+zones=( $(zoneadm list -vci 2>/dev/null | awk '$2 !~ /global|NAME/{print $2}' | sort -u) )
 
 
 # If ${change} = 1
@@ -71,7 +71,7 @@ if [ ${change} -eq 1 ]; then
   for zone in ${zones[@]}; do
 
     # Get a list of configuration file(s) applicable for all ${zones[@]} found
-    config="$(find / -xdev -type f -name "${zone}.xml")"
+    config="$(find / -xdev -type f -name "${zone}.xml 2>/dev/null")"
 
     # Skip backup if ${config} doesn't exist
     [ "${config}" == "" ] && continue
@@ -87,8 +87,14 @@ if [ ${change} -eq 1 ]; then
         report "Failed to create backup of zone configurations" && exit 1
       fi
 
+      # Create a blob of the running configuration for ${zone}
+      bu_blob="$(zonecfg -r -z ${zone} info 2>/dev/null)"
+
+      # Trap errors
+      [ "${bu_blob}" == "" ] && errors+=("Running:zone:backup:failed")
+
       # Backup running zone as well
-      bu_configuration "${backup_path}" "${author}" "${stigid}" "$(zonecfg -r -z ${zone} info)"
+      bu_configuration "${backup_path}" "${author}" "${stigid}" "${bu_blob}"
       if [ $? -ne 0 ]; then
 
         # Bail if we can't create a backup
@@ -98,7 +104,8 @@ if [ ${change} -eq 1 ]; then
 
 
     # Acquire a list of devices for ${zone}
-    devices=( $(zonecfg -z ${zone} info | awk '$0 ~ /^device/{if(total == ""){total=0}else{total++}print total}') )
+    devices=( $(zonecfg -z ${zone} info 2>/dev/null |
+      awk '$0 ~ /^device/{if(total == ""){total=0}else{total++}print total}') )
 
     # If ${#devices[@]} is 0, skip
     [ ${#devices[@]} -eq 0 ] && continue

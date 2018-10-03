@@ -429,7 +429,7 @@ for stig in ${stigs[@]}; do
   [ $? -ne 0 ] && errors+=("${stig_name}")
 
   # If necessary, append "," to ${log} for each iteration
-  [[ ${counter} -ne 0 ]] && [[ "${ext}" != "xml" ]] && echo "  ," >> ${log}
+  [[ ${counter} -ne 0 ]] && [[ "${ext}" != "xml" ]] && echo "    ," >> ${log}
 done
 
 
