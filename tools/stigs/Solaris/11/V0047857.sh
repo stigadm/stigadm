@@ -86,6 +86,7 @@ audit_folder="$(dirname $(get_inode "$(echo "${audit_settings[@]}" |
 fs_free="$(echo "${audit_settings[@]}" | tr ' '  '\n' | grep "^p_minfree" | cut -d: -f2)"
 
 
+
 # Obtain an array of zfs shares matching ${audit_folder}
 zfs_list=( $(zfs list | grep "${audit_folder}" | awk '{printf("%s:%s\n", $1, $5)}') )
 
@@ -121,7 +122,8 @@ opts="$(echo "${opts}" | sed "s|,$||g")"
 
 
 # Obtain an array of ZFS values for the p_file value of ${audit_settings[@]}
-zfs_settings=( $(zfs get ${opts} "${zfs_fs}" | awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $2, $3)}') )
+zfs_settings=( $(zfs get ${opts} "${zfs_fs}" |
+  awk '$0 !~ /^NAME/{printf("%s:%s:%s\n", $1, $2, $3)}') )
 
 
 # If ${change} = 1
@@ -172,11 +174,17 @@ if [ ${change} -eq 1 ]; then
   # Obtain an array of audit settings regarding 'bin_file' plugin
   audit_settings=( $(auditconfig -getplugin audit_binfile |
     awk '$0 ~ /Attributes/{print $2}' | tr ';' ' ' | tr '=' ':') )
+
+  # Get the auditing min_free value from ${audit_settings[@]}
+  fs_free="$(echo "${audit_settings[@]}" | tr ' '  '\n' | grep "^p_minfree" | cut -d: -f2)"
 fi
 
 
-# Define an empty array ot handle errors
-declare -a errors
+# Check ${fs_free} against ${audit_free_space}
+[ ${fs_free} -lt ${audit_min_free_space} ] && errors+=("p_minfree:${fs_free}")
+
+# Show what we looked at
+inspected+=("auditconfig:audit_binfile:p_minfree:${fs_free}")
 
 
 # Iterate ${zfs_attrs[@]}
