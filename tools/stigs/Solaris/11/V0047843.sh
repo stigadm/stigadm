@@ -137,7 +137,7 @@ fi
 # Flag error if ${#cur_aliases[@]} is 0
 [ ${#cur_aliases[@]} -eq 0 ] && errors+=("Missing:${administrators_str}")
 
-inpsected+=("${aliases}:audit_warn:${administrators_str}")
+inspected+=("${aliases}:audit_warn:${administrators_str}")
 
 
 ###############################################
