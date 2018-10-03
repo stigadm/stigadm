@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Define an empty array to hold audit pluign settings
-declare -a audit_settings
-
 # Define the owner of p_dir
 owner="root"
 
