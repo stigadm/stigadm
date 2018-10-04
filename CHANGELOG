@@ -1,3 +1,250 @@
+commit 1ad7d8df727971ecc3d2fc83041aad2ae1647a24
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Oct 4 17:44:30 2018 -0600
+
+    v0.1.3: V0047891: Moved to new API
+
+commit e987fee7e2c0e58f62a6769830e91061a6a4b6d8
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Oct 4 17:33:53 2018 -0600
+
+    v0.1.3: V0047889: Moved to new API
+
+commit cb42505b18a1340588e6026289fb85b38781b65c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Oct 4 17:33:03 2018 -0600
+
+    v0.1.3: V0047887: Moved to new API
+
+commit 72c958c8c833420ea2aa8bdb93b4f82bf5feb7fa
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Oct 4 17:31:37 2018 -0600
+
+    v0.1.3: V0047885: Moved to new API
+
+commit 9d25c0919a629b3ef5ee8421659c726cb5f331de
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Oct 4 17:30:29 2018 -0600
+
+    v0.1.3: V0047883: Moved to new API
+
+commit 84b681dc41de49e034ee83dde83b0279c2d9f971
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Oct 4 17:20:56 2018 -0600
+
+    v0.1.3: V0047881: Moved to new API
+
+commit 75c62f8cceaff0434ab49505af66d7637e37b468
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Oct 3 04:55:02 2018 -0600
+
+    v0.1.3: V0047879: Migrated to new API; tested validaiton/remediation
+
+commit 3d6cbae880b1f2d5efb917e3b39cf9aa92282aee
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Oct 3 04:53:22 2018 -0600
+
+    v0.1.3: V0047875: Migrated to new API; tested validaiton/remediation
+
+commit 0297f6f61c8f023e3f1f7a2c2359d1f934708b82
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Oct 3 04:51:29 2018 -0600
+
+    v0.1.3: V0047869: Migrated to new API; tested validaiton/remediation
+
+commit 0968cebdcee950a302e3302d68eca7d0a150f185
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Oct 3 04:41:07 2018 -0600
+
+    v0.1.3: V0047863: Migrated to new API; tested validaiton/remediation
+
+commit 06c3af84b8ea07091c4a2c5d79c799d3394b150d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Oct 3 04:32:15 2018 -0600
+
+    v0.1.3: V0047857: Migrated to new API; tested validation/remediation
+
+commit b0cd072b7e244891f38c5b0018eb7e86ed9752d6
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Oct 2 19:09:12 2018 -0600
+
+    v0.1.3: V0047857: Moved to new API
+
+commit 3873b8db7a7524eb4152c71a117c1f2a5997baaa
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Oct 2 18:57:52 2018 -0600
+
+    v0.1.3: V0047845: Updated validation/remediation
+
+commit 6f363a8ccba1ce413e5f9d080b6883c75f3f9c22
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Oct 2 18:32:52 2018 -0600
+
+    v0.1.3: V0047843: Update to validation/remdiation
+
+commit b478adc76947316f7a21178c05780f0f149d4fca
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Oct 2 18:19:00 2018 -0600
+
+    v0.1.3: V0047841: Fix for running zone error trapping
+
+commit aad69204949432f4bf796390cbe7dfba5f452406
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Oct 2 05:18:58 2018 -0600
+
+    v0.1.3: Another fix for permissions
+
+commit 65050b5723eee11b1cebf8dd0ed48bc87408499c
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Oct 2 05:11:57 2018 -0600
+
+    v0.1.3: Fix for .permissions
+
+commit ab33558592a164e76a31f08d86ac1089bbaf22b2
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Oct 2 05:07:42 2018 -0600
+
+    v0.1.3: Readme
+
+commit cb3c61da513adeffbd72564ee817da261786ca9b
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Tue Oct 2 05:02:39 2018 -0600
+
+    v0.1.3: Reporting; fixes for status & print_array
+
+commit 7d9893f1406eab22108f134f2a10edcc190cfe24
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Oct 1 19:16:16 2018 -0600
+
+    v0.1.3: V0047843: Migrated to new API
+
+commit db6918904bc5d4514d7fed42a9e4821df02ba6ee
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Oct 1 05:18:35 2018 -0600
+
+    v0.1.3: bootstrap.sh: Moved to report vs. usage for arg parsing errors & added some globbing fixes for tests
+
+commit 77bb84804b9c4767cee8eec5569b5b6b62394e94
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Oct 1 05:01:24 2018 -0600
+
+    v0.1.3: Fix for inspected printed items
+
+commit ba3543d0d8f9a35bc838baf01a37ba91c9fe75ed
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Oct 1 04:59:08 2018 -0600
+
+    v0.1.3: V0047841 & fix for inspected printed items
+
+commit ee6f6b4a3b2bcc48b12d3cd55292bbbd136c9298
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Oct 1 04:28:40 2018 -0600
+
+    v0.1.3: V0047837,V0047839: Updated to use new report API
+
+commit ac262edab9dffde75d48467f3e1fb81eaf0a0d5a
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Sep 30 21:19:29 2018 -0600
+
+    v0.1.3: README updated
+
+commit 2d2c648f7396a47069f1de162c00e41662f663c6
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Sep 30 21:13:54 2018 -0600
+
+    v0.1.3: README updated
+
+commit ab99cf4311c44d1a638996a4da02e64b4a4e3a92
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Sep 30 20:35:29 2018 -0600
+
+    v0.1.4: Solaris 11: Updated V0047809-V0047831 to use new report API & fixes for displaying of error array when none exist
+
+commit 8899c0502558a2b3f400639810017f48540fe8c2
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Sep 30 18:25:37 2018 -0600
+
+    v0.1.4: Solaris 11: Updated V0047805-V0047827 to use new report API
+
+commit 3e826163c1acb0fdf69095cfd7e13c57da1de1ed
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Sep 30 18:01:33 2018 -0600
+
+    v0.1.4: Solaris 11: Updated V0047805 to use new report API
+
+commit c779fe1dfea2c3053d2c9afd9c2650eebdbb4bce
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Sep 30 11:54:26 2018 -0600
+
+    v0.1.4: Solaris 11: Updated V004778-V00578 to use new report API
+
+commit 436f3cbe58d85c33907123e624849800abcc48f3
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Sep 30 11:36:28 2018 -0600
+
+    v0.1.4: Refactoring of report generation
+
+commit f9f157eb91722271cf81a01eab87571af5801363
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Aug 10 22:34:24 2018 -0600
+
+    v0.1.3: JSON templates: Fixed malformed object & indentation
+
+commit 852c77de6782f6a4355ad047a9783becd0f9cbfc
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Aug 10 08:17:07 2018 -0600
+
+    v0.1.3: bootstrap.sh & stigadm.sh: Better test operations
+
+commit c707712533d7a57f5387be288e3e843f4c2608fa
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Aug 10 08:07:14 2018 -0600
+
+    v0.1.3: reporting.sh: Revision for job specific metrics
+
+commit 99f5be86da10460ba92abef25d46bbe3731be60f
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Aug 10 07:56:24 2018 -0600
+
+    v0.1.3: reporting.sh: Revised header regarding OS & job
+
+commit 715e124b1d9be0a6e489f2c30dbd5a699729e482
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Aug 10 07:32:41 2018 -0600
+
+    v0.1.3: Version bump & new interface for reporting
+
+commit 360b1359deaba0c7de4040dae6a670aa8374b330
+Merge: c562674 3ad3b31
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Aug 4 08:08:53 2018 -0600
+
+    Merge branch 'master' of github.com:stigadm/stigadm
+
+commit c562674d0e7095d49a23b5da5921e3baf6212a2f
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Aug 4 07:55:29 2018 -0600
+
+    v0.1.2: Merge
+
+commit edd625752b051111bea02109d555c345a7e6be8f
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Aug 4 07:49:58 2018 -0600
+
+    v0.1.2: CHANGELOG: Updated 20180804
+
+commit 3ad3b313e37a7a23b640681cf2101d2e265bfc5b
+Author: Jason Gerfen <jason.gerfen@gmail.com>
+Date:   Sat Aug 4 07:44:47 2018 -0600
+
+    Delete bug_report.md
+
+commit ee7a3dba2e4715c669f596d2d326c4540287b1a2
+Author: Jason Gerfen <jason.gerfen@gmail.com>
+Date:   Sat Aug 4 07:36:15 2018 -0600
+
+    Update issue templates
+
 commit 25ef4c7ced19f0b982aa2d453ede55f1a35d77ba
 Author: jas- <Jason.Gerfen@gmail.com>
 Date:   Sat Aug 4 01:39:17 2018 -0600
