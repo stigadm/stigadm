@@ -22,7 +22,7 @@ tools/libs/math.sh;751;jas;jas
 tools/libs/networking.sh;751;jas;jas
 tools/libs/patterns.sh;751;jas;jas
 tools/libs/permissions.sh;751;jas;jas
-tools/libs/pkgs.sh;775;jas;jas
+tools/libs/pkgs.sh;751;jas;jas
 tools/libs/printing.sh;751;jas;jas
 tools/libs/reporting.sh;751;jas;jas
 tools/libs/searching.sh;751;jas;jas
@@ -90,12 +90,12 @@ tools/stigs/Solaris/11/V0047863.sh;751;jas;jas
 tools/stigs/Solaris/11/V0047869.sh;751;jas;jas
 tools/stigs/Solaris/11/V0047875.sh;751;jas;jas
 tools/stigs/Solaris/11/V0047879.sh;751;jas;jas
-tools/stigs/Solaris/11/V0047881.sh;775;jas;jas
-tools/stigs/Solaris/11/V0047883.sh;775;jas;jas
-tools/stigs/Solaris/11/V0047885.sh;775;jas;jas
-tools/stigs/Solaris/11/V0047887.sh;775;jas;jas
-tools/stigs/Solaris/11/V0047889.sh;775;jas;jas
-tools/stigs/Solaris/11/V0047891.sh;775;jas;jas
+tools/stigs/Solaris/11/V0047881.sh;751;jas;jas
+tools/stigs/Solaris/11/V0047883.sh;751;jas;jas
+tools/stigs/Solaris/11/V0047885.sh;751;jas;jas
+tools/stigs/Solaris/11/V0047887.sh;751;jas;jas
+tools/stigs/Solaris/11/V0047889.sh;751;jas;jas
+tools/stigs/Solaris/11/V0047891.sh;751;jas;jas
 tools/stigs/Solaris/11/V0047893.sh;751;jas;jas
 tools/stigs/Solaris/11/V0047895.sh;751;jas;jas
 tools/stigs/Solaris/11/V0047897.sh;751;jas;jas

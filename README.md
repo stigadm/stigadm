@@ -15,7 +15,7 @@ Code Coverage: 2018-09-30
 | Solaris       | 10        | 510            | 29        | 5.68%      |
 | Solaris       | 11        | 236            | 90        | 38.13%     |
 | Ubuntu        | 16.04     | 230            | 0         | 0%         |
-| Totals        |           | 3321           | 111       | 2%         |
+| Totals        |           | 3321           | 119       | 3.58%      |
 
 ## install ##
 No installer package; simply copy latest `stigadm` toolkit and use.
