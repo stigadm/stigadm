@@ -1,188 +1,78 @@
 #!/bin/bash
 
 
-# Global defaults for tool
-author=
-change=0
-json=1
-meta=0
-restore=0
-interactive=0
-xml=0
+###############################################
+# Bootstrapping environment setup
+###############################################
+
+# Get our working directory
+cwd="$(pwd)"
+
+# Define our bootstrapper location
+bootstrap="${cwd}/tools/bootstrap.sh"
+
+# Bail if it cannot be found
+if [ ! -f ${bootstrap} ]; then
+  echo "Unable to locate bootstrap; ${bootstrap}" && exit 1
+fi
+
+# Load our bootstrap
+source ${bootstrap}
 
 
-# Working directory
-cwd="$(dirname $0)"
+###############################################
+# Global zones only check
+###############################################
 
-# Tool name
-prog="$(basename $0)"
-
-
-# Copy ${prog} to DISA STIG ID this tool handles
-stigid="$(echo "${prog}" | cut -d. -f1)"
-
-
-# Ensure path is robust
-PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-
-
-# Define the library include path
-lib_path=${cwd}/../../../libs
-
-# Define the tools include path
-tools_path=${cwd}/../../../stigs
-
-# Define the system backup path
-backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
-
-
-# Robot, do work
-
-
-# Error if the ${inc_path} doesn't exist
-if [ ! -d ${lib_path} ] ; then
-  echo "Defined library path doesn't exist (${lib_path})" && exit 1
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  report "${stigid} only applies to global zones" && exit 1
 fi
 
 
-# Include all .sh files found in ${lib_path}
-incs=($(ls ${lib_path}/*.sh))
+###############################################
+# Metrics start
+###############################################
 
-# Exit if nothing is found
-if [ ${#incs[@]} -eq 0 ]; then
-  echo "'${#incs[@]}' libraries found in '${lib_path}'" && exit 1
-fi
+# Get EPOCH
+s_epoch="$(gen_epoch)"
 
+# Create a timestamp
+timestamp="$(gen_date)"
 
-# Iterate ${incs[@]}
-for src in ${incs[@]}; do
-
-  # Make sure ${src} exists
-  if [ ! -f ${src} ]; then
-    echo "Skipping '$(basename ${src})'; not a real file (block device, symlink etc)"
-    continue
-  fi
-
-  # Include $[src} making any defined functions available
-  source ${src}
-
-done
+# Whos is calling? 0 = singular, 1 is as group
+caller=$(ps $PPID | grep -c stigadm)
 
 
-# Ensure we have permissions
-if [ $UID -ne 0 ] ; then
-  usage "Requires root privileges" && exit 1
-fi
-
-
-# Set variables
-while getopts "ha:cjmvrix" OPTION ; do
-  case $OPTION in
-    h) usage && exit 1 ;;
-    a) author=$OPTARG ;;
-    c) change=1 ;;
-    j) json=1 ;;
-    m) meta=1 ;;
-    r) restore=1 ;;
-    i) interactive=1 ;;
-    x) xml=1 ;;
-    ?) usage && exit 1 ;;
-  esac
-done
-
-
-# Make sure we have an author if we are not restoring or validating
-if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
-  usage "Must specify an author name (use -a <initials>)" && exit 1
-fi
-
-
-# If ${meta} is true
-if [ ${meta} -eq 1 ]; then
-
-  # Print meta data
-  get_meta_data "${cwd}" "${prog}"
-fi
-
+###############################################
+# Perform restoration
+###############################################
 
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
-
-  # If ${interactive} = 1 go to interactive restoration mode
-  if [ ${interactive} -eq 1 ]; then
-
-    # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
-
-  fi
-
-  # Print friendly message regarding restoration mode
-  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
-
-  exit 0
+  report "Not yet implemented" && exit 1
 fi
 
+
+###############################################
+# STIG validation/remediation
+###############################################
 
 # Get list of published online repositories
-publishers=( $(pkg publisher | awk 'NR > 1 && $3 == "online"{printf("%s:%s\n", $1, $5)}') )
+publishers=( $(pkg publisher |
+  awk 'NR > 1 && $3 == "online"{printf("%s:%s\n", $1, $5)}') )
 
-# Make sure we have at least one or bail
-if [ ${#publishers[@]} -eq 0 ]; then
+# Make sure we have at least one
+[ ${#publishers[@]} -eq 0 ] && errors+=("Missing:repositories")
 
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "No defined repositories published" 1
-  exit 1
-fi
-
-
-# Obtain the gateway
-gateway="$(netstat -nr | awk '$1 == "default"{print $2}')"
-
-# Bail if no gateway defined
-if [ "${gateway}" == "" ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "No gateway configured" 1
-  exit 1
-fi
-
-
-# Iterate ${publishers[@]}
-for publisher in ${publishers[@]}; do
-
-  # Split up the name to test functionality
-  server="$(echo "${publisher}" | cut -d: -f3 | cut -d"/" -f3)"
-
-  # Test for resolution via nameserver
-  ip="$(nslookup -retry=2 -timeout=5 ${server} 2>/dev/null | awk '$1 ~ /^Name/{getline; print $2}')"
-
-  # Skip if ${ip} is null
-  [ "${ip}" == "" ] && continue
-
-  # Increment ${online} for each pass
-  online=$(add ${online:=0} 1)
-done
-
-
-# If ${online} is 0 bail
-if [ ${online:=0} -eq 0 ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "${online} package repositories connecting" 1
-  exit 1
-fi
+# Be verbose
+inspected+=("${publishers[@]}")
 
 
 # Get total number of packages to install/update
-pkgs=( $(pkg update -n 2>/dev/null | awk '$0 ~ /install|update/ && $4 ~ /^[0-9]/{print $4}') )
-
-# Bail early if already conforms
-if [ ${#pkgs[@]} -eq 0 ]; then
-
-  # Print friendly success
-  [ ${verbose} -eq 1 ] && print "Success, conforms to'${stigid}'"
-  exit 0
-fi
+[ ${#errors[@]} -eq 0 ] &&
+  pkgs=( $(pkg update -n 2>&1 |
+    awk '$0 ~ /install|update/ && $4 ~ /^[0-9]/{print $4}') )
 
 
 # If ${change} = 1
@@ -195,46 +85,101 @@ if [ ${change} -eq 1 ]; then
   bu_configuration "${backup_path}" "${author}" "${stigid}" "$(echo "${pkgs[@]}" | tr ' ' ',')"
   if [ $? -ne 0 ]; then
 
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Snapshot of current packages to update failed..." 1
+    # Trap error
+    report "Snapshot of current packages to update failed..."
 
     # Stop, we require a backup
     exit 1
   fi
 
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Created snapshot of installable/updateable packages"
+
+  # Create ${inspected[@]} from ${pkgs[@]}
+  inspected+=( "${pkgs[@]}" )
 
   # Update the system
   pkg update -q 2>/dev/null
 
+  # Trap errors
+  [ $? -ne 0 ] && errors+=("Package:update:failed")
+
+
   # Refresh ${pkgs[@]}
-  pkgs=( $(pkg update -n 2>/dev/null | awk '$0 ~ /install|update/ && $4 ~ /^[0-9]/{print $4}') )
+  pkgs=( $(pkg update -n 2>&1 |
+    awk '$0 ~ /install|update/ && $4 ~ /^[0-9]/{print $4}') )
 fi
 
 
-# Exit with errors
-if [ ${#pkgs[@]} -gt 0 ]; then
+# Be verbose
+inspected+=( $(get_packages) )
 
-  # Add up ${pkgs[@]}
-  for pkg in ${pkgs[@]}; do
-    total=$(add ${pkg} ${total:=0})
-  done
 
-  # Print friendly success
+###############################################
+# Results for printable report
+###############################################
+
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Set ${results} error message
+  results="Failed validation"
+fi
+
+# Set ${results} passed message
+[ ${#errors[@]} -eq 0 ] && results="Passed validation"
+
+
+###############################################
+# Report generation specifics
+###############################################
+
+# Apply some values expected for report footer
+[ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -gt 0 ] && failed=${#errors[@]} || failed=0
+
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${passed} ${failed})
+
+
+# If the caller was only independant
+if [ ${caller} -eq 0 ]; then
+
+  # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
 
-    print "Does not conform to '${stigid}'" 1
-    [ ${total:=0} -gt 0 ] && print "  ${total} packages require installation/update" 1
+    # Print array of failed & validated items
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
-  exit 1
+  # Generate the report
+  report "${results}"
+
+  # Display the report
+  cat ${log}
+else
+
+  # Since we were called from stigadm
+  module_header "${results}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Finish up the module specific report
+  module_footer
 fi
 
-# Print friendly success
-[ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
 
-exit 0
+###############################################
+# Return code for larger report
+###############################################
+
+# Return an error/success code (0/1)
+exit ${#errors[@]}
 
 
 # Date: 2017-06-21

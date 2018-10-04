@@ -4,12 +4,23 @@
 # Solaris package publisher function
 function get_pkg_publishers()
 {
+  local -a publishers
+
   # Get locally scoped array of publishers
-  local -a publishers=( $(pkg publisher 2>/dev/null | \
+  publishers=( $(pkg publisher 2>/dev/null | \
     awk 'NR > 1 && $3 == "online"{printf("%s\n", $5)}' | \
     cut -d/ -f3) )
 
   echo "${publishers[@]}"
+}
+
+
+# Get package list
+function get_packages()
+{
+  local -a packages
+  packages=( $(pkg list | awk 'NR > 1{printf("%s@%s\n", $1, $2)}') )
+  echo "${packages[@]}"
 }
 
 
