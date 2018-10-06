@@ -32,7 +32,7 @@ function parse_pkg_verify()
 
   # Split ${blob} up into a digestable data structure
   #  <PKG-NAME>:<FILE>,<OWNER|GROUP|HASH|SIZE|MODE>,<ACTUAL>,<REQUIRED>+[...]
-  pkgs=( $(echo "${blob}" | \
+  pkgs=( $(echo "${blob}" | grep -v "^Planning:" | \
     sed "s|\(pkg:.*\)ERROR$|=\1|g" | tr '=' '\n' | \
     sed "s|file: \(.*\)$|/\1,|g" | \
     sed "s|dir: \(.*\)$|/\1,|g" | \

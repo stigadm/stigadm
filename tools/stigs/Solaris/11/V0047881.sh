@@ -59,14 +59,13 @@ fi
 ###############################################
 
 # Get list of published online repositories
-publishers=( $(pkg publisher |
-  awk 'NR > 1 && $3 == "online"{printf("%s:%s\n", $1, $5)}') )
+publishers=( $(get_pkg_publishers) )
 
 # Make sure we have at least one
 [ ${#publishers[@]} -eq 0 ] && errors+=("Missing:repositories")
 
 # Be verbose
-inspected+=("${publishers[@]}")
+inspected+=("Repositories:${publishers[@]}")
 
 
 # Get total number of packages to install/update
