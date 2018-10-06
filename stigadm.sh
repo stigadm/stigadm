@@ -284,7 +284,7 @@ fi
 # Enable change w/ author argument
 if [ ${change} -eq 1 ]; then
   flags="${flags} -c"
-  [ "${author}" != "" ] && flags=" -a ${author}"
+  [ "${author}" != "" ] && flags="${flags} -a ${author}"
 fi
 
 # Enable restoration mode
@@ -423,7 +423,9 @@ for stig in ${stigs[@]}; do
   stig_name="$(basename ${stig} | cut -d. -f1)"
 
   # Capture results from ${stig} ${flags} execution
+  set -x
   ./${stig} ${flags}
+  set +x
 
   # Capture any errors
   [ $? -ne 0 ] && errors+=("${stig_name}")

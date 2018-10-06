@@ -19,8 +19,8 @@ function get_pkg_publishers()
 function get_packages()
 {
   local -a packages
-  packages=( $(pkg list | awk 'NR > 1{printf("%s@%s\n", $1, $2)}') )
-  echo "${packages[@]}"
+  packages=( $(pkg list | awk 'NR > 1{printf("pkg://solaris/%s@%s\n", $1, $2)}') )
+  echo "${packages[@]}" | sort -u
 }
 
 
