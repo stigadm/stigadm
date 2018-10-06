@@ -186,35 +186,33 @@ for interface in ${network_whitelist[@]}; do
           [ $? -ne 0 ] && errors+=("Missing:interface:${interface}:in:${zone}")
         done
       fi
+    fi
 
 
-      # Handle 'maxbw' differently
-      if [ "${property}" == "maxbw" ]; then
+    # Handle 'maxbw' differently
+    if [ "${property}" == "maxbw" ]; then
 
-        # Get the current max
-        current_network_properties+=( "${interface}:${property}:$(dladm show-linkprop -p ${property} -o link,value ${interface} |
-          awk 'NR > 1{printf("%s:%s\n", $1, $2)}')" )
+      # Get the current max
+      current_network_properties+=( "${interface}:${property}:$(dladm show-linkprop -p ${property} -o link,value ${interface} |
+        awk 'NR > 1 && $2 !~ /--/{printf("%s:%s\n", $1, $2)}')" )
 
-        # If protections are to be applied per zone
-        if [ ${config_per_zone} -eq true ]; then
+      # If protections are to be applied per zone
+      if [ ${config_per_zone} -eq true ]; then
 
-          # Iterate ${zones[@]}
-          for zone in ${zones[@]}; do
+        # Iterate ${zones[@]}
+        for zone in ${zones[@]}; do
 
-            # Get the current allowed-ips values for ${zone}
-            current_network_properties+=( "${interface}:${zone}:${property}:$(dladm show-linkprop -p ${property} -o link,property,effective -z ${zone} ${interface} 2>/dev/null |
-              awk 'NR > 1{printf("%s:%s\n", $1, $2)}' | tail -1)" )
+          # Get the current allowed-ips values for ${zone}
+          current_network_properties+=( "${interface}:${zone}:${property}:$(dladm show-linkprop -p ${property} -o link,value -z ${zone} ${interface} 2>/dev/null |
+            awk 'NR > 1 && $2 !~ /--/{printf("%s:%s\n", $1, $2)}' | tail -1)" )
 
-            # Trap errors for missing ${item}
-            [ $? -ne 0 ] && errors+=("Missing:interface:${interface}:in:${zone}")
-          done
-        fi
+          # Trap errors for missing ${item}
+          [ $? -ne 0 ] && errors+=("Missing:interface:${interface}:in:${zone}")
+        done
       fi
     fi
   done
 done
-
-echo "${current_network_properties[@]}" | tr ' ' '\n'
 
 
 # Calculate percentages for the following:
