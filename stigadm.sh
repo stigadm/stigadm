@@ -65,6 +65,7 @@ bootenv=0
 change=0
 count=0
 classification=
+debug=0
 ext="json"
 flags=
 interactive=0
@@ -174,11 +175,12 @@ fi
 
 
 # Set variables
-while getopts "a:bchijl:rC:O:L:V:vx" OPTION ; do
+while getopts "a:bcdhijl:rC:O:L:V:vx" OPTION ; do
   case $OPTION in
     a) author=$OPTARG ;;
     b) bootenv=1 ;;
     c) change=1 ;;
+    d) debug=1 ;;
     h) report && exit 1 ;;
     i) interactive=1 ;;
     j) ext="json" ;;
@@ -193,6 +195,12 @@ while getopts "a:bchijl:rC:O:L:V:vx" OPTION ; do
     ?) report && exit 1 ;;
   esac
 done
+
+
+###############################################
+# Handle debugging right away
+###############################################
+#[ ${debug} -eq 1 ] && set -x || set +x
 
 
 ###############################################
@@ -288,19 +296,20 @@ if [ ${change} -eq 1 ]; then
 fi
 
 # Enable restoration mode
-if [ ${restore} -eq 1 ]; then
-  flags="${flags} -r"
-fi
+[ ${restore} -eq 1 ] && flags="${flags} -r"
+
 
 # Enable verbosity option
-if [ ${verbose} -eq 1 ]; then
-  flags="${flags} -v"
-fi
+[ ${verbose} -eq 1 ] && flags="${flags} -v"
+
 
 # Use XML templates if requested
-if [ "${ext}" == "xml" ]; then
-  flags="${flags} -x"
-fi
+[ "${ext}" == "xml" ] && flags="${flags} -x"
+
+
+# If ${debug} is enabled pass it on
+[ ${debug} -eq 1 ] && flags="${flags} -d"
+
 
 # Tell each module which ${log} to append
 flags="${flags} -l ${log}"
@@ -423,9 +432,7 @@ for stig in ${stigs[@]}; do
   stig_name="$(basename ${stig} | cut -d. -f1)"
 
   # Capture results from ${stig} ${flags} execution
-  set -x
   ./${stig} ${flags}
-  set +x
 
   # Capture any errors
   [ $? -ne 0 ] && errors+=("${stig_name}")
