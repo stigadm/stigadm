@@ -66,7 +66,6 @@ zone_limits["zone.max-swap"]="80%"
 
 # Define an associative array of virtual nic properties
 declare -A network_properties
-network_properties["zone"]=true # Limit VNIC to zone where zone is configured to use vnic
 network_properties["protection"]="mac-nospoof,restricted,ip-nospoof,dhcp-nospoof" # See `man dladm` for info
 network_properties["allowed-ips"]=true # Limits allowed outbound SRC datagrams on list ONLY (Acquires from configured IP's)
 network_properties["maxbw"]="75%" # Use ${network_whitelist[@]} array to exclude VNIC's, otherwise limit bandwidth
@@ -156,30 +155,46 @@ zones=( $(zoneadm list -civ |
   awk '$0 !~ /global/{printf("%s:%s\n", $2, $4)}') )
 
 
+# Create an associative array to store current network properties
+declare -A current_network_properties
+
 # Iterate ${network_whitelist[@]} array
-for item in ${network_whitelist[@]}; do
+for interface in ${network_whitelist[@]}; do
 
   # Iterate ${network_properties[@]}
   for property in ${!network_properties[@]}; do
 
-    # Get the current allowed-ips values
-    current_allowed_ips+=( $(dladm show-linkprop -p ${property} -o link,property,effective ${item} 2>/dev/null |
-      nawk 'NR > 1{nic=$1;for(i = NR; i <= NR; i++){if($1 ~ /^[[0-9]+\./){ val=val$1 }else{ val=nic":"$3 } print val}}' | tail -1) )
+    # Only if not 'maxbw'
+    if [ "${property}" != "maxbw" ]; then
 
-    # Trap errors for missing ${item}
-    [ $? -ne 0 ] && errors+=("Missing:interface:${item}")
-
-
-    # Iterate ${zones[@]}
-    for zone in ${zones[@]}; do
-
-      # Get the current allowed-ips values for ${zone}
-      current_allowed_ips+=( $(dladm show-linkprop -p ${property} -o link,property,effective -z ${zone} ${item} 2>/dev/null |
+      # Get the current ${property} values per ${interface}
+      current_network_properties["${property}"]=( $(dladm show-linkprop -p ${property} -o link,property,effective ${interface} 2>/dev/null |
         nawk 'NR > 1{nic=$1;for(i = NR; i <= NR; i++){if($1 ~ /^[[0-9]+\./){ val=val$1 }else{ val=nic":"$3 } print val}}' | tail -1) )
 
       # Trap errors for missing ${item}
-      [ $? -ne 0 ] && errors+=("Missing:interface:${item}:in:${zone}")
-    done
+      [ $? -ne 0 ] && errors+=("Missing:interface:${item}")
+
+
+      # If protections are to be applied per zone
+      if [ ${config_per_zone} -eq true ]; then
+
+        # Iterate ${zones[@]}
+        for zone in ${zones[@]}; do
+
+          # Get the current allowed-ips values for ${zone}
+          current_network_properties["${zone}:${property}"]=( $(dladm show-linkprop -p ${property} -o link,property,effective -z ${zone} ${item} 2>/dev/null |
+            nawk 'NR > 1{nic=$1;for(i = NR; i <= NR; i++){if($1 ~ /^[[0-9]+\./){ val=val$1 }else{ val=nic":"$3 } print val}}' | tail -1) )
+
+          # Trap errors for missing ${item}
+          [ $? -ne 0 ] && errors+=("Missing:interface:${item}:in:${zone}")
+        done
+      fi
+
+      # Handle 'maxbw' differently
+      if [ "${property}" == "maxbw" ]; then
+
+      fi
+    fi
   done
 done
 
