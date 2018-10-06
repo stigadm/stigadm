@@ -66,7 +66,6 @@ fi
 # Create a filter based on ${pprivs[@]}
 filter="$(echo "${pprivs[@]}" | tr ' ' '\n' | cut -d: -f1)"
 
-
 # Acquire list of configured/installed zones
 zones=( $(zoneadm list -civ | awk 'NR > 1 && $0 !~ /global|solaris-kz/{print $2}') )
 
@@ -74,7 +73,8 @@ zones=( $(zoneadm list -civ | awk 'NR > 1 && $0 !~ /global|solaris-kz/{print $2}
 for zone in ${zones[@]}; do
 
   # Acquire properties for anything matching ${filter}
-  props+=( "${zone}:"$(zonecfg -z ${zone} info | egrep ${filter} | awk '{printf("%s%s\n", $1, $2)}') )
+  props+=( "${zone}:"$(zonecfg -z ${zone} info |
+    grep ${filter} | awk '{printf("%s:%s\n", $1, $2)}') )
 done
 
 
@@ -115,7 +115,8 @@ if [ ${change} -eq 1 ]; then
 
 
     # Create an array of configured property values from ${pprivs[@]}
-    dvalues=( $(echo "${pprivs[@]}" | tr ' ' '\n' | grep "^${key}" | cut -d: -f2 | tr ',' ' ') )
+    dvalues=( $(echo "${pprivs[@]}" | tr ' ' '\n' | grep "^${key}" |
+      cut -d: -f2 | tr ',' ' ') )
 
     # Merge ${values[@]} w/ ${dvalues[@]} matching ${key}
     values=( $(echo "${dvalues[@]}" "${values[@]}" | tr ' ' '\n' | sort -u) )
@@ -126,14 +127,10 @@ if [ ${change} -eq 1 ]; then
 
       # Set ${key} on ${zone} to ${values[@]}
       zonecfg -z ${zone} set ${key}=$(echo "${values[@]}" | tr ' ' ',') 2>/dev/null
-
-      # Determine if an error is to be raised
       [ $? -ne 0 ] && errors+=("Configured:${zone}:${prop}")
 
       # Set ${key} on the running zone ${zone} to ${values[@]}
       zonecfg -r -z ${zone} set ${key}=$(echo "${values[@]}" | tr ' ' ',') 2>/dev/null
-
-      # Determine if an error is to be raised
       [ $? -ne 0 ] && errors+=("Running:${zone}:${prop}")
     fi
 
@@ -146,7 +143,19 @@ if [ ${change} -eq 1 ]; then
     cval=$(zonecfg -r -z ${zone} info ${key} | grep -c "$(echo "${values[@]}" | tr ' ' ',')")
     [ ${cval} -le 0 ] && errors+=("${prop}")
   done
+
+
+  # Iterate ${zones[@]} (to refresh ${props[@]})
+  for zone in ${zones[@]}; do
+
+    # Acquire properties for anything matching ${filter}
+    props+=( "${zone}:"$(zonecfg -z ${zone} info |
+      grep ${filter} | awk '{printf("%s:%s\n", $1 $2)}') )
+  done
 fi
+
+# Verbose
+inspected+=("${props[@]}")
 
 
 ###############################################

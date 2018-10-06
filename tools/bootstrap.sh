@@ -98,8 +98,8 @@ while getopts "ha:cdjl:rvx" OPTION ; do
 done
 
 
-# If ${debug} -eq 1
-[ ${debug} -eq 1 ] && set -x
+# Enable debugging
+#[ ${debug} -eq 1 ] && set -x || set +x
 
 
 # Create a timestamp
