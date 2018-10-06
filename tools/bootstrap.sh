@@ -6,6 +6,7 @@
 author=
 arch=
 change=0
+debug=1
 ext="json"
 hostname="$(hostname)"
 os=
@@ -81,11 +82,12 @@ fi
 
 
 # Set variables
-while getopts "ha:cjl:rvx" OPTION ; do
+while getopts "ha:cdjl:rvx" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
+    d) debug=1 ;;
     j) ext="json" ;;
     l) log=$OPTARG ;;
     r) restore=1 ;;
@@ -94,6 +96,10 @@ while getopts "ha:cjl:rvx" OPTION ; do
     ?) report "Argument parsing error" && exit 1 ;;
   esac
 done
+
+
+# If ${debug} -eq 1
+[ ${debug} -eq 1 ] && set -x
 
 
 # Create a timestamp
