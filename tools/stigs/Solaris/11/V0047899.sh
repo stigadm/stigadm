@@ -16,7 +16,7 @@ user_acct_range['max']=2147483647
 
 
 # Boolean true/false to set properties per configured zone
-config_per_zone=true
+config_per_zone=1
 
 # Define a whitelist of VNIC's to exclude from ${network_properties[@]}
 #  NOTE: This also filters existing interfaces from zones
@@ -152,11 +152,8 @@ memory=$(prtconf | awk '$1 ~ /Memory/{printf("%s\n", $3)}')
 
 # Get an array of configured zones (excluding root)
 zones=( $(zoneadm list -civ |
-  awk '$0 !~ /global/{printf("%s:%s\n", $2, $4)}') )
+  awk 'NR > 1 && $0 !~ /global/{printf("%s:%s\n", $2, $4)}') )
 
-
-# Create an associative array to store current network properties
-declare -A current_network_properties
 
 # Iterate ${network_whitelist[@]} array
 for interface in ${network_whitelist[@]}; do
@@ -168,40 +165,56 @@ for interface in ${network_whitelist[@]}; do
     if [ "${property}" != "maxbw" ]; then
 
       # Get the current ${property} values per ${interface}
-      current_network_properties["${property}"]=( $(dladm show-linkprop -p ${property} -o link,property,effective ${interface} 2>/dev/null |
-        nawk 'NR > 1{nic=$1;for(i = NR; i <= NR; i++){if($1 ~ /^[[0-9]+\./){ val=val$1 }else{ val=nic":"$3 } print val}}' | tail -1) )
+      current_network_properties+=( "${interface}:${property}:$(dladm show-linkprop -p ${property} -o link,property,effective ${interface} 2>/dev/null |
+        nawk 'NR > 1 && $3 !~ /--/{nic=$1;for(i = NR; i <= NR; i++){if($1 ~ /^[[0-9]+\./){ val=val$1 }else{ val=nic":"$3 } print val}}' | tail -1)" )
 
       # Trap errors for missing ${item}
-      [ $? -ne 0 ] && errors+=("Missing:interface:${item}")
+      [ $? -ne 0 ] && errors+=("Missing:interface:${interface}")
 
 
       # If protections are to be applied per zone
-      if [ ${config_per_zone} -eq true ]; then
+      if [ ${config_per_zone} -eq 1 ]; then
 
         # Iterate ${zones[@]}
         for zone in ${zones[@]}; do
 
           # Get the current allowed-ips values for ${zone}
-          current_network_properties["${zone}:${property}"]=( $(dladm show-linkprop -p ${property} -o link,property,effective -z ${zone} ${item} 2>/dev/null |
-            nawk 'NR > 1{nic=$1;for(i = NR; i <= NR; i++){if($1 ~ /^[[0-9]+\./){ val=val$1 }else{ val=nic":"$3 } print val}}' | tail -1) )
+          current_network_properties+=( "${interface}:${zone}:${property}:$(dladm show-linkprop -p ${property} -o link,property,effective -z ${zone} ${interface} 2>/dev/null |
+            nawk 'NR > 1 && $3 !~ /--/{nic=$1;for(i = NR; i <= NR; i++){if($1 ~ /^[[0-9]+\./){ val=val$1 }else{ val=nic":"$3 } print val}}' | tail -1)" )
 
           # Trap errors for missing ${item}
-          [ $? -ne 0 ] && errors+=("Missing:interface:${item}:in:${zone}")
+          [ $? -ne 0 ] && errors+=("Missing:interface:${interface}:in:${zone}")
         done
       fi
+
 
       # Handle 'maxbw' differently
       if [ "${property}" == "maxbw" ]; then
 
+        # Get the current max
+        current_network_properties+=( "${interface}:${property}:$(dladm show-linkprop -p ${property} -o link,value ${interface} |
+          awk 'NR > 1{printf("%s:%s\n", $1, $2)}')" )
+
+        # If protections are to be applied per zone
+        if [ ${config_per_zone} -eq true ]; then
+
+          # Iterate ${zones[@]}
+          for zone in ${zones[@]}; do
+
+            # Get the current allowed-ips values for ${zone}
+            current_network_properties+=( "${interface}:${zone}:${property}:$(dladm show-linkprop -p ${property} -o link,property,effective -z ${zone} ${interface} 2>/dev/null |
+              awk 'NR > 1{printf("%s:%s\n", $1, $2)}' | tail -1)" )
+
+            # Trap errors for missing ${item}
+            [ $? -ne 0 ] && errors+=("Missing:interface:${interface}:in:${zone}")
+          done
+        fi
       fi
     fi
   done
 done
 
-# Remove dupes
-current_allowed_ips=( $(remove_duplicates  "${current_allowed_ips[@]}") )
-
-
+echo "${current_network_properties[@]}" | tr ' ' '\n'
 
 
 # Calculate percentages for the following:
