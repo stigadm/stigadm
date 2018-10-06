@@ -1,3 +1,24 @@
+commit 207df2825bd88c2a7f220eb2f88ba0e7efe7ffc6
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Oct 5 18:39:22 2018 -0600
+
+    v0.1.3: stigadm.sh, pkgs.sh & V0047893:
+    - Fix for stigadm.sh edit from law enforcement weenies
+    - Fixes, changes to pkg list for solaris
+    - Migration to new API; validation & remediation for V0047893
+
+commit fa2a5f63c50675afabe7b094349db1c7dc583046
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Oct 4 17:55:07 2018 -0600
+
+    v0.1.3: README
+
+commit 47c3ff084f4fb87e9b79c0b0013373a94bd29ef1
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Oct 4 17:50:19 2018 -0600
+
+    v0.1.3: README & CHANGELOG
+
 commit 1ad7d8df727971ecc3d2fc83041aad2ae1647a24
 Author: jas- <Jason.Gerfen@gmail.com>
 Date:   Thu Oct 4 17:44:30 2018 -0600
