@@ -47,9 +47,6 @@ Usage ./stigadm [options]
       Supported: [11|10]
 
   Filters:
-    -A  Application
-      Supported: [Not yet implemented]
-
     -C  Classification
       Supported: [CAT-I|CAT-II|CAT-III]
 

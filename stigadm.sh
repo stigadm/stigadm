@@ -137,9 +137,6 @@ Usage ./${appname} [options]
       Supported: [${version_list}]
 
   Filters:
-    -A  Application
-      Supported: [Not yet implemented]
-
     -C  Classification
       Supported: [CAT-I|CAT-II|CAT-III]
 
