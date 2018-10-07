@@ -99,7 +99,7 @@ done
 
 
 # Enable debugging
-#[ ${debug} -eq 1 ] && set -x || set +x
+[ ${debug} -eq 1 ] && set -x
 
 
 # Create a timestamp

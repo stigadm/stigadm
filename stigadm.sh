@@ -197,7 +197,7 @@ done
 ###############################################
 # Handle debugging right away
 ###############################################
-#[ ${debug} -eq 1 ] && set -x || set +x
+[ ${debug} -eq 1 ] && set -x
 
 
 ###############################################
@@ -470,13 +470,19 @@ seconds=$(subtract ${s_epoch} ${e_epoch})
 
 report_footer
 
+# Print ${log}
+cat ${log}
+
+
+###############################################
+# Handle debugging right away
+###############################################
+[ ${debug} -eq 1 ] && set +x
+
 
 ###############################################
 # Exit with the number of errors found
 ###############################################
-
-# Print ${log}
-cat ${log}
 
 # Exit with the number of errors
 exit ${#errors[@]}
