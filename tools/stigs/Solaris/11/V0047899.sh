@@ -3,13 +3,18 @@
 # Define an whitelist of accounts to ignore
 declare -a whitelist
 whitelist+=("root")
+whitelist+=("nobody")
+whitelist+=("noaccess")
+whitelist+=("nogroup")
 
 # Define a range of UID/GID's to associate with the ${application_accounts[@]} array
+#  NOTE: Application account restrictions fall under 'priv'
 declare -A appliction_acct_range
 application_acct_range['min']=100
 application_acct_range['max']=500
 
 # Define a range of UID's to associat with the ${user_accounts[@]} array
+#  NOTE: Application account restrictions fall under 'basic'
 declare -A user_acct_range
 user_acct_range['min']=501
 user_acct_range['max']=2147483647
@@ -69,13 +74,11 @@ zone_limits["zone.max-shm-memory"]="80%"
 zone_limits["zone.max-swap"]="80%"
 
 
-# Set some default actions
-priv_level="priv"
+# Define a log level for resource exceptions
 log_level="warning"
-action="deny"
 
-# Define a log level for rctladm
-log_level="syslog"
+# What action should the OS take on a resource exception?
+action="deny"
 
 
 # Define the project file
@@ -149,7 +152,24 @@ cpus=$(psrinfo | wc -l)
 # Get total amount of physical memory
 memory=$(prtconf | awk '$1 ~ /Memory/{printf("%s\n", $3)}')
 
-# Get an array of configured zones (excluding root)
+
+# Create an exclude filter of users/groups from ${whitelist[@]}
+filter="$(echo "${whitelist[@]}" | tr ' ' '|')"
+
+# Get an array of application groups that are within min/max ranges
+declare -a app_groups
+app_groups=( $(getent group |
+  nawk -F: -v min="${application_acct_range['min']}" -v max="${application_acct_range['max']}" \
+    -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}') )
+
+# Get an array of application users that are within min/max ranges
+declare -a app_users
+app_users=( $(getent passwd |
+  nawk -F: -v min="${application_acct_range['min']}" -v max="${application_acct_range['max']}" \
+    -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}') )
+
+
+# Get an array of configured zones (excluding global)
 zones=( $(zoneadm list -civ |
   awk 'NR > 1 && $0 !~ /global/{printf("%s:%s\n", $2, $4)}') )
 
