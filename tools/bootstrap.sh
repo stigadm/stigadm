@@ -2,6 +2,7 @@
 
 # Bootstrapper
 
+
 # Global defaults for tool
 author=
 arch=
@@ -98,10 +99,6 @@ while getopts "ha:cdjl:rvx" OPTION ; do
 done
 
 
-# Enable debugging
-[ ${debug} -eq 1 ] && set -x
-
-
 # Create a timestamp
 timestamp="$(gen_date)"
 
@@ -167,3 +164,7 @@ module_footer="${templates}/stig-footer.${ext}"
 # Define variable for stigadm report
 report_header="${templates}/report-header.${ext}"
 report_footer="${templates}/report-footer.${ext}"
+
+
+# Reset debugging
+[ ${debug} -eq 1 ] && set +x

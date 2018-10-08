@@ -23,6 +23,12 @@ config_per_zone=1
 declare -a network_whitelist
 network_whitelist+=("vnic0")
 
+# Define an associative array of virtual nic properties
+declare -A network_properties
+network_properties["protection"]="mac-nospoof,restricted,ip-nospoof,dhcp-nospoof" # See `man dladm` for info
+network_properties["allowed-ips"]=true # Limits allowed outbound SRC datagrams on list ONLY (Acquires from configured IP's)
+network_properties["maxbw"]="75%" # Use ${network_whitelist[@]} array to include VNIC's that need to limit bandwidth on
+
 
 # An associative array of project attributes for application user accounts
 declare -A application_accounts
@@ -62,12 +68,6 @@ zone_limits["zone.max-shm-ids"]=64000
 zone_limits["zone.max-shm-memory"]="80%"
 zone_limits["zone.max-swap"]="80%"
 
-
-# Define an associative array of virtual nic properties
-declare -A network_properties
-network_properties["protection"]="mac-nospoof,restricted,ip-nospoof,dhcp-nospoof" # See `man dladm` for info
-network_properties["allowed-ips"]=true # Limits allowed outbound SRC datagrams on list ONLY (Acquires from configured IP's)
-network_properties["maxbw"]="75%" # Use ${network_whitelist[@]} array to exclude VNIC's, otherwise limit bandwidth
 
 # Set some default actions
 priv_level="priv"
@@ -153,84 +153,10 @@ memory=$(prtconf | awk '$1 ~ /Memory/{printf("%s\n", $3)}')
 zones=( $(zoneadm list -civ |
   awk 'NR > 1 && $0 !~ /global/{printf("%s:%s\n", $2, $4)}') )
 
+# Get current network resources
+current_network_resources=( $(get_network_resources) )
 
-# Iterate ${network_whitelist[@]} array
-for interface in ${network_whitelist[@]}; do
-
-  # Iterate ${network_properties[@]}
-  for property in ${!network_properties[@]}; do
-
-    # Only if not 'maxbw'
-    if [ "${property}" != "maxbw" ]; then
-
-      # Get the current ${property} values per ${interface}
-      current_network_properties+=( "${interface}:${property}:$(dladm show-linkprop -p ${property} -o link,property,effective ${interface} 2>/dev/null |
-        nawk 'NR > 1 && $3 !~ /--/{nic=$1;for(i = NR; i <= NR; i++){if($1 ~ /^[[0-9]+\./){ val=val$1 }else{ val=nic":"$3 } print val}}' | tail -1)" )
-
-      # Trap errors for missing ${item}
-      [ $? -ne 0 ] && errors+=("Missing:interface:${interface}")
-
-
-      # If protections are to be applied per zone
-      if [ ${config_per_zone} -eq 1 ]; then
-
-        # Iterate ${zones[@]}
-        for zone in ${zones[@]}; do
-
-          # Split ${zone} into name and path
-          zpath="$(echo "${zone}" | cut -d: -f2)"
-          zone="$(echo "${zone}" | cut -d: -f1)"
-
-            # Get the current allowed-ips values for ${zone}
-          current_network_properties+=( "${interface}:${property}:$(dladm show-linkprop -p ${property} -o link,property,effective -z ${zone} ${interface} 2>/dev/null |
-            nawk 'NR > 1 && $3 !~ /--/{nic=$1;for(i = NR; i <= NR; i++){if($1 ~ /^[[0-9]+\./){ val=val$1 }else{ val=nic":"$3 } print val}}' | tail -1):${zone}" )
-
-          # Trap errors for missing ${item}
-          [ $? -ne 0 ] && errors+=("Missing:interface:${interface}:in:${zone}")
-        done
-      fi
-    fi
-
-
-    # Handle 'maxbw' differently
-    if [ "${property}" == "maxbw" ]; then
-
-      # The speed of the physical device that VNIC ${interface} is using
-      phys="$(dladm show-vnic -o over ${interface} 2>/dev/null | awk 'NR > 1{printf("%s\n", $1)}')"
-
-      # Bail if ${phys} is empty which indicates a non-vnic adapter
-      [ "${phys}" == "" ] && continue
-
-      # Get the current speed from the physical associated with ${interface}
-      current_network_properties+=( "${interface}:speed:${phys}:$(dladm show-phys -o speed ${phys} 2>/dev/null |
-        awk 'NR > 1 && $2 !~ /--/{printf("%s\n", $1)}')" )
-
-      # Get the current max
-      current_network_properties+=( "${interface}:${property}:$(dladm show-linkprop -p ${property} -o value ${interface} |
-        awk 'NR > 1 && $2 !~ /--/{printf("%s\n", $2)}')" )
-
-      # If protections are to be applied per zone
-      if [ ${config_per_zone} -eq 1 ]; then
-
-        # Iterate ${zones[@]}
-        for zone in ${zones[@]}; do
-
-          # Split ${zone} into name and path
-          zpath="$(echo "${zone}" | cut -d: -f2)"
-          zone="$(echo "${zone}" | cut -d: -f1)"
-
-          # Get the current allowed-ips values for ${zone}
-          current_network_properties+=( "${interface}:${property}:$(dladm show-linkprop -p ${property} -o value -z ${zone} ${interface} 2>/dev/null |
-            awk 'NR > 1 && $2 !~ /--/{printf("%s\n", $2)}' | tail -1):${zone}" )
-
-          # Trap errors for missing ${item}
-          [ $? -ne 0 ] && errors+=("Missing:interface:${interface}:in:${zone}")
-        done
-      fi
-    fi
-  done
-done
-echo "${current_network_properties[@]}" | tr ' ' '\n'
+echo "${current_network_resources[@]}"
 
 # Calculate percentages for the following:
 #  - CPU / [Memory | Zone] / X (Where X is the project|network limit)
