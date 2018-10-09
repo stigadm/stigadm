@@ -153,6 +153,17 @@ cpus=$(psrinfo | wc -l)
 memory=$(prtconf | awk '$1 ~ /Memory/{printf("%s\n", $3)}')
 
 
+# Get an array of configured zones (excluding global)
+zones=( $(zoneadm list -civ |
+  awk 'NR > 1 && $0 !~ /global/{printf("%s:%s\n", $2, $4)}') )
+
+# Get current network resources
+current_network_resources=( $(get_network_resources) )
+
+# Calculate percentages for the following:
+#  - CPU / [Memory | Zone] / X (Where X is the project|network limit)
+
+
 # Create an exclude filter of users/groups from ${whitelist[@]}
 filter="$(echo "${whitelist[@]}" | tr ' ' '|')"
 
@@ -181,16 +192,43 @@ users=( $(getent passwd |
     -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}') )
 
 
-# Get an array of configured zones (excluding global)
-zones=( $(zoneadm list -civ |
-  awk 'NR > 1 && $0 !~ /global/{printf("%s:%s\n", $2, $4)}') )
+# If ${config_per_zone} is true
+if [ ${config_per_zone} -eq 1 ]; then
 
-# Get current network resources
-current_network_resources=( $(get_network_resources) )
+  # Define associative arrays to handle per zone configs
+  declare -A zone_app_groups
+  declare -A zone_app_users
+  declare -A zone_groups
+  declare -A zone_users
 
+  # Iterate ${zones[@]}
+  for zone in ${zones[@]}; do
 
-# Calculate percentages for the following:
-#  - CPU / [Memory | Zone] / X (Where X is the project|network limit)
+    # Cut out zone name
+    zpath="$(echo "${zone}" | cut -d: -f2)"
+    zone="$(echo "${zone}" | cut -d: -f1)"
+
+    # Populate ${zone} element of filtered application groups
+    zone_app_groups["${zone}"]="$(zlogin ${zone} 'getent group' 2>/dev/null |
+      nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
+        -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}')"
+
+    # Populate ${zone} element of filtered application users
+    zone_app_users["${zone}"]="$(zlogin ${zone} 'getent passwd' 2>/dev/null |
+      nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
+        -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}')"
+
+    # Populate ${zone} element of filtered groups
+    zone_groups["${zone}"]="$(zlogin ${zone} 'getent group' 2>/dev/null |
+      nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
+        -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}')"
+
+    # Populate ${zone} element of filtered users
+    zone_users["${zone}"]="$(zlogin ${zone} 'getent passwd' 2>/dev/null |
+      nawk -F: -v min=${user_acct_range['min']} -v max=${user_acct_range['max']} \
+        -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}')"
+  done
+fi
 
 
 # If ${change} = 1
