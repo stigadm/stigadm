@@ -9,7 +9,7 @@ whitelist+=("nogroup")
 
 # Define a range of UID/GID's to associate with the ${application_accounts[@]} array
 #  NOTE: Application account restrictions fall under 'priv'
-declare -A appliction_acct_range
+declare -A application_acct_range
 application_acct_range['min']=100
 application_acct_range['max']=500
 
@@ -31,7 +31,7 @@ network_whitelist+=("vnic0")
 # Define an associative array of virtual nic properties
 declare -A network_properties
 network_properties["protection"]="mac-nospoof,restricted,ip-nospoof,dhcp-nospoof" # See `man dladm` for info
-network_properties["allowed-ips"]=true # Limits allowed outbound SRC datagrams on list ONLY (Acquires from configured IP's)
+network_properties["allowed-ips"]=1 # Limits allowed outbound SRC datagrams on list ONLY (Acquires from configured IP's)
 network_properties["maxbw"]="75%" # Use ${network_whitelist[@]} array to include VNIC's that need to limit bandwidth on
 
 
@@ -159,13 +159,25 @@ filter="$(echo "${whitelist[@]}" | tr ' ' '|')"
 # Get an array of application groups that are within min/max ranges
 declare -a app_groups
 app_groups=( $(getent group |
-  nawk -F: -v min="${application_acct_range['min']}" -v max="${application_acct_range['max']}" \
+  nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
     -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}') )
 
 # Get an array of application users that are within min/max ranges
 declare -a app_users
 app_users=( $(getent passwd |
-  nawk -F: -v min="${application_acct_range['min']}" -v max="${application_acct_range['max']}" \
+  nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
+    -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}') )
+
+# Get an array of groups that are within min/max ranges
+declare -a groups
+groups=( $(getent group |
+  nawk -F: -v min=${user_acct_range['min']} -v max=${user_acct_range['max']} \
+    -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}') )
+
+# Get an array of users that are within min/max ranges
+declare -a users
+users=( $(getent passwd |
+  nawk -F: -v min=${user_acct_range['min']} -v max=${user_acct_range['max']} \
     -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}') )
 
 
@@ -176,7 +188,6 @@ zones=( $(zoneadm list -civ |
 # Get current network resources
 current_network_resources=( $(get_network_resources) )
 
-echo "${current_network_resources[@]}"
 
 # Calculate percentages for the following:
 #  - CPU / [Memory | Zone] / X (Where X is the project|network limit)
