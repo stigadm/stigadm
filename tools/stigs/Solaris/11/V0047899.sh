@@ -147,18 +147,25 @@ fi
 ###############################################
 
 # Get total number of CPU's
-cpus=$(psrinfo | wc -l)
+cpus=$(psrinfo | wc -l | xargs)
 
 # Get total amount of physical memory
 memory=$(prtconf | awk '$1 ~ /Memory/{printf("%s\n", $3)}')
 
 
 # Get an array of configured zones (excluding global)
-zones=( $(zoneadm list -civ |
+zones=( $(zoneadm list -iv |
   awk 'NR > 1 && $0 !~ /global/{printf("%s:%s\n", $2, $4)}') )
 
 # Get current network resources
 current_network_resources=( $(get_network_resources) )
+
+# Populate ${zone} element of filtered IP addresses
+declare -A zone_ips
+z_ips=( $(ipadm show-addr -o addrobj,addr 2>/dev/null |
+  nawk 'NR > 1 && $1 !~ /^lo/{printf("%s:%s\n", $1, $2)}') )
+[ ${#z_ips[@]} -gt 0 ] && zone_ips["global"]="$(echo "${z_ips[@]}")"
+
 
 # Calculate percentages for the following:
 #  - CPU / [Memory | Zone] / X (Where X is the project|network limit)
@@ -208,27 +215,52 @@ if [ ${config_per_zone} -eq 1 ]; then
     zpath="$(echo "${zone}" | cut -d: -f2)"
     zone="$(echo "${zone}" | cut -d: -f1)"
 
+    # Populate ${zone} element of filtered IP addresses
+    z_ips=( $(zlogin ${zone} 'ipadm show-addr -o addrobj,addr' 2>/dev/null |
+      nawk 'NR > 1 && $1 !~ /^lo/{printf("%s:%s\n", $1, $2)}' ) )
+    [ ${#z_ips[@]} -gt 0 ] && zone_ips["${zone}"]="$(echo "${z_ips[@]}")"
+
     # Populate ${zone} element of filtered application groups
-    zone_app_groups["${zone}"]="$(zlogin ${zone} 'getent group' 2>/dev/null |
+    z_app_grps=( $(zlogin ${zone} 'getent group' 2>/dev/null) )
+    [ ${#z_app_grps[@]} -gt 0 ] && zone_app_groups["${zone}"]="$(echo "${z_app_grps[@]}" |
       nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
         -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}')"
 
     # Populate ${zone} element of filtered application users
-    zone_app_users["${zone}"]="$(zlogin ${zone} 'getent passwd' 2>/dev/null |
+    z_app_usrs=( $(zlogin ${zone} 'getent passwd' 2>/dev/null) )
+    [ ${z_app_usrs[@]} -gt 0 ] && zone_app_users["${zone}"]="$(echo "${z_app_usrs[@]}" |
       nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
         -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}')"
 
     # Populate ${zone} element of filtered groups
-    zone_groups["${zone}"]="$(zlogin ${zone} 'getent group' 2>/dev/null |
+    z_grps=( $(zlogin ${zone} 'getent group' 2>/dev/null) )
+    [ ${#z_grps[@]} -gt 0 ] && zone_groups["${zone}"]="$(echo "${z_grps[@]}" |
       nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
         -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}')"
 
     # Populate ${zone} element of filtered users
-    zone_users["${zone}"]="$(zlogin ${zone} 'getent passwd' 2>/dev/null |
+    z_usrs=( $(zlogin ${zone} 'getent passwd' 2>/dev/null) )
+    [ ${#z_usrs[@]} -gt 0 ] && zone_users["${zone}"]="$(echo "${z_usrs[@]}" |
       nawk -F: -v min=${user_acct_range['min']} -v max=${user_acct_range['max']} \
         -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}')"
   done
 fi
+
+cat <<EOF
+CPU(s): ${cpus}
+Memory: ${memory}
+
+Zones: ${#zones[@]} -> ${zones[@]}
+
+Network(s): ${#current_network_resources[@]} -> ${current_network_resources[@]}
+IP(s): ${#zone_ips[@]} - ${zone_ips[@]}
+
+Application users/groups: ${#app_groups[@]} - ${#app_users[@]}
+End users/groups: ${#groups[@]} - ${#users[@]}
+
+Zone applicaton users/groups: ${!zone_app_groups[@]} - ${!zone_app_users[@]}
+Zone end users/groups: ${!zone_groups[@]} - ${!zone_users[@]}
+EOF
 
 
 # If ${change} = 1

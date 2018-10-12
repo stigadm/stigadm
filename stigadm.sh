@@ -34,7 +34,7 @@ fi
 
 
 # Include all .sh files found in ${lib_path}
-incs=( $(ls ${lib_path}/*.sh) )
+incs=( $(find ${lib_path} -type f -name "*.sh") )
 
 # Exit if nothing is found
 if [ ${#incs[@]} -eq 0 ]; then
@@ -96,6 +96,9 @@ bootenv_dir="${cwd}/.${appname}"
 
 # Pick up the environment
 read -r os version arch <<< $(set_env)
+
+# Whos is calling? 0 = singular, 1 is as group
+caller=$(ps $PPID | grep -c stigadm)
 
 # Ensure path is robust
 PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin

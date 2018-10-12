@@ -55,7 +55,7 @@ fi
 
 
 # Include all .sh files found in ${lib_path}
-incs=("$(ls ${lib_path}/*.sh)")
+incs=( $(find ${lib_path} -type f -name "*.sh") )
 
 # Exit if nothing is found
 if [ ${#incs[@]} -eq 0 ]; then
