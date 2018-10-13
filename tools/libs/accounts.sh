@@ -1,7 +1,8 @@
 #!/bin/bash
 
 
-# UID values to determine system, applicaton or end user
+# UID/GID values to determine system, applicaton or end user
+#  Format: MIN:MAX
 sysaccts="1:99"
 appaccts="100:499"
 usraccts="500:2147483647"
@@ -11,8 +12,7 @@ usraccts="500:2147483647"
 function get_accounts()
 {
   # Test and get array of accounts
-  [ -f /etc/passwd ] &&
-    local -a accounts=( $(cat /etc/passwd | sort -t: -k1 | tr ' ' '_') )
+  local -a accounts=( $(getent passwd | sort -t: -k1 | tr ' ' '_') )
 
   echo "${accounts[@]}" && return 0
 }
@@ -54,8 +54,7 @@ function user_gid()
 function get_groups()
 {
   # Test and get array of groups
-  [ -f /etc/group ] &&
-    local -a groups=( $(cat /etc/group | sed 's/ /_/g') )
+  local -a groups=( $(getent group | sed 's/ /_/g') )
 
   echo "${groups[@]}" && return 0
 }
