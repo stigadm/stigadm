@@ -7,7 +7,6 @@
 author=
 arch=
 change=0
-debug=1
 ext="json"
 hostname="$(hostname)"
 os=
@@ -165,6 +164,3 @@ module_footer="${templates}/stig-footer.${ext}"
 report_header="${templates}/report-header.${ext}"
 report_footer="${templates}/report-footer.${ext}"
 
-
-# Reset debugging
-[ ${debug} -eq 1 ] && set +x

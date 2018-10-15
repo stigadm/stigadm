@@ -65,7 +65,6 @@ bootenv=0
 change=0
 count=0
 classification=
-debug=0
 ext="json"
 flags=
 interactive=0
@@ -180,7 +179,6 @@ while getopts "a:bcdhijl:rC:O:L:V:vx" OPTION ; do
     a) author=$OPTARG ;;
     b) bootenv=1 ;;
     c) change=1 ;;
-    d) debug=1 ;;
     h) report && exit 1 ;;
     i) interactive=1 ;;
     j) ext="json" ;;
@@ -195,12 +193,6 @@ while getopts "a:bcdhijl:rC:O:L:V:vx" OPTION ; do
     ?) report && exit 1 ;;
   esac
 done
-
-
-###############################################
-# Handle debugging right away
-###############################################
-[ ${debug} -eq 1 ] && set -x
 
 
 ###############################################

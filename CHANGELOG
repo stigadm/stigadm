@@ -1,3 +1,125 @@
+commit bb28e309a89c9aee2206b20715ff32c0b9ac0253
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Oct 13 07:41:13 2018 -0600
+
+    v0.1.3: Added realpathlib.sh as replacement for readlink
+
+commit 648a7a1184413a02c1a904daba2ad673187a6409
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Oct 12 04:59:47 2018 -0600
+
+    v0.1.3: realpathlib, fix for included libs etc
+
+commit 0f7d3d3101847ac12bf14848e5c721253978f44d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Oct 8 21:42:57 2018 -0600
+
+    v0.1.3: V0047899: Per zone users/groups per filter
+
+commit 8204ad60d1424fd82e1ec772925e0484445f7c6a
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Oct 8 21:07:20 2018 -0600
+
+    v0.1.3: V0047899: Fix for associative array variable name
+
+commit 400e76b06dd38671ea54adcfd542181111254134
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Mon Oct 8 10:41:20 2018 -0600
+
+    v0.1.3: V0047899: Filtering users/groups for application ranges in order to apply restrictions per priv
+
+commit e2943d5f98a0470c0b624f0a0a64a1ef84847352
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Oct 7 19:08:39 2018 -0600
+
+    v0.1.3: V0047899: Reordered variables; migrated recursive property query for network devices into env.sh
+
+commit 975f6607b228c0c68dae6125274e7bb3ab8c321a
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Oct 7 15:06:51 2018 -0600
+
+    v0.1.3: Re-added debugging functionality
+
+commit 521a73c58407f0ff19aa1d2e2a690b6c6b4b13e4
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sun Oct 7 14:49:49 2018 -0600
+
+    v0.1.3: README, stigadm.sh & V0047899.sh:
+    - Updates to README reflecting removal of -A; no plans to support application specific STIG
+    - Removed -A option from stigadm.sh
+    - Information gathering for network resources
+
+commit 845d888593ee48c8d62e0f653bc974a3596eccb6
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Oct 6 16:43:22 2018 -0600
+
+    v0.1.3: V0047899: EOD placeholder part duex
+
+commit 746d1d800147d12fd315318e7a5b9ac4c8ace88d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Oct 6 16:31:55 2018 -0600
+
+    v0.1.3: V0047899: EOD placeholder
+
+commit 4915ebc8e8b4bbd1f36318ba599fcd9da53104da
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Oct 6 10:55:15 2018 -0600
+
+    v0.1.3: V0047899: Placeholder
+
+commit 66d1ee10c6b9c50fae56f1ccb73d1a7d9869b989
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Sat Oct 6 10:26:52 2018 -0600
+
+    v0.1.3: V0047899: In progress:
+    - Defined the following resource restrictions:
+      - UID/GID range for projects group resource management
+      - Whitelist of applicable users/groups
+      - Application only account resource limitations
+      - End user only account resource limitations
+      - Per zone user/group (both application/end users) resource limitations
+      - Per network interface (whitelist) security protections & bandwidth limits
+
+commit 4f1e74c807e2acf690ce488e46509b69afb6c98b
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Oct 5 21:13:13 2018 -0600
+
+    v0.1.3: V0047897: Migrated to new API; validated validation & remediation
+
+commit 816031eb7570ff322f833fd4246fcea906405b76
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Oct 5 20:36:14 2018 -0600
+
+    v0.1.3: V0047895
+
+commit bc4ca63a8c5a1210af18181276d77d94b5b643f6
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Oct 5 18:57:55 2018 -0600
+
+    v0.1.3: stigadm.sh, bootstrap.sh:
+    - Added support for debugging
+
+commit 207df2825bd88c2a7f220eb2f88ba0e7efe7ffc6
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Oct 5 18:39:22 2018 -0600
+
+    v0.1.3: stigadm.sh, pkgs.sh & V0047893:
+    - Fix for stigadm.sh edit from law enforcement weenies
+    - Fixes, changes to pkg list for solaris
+    - Migration to new API; validation & remediation for V0047893
+
+commit fa2a5f63c50675afabe7b094349db1c7dc583046
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Oct 4 17:55:07 2018 -0600
+
+    v0.1.3: README
+
+commit 47c3ff084f4fb87e9b79c0b0013373a94bd29ef1
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Oct 4 17:50:19 2018 -0600
+
+    v0.1.3: README & CHANGELOG
+
 commit 1ad7d8df727971ecc3d2fc83041aad2ae1647a24
 Author: jas- <Jason.Gerfen@gmail.com>
 Date:   Thu Oct 4 17:44:30 2018 -0600
