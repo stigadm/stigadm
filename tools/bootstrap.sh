@@ -87,7 +87,6 @@ while getopts "ha:cdjl:rvx" OPTION ; do
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
-    d) debug=1 ;;
     j) ext="json" ;;
     l) log=$OPTARG ;;
     r) restore=1 ;;
@@ -163,4 +162,3 @@ module_footer="${templates}/stig-footer.${ext}"
 # Define variable for stigadm report
 report_header="${templates}/report-header.${ext}"
 report_footer="${templates}/report-footer.${ext}"
-

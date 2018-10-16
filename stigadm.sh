@@ -174,7 +174,7 @@ fi
 
 
 # Set variables
-while getopts "a:bcdhijl:rC:O:L:V:vx" OPTION ; do
+while getopts "a:bchijl:rC:O:L:V:vx" OPTION ; do
   case $OPTION in
     a) author=$OPTARG ;;
     b) bootenv=1 ;;
@@ -299,10 +299,6 @@ fi
 [ "${ext}" == "xml" ] && flags="${flags} -x"
 
 
-# If ${debug} is enabled pass it on
-[ ${debug} -eq 1 ] && flags="${flags} -d"
-
-
 # Tell each module which ${log} to append
 flags="${flags} -l ${log}"
 
@@ -424,7 +420,7 @@ for stig in ${stigs[@]}; do
   stig_name="$(basename ${stig} | cut -d. -f1)"
 
   # Capture results from ${stig} ${flags} execution
-  ./${stig} ${flags}
+  /bin/bash ./${stig} ${flags}
 
   # Capture any errors
   [ $? -ne 0 ] && errors+=("${stig_name}")
@@ -467,12 +463,6 @@ report_footer
 
 # Print ${log}
 cat ${log}
-
-
-###############################################
-# Handle debugging right away
-###############################################
-[ ${debug} -eq 1 ] && set +x
 
 
 ###############################################
