@@ -178,7 +178,7 @@ for stig in ${stigs[@]}; do
     description="$(echo "${blob}" | cut -d: -f7 | tr '~' ' ')"
 
     # If ${description} matches an OS use ${title} as the ${description}
-    if [ $(echo "${description}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris') -eq 1 ]; then
+    if [ $(echo "${description}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris|Ubuntu') -eq 1 ]; then
       description="${title}"
     fi
 
@@ -192,7 +192,7 @@ for stig in ${stigs[@]}; do
     col=9
 
     # If ${os} doesn't matche an OS use column 7
-    if [ $(echo "${os}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris') -eq 0 ]; then
+    if [ $(echo "${os}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris|Ubuntu') -eq 0 ]; then
 
       # Set the ${os} from ${blob}
       os="$(echo "${blob}" | cut -d: -f7)"
@@ -200,7 +200,7 @@ for stig in ${stigs[@]}; do
     fi
 
     # Skip if ${os} or ${version} aren't right
-    [ $(echo "${os}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris') -eq 0 ] && continue
+    [ $(echo "${os}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris|Ubuntu') -eq 0 ] && continue
 
 
     # Get the OS version from ${blob}
