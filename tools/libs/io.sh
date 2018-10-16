@@ -64,8 +64,11 @@ function get_inode()
   # If ${file} is a link
   if [[ -h ${inode} ]] || [[ -L ${inode} ]]; then
 
-    # Attempt to follow link
+    # Attempt to follow link using readlink
     inode="$(readlink -e ${inode})"
+
+    # Try realpath
+    [ "${inode}" == "" ] && inode="$(realpath ${inode})"
 
     # Test for null & return code
     if [ "${inode}" == "" ]; then

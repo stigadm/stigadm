@@ -1,75 +1,84 @@
 #!/bin/bash
 
+# Define an whitelist of accounts to ignore
+declare -a whitelist
+whitelist+=("root")
+whitelist+=("nobody")
+whitelist+=("noaccess")
+whitelist+=("nogroup")
+
+# Define a range of UID/GID's to associate with the ${application_accounts[@]} array
+#  NOTE: Application account restrictions fall under 'priv'
+declare -A application_acct_range
+application_acct_range['min']=100
+application_acct_range['max']=500
+
+# Define a range of UID's to associat with the ${user_accounts[@]} array
+#  NOTE: Application account restrictions fall under 'basic'
+declare -A user_acct_range
+user_acct_range['min']=501
+user_acct_range['max']=2147483647
+
 
 # Boolean true/false to set properties per configured zone
-config_per_zone="true"
+config_per_zone=1
 
+# Define a whitelist of VNIC's to include for resource limitations from ${network_properties[@]}
+#  NOTE: This also filters existing interfaces from zones if ${config_per_zone} is true
+declare -a network_whitelist
+network_whitelist+=("vnic0")
 
-# Set some default actions
-priv_level="priv"
-log_level="warning"
-action="deny"
-
-
-# Define a log level for rctladm
-log_level="syslog"
+# Define an associative array of virtual nic properties
+declare -A network_properties
+network_properties["protection"]="mac-nospoof,restricted,ip-nospoof,dhcp-nospoof" # See `man dladm` for info
+network_properties["allowed-ips"]=1 # Limits allowed outbound SRC datagrams on list ONLY (Acquires from configured IP's)
+network_properties["maxbw"]="75%" # Use ${network_whitelist[@]} array to include VNIC's that need to limit bandwidth on
 
 
 # An associative array of project attributes for application user accounts
 declare -A application_accounts
-application_accounts["process.max-file-descriptor"]=16000
-application_accounts["process.max-stack-size"]="70%"
-application_accounts["process.max-address-space"]="60%"
-application_accounts["project.max-locked-memory"]="65%"
+application_accounts["process.max-file-descriptor"]=64000
+application_accounts["process.max-stack-size"]="80%"
+application_accounts["process.max-address-space"]="90%"
+application_accounts["project.max-locked-memory"]="80%"
 application_accounts["project.cpu-shares"]="80%"
 application_accounts["project.max-shm-ids"]=64000
-application_accounts["project.max-shm-memory"]="75%"
-application_accounts["project.max-tasks"]=32000
-application_accounts["project.max-lwps"]=32000
-application_accounts["task.max-processes"]=16000
+application_accounts["project.max-shm-memory"]="80%"
+application_accounts["project.max-tasks"]=64000
+application_accounts["project.max-lwps"]=64000
+application_accounts["task.max-processes"]=64000
 
 
 # An associative array of project attributes for end user accounts
 declare -A user_accounts
-user_accounts["process.max-file-descriptor"]=16000
-user_accounts["process.max-stack-size"]="50%"
-user_accounts["process.max-address-space"]="50%"
-user_accounts["project.cpu-shares"]="60%"
-user_accounts["project.max-locked-memory"]="40%"
-user_accounts["project.max-shm-ids"]=16000
-user_accounts["project.max-shm-memory"]="60%"
-user_accounts["project.max-tasks"]=16000
-user_accounts["project.max-lwps"]=16000
-user_accounts["task.max-processes"]=16000
+user_accounts["process.max-file-descriptor"]=32000
+user_accounts["process.max-stack-size"]="75%"
+user_accounts["process.max-address-space"]="75%"
+user_accounts["project.cpu-shares"]="75%"
+user_accounts["project.max-locked-memory"]="75%"
+user_accounts["project.max-shm-ids"]=32000
+user_accounts["project.max-shm-memory"]="75%"
+user_accounts["project.max-tasks"]=32000
+user_accounts["project.max-lwps"]=32000
+user_accounts["task.max-processes"]=32000
 
 
 # An associative array of zone specific project limits
 declare -A zone_limits
-zone_limits["zone.cpu-shares"]="75%"
+zone_limits["zone.cpu-shares"]="80%"
 zone_limits["zone.max-lofi"]=8
-zone_limits["zone.max-lwps"]=32000
+zone_limits["zone.max-lwps"]=64000
 zone_limits["zone.max-processes"]=64000
 zone_limits["zone.max-shm-ids"]=64000
-zone_limits["zone.max-shm-memory"]="75%"
-zone_limits["zone.max-swap"]="70%"
+zone_limits["zone.max-shm-memory"]="80%"
+zone_limits["zone.max-swap"]="80%"
 
 
-# Define an associative array of virtual nic properties
-declare -A network_properties
-network_properties["zone"]="true" # Limit VNIC to zone where zone is configured to use vnic
-network_properties["protection"]="mac-nospoof,restricted,ip-nospoof,dhcp-nospoof" # See `man dladm` for info
-network_properties["allowed-ips"]="true" # Limits allowed outbound SRC datagrams on list ONLY (Acquires from configured IP's)
-network_properties["maxbw"]="75%" # Use ${network_whitelist[@]} array to exclude VNIC's, otherwise limit bandwidth
+# Define a log level for resource exceptions
+log_level="warning"
 
-
-# Define an whitelist of accounts to ignore
-declare -a whitelist
-whitelist+=("root")
-
-
-# Define a whitelist of VNIC's to exclude from ${network_properties[@]}
-declare -a network_whitelist
-network_whitelist+=("vnic1")
+# What action should the OS take on a resource exception?
+action="deny"
 
 
 # Define the project file
@@ -80,133 +89,178 @@ file=/etc/project
 nsswitch=/etc/nsswitch.conf
 
 
-# Global defaults for tool
-author=
-change=0
-json=1
-meta=0
-restore=0
-interactive=0
-xml=0
+###############################################
+# Bootstrapping environment setup
+###############################################
+
+# Get our working directory
+cwd="$(pwd)"
+
+# Define our bootstrapper location
+bootstrap="${cwd}/tools/bootstrap.sh"
+
+# Bail if it cannot be found
+if [ ! -f ${bootstrap} ]; then
+  echo "Unable to locate bootstrap; ${bootstrap}" && exit 1
+fi
+
+# Load our bootstrap
+source ${bootstrap}
 
 
-# Working directory
-cwd="$(dirname $0)"
+###############################################
+# Global zones only check
+###############################################
 
-# Tool name
-prog="$(basename $0)"
-
-
-# Copy ${prog} to DISA STIG ID this tool handles
-stigid="$(echo "${prog}" | cut -d. -f1)"
-
-
-# Ensure path is robust
-PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-
-
-# Define the library include path
-lib_path=${cwd}/../../../libs
-
-# Define the tools include path
-tools_path=${cwd}/../../../stigs
-
-# Define the system backup path
-backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
-
-
-# Robot, do work
-
-
-# Error if the ${inc_path} doesn't exist
-if [ ! -d ${lib_path} ] ; then
-  echo "Defined library path doesn't exist (${lib_path})" && exit 1
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  report "${stigid} only applies to global zones" && exit 1
 fi
 
 
-# Include all .sh files found in ${lib_path}
-incs=($(ls ${lib_path}/*.sh))
+###############################################
+# Metrics start
+###############################################
 
-# Exit if nothing is found
-if [ ${#incs[@]} -eq 0 ]; then
-  echo "'${#incs[@]}' libraries found in '${lib_path}'" && exit 1
-fi
+# Get EPOCH
+s_epoch="$(gen_epoch)"
 
+# Create a timestamp
+timestamp="$(gen_date)"
 
-# Iterate ${incs[@]}
-for src in ${incs[@]}; do
-
-  # Make sure ${src} exists
-  if [ ! -f ${src} ]; then
-    echo "Skipping '$(basename ${src})'; not a real file (block device, symlink etc)"
-    continue
-  fi
-
-  # Include $[src} making any defined functions available
-  source ${src}
-
-done
+# Whos is calling? 0 = singular, 1 is as group
+caller=$(ps $PPID | grep -c stigadm)
 
 
-# Ensure we have permissions
-if [ $UID -ne 0 ] ; then
-  usage "Requires root privileges" && exit 1
-fi
-
-
-# Set variables
-while getopts "ha:cjmvrix" OPTION ; do
-  case $OPTION in
-    h) usage && exit 1 ;;
-    a) author=$OPTARG ;;
-    c) change=1 ;;
-    j) json=1 ;;
-    m) meta=1 ;;
-    r) restore=1 ;;
-    i) interactive=1 ;;
-    x) xml=1 ;;
-    ?) usage && exit 1 ;;
-  esac
-done
-
-
-# Make sure we have an author if we are not restoring or validating
-if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
-  usage "Must specify an author name (use -a <initials>)" && exit 1
-fi
-
-# If ${meta} is true
-if [ ${meta} -eq 1 ]; then
-
-  # Print meta data
-  get_meta_data "${cwd}" "${prog}"
-fi
-
+###############################################
+# Perform restoration
+###############################################
 
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
-
-  # If ${interactive} = 1 go to interactive restoration mode
-  if [ ${interactive} -eq 1 ]; then
-
-    # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
-
-  fi
-
-  # Print friendly message regarding restoration mode
-  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
-
-  exit 0
+  report "Not yet implemented" && exit 1
 fi
 
 
+###############################################
+# STIG validation/remediation
+###############################################
+
 # Get total number of CPU's
+cpus=$(psrinfo | wc -l | xargs)
+
 # Get total amount of physical memory
-# Get number of configured zones
+memory=$(prtconf | awk '$1 ~ /Memory/{printf("%s\n", $3)}')
+
+
+# Get an array of configured zones (excluding global)
+zones=( $(zoneadm list -iv |
+  awk 'NR > 1 && $0 !~ /global/{printf("%s:%s\n", $2, $4)}') )
+
+# Get current network resources
+current_network_resources=( $(get_network_resources) )
+
+# Populate ${zone} element of filtered IP addresses
+declare -A zone_ips
+z_ips=( $(ipadm show-addr -o addrobj,addr 2>/dev/null |
+  nawk 'NR > 1 && $1 !~ /^lo/{printf("%s:%s\n", $1, $2)}') )
+[ ${#z_ips[@]} -gt 0 ] && zone_ips["global"]="$(echo "${z_ips[@]}")"
+
 
 # Calculate percentages for the following:
 #  - CPU / [Memory | Zone] / X (Where X is the project|network limit)
+
+
+# Create an exclude filter of users/groups from ${whitelist[@]}
+filter="$(echo "${whitelist[@]}" | tr ' ' '|')"
+
+# Get an array of application groups that are within min/max ranges
+declare -a app_groups
+app_groups=( $(getent group |
+  nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
+    -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}') )
+
+# Get an array of application users that are within min/max ranges
+declare -a app_users
+app_users=( $(getent passwd |
+  nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
+    -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}') )
+
+# Get an array of groups that are within min/max ranges
+declare -a groups
+groups=( $(getent group |
+  nawk -F: -v min=${user_acct_range['min']} -v max=${user_acct_range['max']} \
+    -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}') )
+
+# Get an array of users that are within min/max ranges
+declare -a users
+users=( $(getent passwd |
+  nawk -F: -v min=${user_acct_range['min']} -v max=${user_acct_range['max']} \
+    -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}') )
+
+
+# If ${config_per_zone} is true
+if [ ${config_per_zone} -eq 1 ]; then
+
+  # Define associative arrays to handle per zone configs
+  declare -A zone_app_groups
+  declare -A zone_app_users
+  declare -A zone_groups
+  declare -A zone_users
+
+  # Iterate ${zones[@]}
+  for zone in ${zones[@]}; do
+
+    # Cut out zone name
+    zpath="$(echo "${zone}" | cut -d: -f2)"
+    zone="$(echo "${zone}" | cut -d: -f1)"
+
+    # Populate ${zone} element of filtered IP addresses
+    z_ips=( $(zlogin ${zone} 'ipadm show-addr -o addrobj,addr' 2>/dev/null |
+      nawk 'NR > 1 && $1 !~ /^lo/{printf("%s:%s\n", $1, $2)}' ) )
+    [ ${#z_ips[@]} -gt 0 ] && zone_ips["${zone}"]="$(echo "${z_ips[@]}")"
+
+    # Populate ${zone} element of filtered application groups
+    z_app_grps=( $(zlogin ${zone} 'getent group' 2>/dev/null) )
+    [ ${#z_app_grps[@]} -gt 0 ] && zone_app_groups["${zone}"]="$(echo "${z_app_grps[@]}" |
+      nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
+        -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}')"
+
+    # Populate ${zone} element of filtered application users
+    z_app_usrs=( $(zlogin ${zone} 'getent passwd' 2>/dev/null) )
+    [ ${z_app_usrs[@]} -gt 0 ] && zone_app_users["${zone}"]="$(echo "${z_app_usrs[@]}" |
+      nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
+        -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}')"
+
+    # Populate ${zone} element of filtered groups
+    z_grps=( $(zlogin ${zone} 'getent group' 2>/dev/null) )
+    [ ${#z_grps[@]} -gt 0 ] && zone_groups["${zone}"]="$(echo "${z_grps[@]}" |
+      nawk -F: -v min=${application_acct_range['min']} -v max=${application_acct_range['max']} \
+        -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}')"
+
+    # Populate ${zone} element of filtered users
+    z_usrs=( $(zlogin ${zone} 'getent passwd' 2>/dev/null) )
+    [ ${#z_usrs[@]} -gt 0 ] && zone_users["${zone}"]="$(echo "${z_usrs[@]}" |
+      nawk -F: -v min=${user_acct_range['min']} -v max=${user_acct_range['max']} \
+        -v filter="${filter}" '$3 >= min && $3 <= max && $1 !~ filter{printf("%s\n", $1)}')"
+  done
+fi
+
+cat <<EOF
+CPU(s): ${cpus}
+Memory: ${memory}
+
+Zones: ${#zones[@]} -> ${zones[@]}
+
+Network(s): ${#current_network_resources[@]} -> ${current_network_resources[@]}
+IP(s): ${#zone_ips[@]} - ${zone_ips[@]}
+
+Application users/groups: ${#app_groups[@]} - ${#app_users[@]}
+End users/groups: ${#groups[@]} - ${#users[@]}
+
+Zone applicaton users/groups: ${!zone_app_groups[@]} - ${!zone_app_users[@]}
+Zone end users/groups: ${!zone_groups[@]} - ${!zone_users[@]}
+EOF
 
 
 # If ${change} = 1
@@ -219,47 +273,82 @@ if [ ${change} -eq 1 ]; then
   #bu_configuration "${backup_path}" "${author}" "${stigid}" "$(echo "${pkgs[@]}" | tr ' ' '\n')"
   if [ $? -ne 0 ]; then
 
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Snapshot of broken packages failed..." 1
+    # Verbose
+    report "Snapshot of broken packages failed..." 1
 
     # Stop, we require a backup
     exit 1
   fi
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Created snapshot of broken packages"
 fi
 
+
+###############################################
+# Results for printable report
+###############################################
 
 # If ${#errors[@]} > 0
 if [ ${#errors[@]} -gt 0 ]; then
 
-  # Print friendly success
-  [ ${verbose} -eq 1 ] && print "Does not conform to '${stigid}'" 1
+  # Set ${results} error message
+  results="Failed validation"
+fi
 
-  # Iterate ${errors[@]}
-  for error in ${errors[@]}; do
+# Set ${results} passed message
+[ ${#errors[@]} -eq 0 ] && results="Passed validation"
 
-    key="$(echo "${error}" | cut -d: -f1,2)"
-    inode="$(echo "${error}" | cut -d: -f3)"
-    flag="$(echo "${error}" |  cut -d: -f4)"
-    cvalue="$(echo "${error}" | cut -d: -f5)"
-    value="$(echo "${error}" | cut -d: -f6)"
 
-    # Print friendly success
-    [ ${verbose} -eq 1 ] && print "  Package: ${key}" 1
-    [ ${verbose} -eq 1 ] && print "    Inode: ${inode}" 1
-    [ ${verbose} -eq 1 ] && print "      Type: ${type} ${cvalue} [${value}]" 1
-  done
+###############################################
+# Report generation specifics
+###############################################
 
-  exit 1
+# Apply some values expected for report footer
+[ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -gt 0 ] && failed=1 || failed=0
+
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${passed} ${failed})
+
+
+# If the caller was only independant
+if [ ${caller} -eq 0 ]; then
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Generate the report
+  report "${results}"
+
+  # Display the report
+  cat ${log}
+else
+
+  # Since we were called from stigadm
+  module_header "${results}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Finish up the module specific report
+  module_footer
 fi
 
 
-# Print friendly success
-[ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
+###############################################
+# Return code for larger report
+###############################################
 
-exit 0
+# Return an error/success code (0/1)
+exit ${#errors[@]}
 
 
 # Date: 2017-06-21

@@ -34,7 +34,7 @@ fi
 
 
 # Include all .sh files found in ${lib_path}
-incs=( $(ls ${lib_path}/*.sh) )
+incs=( $(find ${lib_path} -type f -name "*.sh") )
 
 # Exit if nothing is found
 if [ ${#incs[@]} -eq 0 ]; then
@@ -65,7 +65,6 @@ bootenv=0
 change=0
 count=0
 classification=
-debug=0
 ext="json"
 flags=
 interactive=0
@@ -96,6 +95,9 @@ bootenv_dir="${cwd}/.${appname}"
 
 # Pick up the environment
 read -r os version arch <<< $(set_env)
+
+# Whos is calling? 0 = singular, 1 is as group
+caller=$(ps $PPID | grep -c stigadm)
 
 # Ensure path is robust
 PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
@@ -137,9 +139,6 @@ Usage ./${appname} [options]
       Supported: [${version_list}]
 
   Filters:
-    -A  Application
-      Supported: [Not yet implemented]
-
     -C  Classification
       Supported: [CAT-I|CAT-II|CAT-III]
 
@@ -175,12 +174,11 @@ fi
 
 
 # Set variables
-while getopts "a:bcdhijl:rC:O:L:V:vx" OPTION ; do
+while getopts "a:bchijl:rC:O:L:V:vx" OPTION ; do
   case $OPTION in
     a) author=$OPTARG ;;
     b) bootenv=1 ;;
     c) change=1 ;;
-    d) debug=1 ;;
     h) report && exit 1 ;;
     i) interactive=1 ;;
     j) ext="json" ;;
@@ -195,12 +193,6 @@ while getopts "a:bcdhijl:rC:O:L:V:vx" OPTION ; do
     ?) report && exit 1 ;;
   esac
 done
-
-
-###############################################
-# Handle debugging right away
-###############################################
-#[ ${debug} -eq 1 ] && set -x || set +x
 
 
 ###############################################
@@ -305,10 +297,6 @@ fi
 
 # Use XML templates if requested
 [ "${ext}" == "xml" ] && flags="${flags} -x"
-
-
-# If ${debug} is enabled pass it on
-[ ${debug} -eq 1 ] && flags="${flags} -d"
 
 
 # Tell each module which ${log} to append
@@ -432,7 +420,7 @@ for stig in ${stigs[@]}; do
   stig_name="$(basename ${stig} | cut -d. -f1)"
 
   # Capture results from ${stig} ${flags} execution
-  ./${stig} ${flags}
+  /bin/bash ./${stig} ${flags}
 
   # Capture any errors
   [ $? -ne 0 ] && errors+=("${stig_name}")
@@ -473,13 +461,13 @@ seconds=$(subtract ${s_epoch} ${e_epoch})
 
 report_footer
 
+# Print ${log}
+cat ${log}
+
 
 ###############################################
 # Exit with the number of errors found
 ###############################################
-
-# Print ${log}
-cat ${log}
 
 # Exit with the number of errors
 exit ${#errors[@]}

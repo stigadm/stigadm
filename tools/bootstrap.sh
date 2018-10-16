@@ -2,11 +2,11 @@
 
 # Bootstrapper
 
+
 # Global defaults for tool
 author=
 arch=
 change=0
-debug=1
 ext="json"
 hostname="$(hostname)"
 os=
@@ -54,7 +54,7 @@ fi
 
 
 # Include all .sh files found in ${lib_path}
-incs=("$(ls ${lib_path}/*.sh)")
+incs=( $(find ${lib_path} -type f -name "*.sh") )
 
 # Exit if nothing is found
 if [ ${#incs[@]} -eq 0 ]; then
@@ -87,7 +87,6 @@ while getopts "ha:cdjl:rvx" OPTION ; do
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
     c) change=1 ;;
-    d) debug=1 ;;
     j) ext="json" ;;
     l) log=$OPTARG ;;
     r) restore=1 ;;
@@ -96,10 +95,6 @@ while getopts "ha:cdjl:rvx" OPTION ; do
     ?) report "Argument parsing error" && exit 1 ;;
   esac
 done
-
-
-# Enable debugging
-#[ ${debug} -eq 1 ] && set -x || set +x
 
 
 # Create a timestamp
