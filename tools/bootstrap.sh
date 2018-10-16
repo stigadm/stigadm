@@ -82,7 +82,7 @@ fi
 
 
 # Set variables
-while getopts "ha:cdjl:rvx" OPTION ; do
+while getopts "ha:cjl:rvx" OPTION ; do
   case $OPTION in
     h) usage && exit 1 ;;
     a) author=$OPTARG ;;
