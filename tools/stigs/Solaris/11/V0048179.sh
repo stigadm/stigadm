@@ -17,7 +17,6 @@ restore=0
 interactive=0
 xml=0
 
-
 # Working directory
 cwd="$(dirname $0)"
 

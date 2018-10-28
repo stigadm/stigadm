@@ -14,7 +14,6 @@ tools/libs/accounts.sh;775;jas;jas
 tools/libs/backup.sh;751;jas;jas
 tools/libs/bootenv.sh;751;jas;jas
 tools/libs/common.sh;751;jas;jas
-tools/libs/contrib/realpathlib.sh;664;jas;jas
 tools/libs/datetime.sh;751;jas;jas
 tools/libs/env.sh;775;jas;jas
 tools/libs/io.sh;775;jas;jas

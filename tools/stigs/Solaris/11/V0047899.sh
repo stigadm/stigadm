@@ -246,21 +246,21 @@ if [ ${config_per_zone} -eq 1 ]; then
   done
 fi
 
-cat <<EOF
-CPU(s): ${cpus}
-Memory: ${memory}
+#cat <<EOF
+#CPU(s): ${cpus}
+#Memory: ${memory}
 
-Zones: ${#zones[@]} -> ${zones[@]}
+#Zones: ${#zones[@]} -> ${zones[@]}
 
-Network(s): ${#current_network_resources[@]} -> ${current_network_resources[@]}
-IP(s): ${#zone_ips[@]} - ${zone_ips[@]}
+#Network(s): ${#current_network_resources[@]} -> ${current_network_resources[@]}
+#IP(s): ${#zone_ips[@]} - ${zone_ips[@]}
 
-Application users/groups: ${#app_groups[@]} - ${#app_users[@]}
-End users/groups: ${#groups[@]} - ${#users[@]}
+#Application users/groups: ${#app_groups[@]} - ${#app_users[@]}
+#End users/groups: ${#groups[@]} - ${#users[@]}
 
-Zone applicaton users/groups: ${!zone_app_groups[@]} - ${!zone_app_users[@]}
-Zone end users/groups: ${!zone_groups[@]} - ${!zone_users[@]}
-EOF
+#Zone applicaton users/groups: ${!zone_app_groups[@]} - ${!zone_app_users[@]}
+#Zone end users/groups: ${!zone_groups[@]} - ${!zone_users[@]}
+#EOF
 
 
 # If ${change} = 1
