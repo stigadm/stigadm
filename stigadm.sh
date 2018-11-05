@@ -12,26 +12,29 @@
 ###############################################
 
 # Current working directory
-cwd="$(dirname "$0")"
+cwd="$(dirname $0)"
 
 # Path for assets
-assets="${cwd}/tools/stigs/"
+assets=${cwd}/tools/stigs/
 
 # Define the library include path
-lib_path="${cwd}/tools/libs"
+lib_path=${cwd}/tools/libs
 
 # Define the library template path(s)
-templates="${cwd}/tools/templates/"
+templates=${cwd}/tools/templates/
+
+# Define the system backup path
+backup_path=${cwd}/tools/backups/$(uname -n | awk '{print tolower($0)}')
 
 
 # Error if the ${inc_path} doesn't exist
-if [ ! -d "${lib_path}" ] ; then
+if [ ! -d ${lib_path} ] ; then
   echo "Defined library path doesn't exist (${lib_path})" && exit 1
 fi
 
 
 # Include all .sh files found in ${lib_path}
-incs=( $(find "${lib_path}" -type f -name "*.sh") )
+incs=( $(find ${lib_path} -type f -name "*.sh") )
 
 # Exit if nothing is found
 if [ ${#incs[@]} -eq 0 ]; then
@@ -40,14 +43,15 @@ fi
 
 
 # Iterate ${incs[@]}
-for src in "${incs[@]}"; do
+for src in ${incs[@]}; do
 
   # Make sure ${src} exists & is executable
-  [ ! -f "${src}" ] &&
+  if [[ ! -f ${src} ]] && [[ ! -x ${src} ]]; then
     continue
+  fi
 
   # Include $[src} making any defined functions available
-  source "${src}"
+  source ${src}
 done
 
 
@@ -59,9 +63,11 @@ done
 author=
 bootenv=0
 change=0
-classification="ALL"
+count=0
+classification=
 ext="json"
 flags=
+interactive=0
 os=
 restore=0
 version=
@@ -76,7 +82,7 @@ declare -a stigs
 stigs=()
 
 # Tool name
-prog="$(basename "$0")"
+prog="$(basename $0)"
 
 # Copy ${prog} to ${appname} for friendly messages
 appname="$(echo "${prog}" | cut -d. -f1)"
@@ -86,14 +92,12 @@ timestamp="$(gen_date)"
 
 # Default bootenv directory
 bootenv_dir="${cwd}/.${appname}"
-export bootenv_dir
 
 # Pick up the environment
 read -r os version arch <<< $(set_env)
 
 # Whos is calling? 0 = singular, 1 is as group
 caller=$(ps $PPID | grep -c stigadm)
-export caller
 
 # Ensure path is robust
 PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
@@ -107,12 +111,10 @@ PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 function usage()
 {
   # Gather list of available supported OS's
-  local os_list
-  os_list="$(get_os "${assets}")"
+  local os_list="$(get_os ${assets})"
 
   # Gather list of available supported versions (non-os dependent)
-  local version_list
-  version_list="$(get_version "${assets}")"
+  local version_list="$(get_version ${assets})"
 
 
   # Handle error if present
@@ -178,6 +180,7 @@ while getopts "a:bchijl:rC:O:L:V:vx" OPTION ; do
     b) bootenv=1 ;;
     c) change=1 ;;
     h) report && exit 1 ;;
+    i) interactive=1 ;;
     j) ext="json" ;;
     l) log=$OPTARG ;;
     r) restore=1 ;;
@@ -201,46 +204,42 @@ done
 log="${log:=/var/log/${appname}/$(hostname)-${os}-${version}-${arch}-${timestamp}.${ext:=json}}"
 
 # If ${log} doesn't exist make it
-if [ ! -f "${log}" ]; then
-  mkdir -m 700 -p "$(dirname "${log}")"
-  touch "${log}"
-  chmod 400 "${log}"
+if [ ! -f ${log} ]; then
+  mkdir -m 700 -p $(dirname ${log})
+  touch ${log}
+  chmod 400 ${log}
 fi
 
 # Re-define the ${templates} based on ${ext}
 templates="${templates}/${ext}"
 
 # Bail if ${templates} is not a folder
-if [ ! -d "${templates}" ]; then
+if [ ! -d ${templates} ]; then
   report "Could not find a templates directory for report generation" && exit 1
 fi
 
 # Make sure there are template files available in ${templates}
-if [ $(ls "${templates}" | wc -l) -lt 4 ]; then
+if [ $(ls ${templates} | wc -l) -lt 4 ]; then
   report "Could not find the necessary reporting templates" && exit 1
 fi
 
 # Make sure our report exists
-if [[ ! -f "${templates}/report-header.${ext}" ]] || [[ ! -f "${templates}/report-footer.${ext}" ]]; then
+if [[ ! -f ${templates}/report-header.${ext} ]] || [[ ! -f ${templates}/report-footer.${ext} ]]; then
   report "The stigadm template is missing" && exit 1
 fi
 
 # Make sure our report exists
-if [[ ! -f "${templates}/stig-header.${ext}" ]] || [[ ! -f "${templates}/stig-footer.${ext}" ]]; then
+if [[ ! -f ${templates}/stig-header.${ext} ]] || [[ ! -f ${templates}/stig-footer.${ext} ]]; then
   report "The STIG module template is missing" && exit 1
 fi
 
 # Define variable for module report
 module_header="${templates}/stig-header.${ext}"
 module_footer="${templates}/stig-footer.${ext}"
-export module_header
-export module_footer
 
 # Define variable for stigadm report
 report_header="${templates}/report-header.${ext}"
 report_footer="${templates}/report-footer.${ext}"
-export report_header
-export report_footer
 
 
 ###############################################
@@ -315,17 +314,16 @@ classificiation="${classification:=ALL}"
 if [ ${#stigs[@]} -eq 0 ]; then
 
   # Get complete list of stig modules
-  stigs=( $(find "${assets}/${os}/${version}" -type f -name "*.sh") )
+  stigs=( $(find ${assets}/${os}/${version} -type f -name "*.sh") )
 
   # Copy ${#stigs[@]} to ensure accurate counts
   total_stigs=${#stigs[@]}
-  export total_stigs
 
   # If ${classification} != ALL then filter ${stigs[@]} by ${classification}
   if [ "${classification}" != "ALL" ]; then
 
     # Filter ${stigs[@]} array
-    stigs=( $(echo "${stigs[@]}" | tr ' ' '\n' | xargs grep -il "Severity: ${classification}$") )
+    stigs=( $(echo "${stigs[@]}" | xargs grep -il "Severity: ${classification}$") )
   fi
 
   # If ${list} is not NULL create a filter & whittle down ${stigs[@]} with it
@@ -359,7 +357,7 @@ if [ ${#stigs[@]} -ne ${#list[@]} ]; then
   declare -a missing
 
   # Iterate ${list[@]}
-  for item in "${list[@]}"; do
+  for item in ${list[@]}; do
 
     # Look for ${item} in ${stigs[@]}
     if [ $(in_array_loose "${item}" "${stigs[@]}") -eq 1 ]; then
@@ -391,7 +389,7 @@ if [[ "$(to_lower "${os}")" == "solaris" ]] && [[ ${bootenv} -eq 1 ]] && [[ ${ch
     1) report "Could not create boot environment; ${bename}" && exit 1 ;;
     2) report "Could not activate boot environment; ${bename}" && exit 1 ;;
     3) report "Could not validate boot environment; ${bename}" && exit 1 ;;
-    0) ;; # Mount bename, copy stigadm toolkit & chroot to env FIX!!
+    0) break ;; # Mount bename, copy stigadm toolkit & chroot to env FIX!!
     ?) report "Unknown error occurred with boot env. ${bename}; ${ret}" && exit 1 ;;
   esac
 fi
@@ -413,22 +411,22 @@ report_header
 counter=${#stigs[@]}
 
 # Iterate ${stigs[@]}
-for stig in "${stigs[@]}"; do
+for stig in ${stigs[@]}; do
 
   # Decrement ${counter}
   counter=$(subtract 1 ${counter})
 
   # Get a nicer name for the ${stig} file
-  stig_name="$(basename "${stig}" | cut -d. -f1)"
+  stig_name="$(basename ${stig} | cut -d. -f1)"
 
   # Capture results from ${stig} ${flags} execution
-  /bin/bash ./"${stig}" "${flags}"
+  /bin/bash ./${stig} ${flags}
 
   # Capture any errors
   [ $? -ne 0 ] && errors+=("${stig_name}")
 
   # If necessary, append "," to ${log} for each iteration
-  [[ ${counter} -ne 0 ]] && [[ "${ext}" != "xml" ]] && echo "    ," >> "${log}"
+  [[ ${counter} -ne 0 ]] && [[ "${ext}" != "xml" ]] && echo "    ," >> ${log}
 done
 
 
@@ -464,7 +462,7 @@ seconds=$(subtract ${s_epoch} ${e_epoch})
 report_footer
 
 # Print ${log}
-cat "${log}"
+cat ${log}
 
 
 ###############################################
