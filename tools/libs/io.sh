@@ -65,10 +65,11 @@ function get_inode()
   if [[ -h ${inode} ]] || [[ -L ${inode} ]]; then
 
     # Attempt to follow link using readlink
-    inode="$(readlink -e ${inode})"
+    inode="$(readlink -e ${inode} 2>/dev/null)"
 
     # Try realpath
-    [ "${inode}" == "" ] && inode="$(realpath ${inode})"
+    [ "${inode}" == "" ] &&
+      inode="$(realpath ${inode} 2>/dev/null)"
 
     # Test for null & return code
     if [ "${inode}" == "" ]; then
