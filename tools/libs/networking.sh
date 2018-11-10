@@ -42,3 +42,10 @@ function resolve_hosts()
 
   echo "${ips[@]}" && return 0
 }
+
+
+# Subnet calculator
+function calc_subnet()
+{
+  echo 
+}

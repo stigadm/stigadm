@@ -129,6 +129,52 @@ function dec2frac()
 }
 
 
+# Convert binary to decimal
+function bin2dec()
+{
+  echo "$(( 2#${1} ))"
+}
+
+
+# Convert decimal to binary for provided IPv4 octets
+function dec2bin4octet()
+{
+  local octets=( ${@} )
+  local bin=({0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1})
+  local -a results
+
+  # Iterate ${octets[@]}
+  for octet in ${octets[@]}; do
+
+    # Push ${bin[${octet}]} to ${results[@]}
+    results+=("${bin[${octet}]}")
+  done
+
+  echo "${results[@]}"
+}
+
+
+# Bitwise OR calculator
+function bitwise_or_calc()
+{
+  printf '%X\n' "$(( 0x${1} | 0x${2} ))"
+}
+
+
+# Bitwise AND calculator
+function bitwise_and_calc()
+{
+  printf '%X\n' "$(( 0x${1} & 0x${2} ))"
+}
+
+
+# Bitwise XOR calculator
+function bitwise_xor_calc()
+{
+  printf '%X\n' "$(( 0x${1} ^ 0x${2} ))"
+}
+
+
 # Perform conversion from requested size to bytes
 function tobytes()
 {
