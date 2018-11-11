@@ -157,21 +157,21 @@ function dec2bin4octet()
 # Bitwise OR calculator
 function bitwise_or_calc()
 {
-  printf '%X\n' "$(( 0x${1} | 0x${2} ))"
+  printf '%08X\n' "$(( 0x${1} | 0x${2} ))"
 }
 
 
 # Bitwise AND calculator
 function bitwise_and_calc()
 {
-  printf '%X\n' "$(( 0x${1} & 0x${2} ))"
+  printf '%08X\n' "$(( 0x${1} & 0x${2} ))"
 }
 
 
 # Bitwise XOR calculator
 function bitwise_xor_calc()
 {
-  printf '%X\n' "$(( 0x${1} ^ 0x${2} ))"
+  printf '%08X\n' "$(( 0x${1} ^ 0x${2} ))"
 }
 
 
