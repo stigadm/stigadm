@@ -132,7 +132,7 @@ function dec2frac()
 # Convert binary to decimal
 function bin2dec()
 {
-  echo "$(( 2#${1} ))"
+  printf '%d\n' "$(( 2#${1} ))"
 }
 
 
