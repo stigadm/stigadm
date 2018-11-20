@@ -66,7 +66,8 @@ function parse_ifconfig()
       if($5 == "broadcast"){bc=$6}
       getline;
       if($1 == "ether"){mac=$2}
-      printf("%s%s:%s:%s:%s\n", iface, ip, nm, bc, mac)}'
+      gsub(/:/, ",", iface)
+      printf("%s%s,%s,%s,%s\n", iface, ip, nm, bc, mac)}'
 }
 
 # Get IPv4 addresses & properties

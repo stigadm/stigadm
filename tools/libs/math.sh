@@ -136,6 +136,13 @@ function bin2dec()
 }
 
 
+# Convert hex to decimal
+function hex2dec()
+{
+  printf '%d\n' "0x${1}"
+}
+
+
 # Convert decimal to binary for provided IPv4 octets
 function dec2bin4octet()
 {
