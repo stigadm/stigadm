@@ -85,24 +85,26 @@ function in_array_loose()
 
 # Search for absolute file & path from a supplied file
 # Arguments:
-#  file [String]: File to search for patterns in
+#  file [String]: File/String to search for patterns in
 #  pattern [String] (Optional): BRE based regular expression for file matches
 #  prefix [String] (Optional): String used to prefix ${pattern} with
 #  suffix [String] (Optional): String used to suffix ${pattern} with
 #  iterations [Integer] (Optional): Number of iterations to use when building pattern from ${prefix}, ${pattern} & ${suffix}
 function extract_filenames()
 {
-  file="${1}"
-  pattern="$([ ! -x ${2} ] && echo "${2}" || echo "/[a-z0-9A-Z._-]+")"
-  prefix="$([ ! -x ${3} ] && echo "${3}" || echo ".*(")"
-  suffix="$([ ! -x ${4} ] && echo "${4}" || echo ").*")"
-  iterations=$([ ! -x ${5} ] && echo ${5} || echo 10)
-  tresults=()
-  results=()
-  tpat=
+  local file="${1}"
+  local pattern="$([ ! -x ${2} ] && echo "${2}" || echo "[/\|~\|..][a-z0-9A-Z._-]*")"
+  local prefix="$([ ! -x ${3} ] && echo "${3}" || echo ".*(")"
+  local suffix="$([ ! -x ${4} ] && echo "${4}" || echo ").*")"
+  local iterations=$([ ! -x ${5} ] && echo ${5} || echo 10)
+
+  local -a results=()
+  local tpat=
+  local i=0
 
   # Iterate 0 - ${iterations}
-  for i in $(seq 1 ${iterations}); do
+  #for i in $(seq 1 ${iterations}); do
+  while [ ${i} -le ${iterations} ]; do
 
     # Combine ${tpat} with ${pattern} to account for BRE limitations with complex regex's
     tpat="${tpat}${pattern}"
@@ -110,23 +112,22 @@ function extract_filenames()
     # Combine the ${prefix}, ${tpat} & ${suffix} for a complete regex
     pat="${prefix}${tpat}${suffix}"
 
-    # Extract any patterns matching ${pat} from ${file} while assigning to ${tresults[@]}
-    tresults+=($(gawk -v pat="${pat}" '{if (match($0, pat, obj)) { print obj[1] }}' ${file} 2> /dev/null))
+    # Extract any patterns matching ${pat} from ${file} while assigning to ${t_results[@]}
+    if [ -f ${file} ]; then
+      t_results="$(sed -ne "s|.*\(${pat}\).*|\1|p" ${file} 2> /dev/null)"
+    else
+      t_results="$(echo "${file}" | sed -ne "s|.*\(${pat}\).*|\1|p" 2> /dev/null)"
+    fi
+
+    # If ${t_results} is a file add it
+    [ -f "${t_results}" ] && results+=( "${t_results}" )
+
+    # Increment ${i}
+    i=$(( ${i} + 1 ))
   done
 
-  # If ${#tresults[@]} > 0
-  if [ ${#tresults[@]} -gt 0 ]; then
-
-    # Iterate ${tresults[@]}
-    for inode in ${tresults[@]}; do
-
-      # Filter for valid file(s) & assign to ${results[@]}
-      [ -f ${inode} ] && results+=(${inode})
-    done
-  fi
-
   # Provide the ${results[@]} if > 0
-  [ ${#results[@]} -gt 0 ] && echo "${results[@]}" | sort -u | tr '\n' ' '
+  [ ${#results[@]} -gt 0 ] && echo "${results[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '
 }
 
 

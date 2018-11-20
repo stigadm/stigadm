@@ -79,3 +79,10 @@ function get_inode()
 
   echo "${inode}" && return 0
 }
+
+
+# Is ELF or data file?
+function is_compiled()
+{
+  echo $(file ${1} | egrep -c 'ELF|data')
+}
