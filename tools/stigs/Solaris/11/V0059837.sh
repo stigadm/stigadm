@@ -112,7 +112,7 @@ for inode in ${files[@]}; do
 
 
   # Get current permissions
-  perms="$(get_inode_octal ${inode})"
+  perms="$(get_octal ${inode})"
 
   # If ${perms} < ${def_perm} flag it
   [ ${perms} -gt ${def_perm} ] &&
@@ -143,7 +143,7 @@ if [ ${change} -eq 1 ]; then
     chmod ${def_perm} ${file} 2>/dev/null
 
     # Get current permissions
-    perms="$(get_inode_octal ${inode})"
+    perms="$(get_octal ${inode})"
 
     # If ${perms} < ${def_perm} flag it
     [ ${perms} -gt ${def_perm} ] &&
