@@ -77,7 +77,7 @@ fi
 
 # Get list of init scripts to examine
 files=( $(find ${inits[@]} -type f -ls 2>/dev/null | awk '{print $11}') )
-echo "${#files[@]}"
+
 
 # Iterate ${files[@]}, resolve to actual file and pluck possible file(s) for examination
 for inode in ${files[@]}; do
@@ -94,15 +94,14 @@ for inode in ${files[@]}; do
   # Use extract_filenames() to obtain array of binaries from ${inode}
   tmp_files+=( $(extract_filenames ${inode}) )
 done
-echo "${#tmp_files[@]}"
+
 
 # Remove dupes
 files=( ${files[@]} $(remove_duplicates "${tmp_files[@]}") )
-echo "${#files[@]}"
+
 
 # Filter for actual files
 files=( $(test_file "${files[@]}") )
-echo "${#files[@]}"
 
 
 # Iterate ${files[@]} and create haystack to find
@@ -123,10 +122,10 @@ for inode in ${files[@]}; do
 
   # If ${owner} of ${inode} doesn't exist in ${accts[@]} flag it
   [ $(in_array ${owner} ${accts[@]}) -ne 0 ] &&
-    errors+=("${inode}")
+    errors+=("${inode}:${owner}")
 
   # Mark them all as inspected
-  inspected+=("${inode}")
+  inspected+=("${inode}:${owner}")
 done
 
 
@@ -137,15 +136,28 @@ if [ ${change} -eq 1 ]; then
   backup_setup_env "${backup_path}"
 
   # Create a snapshot of ${users[@]}
-  #bu_configuration "${backup_path}" "${author}" "${stigid}" "$(echo "${pkgs[@]}" | tr ' ' '\n')"
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "$(echo "${inspected[@]}" | tr ' ' '\n')"
   if [ $? -ne 0 ]; then
-
-    # Verbose
-    report "Snapshot of broken packages failed..." 1
-
     # Stop, we require a backup
-    exit 1
+    report "Unable to create snapshot of init ownership" && exit 1
   fi
+
+  # Iterate ${errors[@]}
+  for file in ${errors[@]}; do
+
+    # Set ownership to ${def_user}
+    chown ${def_user} ${file} 2>/dev/null
+
+    # Get current owner & group
+    owner="$(get_inode_user ${inode})"
+
+    # If ${owner} of ${inode} doesn't exist in ${accts[@]} flag it
+    [ $(in_array ${owner} ${accts[@]}) -ne 0 ] &&
+    errors+=("${inode}:${owner}")
+  done
+
+  # Remove dupes from ${errors[@]}
+  errors=( $(remove_duplicates "${errors[@]}") )
 fi
 
 
@@ -174,7 +186,6 @@ fi
 
 # Calculate a percentage from applied modules & errors incurred
 percentage=$(percent ${passed} ${failed})
-
 
 # If the caller was only independant
 if [ ${caller} -eq 0 ]; then

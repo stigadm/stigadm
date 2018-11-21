@@ -94,10 +94,11 @@ function extract_filenames()
 {
   local file="${1}"
   local pattern="$([ ! -x ${2} ] && echo "${2}" || echo "[/\|~\|..][a-z0-9A-Z._-]*")"
-  local prefix="$([ ! -x ${3} ] && echo "${3}" || echo ".*(")"
-  local suffix="$([ ! -x ${4} ] && echo "${4}" || echo ").*")"
+  #local prefix="$([ ! -x ${3} ] && echo "${3}" || echo ".*(")"
+  #local suffix="$([ ! -x ${4} ] && echo "${4}" || echo ").*")"
   local iterations=$([ ! -x ${5} ] && echo ${5} || echo 10)
 
+  local -a t_results=()
   local -a results=()
   local tpat=
   local i=0
@@ -114,13 +115,17 @@ function extract_filenames()
 
     # Extract any patterns matching ${pat} from ${file} while assigning to ${t_results[@]}
     if [ -f ${file} ]; then
-      t_results="$(sed -ne "s|.*\(${pat}\).*|\1|p" ${file} 2> /dev/null)"
+      t_results=( $(sed -ne "s|.*\(${pat}\).*|\1|p" ${file} 2> /dev/null) )
     else
-      t_results="$(echo "${file}" | sed -ne "s|.*\(${pat}\).*|\1|p" 2> /dev/null)"
+      t_results=( $(echo "${file}" | sed -ne "s|.*\(${pat}\).*|\1|p" 2> /dev/null) )
     fi
 
-    # If ${t_results} is a file add it
-    [ -f "${t_results}" ] && results+=( "${t_results}" )
+    # If ${t_results} is a file add them
+    if [ ${#t_results[@]} -gt 0 ]; then
+      for res in ${t_results[@]}; do
+        [ -f ${res} ] && results+=( "${t_results}" )
+      done
+    fi
 
     # Increment ${i}
     i=$(( ${i} + 1 ))

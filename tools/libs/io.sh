@@ -81,6 +81,24 @@ function get_inode()
 }
 
 
+# Test for actual files & non-binaries
+function test_file()
+{
+  # Reassign ${@}
+  local -a obj="${@}"
+  local -a results
+
+  # Iterate ${obj[@]}
+  for inode in ${obj[@]}; do
+
+    # Filter for valid file(s) & assign to ${results[@]}
+    [ -f ${inode} ] && results+=(${inode})
+  done
+
+  echo "${results[@]}"
+}
+
+
 # Is ELF or data file?
 function is_compiled()
 {
