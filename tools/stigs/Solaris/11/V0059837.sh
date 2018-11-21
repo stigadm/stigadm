@@ -1,362 +1,227 @@
 #!/bin/bash
 
+# Default permisions
+def_perm=00711
 
 # Array of init script locations
 declare -a inits
 inits+=("/etc/rc*")
-inits+=("/etc/init.d")
+inits+=("/etc/init*")
 inits+=("/lib/svc")
-
-# Pattern to match *possible* binaries
-pattern="/[a-z0-9A-Z._-]+"
-
-# Disable changes for offending inodes found on remote shares
-disable_remote=1
+inits+=("/etc/systemd")
+inits+=("/lib/systemd")
 
 
-# Global defaults for tool
-author=
-change=0
-json=1
-meta=0
-restore=0
-interactive=0
-xml=0
+###############################################
+# Bootstrapping environment setup
+###############################################
+
+# Get our working directory
+cwd="$(pwd)"
+
+# Define our bootstrapper location
+bootstrap="${cwd}/tools/bootstrap.sh"
+
+# Bail if it cannot be found
+if [ ! -f ${bootstrap} ]; then
+  echo "Unable to locate bootstrap; ${bootstrap}" && exit 1
+fi
+
+# Load our bootstrap
+source ${bootstrap}
 
 
-# Working directory
-cwd="$(dirname $0)"
+###############################################
+# Global zones only check
+###############################################
 
-# Tool name
-prog="$(basename $0)"
-
-
-# Copy ${prog} to DISA STIG ID this tool handles
-stigid="$(echo "${prog}" | cut -d. -f1)"
-
-
-# Ensure path is robust
-PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-
-
-# Define the library include path
-lib_path=${cwd}/../../../libs
-
-# Define the tools include path
-tools_path=${cwd}/../../../stigs
-
-# Define the system backup path
-backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
-
-
-# Robot, do work
-
-
-# Error if the ${inc_path} doesn't exist
-if [ ! -d ${lib_path} ] ; then
-  echo "Defined library path doesn't exist (${lib_path})" && exit 1
+# Make sure we are operating on global zones
+if [ "$(zonename)" != "global" ]; then
+  report "${stigid} only applies to global zones" && exit 1
 fi
 
 
-# Include all .sh files found in ${lib_path}
-incs=($(ls ${lib_path}/*.sh))
+###############################################
+# Metrics start
+###############################################
 
-# Exit if nothing is found
-if [ ${#incs[@]} -eq 0 ]; then
-  echo "'${#incs[@]}' libraries found in '${lib_path}'" && exit 1
-fi
+# Get EPOCH
+s_epoch="$(gen_epoch)"
 
+# Create a timestamp
+timestamp="$(gen_date)"
 
-# Iterate ${incs[@]}
-for src in ${incs[@]}; do
-
-  # Make sure ${src} exists
-  if [ ! -f ${src} ]; then
-    echo "Skipping '$(basename ${src})'; not a real file (block device, symlink etc)"
-    continue
-  fi
-
-  # Include $[src} making any defined functions available
-  source ${src}
-
-done
+# Whos is calling? 0 = singular, 1 is as group
+caller=$(ps $PPID | grep -c stigadm)
 
 
-# Ensure we have permissions
-if [ $UID -ne 0 ] ; then
-  usage "Requires root privileges" && exit 1
-fi
-
-
-# Set variables
-while getopts "ha:cjmvrix" OPTION ; do
-  case $OPTION in
-    h) usage && exit 1 ;;
-    a) author=$OPTARG ;;
-    c) change=1 ;;
-    j) json=1 ;;
-    m) meta=1 ;;
-    r) restore=1 ;;
-    i) interactive=1 ;;
-    x) xml=1 ;;
-    ?) usage && exit 1 ;;
-  esac
-done
-
-
-# Make sure we have an author if we are not restoring or validating
-if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
-  usage "Must specify an author name (use -a <initials>)" && exit 1
-fi
-
-
-# If ${meta} is true
-if [ ${meta} -eq 1 ]; then
-
-  # Print meta data
-  get_meta_data "${cwd}" "${prog}"
-fi
-
+###############################################
+# Perform restoration
+###############################################
 
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
-
-  # If ${interactive} = 1 go to interactive restoration mode
-  if [ ${interactive} -eq 1 ]; then
-
-    # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
-
-  fi
-
-  # Print friendly message regarding restoration mode
-  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
-
-  exit 0
+  report "Not yet implemented" && exit 1
 fi
 
 
-# Make sure ${#inits[@]} is > 0
-if [ ${#inits[@]} -eq 0 ]; then
-  usage "A list of profile configuration files to examine must be defined" && exit 1
-fi
-
-
-# Get all remote mount points
-remotes=($(mount | awk '$3 ~ /.*\:.*/{print $1}'))
-
-
-# Get array of world writable files
-ww=($(find / -xdev -perm -002 -type f))
-
-# Exit if ${#ww[@]} is 0
-if [ ${#ww[@]} -eq 0 ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "'${#ww[@]}' world writeable files exist on system; conforms to '${stigid}'" && exit 0
-fi
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Got list of world-writeable inodes on system; ${#ww[@]}"
-
+###############################################
+# STIG validation/remediation
+###############################################
 
 # Get list of init scripts to examine
-files=($(find ${inits[@]} -type f -ls | awk '{print $11}'))
-
-# Exit if ${#files[@]} is 0
-if [ ${#files[@]} -eq 0 ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "'${#files[@]}' init scripts found to examine; exiting" && exit 0
-fi
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Got list of init scripts to examine; ${#files[@]}"
+files=( $(find ${inits[@]} -type f -ls 2>/dev/null | awk '{print $11}') )
 
 
-# Define an empty array
-declare -a tmp_files
-
-# Iterate ${files[@]}
-for file in ${files[@]}; do
-
-  # Handle symlinks
-  file="$(get_inode ${file})"
-
-  # Use extract_filenames() to obtain array of binaries from ${file}
-  tmp_files+=($(extract_filenames ${file}))
-done
-
-# If ${#tmp_files[@]} = 0 then we are done
-if [ ${#tmp_files[@]} -eq 0 ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "'${#tmp_files[@]}' called file(s) found from init scripts; exiting" 1 && exit 0
-fi
-
-# Remove duplicates from ${tmp_files[@]}
-tmp_files=($(remove_duplicates "${tmp_files[@]}"))
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Extracted list of possible binary paths to examine; ${#tmp_files[@]}"
-
-
-# If ${change} > 0
-if [ ${change} -ne 0 ]; then
-
-  # Create the backup env
-  backup_setup_env "${backup_path}"
-
-
-  # Create a snapshot of ${inodes[@]} current permissions
-  bu_inode_perms "${backup_path}" "${author}" "${stigid}" "${tmp_files[@]}"
-  if [ $? -ne 0 ]; then
-
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Snapshot of current permissions for '${stigid}' failed..."
-
-    # Stop, we require a backup
-    exit 1
-  fi
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Created snapshot of current permissions"
-fi
-
-
-# Define an empty array for errors
-declare -a errs
-
-# Define an empty array for validated files
-declare -a validated
-
-
-# Iterate ${tmp_files[@]}
-for inode in ${tmp_files[@]}; do
+# Iterate ${files[@]}, resolve to actual file and pluck possible file(s) for examination
+for inode in ${files[@]}; do
 
   # Handle symlinks
   inode="$(get_inode ${inode})"
 
-  # Skip ${inode} if it's not a file OR executable
-  [ ! -x ${inode} ] && continue
-
-  # Check to see if ${inode} exists in ${ww[@]}
-  if [ $(in_array "${inode}" "${ww[@]}") -eq 0 ]; then
-
-    # if ${change} = 1
-    if [ ${change} -eq 1 ]; then
-
-      # If ${inode} path doesn't exist in ${remotes[@]}
-      if [ $(in_array_fuzzy "${inode}" "${remotes[@]}") -eq 1 ]; then
-
-        # Remove the world writeable bit from ${inode}
-        chmod o-w ${inode} 2>/dev/null
-
-        # Handle return
-        if [ $? -ne 0 ]; then
-
-          # Print friendly message
-          [ ${verbose} -eq 1 ] && print "Could not remove world-writeable bit from '${inode}'" 1
-        fi
-      else
-
-        # If ${disable_remote} = 1
-        if [ ${disable_remote} -eq 1 ]; then
-
-          # Print friendly message
-          [ ${verbose} -eq 1 ] && print "Remote; Skipping '${inode}'; enable with 'disable_remote=0'"
-        else
-
-          # Remove the world writeable bit from ${inode}
-          chmod o-w ${inode} 2>/dev/null
-
-          # Handle return
-          if [ $? -ne 0 ]; then
-
-            # Print friendly message
-            [ ${verbose} -eq 1 ] && print "Could not remove world-writeable bit from '${inode}'" 1
-          fi
-        fi
-      fi
-    fi
-  fi
-
-  # Get octal value of ${inode}
-  octal=$(get_octal ${inode})
-
-  # Check for world writeable bit from ${octal}
-  if [ ${octal:4:5} -ge 6 ]; then
-
-    errs+=("${inode}:${octal}")
+  # Skip stripping out possible files from ELF's & data files
+  if [ $(is_compiled ${inode}) -gt 0 ]; then
+    tmp_files+=("${inode}")
     continue
   fi
 
-  # Add ${inode} to ${vals[@]}
-  vals+=("${inode}:${octal}")
-
+  # Use extract_filenames() to obtain array of binaries from ${inode}
+  tmp_files+=( $(extract_filenames ${inode}) )
 done
 
 
-# If ${#errs[@]} > 0
-if [ ${#errs[@]} -gt 0 ]; then
+# Remove dupes
+files=( ${files[@]} $(remove_duplicates "${tmp_files[@]}") )
 
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "List of inodes with invalid permissions" 1
 
-  # Iterate ${errs[@]}
-  for err in ${errs[@]}; do
+# Filter for actual files
+files=( $(test_file "${files[@]}") )
 
-    # Split ${err} into file
-    efile="$(echo "${err}" | cut -d: -f1)"
 
-    # Split ${err} into octal
-    eoctal="$(echo "${err}" | cut -d: -f2)"
+# Iterate ${files[@]} and create haystack to find
+for inode in ${files[@]}; do
 
-    # Assign ${inode} to ${errs[@]}
-    if [ $(in_array_fuzzy "${efile}" "${remotes[@]}") -eq 0 ]; then
-      efile="[Remote/NFS] ${efile}"
-    fi
+  # Bail if ${inode} is null
+  [ "${inode}" == "" ] && continue
 
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  ${efile} [${eoctal}]" 1
+  # Handle symlinks
+  inode="$(get_inode ${inode})"
+
+  # Bail if ${inode} is null
+  [ "${inode}" == "" ] && continue
+
+
+  # Get current permissions
+  perms="$(get_inode_octal ${inode})"
+
+  # If ${perms} < ${def_perm} flag it
+  [ ${perms} -gt ${def_perm} ] &&
+    errors+=("${inode}:${perms}")
+
+  # Mark them all as inspected
+  inspected+=("${inode}:${perms}")
+done
+
+
+# If ${change} = 1
+if [ ${change} -eq 1 ]; then
+
+  # Create the backup env
+  backup_setup_env "${backup_path}"
+
+  # Create a snapshot of ${users[@]}
+  bu_configuration "${backup_path}" "${author}" "${stigid}" "$(echo "${inspected[@]}" | tr ' ' '\n')"
+  if [ $? -ne 0 ]; then
+    # Stop, we require a backup
+    report "Unable to create snapshot of init permissions" && exit 1
+  fi
+
+  # Iterate ${errors[@]}
+  for file in ${errors[@]}; do
+
+    # Set ownership to ${def_user}
+    chmod ${def_perm} ${file} 2>/dev/null
+
+    # Get current permissions
+    perms="$(get_inode_octal ${inode})"
+
+    # If ${perms} < ${def_perm} flag it
+    [ ${perms} -gt ${def_perm} ] &&
+      errors+=("${inode}:${owner}")
   done
 
-  exit 1
+  # Remove dupes from ${errors[@]}
+  errors=( $(remove_duplicates "${errors[@]}") )
 fi
 
 
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Validated '${#vals[@]}/${#tmp_files[@]}' executable inodes referenced from '${#files[@]}' init scripts"
+###############################################
+# Results for printable report
+###############################################
 
-# If ${#validated[@]} > 0
-if [ ${#vals[@]} -gt 0 ]; then
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
 
-  # Iterate ${vals[@]}
-  for val in ${vals[@]}; do
+  # Set ${results} error message
+  results="Failed validation"
+fi
 
-    # Split ${err} into file
-    vfile="$(echo "${val}" | cut -d: -f1)"
+# Set ${results} passed message
+[ ${#errors[@]} -eq 0 ] && results="Passed validation"
 
-    # Split ${err} into octal
-    voctal="$(echo "${val}" | cut -d: -f2)"
 
-    # Assign ${inode} to ${validated[@]}
-    if [ $(in_array_fuzzy "${vfile}" "${remotes[@]}") -eq 0 ]; then
-      efile="[Remote/NFS] ${vfile}"
-    fi
+###############################################
+# Report generation specifics
+###############################################
 
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  ${vfile} [${voctal}]"
-  done
+# Apply some values expected for report footer
+[ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -gt 0 ] && failed=1 || failed=0
 
-  exit 1
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${passed} ${failed})
+
+# If the caller was only independant
+if [ ${caller} -eq 0 ]; then
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Generate the report
+  report "${results}"
+
+  # Display the report
+  cat ${log}
+else
+
+  # Since we were called from stigadm
+  module_header "${results}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Finish up the module specific report
+  module_footer
 fi
 
 
-# Print friendly success
-[ ${verbose} -eq 1 ] && print "Success, system conforms to '${stigid}'"
+###############################################
+# Return code for larger report
+###############################################
 
-exit 0
+# Return an error/success code (0/1)
+exit ${#errors[@]}
+
 
 # Date: 2017-06-21
 #
