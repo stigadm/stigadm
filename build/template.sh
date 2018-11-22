@@ -35,18 +35,6 @@ caller=$(ps $PPID | grep -c stigadm)
 
 
 ###############################################
-# Global zones only check
-###############################################
-
-# Make sure we are operating on global zones
-if [ "$(zonename)" != "global" ]; then
-
-  # Report warning & exit module
-  report "${stigid} only applies to global zones" && exit 1
-fi
-
-
-###############################################
 # STIG validation/remediation/restoration
 ###############################################
 
@@ -154,5 +142,3 @@ fi
 
 # Return an error/success code (0/1)
 [ ${status} -eq 1 ] && exit 0 || exit 1
-
-

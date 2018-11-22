@@ -200,7 +200,7 @@ for stig in ${stigs[@]}; do
     fi
 
     # Skip if ${os} or ${version} aren't right
-    [ $(echo "${os}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris|Ubuntu') -eq 0 ] && continue
+    [ $(echo "${os}" | egrep -c 'AIX|HP-UX|Oracle|Red_Hat|Solaris|SLES|Ubuntu') -eq 0 ] && continue
 
 
     # Get the OS version from ${blob}

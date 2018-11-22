@@ -94,8 +94,6 @@ function extract_filenames()
 {
   local file="${1}"
   local pattern="$([ ! -x ${2} ] && echo "${2}" || echo "[/\|~\|..][a-z0-9A-Z._-]*")"
-  #local prefix="$([ ! -x ${3} ] && echo "${3}" || echo ".*(")"
-  #local suffix="$([ ! -x ${4} ] && echo "${4}" || echo ").*")"
   local iterations=$([ ! -x ${5} ] && echo ${5} || echo 10)
 
   local -a t_results=()
