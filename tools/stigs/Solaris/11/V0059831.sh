@@ -1,211 +1,108 @@
 #!/bin/bash
 
-
 # Array of init script locations
 declare -a inits
 inits+=("/etc/rc*")
-inits+=("/etc/init.d")
+inits+=("/etc/init*")
 inits+=("/lib/svc")
-
-# Pattern to match *possible* binaries
-pattern="/[a-z0-9A-Z._-]+"
-
-# Disable changes for offending inodes found on remote shares
-disable_remote=1
+inits+=("/etc/systemd")
+inits+=("/lib/systemd")
 
 
-# Global defaults for tool
-author=
-change=0
-json=1
-meta=0
-restore=0
-interactive=0
-xml=0
+###############################################
+# Bootstrapping environment setup
+###############################################
 
+# Get our working directory
+cwd="$(pwd)"
 
-# Working directory
-cwd="$(dirname $0)"
+# Define our bootstrapper location
+bootstrap="${cwd}/tools/bootstrap.sh"
 
-# Tool name
-prog="$(basename $0)"
-
-
-# Copy ${prog} to DISA STIG ID this tool handles
-stigid="$(echo "${prog}" | cut -d. -f1)"
-
-
-# Ensure path is robust
-PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-
-
-# Define the library include path
-lib_path=${cwd}/../../../libs
-
-# Define the tools include path
-tools_path=${cwd}/../../../stigs
-
-# Define the system backup path
-backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
-
-
-# Robot, do work
-
-
-# Error if the ${inc_path} doesn't exist
-if [ ! -d ${lib_path} ] ; then
-  echo "Defined library path doesn't exist (${lib_path})" && exit 1
+# Bail if it cannot be found
+if [ ! -f ${bootstrap} ]; then
+  echo "Unable to locate bootstrap; ${bootstrap}" && exit 1
 fi
 
-
-# Include all .sh files found in ${lib_path}
-incs=($(ls ${lib_path}/*.sh))
-
-# Exit if nothing is found
-if [ ${#incs[@]} -eq 0 ]; then
-  echo "'${#incs[@]}' libraries found in '${lib_path}'" && exit 1
-fi
+# Load our bootstrap
+source ${bootstrap}
 
 
-# Iterate ${incs[@]}
-for src in ${incs[@]}; do
+###############################################
+# Metrics start
+###############################################
 
-  # Make sure ${src} exists
-  if [ ! -f ${src} ]; then
-    echo "Skipping '$(basename ${src})'; not a real file (block device, symlink etc)"
-    continue
-  fi
+# Get EPOCH
+s_epoch="$(gen_epoch)"
 
-  # Include $[src} making any defined functions available
-  source ${src}
+# Create a timestamp
+timestamp="$(gen_date)"
 
-done
-
-
-# Ensure we have permissions
-if [ $UID -ne 0 ] ; then
-  usage "Requires root privileges" && exit 1
-fi
+# Whos is calling? 0 = singular, 1 is as group
+caller=$(ps $PPID | grep -c stigadm)
 
 
-# Set variables
-while getopts "ha:cjmvrix" OPTION ; do
-  case $OPTION in
-    h) usage && exit 1 ;;
-    a) author=$OPTARG ;;
-    c) change=1 ;;
-    j) json=1 ;;
-    m) meta=1 ;;
-    r) restore=1 ;;
-    i) interactive=1 ;;
-    x) xml=1 ;;
-    ?) usage && exit 1 ;;
-  esac
-done
-
-
-# Make sure we have an author if we are not restoring or validating
-if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
-  usage "Must specify an author name (use -a <initials>)" && exit 1
-fi
-
-
-# If ${meta} is true
-if [ ${meta} -eq 1 ]; then
-
-  # Print meta data
-  get_meta_data "${cwd}" "${prog}"
-fi
-
+###############################################
+# Perform restoration
+###############################################
 
 # If ${restore} = 1 go to restoration mode
 if [ ${restore} -eq 1 ]; then
-
-  # If ${interactive} = 1 go to interactive restoration mode
-  if [ ${interactive} -eq 1 ]; then
-
-    # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
-
-  fi
-
-  # Print friendly message regarding restoration mode
-  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
-
-  exit 0
+  report "Not yet implemented" && exit 1
 fi
 
 
-# Make sure ${#inits[@]} is > 0
-if [ ${#inits[@]} -eq 0 ]; then
-  usage "A list of profile configuration files to examine must be defined" && exit 1
-fi
-
-
-# Get all remote mount points
-remotes=( $(mount | awk '$3 ~ /.*\:.*/{print $1}') )
+###############################################
+# STIG validation/remediation
+###############################################
 
 # Get list of init scripts to examine
-files=( $(find ${inits[@]} -type f -ls | awk '{print $11}') )
-
-# Exit if ${#files[@]} is 0
-if [ ${#files[@]} -eq 0 ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "'${#files[@]}' init scripts found to examine; exiting" && exit 0
-fi
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Got list of init scripts to examine; ${#files[@]}"
+files=( $(find ${inits[@]} -type f -ls 2>/dev/null | awk '{print $11}') )
 
 
-# Define an empty array for errors
-declare -a errs
-
-# Define an empty array for validated files
-declare -a vals
-
-
-# Iterate ${files[@]}
+# Iterate ${files[@]}, resolve to actual file and pluck possible file(s) for examination
 for inode in ${files[@]}; do
 
   # Handle symlinks
   inode="$(get_inode ${inode})"
 
-  # Skip if ${inode} == 1
-  [ "${inode}" == 1 ] && continue
+  # Skip stripping out possible files from ELF's & data files
+  if [ $(is_compiled ${inode}) -gt 0 ]; then
+    tmp_files+=("${inode}")
+    continue
+  fi
 
   # Use extract_filenames() to obtain array of binaries from ${inode}
   tmp_files+=( $(extract_filenames ${inode}) )
 done
 
 
-# If $tmp_files[@]} > 0
-if [ ${#tmp_files[@]} -gt 0 ]; then
-
-  # Merge ${files[@]} with ${tmp_files[@]}
-  files=( ${files[@]} ${tmp_files[@]} )
-fi
-
-# Discard duplicates from ${files}
-files=( $(remove_duplicates "${files[@]}") )
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Found ${#files[@]} referenced files from init scripts to process"
+# Remove dupes
+files=( ${files[@]} $(remove_duplicates "${tmp_files[@]}") )
 
 
-# Iterate ${files[@]}
+# Filter for actual files
+files=( $(test_file "${files[@]}") )
+
+
+# Iterate ${files[@]} and create haystack to find
 for inode in ${files[@]}; do
+
+  # Bail if ${inode} is null
+  [ "${inode}" == "" ] && continue
 
   # Handle symlinks
   inode="$(get_inode ${inode})"
 
-  # Skip if ${inode} == 1
-  [ "${inode}" == 1 ] && continue
+  # Bail if ${inode} is null
+  [ "${inode}" == "" ] && continue
+
+
+  # Skip creating a haystack from ${inode} if is_binary is < 0
+  [ $(is_compiled ${inode}) -gt 0 ] && continue
 
   # Extract possible PATH from ${inode} to an array as ${haystack[@]}
-  haystack=( $(nawk '$0 ~ /PATH=[a-zA-Z0-9:\/]+/{if ($0 ~ /^PATH=/){split($0, obj, "=");if(obj[2] ~ /;/){split(obj[2], fin, ";")}else{fin[2]=obj[2]}print fin[2]}}' ${inode} 2>/dev/null | \
-    grep -v "export") )
+  haystack=( $(nawk '$0 ~ /PATH=/{if ($0 ~ /PATH=/){split($0, obj, "=");if(obj[2] ~ /;/){split(obj[2], fin, ";")}else{fin[2]=obj[2]}print fin[2]}}' ${inode} 2>/dev/null) )
 
   # Skip ${inode} if PATH not found
   [ ${#haystack[@]} -eq 0 ] && continue
@@ -217,119 +114,142 @@ for inode in ${files[@]}; do
     # Examine ${haybail} for invalid path
     chk=$(echo "${haybail}" | egrep -c '^:|::|:$|:[a-zA-Z0-9-_~.]+')
 
-    # Add ${inode} to ${errs[@]} array if ${chk} > 0 OR add it to ${vals[@]} array
-    [ ${chk} -gt 0 ] && errs+=("${inode}") || vals+=("${inode}")
-
-
-    # If ${change} > 0
-    if [[ ${change} -ne 0 ]] && [[ $(in_array "${inode}" "${errs[@]}") -gt 0 ]]; then
-
-      # Create the backup env
-      backup_setup_env "${backup_path}"
-
-      # Create a backup of ${file}
-      bu_file "${author}" "${inode}"
-      if [ $? -ne 0 ]; then
-
-        # Print friendly message
-        [ ${verbose} -eq 1 ] && print "Could not create a backup of '${inode}', exiting..." 1
-
-        # Stop, we require a backup
-        exit 1
-      fi
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Created backup of '${inode}'"
-
-      # Get the last backup file
-      tfile="$(bu_file_last "$(dirname ${inode})" "${author}")"
-      if [ ! -f ${tfile} ]; then
-
-        # Print friendly message
-        [ ${verbose} -eq 1 ] && print "An error occurred getting temporary file for changes"
-        exit 1
-      fi
-
-      # Strip out invalid PATH entries from ${tfile};
-      #   ugly... re factoring a more robust BRE pattern would be preferred
-      sed -e "s/=://g" \
-          -e "s/=~.*$//g" \
-          -e "s/=~.*://g" \
-          -e "s/=\..*://g" \
-          -e "s/=\..*$//g" \
-          -e "s/=\.\..*://g" \
-          -e "s/=\.\..*$//g" \
-          -e "s/:://g" \
-          -e "s/:$//g" \
-          -e "s/:~.*$//g" \
-          -e "s/:~.*://g" \
-          -e "s/:\..*://g" \
-          -e "s/:\..*$//g" \
-          -e "s/:\.\..*://g" \
-          -e "s/:\.\..*$//g" ${tfile} > ${inode}
-    fi
+    # Add ${inode} to ${errors[@]} array if ${chk} > 0
+    [ ${chk} -gt 0 ] && errors+=("${inode}")
   done
+
+  # Mark them all as inspected
+  inspected+=("${inode}")
 done
 
 
-# If ${#errs[@]} > 0
-if [ ${#errs[@]} -gt 0 ]; then
+# If ${change} = 1
+if [ ${change} -eq 1 ]; then
 
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "List of inodes with invalid PATH(s) defined" 1
+  # Iterate ${errors[@]}
+  for file in ${errors[@]}; do
 
-  # Iterate ${errs[@]}
-  for err in ${errs[@]}; do
+    # Create the backup env
+    backup_setup_env "${backup_path}"
 
-    # Look in ${remotes[@]} to determine possible remote share
-    if [ $(in_array_fuzzy "${err}" "${remotes[@]}") -eq 0 ]; then
-      efile="[Remote/NFS] ${err}"
+    # Create a snapshot of ${users[@]}
+    bu_file "${author}" "${inode}"
+    if [ $? -ne 0 ]; then
+      # Stop, we require a backup
+      report "Unable to create backup of ${inode}" && exit 1
     fi
 
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  ${err}" 1
+    # Get the last backup file
+    tfile="$(bu_file_last "$(dirname ${inode})" "${author}")"
+    if [ ! -f ${tfile} ]; then
+      # Stop we require ${tfile} to make changes
+      report "Unable to acquire ${inode} backup name" && exit 1
+    fi
+
+
+    # Strip out invalid PATH entries from ${tfile};
+    #   ugly... re factoring a more robust BRE pattern would be preferred
+    sed -e "s/=://g" \
+        -e "s/=~.*$//g" \
+        -e "s/=~.*://g" \
+        -e "s/=\..*://g" \
+        -e "s/=\..*$//g" \
+        -e "s/=\.\..*://g" \
+        -e "s/=\.\..*$//g" \
+        -e "s/:://g" \
+        -e "s/:$//g" \
+        -e "s/:~.*$//g" \
+        -e "s/:~.*://g" \
+        -e "s/:\..*://g" \
+        -e "s/:\..*$//g" \
+        -e "s/:\.\..*://g" \
+        -e "s/:\.\..*$//g" ${tfile} > ${inode}
   done
 
-  exit 1
+  # Remove dupes from ${errors[@]}
+  errors=( $(remove_duplicates "${errors[@]}") )
 fi
 
 
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "'${#vals[@]}/${#files[@]}' PATH(s) from init scripts validated"
+###############################################
+# Results for printable report
+###############################################
 
-# If ${#validated[@]} > 0
-if [ ${#vals[@]} -gt 0 ]; then
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
 
-  # Iterate ${vals[@]}
-  for val in ${vals[@]}; do
+  # Set ${results} error message
+  results="Failed validation"
+fi
 
-    # Assign ${inode} to ${validated[@]}
-    if [ $(in_array_fuzzy "${val}" "${remotes[@]}") -eq 0 ]; then
-      efile="[Remote/NFS] ${val}"
-    fi
+# Set ${results} passed message
+[ ${#errors[@]} -eq 0 ] && results="Passed validation"
 
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  ${val}"
-  done
+
+###############################################
+# Report generation specifics
+###############################################
+
+# Apply some values expected for report footer
+[ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -gt 0 ] && failed=1 || failed=0
+
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${passed} ${failed})
+
+# If the caller was only independant
+if [ ${caller} -eq 0 ]; then
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Generate the report
+  report "${results}"
+
+  # Display the report
+  cat ${log}
+else
+
+  # Since we were called from stigadm
+  module_header "${results}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Finish up the module specific report
+  module_footer
 fi
 
 
-# Print friendly success
-[ ${verbose} -eq 1 ] && print "Success, system conforms to '${stigid}'"
+###############################################
+# Return code for larger report
+###############################################
 
-exit 0
+# Return an error/success code (0/1)
+exit ${#errors[@]}
+
 
 # Date: 2017-06-21
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED
-# STIG_ID: V0059831
-# STIG_Version: SV-74261r3
-# Rule_ID: SOL-11.1-020320
+# STIG_ID: V0059833
+# STIG_Version: SV-74263r2
+# Rule_ID: SOL-11.1-020330
 #
 # OS: Solaris
 # Version: 11
 # Architecture: Sparc X86
 #
-# Title: Run control scripts executable search paths must contain only authorized paths.
-# Description: The executable search path (typically the PATH environment variable) contains a list of directories for the shell to search to find executables. If this path includes the current working directory or other relative paths, executables in these directories may be executed instead of system commands. This variable is formatted as a colon-separated list of directories. If there is an empty entry, such as a leading or trailing colon, two consecutive colons, or a single period, this is interpreted as the current working directory. Paths starting with a slash (/) are absolute paths.
+# Title: Run control scripts library search paths must contain only authorized paths.
+# Description: The library search path environment variable(s) contain a list of directories for the dynamic linker to search to find libraries. If this path includes the current working directory or other relative paths, libraries in these directories may be loaded instead of system libraries. This variable is formatted as a colon-separated list of directories. If there is an empty entry, such as a leading or trailing colon, two consecutive colons, or a single period, this is interpreted as the current working directory. Paths starting with a slash (/) are absolute paths.
