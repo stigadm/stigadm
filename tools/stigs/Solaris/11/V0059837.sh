@@ -144,6 +144,9 @@ if [ ${change} -eq 1 ]; then
   errors=( $(remove_duplicates "${errors[@]}") )
 fi
 
+# Remove dupes
+inspected=( $(remove_duplicates "${inspected[@]}") )
+
 
 ###############################################
 # Results for printable report
