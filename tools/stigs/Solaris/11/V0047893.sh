@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Define an array of blacklisted packages
 declare -a blacklisted
 blacklisted+=("pkg://solaris/service/network/finger")

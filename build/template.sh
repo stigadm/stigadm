@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Module specific variables go here
+
+# Files: file=/path/to/file
+# Arrays: declare -a array_name
+# Strings: foo="bar"
+# Integers: x=9
+
 
 ###############################################
 # Bootstrapping environment setup
@@ -30,88 +37,89 @@ s_epoch="$(gen_epoch)"
 # Create a timestamp
 timestamp="$(gen_date)"
 
-# Whos is calling? 0 = singular, 1 is from stigadm
+# Whos is calling? 0 = singular, 1 is as group
 caller=$(ps $PPID | grep -c stigadm)
 
 
 ###############################################
-# STIG validation/remediation/restoration
+# Perform restoration
 ###############################################
 
-# Set ${status} to false
-status=0
-
-
 # If ${restore} = 1 go to restoration mode
-if [[ ${restore} -eq 1 ]] && [[ ${status} -eq 1 ]]; then
-
-  # Do work
-  # STIG command to restore previous values
-  if [ $? -ne 0 ]; then
-
-    # Report & exit module
-    report "Failed to stop audit service" && exit 1
-  fi
-
-  # Report & exit module
-  report "Successfully disabled audit service" && exit 0
+if [ ${restore} -eq 1 ]; then
+  report "Not yet implemented" && exit 1
 fi
 
 
-# If ${change} == 1 & ${status} = 0
-if [[ ${change} -eq 1 ]] && [[ ${status} -eq 0 ]]; then
+###############################################
+# STIG validation/remediation
+###############################################
 
-  # Do work
-  # STIG command to fix finding
+# Module specific validation code should go here
+# Errors should go in ${errors[@]} array (which on remediation get handled)
+# All inspected items should go in ${inspected[@]} array
 
-  # Get a blob of the current status
-  #blob="$(auditconfig -getcond)"
 
-  # Get boolean of current status
-  #status=$(echo "${blob}" | nawk '$1 ~ /^audit/ && $4 ~ /^auditing/{print 1}')
-fi
+# If ${change} = 1
+#if [ ${change} -eq 1 ]; then
+
+  # Create the backup env
+  #backup_setup_env "${backup_path}"
+
+  # Create a backup (configuration output, file/folde permissions output etc
+  #bu_configuration "${backup_path}" "${author}" "${stigid}" "$(echo "${array_values[@]}" | tr ' ' '\n')"
+  #bu_file "${backup_path}" "${author}" "${stigid}" "${file}"
+  #if [ $? -ne 0 ]; then
+    # Stop, we require a backup
+    #report "Unable to create backup" && exit 1
+  #fi
+
+  # Iterate ${errors[@]}
+  #for error in ${errors[@]}; do
+
+    # Work to remediate ${error} should go here
+  #done
+#fi
+
+# Remove dupes
+#inspected=( $(remove_duplicates "${inspected[@]}") )
 
 
 ###############################################
 # Results for printable report
 ###############################################
 
-# If ${status} != 1
-if [ ${status:=0} -ne 1 ]; then
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
 
   # Set ${results} error message
   results="Failed validation"
-
-  # Populate a value in ${errors[@]} if ${caller} is > 0
-  [ ${caller} -gt 0 ] && errors=("${stigid}")
 fi
 
 # Set ${results} passed message
-[ ${status} -eq 1 ] && results="Passed validation"
+[ ${#errors[@]} -eq 0 ] && results="Passed validation"
 
 
 ###############################################
 # Report generation specifics
 ###############################################
 
+# Apply some values expected for report footer
+[ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -gt 0 ] && failed=1 || failed=0
+
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${passed} ${failed})
+
 # If the caller was only independant
 if [ ${caller} -eq 0 ]; then
-
-  # Apply some values expected for report footer
-  [ ${status} -eq 1 ] && passed=${status} || passed=0
-  [ ${status} -eq 1 ] && failed=0 || failed=${status}
-
-  # Calculate a percentage from applied modules & errors incurred
-  percentage=$(percent ${passed} ${failed})
 
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
 
-    # Print a singular line based on ${log} extention
-    print_line ${log} "details" "${blob}"
-
-    # Print an array of details to ${log}
-    #print_array ${log} "details" "${blob[@]}"
+    # Print array of failed & validated items
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
   # Generate the report
@@ -127,8 +135,9 @@ else
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
 
-    # Print a singular line based on ${log} extention
-    print_line ${log} "details" "${blob}"
+    # Print array of failed & validated items
+    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
   # Finish up the module specific report
@@ -141,4 +150,4 @@ fi
 ###############################################
 
 # Return an error/success code (0/1)
-[ ${status} -eq 1 ] && exit 0 || exit 1
+exit ${#errors[@]}
