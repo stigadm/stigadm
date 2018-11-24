@@ -114,11 +114,13 @@ percentage=$(percent ${passed} ${failed})
 # If the caller was only independant
 if [ ${caller} -eq 0 ]; then
 
+  # Show failures
+  [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
 
     # Print array of failed & validated items
-    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
     [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
@@ -132,11 +134,13 @@ else
   # Since we were called from stigadm
   module_header "${results}"
 
+  # Show failures
+  [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
 
     # Print array of failed & validated items
-    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
     [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
@@ -151,3 +155,4 @@ fi
 
 # Return an error/success code (0/1)
 exit ${#errors[@]}
+

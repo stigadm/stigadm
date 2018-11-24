@@ -107,22 +107,22 @@ fi
 ###############################################
 
 # Apply some values expected for report footer
-[ ${#errors[@]} -le 0 ] && passed=1 || passed=0
-[ ${#errors[@]} -ge 1 ] && failed=${#errors[@]} || failed=0
+[ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -gt 0 ] && failed=1 || failed=0
 
 # Calculate a percentage from applied modules & errors incurred
 percentage=$(percent ${passed} ${failed})
 
-
 # If the caller was only independant
 if [ ${caller} -eq 0 ]; then
 
+  # Show failures
+  [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
 
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
 
     # Print array of failed & validated items
-    [ ${#err[@]} -gt 0 ] && print_array ${log} "errors" "${err[@]}"
     [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
@@ -136,11 +136,13 @@ else
   # Since we were called from stigadm
   module_header "${results}"
 
+  # Show failures
+  [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
 
     # Print array of failed & validated items
-    [ ${#err[@]} -gt 0 ] && print_array ${log} "errors" "${err[@]}"
     [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 

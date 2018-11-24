@@ -134,15 +134,16 @@ fi
 # Calculate a percentage from applied modules & errors incurred
 percentage=$(percent ${passed} ${failed})
 
-
 # If the caller was only independant
 if [ ${caller} -eq 0 ]; then
+
+  # Show failures
+  [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
 
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
 
     # Print array of failed & validated items
-    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
     [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
@@ -156,11 +157,13 @@ else
   # Since we were called from stigadm
   module_header "${results}"
 
+  # Show failures
+  [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
 
     # Print array of failed & validated items
-    [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
     [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
@@ -191,4 +194,3 @@ exit ${#errors[@]}
 #
 # Title: The UUCP service daemon must not be installed unless required.
 # Description: UUCP is an insecure protocol.
-

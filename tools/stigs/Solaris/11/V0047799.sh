@@ -112,21 +112,24 @@ fi
 # Report generation specifics
 ###############################################
 
+# Apply some values expected for report footer
+[ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -gt 0 ] && failed=1 || failed=0
+
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${passed} ${failed})
+
 # If the caller was only independant
 if [ ${caller} -eq 0 ]; then
 
-  # Apply some values expected for report footer
-  [ ${status} -eq 1 ] && passed=${status} || passed=0
-  [ ${status} -eq 1 ] && failed=0 || failed=${status}
-
-  # Calculate a percentage from applied modules & errors incurred
-  percentage=$(percent ${passed} ${failed})
+  # Show failures
+  [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
 
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
 
-    # Print a singular line based on ${log} extention
-    print_line ${log} "details" "${blob}"
+    # Print array of failed & validated items
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
   # Generate the report
@@ -139,11 +142,14 @@ else
   # Since we were called from stigadm
   module_header "${results}"
 
+  # Show failures
+  [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+
   # Provide detailed results to ${log}
   if [ ${verbose} -eq 1 ]; then
 
-    # Print a singular line based on ${log} extention
-    print_line ${log} "details" "${blob}"
+    # Print array of failed & validated items
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
   fi
 
   # Finish up the module specific report
