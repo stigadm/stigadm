@@ -25,16 +25,6 @@ source ${bootstrap}
 
 
 ###############################################
-# Global zones only check
-###############################################
-
-# Make sure we are operating on global zones
-if [ "$(zonename)" != "global" ]; then
-  report "${stigid} only applies to global zones" && exit 1
-fi
-
-
-###############################################
 # Metrics start
 ###############################################
 
@@ -191,13 +181,13 @@ exit ${#errors[@]}
 #
 # Severity: CAT-I
 # Classification: UNCLASSIFIED
-# STIG_ID: V0047905
-# STIG_Version: SV-60777r1
-# Rule_ID: SOL-11.1-020110
+# STIG_ID: V0047911
+# STIG_Version: SV-60783r1
+# Rule_ID: SOL-11.1-020130
 #
 # OS: Solaris
 # Version: 11
-# Architecture: Sparc X86
+# Architecture: Sparc
 #
-# Title: The NIS package must not be installed.
-# Description: NIS is an insecure protocol.
+# Title: The FTP daemon must not be installed unless required.
+# Description: FTP is an insecure protocol.

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Define an array of packages to inspect
 declare -a packages
 packages+=("pkg://solaris/system/zones")

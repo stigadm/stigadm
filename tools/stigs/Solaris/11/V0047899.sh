@@ -109,16 +109,6 @@ source ${bootstrap}
 
 
 ###############################################
-# Global zones only check
-###############################################
-
-# Make sure we are operating on global zones
-if [ "$(zonename)" != "global" ]; then
-  report "${stigid} only applies to global zones" && exit 1
-fi
-
-
-###############################################
 # Metrics start
 ###############################################
 
