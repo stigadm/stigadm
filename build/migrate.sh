@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Migrate newly parsed STIG's with existing
 
@@ -41,5 +41,5 @@ for new_stig in ${new_stigs[@]}; do
   path="$(dirname ${new_stig})"
   file="$(basename ${new_stig})"
 
-  
+  [ ! -d ${path} ] && echo ${path}
 done
