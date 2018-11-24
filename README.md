@@ -2,7 +2,7 @@
 
 DISA IASE STIG validation & remediation for [Linux/UNIX](https://iase.disa.mil/stigs/os/unix-linux/Pages/index.aspx)
 
-Code Coverage: 2018-09-30
+Code Coverage: 2018-11-23
 
 | OS            | Version   | STIG Rule(s)   | Completed | Percentage |
 | :---          | :---      | :---           | :---      | :---       |
