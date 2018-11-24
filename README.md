@@ -13,9 +13,10 @@ Code Coverage: 2018-09-30
 | Red Hat       | 6         | 259            | 0         | 0%         |
 | Red Hat       | 7         | 232            | 0         | 0%         |
 | Solaris       | 10        | 510            | 29        | 5.68%      |
-| Solaris       | 11        | 236            | 90        | 38.13%     |
+| Solaris       | 11        | 236            | 94        | 39.83%     |
 | Ubuntu        | 16.04     | 230            | 0         | 0%         |
-| Totals        |           | 3321           | 119       | 3.58%      |
+| SuSE          | 12        | 138            | 0         | 0%         |
+| Totals        |           | 3458           | 123       | 3.55%      |
 
 ## install ##
 No installer package; simply copy latest `stigadm` toolkit and use.
