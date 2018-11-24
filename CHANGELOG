@@ -1,3 +1,99 @@
+commit fcd55f2f61b8da11fade3de0b0ff145fddd1ba17
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Nov 23 18:42:20 2018 -0700
+
+    v0.1.4: Updates to README regarding completion
+
+commit 4869a147a0ff8458f0278e1663b2789c7d3137bf
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Nov 23 18:23:59 2018 -0700
+
+    v0.1.4: V0047913,V0047915,V0047917: New
+
+commit 63c5d5b01578f7efc8594050e1684b1ddc4ed2fe
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Nov 23 18:12:26 2018 -0700
+
+    v0.1.4: V0047901,V0047903,V0047909 & V0047911: Permissions
+
+commit ae2ee731d72b01084c2e643d3a2a7a2124ed2e1d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Nov 23 18:10:13 2018 -0700
+
+    v0.1.4: Fixes for those modules NOT requiring global only
+
+commit bccaef3be38fc9ba145d792cc44572eee762a6cd
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Nov 23 17:56:41 2018 -0700
+
+    v0.1.4: V0047903: Newly tested on new API
+
+commit eb2411fa3a27623aa59f19e4d7e6f7c6dfd1913d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Nov 23 17:53:40 2018 -0700
+
+    v0.1.4: V0047903: Migrated to new API
+
+commit 090b520ff0f7a82792fafd0cae210de9ea02cde7
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Nov 23 11:00:44 2018 -0700
+
+    v0.1.4: V0047901, V0047909: Moved to new API
+
+commit 6d3f46d9293800b99e6d01db597b7d1881816f62
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Nov 23 10:17:23 2018 -0700
+
+    v0.1.4: Fix for permissions
+
+commit 71abef4acc15b2a9c86628c3eae0cfba86801101
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Nov 23 10:15:04 2018 -0700
+
+    v0.1.4: V0047905: Migrated to new API
+
+commit af8ba886c490b5d836498cd3294a984111019940
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Fri Nov 23 07:33:18 2018 -0700
+
+    v0.1.4: Removed duplicates from results:V0059831,V0059833,V0059835,V0059837,V0059839,V0059841,V0059843
+
+commit 7eeabb4f75afcb3fae25eb8b735dfe171f0e264f
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Nov 22 07:53:37 2018 -0700
+
+    v0.1.4: Build tools: Updated support for new SLES & .gitignore
+
+commit 7e7fb8b2f640f5818cdf3223b799472301977859
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Thu Nov 22 07:17:32 2018 -0700
+
+    v0.1.4: V0059831,V0059833,V0059835: Moved to new API
+
+commit 67bc467f51d3c3c811f6a42c68a5b22a3aa53461
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Nov 21 04:49:52 2018 -0700
+
+    v0.1.4: V0059837,V0059839,V0059841,V0059843: Removed global zone only check
+
+commit 1b73b6dfe20844d4a7b6f0b0fd032c94cef38976
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Nov 21 04:43:36 2018 -0700
+
+    v0.1.4: V0059837: Fix for get_octal() function call
+
+commit d8c69c12ff1dcc9444ed62edbe72c3df2dda0b1d
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Nov 21 04:34:58 2018 -0700
+
+    v0.1.4: V0059843,V0059841,V0059839,V0059837 moved to new API
+
+commit 974e033bc52ceadcbc1db0b6cc721b2ae6647ad1
+Author: jas- <Jason.Gerfen@gmail.com>
+Date:   Wed Nov 21 04:13:02 2018 -0700
+
+    v0.1.4: V0059843.sh: Validation/Remediation and move to new API complete
+
 commit 341bb3e923a2f28a608ca0c598b6764c760cb418
 Author: jas- <Jason.Gerfen@gmail.com>
 Date:   Tue Nov 20 04:52:45 2018 -0700
