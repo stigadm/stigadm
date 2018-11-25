@@ -6,17 +6,17 @@ Code Coverage: 2018-11-23
 
 | OS            | Version   | STIG Rule(s)   | Completed | Percentage |
 | :---          | :---      | :---           | :---      | :---       |
-| AIX           | 6.1       | 505            | 0         | 0%         |
+| AIX           | 6.1       | 501            | 0         | 0%         |
 | HP-UX         | 11.31     | 518            | 0         | 0%         |
 | Oracle Linux  | 5         | 569            | 0         | 0%         |
-| Oracle Linux  | 6         | 262            | 0         | 0%         |
-| Red Hat       | 6         | 259            | 0         | 0%         |
-| Red Hat       | 7         | 232            | 0         | 0%         |
-| Solaris       | 10        | 510            | 29        | 5.68%      |
+| Oracle Linux  | 6         | 264            | 0         | 0%         |
+| Red Hat       | 6         | 263            | 0         | 0%         |
+| Red Hat       | 7         | 242            | 0         | 0%         |
+| Solaris       | 10        | 511            | 29        | 5.67%      |
 | Solaris       | 11        | 236            | 94        | 39.83%     |
-| Ubuntu        | 16.04     | 230            | 0         | 0%         |
+| Ubuntu        | 16.04     | 229            | 0         | 0%         |
 | SuSE          | 12        | 138            | 0         | 0%         |
-| Totals        |           | 3458           | 123       | 3.55%      |
+| Totals        |           | 3471           | 123       | 3.54%      |
 
 ## install ##
 No installer package; simply copy latest `stigadm` toolkit and use.
