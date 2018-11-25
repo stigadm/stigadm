@@ -59,6 +59,8 @@ fi
 # Errors should go in ${errors[@]} array (which on remediation get handled)
 # All inspected items should go in ${inspected[@]} array
 
+errors=("${stigid}")
+
 
 # If ${change} = 1
 #if [ ${change} -eq 1 ]; then
@@ -93,7 +95,8 @@ fi
 if [ ${#errors[@]} -gt 0 ]; then
 
   # Set ${results} error message
-  results="Failed validation"
+  #results="Failed validation"    UNCOMMENT ONCE WORK COMPLETE!
+  results="Not yet implemented!"
 fi
 
 # Set ${results} passed message
