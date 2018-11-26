@@ -6,6 +6,10 @@ file=/etc/default/login
 # Define max value before account is locked
 max=35
 
+# Excluded usernames
+declare -a excluded
+excluded+=("root")
+
 
 ###############################################
 # Bootstrapping environment setup
@@ -47,11 +51,14 @@ caller=$(ps $PPID | grep -c stigadm)
 # Get the current configured value
 cmax=$(useradd -D | xargs -n 1 | grep inactive | cut -d= -f2)
 
-# Get a list of roles
-roles=( $(logins -arxo | cut -d: -f1) )
+# Convert ${excluded[@]} to a filter
+filter="$(echo "${excluded[@]}" | tr ' ' '|')"
 
-# Get array of all accounts & roles
-accounts=( $(logins -axo | tr ' ' '_') )
+# Get a list of roles excluding those in ${filter}
+roles=( $(logins -arxo | cut -d: -f1 | egrep -v ${filter}) )
+
+# Get array of all accounts & roles excluding those in ${filter}
+accounts=( $(logins -axo | tr ' ' '_' | egrep -v ${filter}) )
 
 
 # Extract those ${accounts[@]} with passwords & exceeding ${max}
