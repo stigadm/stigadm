@@ -1,290 +1,195 @@
 #!/bin/bash
 
+# Define the configuration file for the max lockout value
+file=/etc/default/login
 
 # Define max value before account is locked
 max=35
 
 
-# Define the configuration file for the max lockout value
-file=/etc/default/login
+###############################################
+# Bootstrapping environment setup
+###############################################
 
+# Get our working directory
+cwd="$(pwd)"
 
-# Global defaults for tool
-author=
-change=0
-json=1
-meta=0
-restore=0
-interactive=0
-xml=0
+# Define our bootstrapper location
+bootstrap="${cwd}/tools/bootstrap.sh"
 
-
-# Working directory
-cwd="$(dirname $0)"
-
-# Tool name
-prog="$(basename $0)"
-
-
-# Copy ${prog} to DISA STIG ID this tool handles
-stigid="$(echo "${prog}" | cut -d. -f1)"
-
-
-# Ensure path is robust
-PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-
-
-# Define the library include path
-lib_path=${cwd}/../../../libs
-
-# Define the tools include path
-tools_path=${cwd}/../../../stigs
-
-# Define the system backup path
-backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
-
-
-# Robot, do work
-
-
-# Error if the ${inc_path} doesn't exist
-if [ ! -d ${lib_path} ] ; then
-  echo "Defined library path doesn't exist (${lib_path})" && exit 1
+# Bail if it cannot be found
+if [ ! -f ${bootstrap} ]; then
+  echo "Unable to locate bootstrap; ${bootstrap}" && exit 1
 fi
 
-
-# Include all .sh files found in ${lib_path}
-incs=($(ls ${lib_path}/*.sh))
-
-# Exit if nothing is found
-if [ ${#incs[@]} -eq 0 ]; then
-  echo "'${#incs[@]}' libraries found in '${lib_path}'" && exit 1
-fi
+# Load our bootstrap
+source ${bootstrap}
 
 
-# Iterate ${incs[@]}
-for src in ${incs[@]}; do
+###############################################
+# Metrics start
+###############################################
 
-  # Make sure ${src} exists
-  if [ ! -f ${src} ]; then
-    echo "Skipping '$(basename ${src})'; not a real file (block device, symlink etc)"
-    continue
-  fi
+# Get EPOCH
+s_epoch="$(gen_epoch)"
 
-  # Include $[src} making any defined functions available
-  source ${src}
+# Create a timestamp
+timestamp="$(gen_date)"
 
-done
-
-
-# Ensure we have permissions
-if [ $UID -ne 0 ] ; then
-  usage "Requires root privileges" && exit 1
-fi
+# Whos is calling? 0 = singular, 1 is from stigadm
+caller=$(ps $PPID | grep -c stigadm)
 
 
-# Set variables
-while getopts "ha:cjmvrix" OPTION ; do
-  case $OPTION in
-    h) usage && exit 1 ;;
-    a) author=$OPTARG ;;
-    c) change=1 ;;
-    j) json=1 ;;
-    m) meta=1 ;;
-    r) restore=1 ;;
-    i) interactive=1 ;;
-    x) xml=1 ;;
-    ?) usage && exit 1 ;;
-  esac
-done
-
-
-# Make sure we have an author if we are not restoring or validating
-if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
-  usage "Must specify an author name (use -a <initials>)" && exit 1
-fi
-
-
-# If ${meta} is true
-if [ ${meta} -eq 1 ]; then
-
-  # Print meta data
-  get_meta_data "${cwd}" "${prog}"
-fi
-
-
-# Handle symlinks
-file="$(get_inode ${file})"
-
-
-# Ensure ${file} exists @ specified location
-if [ ! -f ${file} ]; then
-  usage "'${file}' does not exist at specified location" && exit 1
-fi
-
-
-# If ${restore} = 1 go to restoration mode
-if [ ${restore} -eq 1 ]; then
-
-  # If ${interactive} = 1 go to interactive restoration mode
-  if [ ${interactive} -eq 1 ]; then
-
-    # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
-
-  fi
-
-  # Print friendly message regarding restoration mode
-  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
-
-  exit 0
-fi
-
-
-# Declare an array for errors
-declare -a errs
-
+###############################################
+# STIG validation/remediation/restoration
+###############################################
 
 # Get the current configured value
 cmax=$(useradd -D | xargs -n 1 | grep inactive | cut -d= -f2)
 
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Got default activity period for new accounts '${cmax}'"
-
-
-# Get an array of users
-user_list=($(logins -axo | nawk -F: -v max="${max}" '$13 > max || $13 == -1 && $8 !~ /^NP|LK|NL/ && $8 ~ /^PS|UP$/{print $1}'))
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Got '${#user_list[@]}' of mis-configured accounts"
-
-
 # Get a list of roles
-roles_list=($(logins -arxo | cut -d: -f1))
+roles=( $(logins -arxo | cut -d: -f1) )
+
+# Get array of all accounts & roles
+accounts=( $(logins -axo | tr ' ' '_') )
 
 
-# If both ${cmax} = ${max} & ${#user_list[@]} = 0 it conforms
-if [[ ${cmax} -eq ${max} ]] && [[ ${#user_list[@]} -eq 0 ]]; then
+# Extract those ${accounts[@]} with passwords & exceeding ${max}
+errors=( $(echo "${accounts[@]}" | tr ' ' '\n' | sort -u |
+  nawk -F: -v max="${max}" '$13 > max || $13 == -1 && $8 ~ /^PS|UP|LK|UN$/{printf("%s:%s\n", $1, $13)}') )
 
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
-  exit 0
-fi
+# Add to our ${errors[@]} array if inactivity is > ${max}
+[ ${cmax} -gt ${max} ] &&
+  errors+=("inactive:${cmax}")
 
 
-# If ${change} = 1
-if [ ${change} -gt 0 ]; then
+# If ${change} is requested
+if [ ${change} -eq 1 ]; then
+
+  # Create the backup env
+  backup_setup_env "${backup_path}"
 
   # Create a backup of the passwd database
   bu_passwd_db "${author}"
   if [ $? -ne 0 ]; then
 
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Backup of passwd database failed, exiting..." 1
-
-    # Stop, we require a backup of the passwd database for changes
-    exit 1
+    # Bail if we can't create a backup
+    report "Failed to create backup of local passwd db" && exit 1
   fi
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Created backup of passwd database file(s)"
-
 
   # Create a backup of ${file}
   bu_file "${author}" "${file}"
   if [ $? -ne 0 ]; then
 
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "Could not create a backup of '${file}', exiting..." 1
-    exit 1
+    # Bail if we can't create a backup
+    report "Failed to create backup of ${file}" && exit 1
   fi
 
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Created backup of '${file}'"
-
-
-  # If ${cmax} > ${max}
-  if [ ${cmax} -gt ${max} ]; then
-
-    # Make the global change
+  # Fix ${cmax} if > ${max}
+  [ ${cmax} -gt ${max} ] &&
     useradd -D -f ${max} &> /dev/null
 
-    # Handle errors
-    if [ $? -ne 0 ]; then
 
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "An error occurred setting default value for account inactivity" 1
-    fi
-  fi
+  # Iterate ${errors[@]}
+  for acct in ${errors[@]}; do
 
+    # Cut user from ${acct}
+    acct="$(echo "${acct}" | cut -d: -f1)"
 
-  # If ${#user_list[@]] > 0
-  if [ ${#user_list[@]} -gt 0 ]; then
-
-    # Iterate ${user_list[@]}
-    for user in ${user_list[@]}; do
-
-      # Fix the account
-      [ $(in_array "${user}" "${roles_list[@]}") -eq 1 ] &&
-        usermod -f ${max} ${user} 2> /dev/null || rolemod -f ${max} ${user} 2> /dev/null
-
-      # Capture the error
-      if [ $? -ne 0 ]; then
-        # Print friendly message
-        [ ${verbose} -eq 1 ] && print "An error occurred modifying '${user}' allowed inactivity threshold" 1
-      else
-        # Print friendly message
-        [ ${verbose} -eq 1 ] && print "Fixed '${user}' account's allowed inactivity threshold"
-      fi
-    done
-  fi
-fi
-
-
-# Set a default return value
-ret=0
-
-# Get the current configured value
-cmax=$(useradd -D | xargs -n 1 | grep inactive | cut -d= -f2)
-
-# If ${cmax} > ${max}
-if [ ${cmax} -gt ${max} ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Account inactivity value incorrect; ${cmax}" 1
-  ret=1
-fi
-
-
-# Get an array of users
-errs+=($(logins -axo | nawk -F: -v max="${max}" '$13 > max || $13 == -1 && $8 !~ /^NP|LK|NL/ && $8 ~ /^PS|UP$/{print $1}'))
-
-
-# If ${#errs[@]} > 0
-if [ ${#errs[@]} -gt 0 ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "The following accounts are using an incorrect inactivity value" 1
-
-  # Iterate ${errs[@]}
-  for err in ${errs[@]}; do
-
-    # Print friendly message
-    [ ${verbose} -eq 1 ] && print "  ${err}" 1
+    # Fix the account
+    [ $(in_array "${acct}" "${roles[@]}") -eq 1 ] &&
+      usermod -f ${max} ${acct} 2> /dev/null ||
+      rolemod -f ${max} ${acct} 2> /dev/null
   done
 
-  ret=1
+
+  # Get the current configured value
+  cmax=$(useradd -D | xargs -n 1 | grep inactive | cut -d= -f2)
+
+  # Refresh ${errors[@]}
+  errors=( $(echo "${accounts[@]}" | tr ' ' '\n' | sort -u |
+    nawk -F: -v max="${max}" '$13 > max || $13 == -1 && $8 ~ /^PS|UP|LK|UN$/{printf("%s:%s\n", $1, $13)}') )
+
+  # Add to our ${errors[@]} array if inactivity is > ${max}
+  [ ${cmax} -gt ${max} ] &&
+    errors+=("inactive:${cmax}")
+fi
+
+# Copy ${accounts[@]} to ${inspected[@]}
+inspected=( $(echo "${accounts[@]}" | tr ' ' '\n' | sort | awk -F: '{printf("%s:%s\n", $1, $13)}') )
+
+
+###############################################
+# Results for printable report
+###############################################
+
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Set ${results} error message
+  results="Failed validation"
+fi
+
+# Set ${results} passed message
+[ ${#errors[@]} -eq 0 ] && results="Passed validation"
+
+
+###############################################
+# Report generation specifics
+###############################################
+
+# Apply some values expected for report footer
+[ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
+[ ${#errors[@]} -gt 0 ] && failed=1 || failed=0
+
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${passed} ${failed})
+
+# If the caller was only independant
+if [ ${caller} -eq 0 ]; then
+
+  # Show failures
+  [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Generate the report
+  report "${results}"
+
+  # Display the report
+  cat ${log}
+else
+
+  # Since we were called from stigadm
+  module_header "${results}"
+
+  # Show failures
+  [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Finish up the module specific report
+  module_footer
 fi
 
 
-# Return an error code
-[ ${ret} -gt 0 ] && exit 1
+###############################################
+# Return code for larger report
+###############################################
 
+# Return an error/success code
+exit ${#errors[@]}
 
-# Print friendly success
-[ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
-
-exit 0
 
 # Date: 2018-09-05
 #
