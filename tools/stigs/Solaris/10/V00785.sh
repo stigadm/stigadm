@@ -143,62 +143,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00785
-# STIG_Version: SV-785r2
-# Rule_ID: GEN001160
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00785
-# STIG_Version: SV-785r2
-# Rule_ID: GEN001160
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: All files and directories must have a valid owner.
-# Description: All files and directories must have a valid owner.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00785
-# STIG_Version: SV-785r2
-# Rule_ID: GEN001160
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: All files and directories must have a valid owner.
-# Description: All files and directories must have a valid owner.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00785
-# STIG_Version: SV-785r2
-# Rule_ID: GEN001160
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: All files and directories must have a valid owner.
-# Description: Unowned files and directories may be unintentionally inherited if a user is assigned the same UID as the UID of the unowned files.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

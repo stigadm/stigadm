@@ -226,62 +226,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00765
-# STIG_Version: SV-27080r1
-# Rule_ID: GEN000440
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00765
-# STIG_Version: SV-27080r1
-# Rule_ID: GEN000440
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: Successful and unsuccessful logins and logouts must be logged.
-# Description: Successful and unsuccessful logins and logouts must be logged.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00765
-# STIG_Version: SV-27080r1
-# Rule_ID: GEN000440
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: Successful and unsuccessful logins and logouts must be logged.
-# Description: Successful and unsuccessful logins and logouts must be logged.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00765
-# STIG_Version: SV-27080r1
-# Rule_ID: GEN000440
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: Successful and unsuccessful logins and logouts must be logged.
-# Description: Monitoring and recording successful and unsuccessful logins assist in tracking unauthorized access to the system.  Without this logging, the ability to track unauthorized activity to specific user accounts may be diminished.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

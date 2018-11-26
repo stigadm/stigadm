@@ -149,62 +149,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00762
-# STIG_Version: SV-27065r1
-# Rule_ID: GEN000320
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00762
-# STIG_Version: SV-27065r1
-# Rule_ID: GEN000320
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: All accounts must be assigned unique User Identification Numbers (UIDs).
-# Description: All accounts must be assigned unique User Identification Numbers (UIDs).
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00762
-# STIG_Version: SV-27065r1
-# Rule_ID: GEN000320
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: All accounts must be assigned unique User Identification Numbers (UIDs).
-# Description: All accounts must be assigned unique User Identification Numbers (UIDs).
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00762
-# STIG_Version: SV-27065r1
-# Rule_ID: GEN000320
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: All accounts must be assigned unique User Identification Numbers (UIDs).
-# Description: Accounts sharing a UID have full access to each others' files.  This has the same effect as sharing a login.  There is no way to assure identification, authentication, and accountability because the system sees them as the same user. If the duplicate UID is 0, this gives potential intruders another privileged account to attack.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

@@ -183,62 +183,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00782
-# STIG_Version: SV-41526r2
-# Rule_ID: GEN006480
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00782
-# STIG_Version: SV-41526r2
-# Rule_ID: GEN006480
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The system must have a host-based intrusion detection tool installed.
-# Description: The system must have a host-based intrusion detection tool installed.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00782
-# STIG_Version: SV-41526r2
-# Rule_ID: GEN006480
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: The system must have a host-based intrusion detection tool installed.
-# Description: The system must have a host-based intrusion detection tool installed.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00782
-# STIG_Version: SV-41526r2
-# Rule_ID: GEN006480
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The system must have a host-based intrusion detection tool installed.
-# Description: Without a host-based intrusion detection tool, there is no system-level defense when an intruder gains access to a system or network.  Additionally, a host-based intrusion detection tool can provide methods to immediately lock out detected intrusion attempts.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

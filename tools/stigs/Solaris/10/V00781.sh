@@ -166,62 +166,8 @@ fi
 
 exit 0
 
-# Severity: CAT-III
-# Classification: UNCLASSIFIED
-# STIG_ID: V00781
-# STIG_Version: SV-27069r1
-# Rule_ID: GEN000380
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-III
-# Classification: UNCLASSIFIED
-# STIG_ID: V00781
-# STIG_Version: SV-27069r1
-# Rule_ID: GEN000380
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: All GIDs referenced in the /etc/passwd file must be defined in the /etc/group file.
-# Description: All GIDs referenced in the /etc/passwd file must be defined in the /etc/group file.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-III
-# Classification: UNCLASSIFIED
-# STIG_ID: V00781
-# STIG_Version: SV-27069r1
-# Rule_ID: GEN000380
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: All GIDs referenced in the /etc/passwd file must be defined in the /etc/group file.
-# Description: All GIDs referenced in the /etc/passwd file must be defined in the /etc/group file.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-III
-# Classification: UNCLASSIFIED
-# STIG_ID: V00781
-# STIG_Version: SV-27069r1
-# Rule_ID: GEN000380
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: All GIDs referenced in the /etc/passwd file must be defined in the /etc/group file.
-# Description: All GIDs referenced in the /etc/passwd file must be defined in the /etc/group file.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-III
 # Classification: UNCLASSIFIED

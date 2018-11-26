@@ -209,62 +209,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00808
-# STIG_Version: SV-28641r3
-# Rule_ID: GEN002560
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00808
-# STIG_Version: SV-28641r3
-# Rule_ID: GEN002560
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The system and user default umask must be 077.
-# Description: The system and user default umask must be 077.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00808
-# STIG_Version: SV-28641r3
-# Rule_ID: GEN002560
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: The system and user default umask must be 077.
-# Description: The system and user default umask must be 077.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00808
-# STIG_Version: SV-28641r3
-# Rule_ID: GEN002560
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The system and user default umask must be 077.
-# Description: The umask controls the default access mode assigned to newly created files.  An umask of 077 limits new files to mode 700 or less permissive.  Although umask can be represented as a 4-digit number, the first digit representing special access modes is typically ignored or required to be 0.  This requirement applies to the globally configured system defaults and the user defaults for each account on the system.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

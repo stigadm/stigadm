@@ -242,62 +242,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00784
-# STIG_Version: SV-39833r1
-# Rule_ID: GEN001140
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00784
-# STIG_Version: SV-39833r1
-# Rule_ID: GEN001140
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: System files and directories must not have uneven access permissions.
-# Description: System files and directories must not have uneven access permissions.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00784
-# STIG_Version: SV-39833r1
-# Rule_ID: GEN001140
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: System files and directories must not have uneven access permissions.
-# Description: System files and directories must not have uneven access permissions.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00784
-# STIG_Version: SV-39833r1
-# Rule_ID: GEN001140
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: System files and directories must not have uneven access permissions.
-# Description: Discretionary access control is undermined if users, other than a file owner, have greater access permissions to system files and directories than the owner.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

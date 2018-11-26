@@ -236,7 +236,7 @@ done
 [ ${verbose} -eq 1 ] && print "Failed conformity to '${stigid}'" 1
 exit 1
 
-# Date: 2017-06-21
+# Date: 2018-09-05
 #
 # Severity: CAT-III
 # Classification: UNCLASSIFIED

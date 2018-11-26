@@ -172,62 +172,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00775
-# STIG_Version: SV-775r2
-# Rule_ID: GEN000920
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00775
-# STIG_Version: SV-775r2
-# Rule_ID: GEN000920
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The root account's home directory (other than /) must have mode 0700.
-# Description: The root account's home directory (other than /) must have mode 0700.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00775
-# STIG_Version: SV-775r2
-# Rule_ID: GEN000920
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: The root account's home directory (other than /) must have mode 0700.
-# Description: The root account's home directory (other than /) must have mode 0700.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00775
-# STIG_Version: SV-775r2
-# Rule_ID: GEN000920
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The root account's home directory (other than /) must have mode 0700.
-# Description: Permissions greater than 0700 could allow unauthorized users access to the root home directory.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

@@ -3,6 +3,8 @@
 
 # Migrate newly parsed STIG's with existing
 
+change=${1}
+
 # Get current directory
 cwd="$(pwd)"
 
@@ -44,11 +46,13 @@ for new_stig in ${new_stigs[@]}; do
   path="${existing_directory}${path}"
 
   # Test & make ${path} if it isn't there
-  [ ! -d ${path} ] && mkdir -p ${path}
+  if [ ! -d ${path} ]; then
+    [ ${change:=0} -eq 1 ] && mkdir -p ${path}
+  fi
 
   # Test for ${file} in ${path} & copy if missing
   if [ ! -f ${path}/${file} ]; then
-    cp ${new_stig} ${path}/${file}
+    [ ${change:=0} -eq 1 ] && cp ${new_stig} ${path}/${file}
   else
     # Here we should do some differential work
     sum1="$(sha256sum ${new_stig} | awk '{print $1}')"
@@ -57,14 +61,49 @@ for new_stig in ${new_stigs[@]}; do
     # Compare & diff if not the same
     if [ "${sum1}" != "${sum2}" ]; then
 
-      # Get blobs of meta data
-      blob1="$(egrep '\# Date|\# Severity|\# Classification|\# STIG|\# Rule|\# OS|\# Version|\# Architecture|\# Title|\# Description' ${new_stig})"
-      blob2="$(egrep '\# Date|\# Severity|\# Classification|\# STIG|\# Rule|\# OS|\# Version|\# Architecture|\# Title|\# Description' ${path}/${file})"
+      # Get meta data
+      blob="$(egrep '\# Date|\# Severity|\# Classification|\# STIG_|\# Rule|\# OS|\# Version|\# Title|\# Description' ${new_stig})"
 
-      # Since we expect ${blob1} to be newer
-      echo "${new_stig}"
-      echo "${path}/${file}"
-      diff -NaubB <(echo "${blob2}") <(echo "${blob1}")
+      # Cut up ${blob} so we can update the meta data in ${path}/${file}
+      s_date="$(echo "${blob}" | grep "^\# Date:" | awk '{print $3}')"
+      s_severity="$(echo "${blob}" | grep "^\# Severity:" | awk '{print $3}')"
+      s_classification="$(echo "${blob}" | grep "^\# Classification:" | awk '{print $3}')"
+      s_stig_id="$(echo "${blob}" | grep "^\# STIG_ID:" | awk '{print $3}')"
+      s_stig_ver="$(echo "${blob}" | grep "^\# STIG_Version:" | awk '{print $3}')"
+      s_rule_ver="$(echo "${blob}" | grep "^\# Rule_ID:" | awk '{print $3}')"
+      s_os="$(echo "${blob}" | grep "^\# OS:" | awk '{print $3}')"
+      s_os_ver="$(echo "${blob}" | grep "^\# Version:" | awk '{print $3}')"
+      s_title="$(echo "${blob}" | grep "^\# Title:" | sed "s|^# Title: \(.*\)$|\1|g")"
+      s_description="$(echo "${blob}" | grep "^\# Description:" | sed "s|^# Description: \(.*\)$|\1|g")"
+
+      # Making a change?
+      if [ ${change:=0} -eq 1 ]; then
+        echo "${path}/${file}"
+        sed -i -e "s|^\(# Date: \).*$|\1${s_date}|g" \
+            -e "s|^\(# Severity: \).*$|\1${s_severity}|g" \
+            -e "s|^\(# Classificiation: \).*$|\1${s_severity}|g" \
+            -e "s|^\(# STIG_ID: \).*$|\1${s_stig_id}|g" \
+            -e "s|^\(# STIG_Ver: \).*$|\1${s_stig_ver}|g" \
+            -e "s|^\(# Rule_ID: \).*$|\1${s_rule_ver}|g" \
+            -e "s|^\(# OS: \).*$|\1${s_os}|g" \
+            -e "s|^\(# Version: \).*$|\1${s_os_ver}|g" \
+            -e "s|^\(# Title: \).*$|\1${s_title}|g" \
+            -e "s|^\(# Description: \).*$|\1${s_description}|g" ${path}/${file}
+        egrep '\# Date|\# Severity|\# Classification|\# STIG_|\# Rule|\# OS|\# Version|\# Title|\# Description' ${path}/${file}
+      else
+        echo "${path}/${file}"
+        sed -i -e "s|^\(# Date: \).*$|\1${s_date}|g" \
+            -e "s|^\(# Severity: \).*$|\1${s_severity}|g" \
+            -e "s|^\(# Classificiation: \).*$|\1${s_severity}|g" \
+            -e "s|^\(# STIG_ID: \).*$|\1${s_stig_id}|g" \
+            -e "s|^\(# STIG_Ver: \).*$|\1${s_stig_ver}|g" \
+            -e "s|^\(# Rule_ID: \).*$|\1${s_rule_ver}|g" \
+            -e "s|^\(# OS: \).*$|\1${s_os}|g" \
+            -e "s|^\(# Version: \).*$|\1${s_os_ver}|g" \
+            -e "s|^\(# Title: \).*$|\1${s_title}|g" \
+            -e "s|^\(# Description: \).*$|\1${s_description}|g" ${path}/${file} |
+        egrep '\# Date|\# Severity|\# Classification|\# STIG_|\# Rule|\# OS|\# Version|\# Title|\# Description'
+      fi
       echo
     fi
   fi

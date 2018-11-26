@@ -221,62 +221,8 @@ done
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00766
-# STIG_Version: SV-39815r1
-# Rule_ID: GEN000460
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00766
-# STIG_Version: SV-39815r1
-# Rule_ID: GEN000460
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The system must disable accounts after three consecutive unsuccessful login attempts.
-# Description: The system must disable accounts after three consecutive unsuccessful login attempts.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00766
-# STIG_Version: SV-39815r1
-# Rule_ID: GEN000460
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: The system must disable accounts after three consecutive unsuccessful login attempts.
-# Description: The system must disable accounts after three consecutive unsuccessful login attempts.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00766
-# STIG_Version: SV-39815r1
-# Rule_ID: GEN000460
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The system must disable accounts after three consecutive unsuccessful login attempts.
-# Description: Disabling accounts after a limited number of unsuccessful login attempts improves protection against password guessing attacks.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

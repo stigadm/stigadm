@@ -266,62 +266,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00918
-# STIG_Version: SV-39824r1
-# Rule_ID: GEN000760
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00918
-# STIG_Version: SV-39824r1
-# Rule_ID: GEN000760
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: Accounts must be locked upon 35 days of inactivity.
-# Description: Accounts must be locked upon 35 days of inactivity.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00918
-# STIG_Version: SV-39824r1
-# Rule_ID: GEN000760
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: Accounts must be locked upon 35 days of inactivity.
-# Description: Accounts must be locked upon 35 days of inactivity.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00918
-# STIG_Version: SV-39824r1
-# Rule_ID: GEN000760
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: Accounts must be locked upon 35 days of inactivity.
-# Description: Accounts must be locked upon 35 days of inactivity.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

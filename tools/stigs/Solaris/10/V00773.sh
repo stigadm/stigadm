@@ -149,62 +149,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00773
-# STIG_Version: SV-39820r1
-# Rule_ID: GEN000880
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00773
-# STIG_Version: SV-39820r1
-# Rule_ID: GEN000880
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The root account must be the only account having an UID of 0.
-# Description: The root account must be the only account having an UID of 0.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00773
-# STIG_Version: SV-39820r1
-# Rule_ID: GEN000880
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: The root account must be the only account having an UID of 0.
-# Description: The root account must be the only account having an UID of 0.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00773
-# STIG_Version: SV-39820r1
-# Rule_ID: GEN000880
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The root account must be the only account having an UID of 0.
-# Description: If an account has an UID of 0, it has root authority. Multiple accounts with an UID of 0 afford more opportunity for potential intruders to guess a password for a privileged account.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

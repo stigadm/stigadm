@@ -227,62 +227,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00760
-# STIG_Version: SV-41504r1
-# Rule_ID: GEN000280
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00760
-# STIG_Version: SV-41504r1
-# Rule_ID: GEN000280
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: Direct logins must not be permitted to shared, default, application, or utility accounts.
-# Description: Direct logins must not be permitted to shared, default, application, or utility accounts.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00760
-# STIG_Version: SV-41504r1
-# Rule_ID: GEN000280
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: Direct logins must not be permitted to shared, default, application, or utility accounts.
-# Description: Direct logins must not be permitted to shared, default, application, or utility accounts.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00760
-# STIG_Version: SV-41504r1
-# Rule_ID: GEN000280
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: Direct logins must not be permitted to shared, default, application, or utility accounts.
-# Description: Shared accounts (accounts where two or more people log in with the same user identification) do not provide identification and authentication.  There is no way to provide for non-repudiation or individual accountability.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

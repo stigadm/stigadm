@@ -240,62 +240,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V001032
-# STIG_Version: SV-39809r1
-# Rule_ID: GEN000540
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V001032
-# STIG_Version: SV-39809r1
-# Rule_ID: GEN000540
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: Users must not be able to change passwords more than once every 24 hours.
-# Description: Users must not be able to change passwords more than once every 24 hours.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V001032
-# STIG_Version: SV-39809r1
-# Rule_ID: GEN000540
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: Users must not be able to change passwords more than once every 24 hours.
-# Description: Users must not be able to change passwords more than once every 24 hours.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V001032
-# STIG_Version: SV-39809r1
-# Rule_ID: GEN000540
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: Users must not be able to change passwords more than once every 24 hours.
-# Description: The ability to change passwords frequently facilitates users reusing the same password. This can result in users effectively never changing their passwords. This would be accomplished by users changing their passwords when required and then immediately changing it to the original value.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

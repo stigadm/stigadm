@@ -246,17 +246,17 @@ fi
 exit ${#errors[@]}
 
 
-# Date: 2017-06-21
+# Date: 2018-09-05
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED
-# STIG_ID: V0059833
+# STIG_ID: V0059831
 # STIG_Version: SV-74263r2
-# Rule_ID: SOL-11.1-020330
+# Rule_ID: SOL-11.1-020320
 #
 # OS: Solaris
 # Version: 11
 # Architecture: Sparc X86
 #
-# Title: Run control scripts library search paths must contain only authorized paths.
-# Description: The library search path environment variable(s) contain a list of directories for the dynamic linker to search to find libraries. If this path includes the current working directory or other relative paths, libraries in these directories may be loaded instead of system libraries. This variable is formatted as a colon-separated list of directories. If there is an empty entry, such as a leading or trailing colon, two consecutive colons, or a single period, this is interpreted as the current working directory. Paths starting with a slash (/) are absolute paths.
+# Title: Run control scripts executable search paths must contain only authorized paths.
+# Description: The executable search path (typically the PATH environment variable) contains a list of directories for the shell to search to find executables. If this path includes the current working directory or other relative paths, executables in these directories may be executed instead of system commands. This variable is formatted as a colon-separated list of directories. If there is an empty entry, such as a leading or trailing colon, two consecutive colons, or a single period, this is interpreted as the current working directory. Paths starting with a slash (/) are absolute paths.

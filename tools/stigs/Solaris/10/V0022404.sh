@@ -139,62 +139,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0022404
-# STIG_Version: SV-26605r1
-# Rule_ID: GEN003510
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0022404
-# STIG_Version: SV-26605r1
-# Rule_ID: GEN003510
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: Kernel core dumps must be disabled unless needed.
-# Description: Kernel core dumps must be disabled unless needed.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0022404
-# STIG_Version: SV-26605r1
-# Rule_ID: GEN003510
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: Kernel core dumps must be disabled unless needed.
-# Description: Kernel core dumps must be disabled unless needed.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V0022404
-# STIG_Version: SV-26605r1
-# Rule_ID: GEN003510
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: Kernel core dumps must be disabled unless needed.
-# Description: Kernel core dumps may contain the full contents of system memory at the time of the crash.  Kernel core dumps may consume a considerable amount of disk space and may result in Denial of Service by exhausting the available space on the target file system.  The kernel core dump process may increase the amount of time a system is unavailable due to a crash.  Kernel core dumps can be useful for kernel debugging.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

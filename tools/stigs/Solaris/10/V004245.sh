@@ -196,62 +196,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V004245
-# STIG_Version: SV-4245r2
-# Rule_ID: GEN000000-SOL00100
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V004245
-# STIG_Version: SV-4245r2
-# Rule_ID: GEN000000-SOL00100
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The /etc/security/audit_user file must have mode 0640 or less permissive.
-# Description: The /etc/security/audit_user file must have mode 0640 or less permissive.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V004245
-# STIG_Version: SV-4245r2
-# Rule_ID: GEN000000-SOL00100
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: The /etc/security/audit_user file must have mode 0640 or less permissive.
-# Description: The /etc/security/audit_user file must have mode 0640 or less permissive.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V004245
-# STIG_Version: SV-4245r2
-# Rule_ID: GEN000000-SOL00100
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: The /etc/security/audit_user file must have mode 0640 or less permissive.
-# Description: Audit_user is a sensitive file that, if compromised, would allow a malicious user to select auditing parameters to ignore his sessions.  This would allow malicious operations the auditing subsystem would not log for that user.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED

@@ -192,62 +192,8 @@ fi
 
 exit 0
 
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00780
-# STIG_Version: SV-28658r1
-# Rule_ID: GEN000360
-#
 
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00780
-# STIG_Version: SV-28658r1
-# Rule_ID: GEN000360
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: GIDs reserved for system accounts must not be assigned to non-system groups.
-# Description: GIDs reserved for system accounts must not be assigned to non-system groups.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00780
-# STIG_Version: SV-28658r1
-# Rule_ID: GEN000360
-#
-# OS: Solaris
-# Version: 10
-# Architecture: Sparc X86
-#
-# Title: GIDs reserved for system accounts must not be assigned to non-system groups.
-# Description: GIDs reserved for system accounts must not be assigned to non-system groups.
-
-
-# Date: 2017-06-21
-#
-# Severity: CAT-II
-# Classification: UNCLASSIFIED
-# STIG_ID: V00780
-# STIG_Version: SV-28658r1
-# Rule_ID: GEN000360
-#
-# OS: Solaris
-# Version: 10
-# Architecture: X86
-#
-# Title: GIDs reserved for system accounts must not be assigned to non-system groups.
-# Description: Reserved GIDs are typically used by system software packages.  If non-system groups have GIDs in this range, they may conflict with system software, possibly leading to the group having permissions to modify system files.
-
-
-# Date: 2017-06-21
+# Date: 2018-06-29
 #
 # Severity: CAT-II
 # Classification: UNCLASSIFIED
