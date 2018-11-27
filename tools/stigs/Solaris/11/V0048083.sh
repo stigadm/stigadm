@@ -9,6 +9,16 @@ max=35
 # Excluded usernames
 declare -a excluded
 excluded+=("root")
+excluded+=("adm")
+excluded+=("daemon")
+excluded+=("dladm")
+excluded+=("ikeuser")
+excluded+=("lp")
+excluded+=("netadm")
+excluded+=("netcfg")
+excluded+=("ocm")
+excluded+=("pkg5srv")
+excluded+=("zfssnap")
 
 
 ###############################################
@@ -63,7 +73,7 @@ accounts=( $(logins -axo | tr ' ' '_' | egrep -v ${filter}) )
 
 # Extract those ${accounts[@]} with passwords & exceeding ${max}
 errors=( $(echo "${accounts[@]}" | tr ' ' '\n' | sort -u |
-  nawk -F: -v max="${max}" '$13 > max || $13 == -1 && $8 ~ /^PS|UP|LK|UN$/{printf("%s:%s\n", $1, $13)}') )
+  nawk -F: -v max="${max}" '$13 > max || $13 == -1 && $8 ~ /^PS|UP|LK|UN|NL$/{printf("%s:%s\n", $1, $13)}') )
 
 # Add to our ${errors[@]} array if inactivity is > ${max}
 [ ${cmax} -gt ${max} ] &&
@@ -113,13 +123,17 @@ if [ ${change} -eq 1 ]; then
   # Get the current configured value
   cmax=$(useradd -D | xargs -n 1 | grep inactive | cut -d= -f2)
 
-  # Refresh ${errors[@]}
-  errors=( $(echo "${accounts[@]}" | tr ' ' '\n' | sort -u |
-    nawk -F: -v max="${max}" '$13 > max || $13 == -1 && $8 ~ /^PS|UP|LK|UN$/{printf("%s:%s\n", $1, $13)}') )
-
   # Add to our ${errors[@]} array if inactivity is > ${max}
   [ ${cmax} -gt ${max} ] &&
     errors+=("inactive:${cmax}")
+
+
+  # Refresh ${accounts[@]} array exclusing ${filter}
+  accounts=( $(logins -axo | tr ' ' '_' | egrep -v ${filter}) )
+
+  # Refresh ${errors[@]}
+  errors=( $(echo "${accounts[@]}" | tr ' ' '\n' | sort -u |
+    nawk -F: -v max="${max}" '$13 > max || $13 == -1 && $8 ~ /^PS|UP|LK|UN|NL$/{printf("%s:%s\n", $1, $13)}') )
 fi
 
 # Copy ${accounts[@]} to ${inspected[@]}
