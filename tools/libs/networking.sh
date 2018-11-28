@@ -58,7 +58,7 @@ function calc_ipv4_cidr()
 function parse_ifconfig()
 {
   echo "${1}" |
-    awk '$1 ~ /^[a-z0-9A-Z:]/{
+    nawk '$1 ~ /^[a-z0-9A-Z:]/{
       iface=$1;
       getline;
       if($1 ~ /inet/){ip=$2}
@@ -78,6 +78,8 @@ function get_ipv4()
     sed -n "/^[a-zA-Z0-9:].*IPv4.*$/,/[inet|ether].*$/p")"
 
   local -a ifaces=( $(parse_ifconfig "${blob}") )
+
+  echo "${ifaces[@]}"
 }
 
 
@@ -89,6 +91,8 @@ function get_ipv6()
     sed -n "/^[a-zA-Z0-9:].*IPv6.*$/,/[inet|ether].*$/p")"
 
   local -a ifaces=( $(parse_ifconfig "${blob}") )
+
+  echo "${ifaces[@]}"
 }
 
 
