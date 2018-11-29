@@ -9,7 +9,7 @@ hosts_deny=/etc/hosts.deny
 
 # Define a template
 read -d '' wrapper_tpl <<"EOF"
-ALL:{RANGE}:banners /etc/issue
+ALL:{RANGE}
 EOF
 
 
@@ -50,13 +50,56 @@ caller=$(ps $PPID | grep -c stigadm)
 # STIG validation/remediation/restoration
 ###############################################
 
+# Current value of inetadm for inetd? false/true
+curr_inetd=$(inetadm -p|grep tcp_wrappers|grep -c FALSE)
+
+# If ${curr_inetd} > 0 add to ${errors[@]} array
+[ ${curr_inetd} -gt 0 ] &&
+  errors+=("svc:/network/inetd:tcp_wrappers:FALSE")
+
+
+# Gather up all of our possible services (legacy & modern)
+services=( $(svcs -a | awk 'NR>1 && $3 ~ /svc:\//{print $3}' | sort | sed "s|:default||g")
+           $(inetadm | awk '/svc:\//{print $NF}' | sort) )
+
+# Filter ${servcies[@]} for those with a tcp_wrapper option
+for service in ${services[@]}; do
+
+  # Get service & configuration item name if matched
+  item="$(svccfg -s ${service} listprop 2>/dev/null | grep tcp | grep boolean |
+    awk '$1 ~ /wrappers$/{print}' | grep false |
+    nawk -v svc="${service}" '{printf("%s:%s:%s\n", svc, $1, $3)}')"
+
+  # If ${item} is null try ${service}:default configuration values
+  [ "${item}" == "" ] &&
+    item="$(svccfg -s ${service}:default listprop 2>/dev/null | grep tcp | grep boolean |
+      awk '$1 ~ /wrappers$/{print}' | grep false |
+      nawk -v svc="${service}" '{printf("%s:%s:%s\n", svc, $1, $3)}')"
+
+  # If ${item} is still null assume legacy and switch to inetadm
+  [ "${item}" == "" ] &&
+    item="$(inetadm -l ${service} 2>/dev/null | grep tcp_wrappers | grep FALSE |
+      nawk -v svc="${service}" '{gsub(/\=/, ":", $NF);printf("%s:%s\n", svc, $NF)}')"
+
+  # If ${item} isn't null add to ${errors[@]}
+  [ "${item}" != "" ] && errors+=("${item}")
+done
+
+
 # Acquire current IPv4 & IPv6 addresses
-ipv4=( $(get_ipv4) )
-ipv6=( $(get_ipv6) )
+interfaces=( $(get_ipv4) $(get_ipv6) )
 
-# Get list of current configurations from ${hosts_allow}
+# Get array of current configurations from ${hosts_allow}
+curr_allow=( $(awk '$1 ~ /^[0-9|a-zA-Z]+\:|[ALL|LOCAL|*KNOWN|PARANOID]\:.*/{print}' ${hosts_allow}|tr ' ' '_') )
 
-# Compare current against ${ipv4[@]} & ${ipv6[@]}
+# Iterate ${interfaces[@]}
+for interface in ${interfaces[@]}; do
+
+  # Cut out IPv4/IPv6 from ${interface}
+  ip="$(echo "${interface}" | cut -d, -f2)"
+
+  # Subnet calculations should be done to ensure accuracy
+done
 
 # Push offenders to ${errors[@]} array
 
@@ -73,36 +116,26 @@ ipv6=( $(get_ipv6) )
 # Refresh ${errors[@]} array
 
 
-# Examine inetdadm for TCP_WRAPPERS enabled
-
-# If not push to ${errors[@]} array
-
-# If ${change} enabled
-
-# Enable TCP_WRAPPERS for inetd
-
-
-# Since SOME of the legacy services have moved to SMF
-services=( $(svcs -a | awk 'NR>1{print $3}' | sort | sed "s|:default||g") )
-
-# Filter ${servcies[@]} for those with a tcp_wrapper option
-for service in ${services[@]}; do
-
-  # Get service & configuration item name if matched
-  item="$(svccfg -s ${service} listprop 2>/dev/null | grep tcp | grep boolean |
-    awk '$1 ~ /wrappers$/{print}' | grep false | nawk -v svc="${service}" '{printf("%s:%s:%s\n", svc, $1, $3)}')"
-
-  # If ${item} is null try ${service}:default configuration values
-  [ "${item}" == "" ] &&
-    item="$(svccfg -s ${service}:default listprop 2>/dev/null | grep tcp | grep boolean |
-      awk '$1 ~ /wrappers$/{print}' | grep false | nawk -v svc="${service}" '{printf("%s:%s:%s\n", svc, $1, $3)}')"
-
-  # If ${item} isn't null add to ${errors[@]} because it has a configuration option for tcpwrappers and is NOT enabled
-  [ "${item}" != "" ] && errors+=("${item}")
-done
+# Remove dupes and sort ${errors[@]}
+errors=( $(remove_duplicates "${errors[@]}") )
 
 # Copy ${services[@]} array to ${inspected[@]}
-inspected+=( "$(echo "${services[@]}"|tr ' ' '\n'|awk '{printf("Service:%s\n", $0)}')" )
+inspected+=( $(remove_duplicates "${services[@]}") )
+
+
+###############################################
+# Results for printable report
+###############################################
+
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Set ${results} error message
+  results="Failed validation"
+fi
+
+# Set ${results} passed message
+[ ${#errors[@]} -eq 0 ] && results="Passed validation"
 
 
 ###############################################
