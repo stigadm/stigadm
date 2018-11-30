@@ -97,8 +97,20 @@ for interface in ${interfaces[@]}; do
 
   # Cut out IPv4/IPv6 from ${interface}
   ip="$(echo "${interface}" | cut -d, -f2)"
+  mask="$(echo "${interface}" | cut -d, -f3)"
 
-  # Subnet calculations should be done to ensure accuracy
+  # ADD: Subnet calculations should be done to ensure accuracy
+  #   REF: math.sh: dec2bin4octet() & bitwise_and_calc()
+  if [[ $(is_ipv4 "${ip}") -eq 0 ]] && [[ $(is_ipv4 "${mask}") -eq 0 ]]; then
+
+    # Calculate the range for current ${interface} & number of nodes
+    calc_ipv4_range "${ip}" "${mask}"
+
+    # Do comparison with current definitions matching ${ip} if any
+
+
+  fi
+
 done
 
 # Push offenders to ${errors[@]} array
