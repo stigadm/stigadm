@@ -182,6 +182,13 @@ function bitwise_xor_calc()
 }
 
 
+# POW
+function pow()
+{
+  echo "${1} ^ ${2}" | bc
+}
+
+
 # Perform conversion from requested size to bytes
 function tobytes()
 {
@@ -215,4 +222,11 @@ function frombytes()
   esac
 
   echo ${bytes}
+}
+
+
+# Return number of characters found
+function match_char_num()
+{
+  echo "${1}" | tr -cd "${2}" | wc -c | xargs
 }

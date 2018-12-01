@@ -104,7 +104,7 @@ for interface in ${interfaces[@]}; do
   if [[ $(is_ipv4 "${ip}") -eq 0 ]] && [[ $(is_ipv4 "${mask}") -eq 0 ]]; then
 
     # Calculate the range for current ${interface} & number of nodes
-    calc_ipv4_range "${ip}" "${mask}"
+    calc_ipv4_subnets "${ip}" "${mask}"
 
     # Do comparison with current definitions matching ${ip} if any
 
