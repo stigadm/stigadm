@@ -135,19 +135,48 @@ function get_ipv6()
 }
 
 
+# Determine IPv4 class (i.e. A, B, C, D or E)
+function calc_ipv4_class()
+{
+  local -a ipv4=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
+
+  [ $(echo "${ipv4[0]}" | grep -c "^0") -eq 1 ] && class="A"
+  [ $(echo "${ipv4[0]}" | grep -c "^10") -eq 1 ] && class="B"
+  [ $(echo "${ipv4[0]}" | grep -c "^110") -eq 1 ] && class="C"
+  [ $(echo "${ipv4[0]}" | grep -c "^1110") -eq 1 ] && class="D"
+  [ $(echo "${ipv4[0]}" | grep -c "^1111") -eq 1 ] && class="E"
+
+  echo "${class}"
+}
+
+
+# Calculate the borrowed bits from CIDR & 32 (addr length)
+function calc_ipv4_bits()
+{
+  echo $(subtract ${1} 32)
+}
+
+
+# Get the CIDR notation from the netmask
+function calc_ipv4_cidr()
+{
+  local -a netmask=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
+
+  echo $(match_char_num $(echo "${netmask[@]}" | sed "s| ||g") 1)
+}
+
+
 # Calculate the subnet host addr
 function calc_ipv4_host_addr()
 {
-  local ipv4=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
-  local netmask=( $(dec2bin4octet $(echo "${2}" | tr '.' ' ')) )
+  local -a ipv4=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
+  local -a netmask=( $(dec2bin4octet $(echo "${2}" | tr '.' ' ')) )
   local total=3
   local n=0
   local -a ip
 
   while [ ${n} -le ${total} ]; do
-
     ip+=( $(bin2dec $(bitwise_and_calc ${ipv4[${n}]} ${netmask[${n}]})) )
-
     n=$(add ${n} 1)
   done
 
@@ -155,21 +184,25 @@ function calc_ipv4_host_addr()
 }
 
 
-# Get the CIDR notation from the netmask
-function calc_ipv4_cidr()
+# Get total number of subnets
+function calc_ipv4_subnets()
 {
-  local netmask=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
+  local ipv4="${1}"
+  local netmask="${2}"
+  local -a subnets1=( $(dec2bin4octet $(echo "${netmask}" | tr '.' ' ')) )
 
-  echo $(match_char_num $(echo "${netmask[@]}" | sed "s| ||g") 1)
+  # x = 2 ^ y - Usable subnets per netmask provided
+
 }
 
 
 # Get the total number of subnets
-function calc_ipv4_subnets()
+function calc_ipv4_hosts_per_subnet()
 {
-  local netmask=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
+  local -a netmask=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
 
-  echo $(pow 2 $(match_char_num $(echo ${netmask[@]} | sed "s| ||g") 1))
+  # x = 2 - (2 ^ y) - Usable hosts per subnet
+  echo $(subtract 2 $(pow 2 $(match_char_num $(echo ${netmask[@]} | sed "s| ||g") 0)))
 }
 
 
@@ -180,15 +213,33 @@ function calc_ipv4_broadcast()
 }
 
 
+# Returns start and end address for provided ipv4 and subnet
 function calc_ipv4_host_range()
 {
-  local ipv4=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
-  local netmask=( $(dec2bin4octet $(echo "${2}" | tr '.' ' ')) )
+  local ipv4="${1}"
+  local netmask="${2}"
+  local host_addr="$(calc_ipv4_host_addr "${ipv4}" "${netmask}")"
+  local hosts=$(calc_ipv4_hosts_per_subnet ${netmask})
 
-  echo "IP: ${#ipv4[@]} ${ipv4[@]} = $(match_char_num $(echo "${ipv4[@]}" | sed "s| ||g") 0)"
-  echo "MSK: ${#netmask[@]} ${netmask[@]} = $(match_char_num $(echo "${netmask[@]}" | sed "s| ||g") 1)"
+  local t_host=( $(dec2bin4octet $(echo "${host_addr}" | tr '.' ' ')) )
+  local t_start=( ${t_host[0]} ${t_host[1]} ${t_host[2]} $(add ${t_host[3]} 1) )
+  local t_end=( ${t_host[0]} ${t_host[1]} ${t_host[2]} $(add $(bin2dec ${t_host[3]}) $(dec2bin4octet ${hosts})) )
 
-  echo "SN: ${#netmask[@]} ${netmask[@]} (${netmask[3]}) = $(pow $(match_char_num ${netmask[3]} 1) 2)"
+  local total=3
+  local n=0
+  local -a start
+  local -a end
+
+  while [ ${n} -le ${total} ]; do
+    start+=( $(bin2dec ${t_start[${n}]}) )
+    end+=( $(bin2dec ${t_end[${n}]}) )
+    n=$(add ${n} 1)
+  done
+
+  x="$(echo "${start[@]}" | tr ' ' '.')"
+  y="$(echo "${end[@]}" | tr ' ' '.')"
+
+  echo "${x},${y}"
 }
 
 
