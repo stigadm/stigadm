@@ -99,16 +99,25 @@ for interface in ${interfaces[@]}; do
   ip="$(echo "${interface}" | cut -d, -f2)"
   mask="$(echo "${interface}" | cut -d, -f3)"
 
-  # ADD: Subnet calculations should be done to ensure accuracy
-  #   REF: math.sh: dec2bin4octet() & bitwise_and_calc()
+  # If ${ip} & ${mask} are IPv4
   if [[ $(is_ipv4 "${ip}") -eq 0 ]] && [[ $(is_ipv4 "${mask}") -eq 0 ]]; then
 
     # Calculate the range for current ${interface} & number of nodes
-    calc_ipv4_subnets "${ip}" "${mask}"
+    range=$(calc_ipv4_hosts_per_subnet "${mask}")
 
-    # Do comparison with current definitions matching ${ip} if any
+    # Iterate ${curr_allow[@]}
+    for current in ${curr_allow[@]}; do
 
+      # Cut out possible IPv4 address
+      curr_ip="$(echo "${current}" |
+        awk -F: '{if(NF==3){print $3}if(NF==2){print $2}if(NF==1){print $1}}')"
 
+      # Normalize ${curr_ip}
+      n_ip="$(normalize_ipv4 "${curr_ip}")"
+
+      # Get the range from ${n_ip}
+      cur_range=$(calc_ipv4_hosts_per_subnet "${n_ip}")
+    done
   fi
 
 done

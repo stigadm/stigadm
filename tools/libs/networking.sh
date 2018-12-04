@@ -166,6 +166,52 @@ function calc_ipv4_cidr()
 }
 
 
+# CIDR to subnet
+function calc_ipv4_cidr_subnet()
+{
+  local cidr="${1}"
+
+  case "${p_sub}" in
+    0) net="0.0.0.0" ;;
+    1) net="128.0.0.0" ;;
+    2) net="192.0.0.0" ;;
+    3) net="224.0.0.0" ;;
+    4) net="240.0.0.0" ;;
+    5) net="248.0.0.0" ;;
+    6) net="252.0.0.0" ;;
+    7) net="254.0.0.0" ;;
+    8) net="255.0.0.0" ;;
+    9) net="255.128.0.0" ;;
+    10) net="255.192.0.0" ;;
+    11) net="255.224.0.0" ;;
+    12) net="255.240.0.0" ;;
+    13) net="255.248.0.0" ;;
+    14) net="255.252.0.0" ;;
+    15) net="255.254.0.0" ;;
+    16) net="255.255.0.0" ;;
+    17) net="255.255.128.0" ;;
+    18) net="255.255.192.0" ;;
+    19) net="255.255.224.0" ;;
+    20) net="255.255.240.0" ;;
+    21) net="255.255.248.0" ;;
+    22) net="255.255.252.0" ;;
+    23) net="255.255.254.0" ;;
+    24) net="255.255.255.0" ;;
+    25) net="255.255.255.128" ;;
+    26) net="255.255.255.192" ;;
+    27) net="255.255.255.224" ;;
+    28) net="255.255.255.240" ;;
+    29) net="255.255.255.248" ;;
+    30) net="255.255.255.252" ;;
+    31) net="255.255.255.254" ;;
+    32) net="255.255.255.255" ;;
+    *) net="0.0.0.0"
+  esac
+
+  echo "${net}"
+}
+
+
 # Calculate the subnet host addr
 function calc_ipv4_host_addr()
 {
@@ -209,7 +255,21 @@ function calc_ipv4_hosts_per_subnet()
 # Get the IPv4 broadcast
 function calc_ipv4_broadcast()
 {
-  local ipv4=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
+  local -a ipv4=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
+
+  # Convert ${ipv4[3]} and ${ipv4[2]:5:3} to 1's
+  ipv4=( "${ipv4[0]}" "${ipv4[1]}" "${ipv4[2]:5}111" "11111110" )
+
+  local total=3
+  local n=0
+  local -a broadcast
+
+  while [ ${n} -le ${total} ]; do
+    broadcast+=( $(bin2dec ${ipv4[${n}]}) )
+    n=$(add ${n} 1)
+  done
+
+  echo "$(echo "${broadcast[@]}" | tr ' ' '.')"
 }
 
 
@@ -221,9 +281,9 @@ function calc_ipv4_host_range()
   local host_addr="$(calc_ipv4_host_addr "${ipv4}" "${netmask}")"
   local hosts=$(calc_ipv4_hosts_per_subnet ${netmask})
 
-  local t_host=( $(dec2bin4octet $(echo "${host_addr}" | tr '.' ' ')) )
-  local t_start=( ${t_host[0]} ${t_host[1]} ${t_host[2]} $(add ${t_host[3]} 1) )
-  local t_end=( ${t_host[0]} ${t_host[1]} ${t_host[2]} $(add $(bin2dec ${t_host[3]}) $(dec2bin4octet ${hosts})) )
+  local -a t_host=( $(dec2bin4octet $(echo "${host_addr}" | tr '.' ' ')) )
+  local -a t_start=( ${t_host[0]} ${t_host[1]} ${t_host[2]} $(add ${t_host[3]} 1) )
+  local -a end=( $(calc_ipv4_broadcast "${ipv4}") )
 
   local total=3
   local n=0
@@ -232,7 +292,6 @@ function calc_ipv4_host_range()
 
   while [ ${n} -le ${total} ]; do
     start+=( $(bin2dec ${t_start[${n}]}) )
-    end+=( $(bin2dec ${t_end[${n}]}) )
     n=$(add ${n} 1)
   done
 
@@ -243,8 +302,69 @@ function calc_ipv4_host_range()
 }
 
 
-# Get properties of IPv4 address
-function ipv4_properties()
+# Normalize IPv4 notations
+#  Useful for notation possibilities in /etc/hosts.allow
+#  i.e. 192.168., 192.168.2.0/24, 192.168.0/6, etc
+#  Returns subnet or padded IPv4 where applicable
+function normalize_ipv4()
 {
-  echo
+  local blob="${1}"
+  local p_sub
+  local length
+  local net
+
+  # Handle CIDR or subnet definitions
+  if [ $(echo "${blob}" | grep -c "/") -gt 0 ]; then
+
+    # Split ${blob} and check length of potential CIDR/Subnet
+    p_sub="$(echo "${blob}" | cut -d"/" -f2)"
+  else
+
+    # Use ${blob} as ${p_sub}
+    p_sub="${blob}"
+  fi
+
+
+  # If ${p_sub} length > 2 assume subnet notation
+  length=$(echo "${p_sub}" | awk '{print length($0)}')
+
+
+  # If > 2 assume IPv4'ish addr specified
+  if [ ${length} -gt 2 ]; then
+
+    # If NOT a valid IPv4 pad it 0's
+    if [ $(is_ipv4 ${p_sub}) -ne 0 ]; then
+
+      # Create temporary array so we can easily pad
+      local -a t_obj=( $(echo "${p_sub}" | tr '.' ' ') )
+
+      local total=3
+      local n=0
+      local -a ip
+
+      # Iterate to 4 elements
+      while [ ${n} -le ${total} ]; do
+
+        # Add or pad
+        [ "${t_obj[${n}]}" != "" ] &&
+          ip+=( "${t_obj[${n}]}" ) || ip+=( "0" )
+
+        # Increment counter
+        n=$(add ${n} 1)
+      done
+
+      # Convert ${ip[@]} to string
+      net="$(echo "${ip[@]}" | tr ' ' '.')"
+    else
+
+      # Ru, roh
+      net=
+    fi
+  else
+
+    # Assume CIDR notation
+    net="$(calc_ipv4_cidr_subnet ${p_sub})"
+  fi
+
+  echo "${net}"
 }
