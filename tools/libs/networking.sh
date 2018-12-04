@@ -284,7 +284,9 @@ function calc_ipv4_host_range()
 
   local -a t_host=( $(dec2bin4octet $(echo "${host_addr}" | tr '.' ' ')) )
   local -a t_start=( ${t_host[0]} ${t_host[1]} ${t_host[2]} $(add ${t_host[3]} 1) )
-  local -a end=( $(calc_ipv4_broadcast "${ipv4}") )
+
+  local -a broadcast=( $(dec2bin4octet $(echo $(calc_ipv4_broadcast "${ipv4}" "${netmask}") | tr '.' ' ')) )
+  local -a t_end=( ${broadcast[0]} ${broadcast[1]} ${broadcast[2]} $(subtract 1 ${broadcast[3]}) )
 
   local total=3
   local n=0
@@ -293,6 +295,7 @@ function calc_ipv4_host_range()
 
   while [ ${n} -le ${total} ]; do
     start+=( $(bin2dec ${t_start[${n}]}) )
+    end+=( $(bin2dec ${t_end[${n}]}) )
     n=$(add ${n} 1)
   done
 
