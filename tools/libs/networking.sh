@@ -255,17 +255,19 @@ function calc_ipv4_hosts_per_subnet()
 # Get the IPv4 broadcast
 function calc_ipv4_broadcast()
 {
-  local -a ipv4=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
+  local ipv4="${1}"
+  local netmask="${2}"
 
-  # Convert ${ipv4[3]} and ${ipv4[2]:5:3} to 1's
-  ipv4=( "${ipv4[0]}" "${ipv4[1]}" "${ipv4[2]:5}111" "11111110" )
+  local -a netmask_bits=( $(dec2bin4octet $(echo "${netmask}" | tr '.' ' ')) )
+  local -a host_addr=( $(dec2bin4octet $(echo $(calc_ipv4_host_addr "${ipv4}" "${netmask}") | tr '.' ' ')) )
 
   local total=3
   local n=0
   local -a broadcast
 
   while [ ${n} -le ${total} ]; do
-    broadcast+=( $(bin2dec ${ipv4[${n}]}) )
+    t_netmask="$(echo "${netmask_bits[${n}]}" | tr 01 10)" # Flip some bits
+    broadcast+=( $(bin2dec $(bitwise_or_calc ${host_addr[${n}]} ${t_netmask})) )
     n=$(add ${n} 1)
   done
 
@@ -279,7 +281,6 @@ function calc_ipv4_host_range()
   local ipv4="${1}"
   local netmask="${2}"
   local host_addr="$(calc_ipv4_host_addr "${ipv4}" "${netmask}")"
-  local hosts=$(calc_ipv4_hosts_per_subnet ${netmask})
 
   local -a t_host=( $(dec2bin4octet $(echo "${host_addr}" | tr '.' ' ')) )
   local -a t_start=( ${t_host[0]} ${t_host[1]} ${t_host[2]} $(add ${t_host[3]} 1) )
@@ -298,14 +299,23 @@ function calc_ipv4_host_range()
   x="$(echo "${start[@]}" | tr ' ' '.')"
   y="$(echo "${end[@]}" | tr ' ' '.')"
 
-  echo "${x},${y}"
+  echo "${x}" "${y}"
+}
+
+
+# Determine if IPv4 in a specific range
+function calc_ipv4_host_in_range()
+{
+  local ipv4="${1}"
+  local netmask="${2}"
+  local net="${3}"
 }
 
 
 # Normalize IPv4 notations
 #  Useful for notation possibilities in /etc/hosts.allow
-#  i.e. 192.168., 192.168.2.0/24, 192.168.0/6, etc
-#  Returns subnet or padded IPv4 where applicable
+#  i.e. 192.168., 192.168.2.0/24, 192.168.0/255.255.128.0, etc
+#  Returns subnet or a padded IPv4 where applicable
 function normalize_ipv4()
 {
   local blob="${1}"
