@@ -347,6 +347,7 @@ function normalize_ipv4()
 {
   local blob="${1}"
   local p_sub
+  local mask
   local length
   local net
   local -a t_obj

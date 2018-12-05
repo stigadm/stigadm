@@ -144,7 +144,7 @@ for interface in ${interfaces[@]}; do
       # If ${in_range} is false and the current iteration matches the ${#curr_allow[@]}
       [[ ${cnt} -eq ${#curr_allow[@]} ]] && [[ "${in_range}" == "false" ]] &&
       [[ $(in_array "${val_str}" "${errors[@]}") -eq 1 ]] &&
-        errors+=("${val_str}")
+        errors+=("External:${parsed_ip}")
 
       # Mark evertyhing as inspected
       inspected+=("${val_str}")
@@ -165,7 +165,8 @@ for interface in ${interfaces[@]}; do
 
 #INRNGE: ${in_range}
 
-#RESULTS: ${errors[@]}
+#OPTS: ${cnt}
+#$(in_array "${val_str}" "${errors[@]}")
 #=================================
 #EOF
     done
