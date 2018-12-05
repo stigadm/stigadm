@@ -74,19 +74,17 @@ function parse_ifconfig()
 # Validate IPv4 addresses
 function is_ipv4()
 {
-  local  ip=$1
+  local  ip="${1}"
   local  stat=1
 
-  if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-    OIFS=$IFS
-    IFS='.'
-    ip=($ip)
-    IFS=$OIFS
-    [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
-      stat=$?
+  if [[ ${ip} =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+    ip=( $(echo "${ip}" | tr '.' ' ') )
+    if [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]; then
+      stat=0
+    fi
   fi
 
-  echo $stat
+  echo ${stat}
 }
 
 
@@ -171,7 +169,7 @@ function calc_ipv4_cidr_subnet()
 {
   local cidr="${1}"
 
-  case "${p_sub}" in
+  case "${cidr}" in
     0) net="0.0.0.0" ;;
     1) net="128.0.0.0" ;;
     2) net="192.0.0.0" ;;
@@ -311,7 +309,33 @@ function calc_ipv4_host_in_range()
 {
   local ipv4="${1}"
   local netmask="${2}"
-  local net="${3}"
+
+  local -a net=( $(dec2bin4octet $(echo "${3}" | tr '.' ' ')) )
+  local -a mask=( $(dec2bin4octet $(echo "${4}" | tr '.' ' ')) )
+
+  local -a host_addr=( $(dec2bin4octet $(echo $(calc_ipv4_host_addr "${ipv4}" "${netmask}") | tr '.' ' ')) )
+
+  if [ ${#mask[@]} -gt 0 ]; then
+    local -a net_host=( $(dec2bin4octet $(echo $(calc_ipv4_host_addr "${net}" "${mask}") | tr '.' ' ')) )
+    host_addr=( "${net_host[@]}" )
+  fi
+
+  local -a t_net=( ${net[0]} ${net[1]} ${net[2]} ${net[3]:0:5} )
+  local -a t_host_addr=( ${host_addr[0]} ${host_addr[1]} ${host_addr[2]} ${host_addr[3]:0:5} )
+
+  local total=3
+  local n=0
+  local -a results
+
+  while [ ${n} -le ${total} ]; do
+    results+=( $(bitwise_and_calc ${t_net[${n}]} ${t_host_addr[${n}]}) )
+    n=$(add ${n} 1)
+  done
+
+  results=( ${results[0]} ${results[1]} ${results[2]} ${results[3]:0:5} )
+
+  [ "$(echo "${t_host_addr[@]}" | sed 's/ //g')" == "$(echo "${results[@]}" | sed 's/ //g')" ] &&
+    echo true || echo false
 }
 
 
@@ -325,12 +349,14 @@ function normalize_ipv4()
   local p_sub
   local length
   local net
+  local -a t_obj
 
   # Handle CIDR or subnet definitions
   if [ $(echo "${blob}" | grep -c "/") -gt 0 ]; then
 
     # Split ${blob} and check length of potential CIDR/Subnet
-    p_sub="$(echo "${blob}" | cut -d"/" -f2)"
+    p_sub="$(echo "${blob}" | cut -d"/" -f1)"
+    mask="$(echo "${blob}" | cut -d"/" -f2)"
   else
 
     # Use ${blob} as ${p_sub}
@@ -339,45 +365,39 @@ function normalize_ipv4()
 
 
   # If ${p_sub} length > 2 assume subnet notation
-  length=$(echo "${p_sub}" | awk '{print length($0)}')
+  [ "${mask}" != "" ] &&
+    length=$(echo "${mask}" | awk '{print length($0)}') ||
+    length=$(echo "${p_sub}" | awk '{print length($0)}')
 
 
-  # If > 2 assume IPv4'ish addr specified
-  if [ ${length} -gt 2 ]; then
+  # Create temporary array so we can easily pad
+  t_obj=( $(echo "${p_sub}" | tr '.' ' ') )
 
-    # If NOT a valid IPv4 pad it 0's
-    if [ $(is_ipv4 ${p_sub}) -ne 0 ]; then
+  local total=3
+  local n=0
+  local -a ip
 
-      # Create temporary array so we can easily pad
-      local -a t_obj=( $(echo "${p_sub}" | tr '.' ' ') )
+  # Iterate to 4 elements
+  while [ ${n} -le ${total} ]; do
 
-      local total=3
-      local n=0
-      local -a ip
+    # Add or pad
+    [ "${t_obj[${n}]}" != "" ] &&
+      ip+=( "${t_obj[${n}]}" ) || ip+=( "0" )
 
-      # Iterate to 4 elements
-      while [ ${n} -le ${total} ]; do
+    # Increment counter
+    n=$(add ${n} 1)
+  done
 
-        # Add or pad
-        [ "${t_obj[${n}]}" != "" ] &&
-          ip+=( "${t_obj[${n}]}" ) || ip+=( "0" )
+  # Convert ${ip[@]} to string
+  net="$(echo "${ip[@]}" | tr ' ' '.')"
 
-        # Increment counter
-        n=$(add ${n} 1)
-      done
+  # Reverse the CIDR notation
+  if [ ${length} -eq 2 ]; then
 
-      # Convert ${ip[@]} to string
-      net="$(echo "${ip[@]}" | tr ' ' '.')"
-    else
-
-      # Ru, roh
-      net=
-    fi
-  else
-
-    # Assume CIDR notation
-    net="$(calc_ipv4_cidr_subnet ${p_sub})"
+    # Assume CIDR notation & convert to long decimal
+    mask="$(calc_ipv4_cidr_subnet ${mask})"
   fi
 
-  echo "${net}"
+  # Make sure we preserve both ip and mask for a possible in_range() call
+  [ "${mask}" != "" ] && echo "${net},${mask}" || echo "${net}"
 }

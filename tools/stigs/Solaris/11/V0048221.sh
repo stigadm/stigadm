@@ -104,19 +104,70 @@ for interface in ${interfaces[@]}; do
 
     # Calculate the range for current ${interface} & number of nodes
     range=$(calc_ipv4_hosts_per_subnet "${mask}")
+    cidr=$(calc_ipv4_cidr "${mask}")
+
+    cnt=${#curr_allow[@]}
 
     # Iterate ${curr_allow[@]}
     for current in ${curr_allow[@]}; do
 
       # Cut out possible IPv4 address
-      curr_ip="$(echo "${current}" |
-        awk -F: '{if(NF==3){print $3}if(NF==2){print $2}if(NF==1){print $1}}')"
+      parsed_ip="$(echo "${current}" | nawk -F: '{print $NF}')"
 
       # Normalize ${curr_ip}
-      n_ip="$(normalize_ipv4 "${curr_ip}")"
+      normalized="$(normalize_ipv4 "${parsed_ip}")"
 
-      # Get the range from ${n_ip}
-      cur_range=$(calc_ipv4_hosts_per_subnet "${n_ip}")
+      if [ $(echo "${normalized}" | grep -c ",") -gt 0 ]; then
+        acl_ip="$(echo "${normalized}" | cut -d, -f1)"
+        acl_mask="$(echo "${normalized}" | cut -d, -f2)"
+
+        # Get the range from ${normalized}
+        cur_range=$(calc_ipv4_hosts_per_subnet "${acl_mask}")
+
+        # Compare ${normalized} w/ ${ip} & ${mask} for range comparison
+        in_range=$(calc_ipv4_host_in_range "${ip}" "${mask}" "${acl_ip}" "${acl_mask}")
+      else
+        # Get the range from ${normalized}
+        cur_range=$(calc_ipv4_hosts_per_subnet "${normalized}")
+
+        # Compare ${normalized} w/ ${ip} & ${mask} for range comparison
+        in_range=$(calc_ipv4_host_in_range "${ip}" "${mask}" "${normalized}")
+      fi
+
+
+      val_str="Current:${parsed_ip}:${cur_range}:Proposed:${ip}/${cidr}:${range}"
+
+      # If ${in_range} & ${cur_range} > ${range} flag as an error
+      [[ "${in_range}" == "true" ]] && [[ ${cur_range} -gt ${range} ]] &&
+        errors+=("${val_str}")
+
+      # If ${in_range} is false and the current iteration matches the ${#curr_allow[@]}
+      [[ ${cnt} -eq ${#curr_allow[@]} ]] && [[ "${in_range}" == "false" ]] &&
+      [[ $(in_array "${val_str}" "${errors[@]}") -eq 1 ]] &&
+        errors+=("${val_str}")
+
+      # Mark evertyhing as inspected
+      inspected+=("${val_str}")
+
+      # Count down
+      cnt=$(subtract 1 ${cnt})
+
+#cat <<EOF
+#RAW: ${interface}
+#IP: ${ip}
+#MASK ${mask}
+#RANGE: ${range}
+
+#RAW: ${current}
+#IP: ${parsed_ip}
+#NRML: ${normalized}
+#RANGE: ${cur_range}
+
+#INRNGE: ${in_range}
+
+#RESULTS: ${errors[@]}
+#=================================
+#EOF
     done
   fi
 
