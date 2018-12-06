@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Define an array of exceptions
+declare -a exceptions
+exceptions+=("127.0.0.1")
 
 # Define the hosts.allow path
 hosts_allow=/etc/hosts.allow
@@ -106,8 +109,6 @@ for interface in ${interfaces[@]}; do
     range=$(calc_ipv4_hosts_per_subnet "${mask}")
     cidr=$(calc_ipv4_cidr "${mask}")
 
-    cnt=${#curr_allow[@]}
-
     # Iterate ${curr_allow[@]}
     for current in ${curr_allow[@]}; do
 
@@ -135,22 +136,19 @@ for interface in ${interfaces[@]}; do
       fi
 
 
-      val_str="Current:${parsed_ip}:${cur_range}:Proposed:${ip}/${cidr}:${range}"
+      str_int="Current:${parsed_ip}:${cur_range}:Proposed:${ip}/${cidr}:${range}"
+      str_ext="External:${parsed_ip}:${cur_range}"
 
       # If ${in_range} & ${cur_range} > ${range} flag as an error
       [[ "${in_range}" == "true" ]] && [[ ${cur_range} -gt ${range} ]] &&
-        errors+=("${val_str}")
+        errors+=("${str_int}")
 
       # If ${in_range} is false and the current iteration matches the ${#curr_allow[@]}
-      [[ ${cnt} -eq ${#curr_allow[@]} ]] && [[ "${in_range}" == "false" ]] &&
-      [[ $(in_array "${val_str}" "${errors[@]}") -eq 1 ]] &&
-        errors+=("External:${parsed_ip}")
+      [[ "${in_range}" == "false" ]] && [[ $(in_array "${val_str}" "${errors[@]}") -eq 1 ]] &&
+        errors+=("${str_ext}")
 
       # Mark evertyhing as inspected
-      inspected+=("${val_str}")
-
-      # Count down
-      cnt=$(subtract 1 ${cnt})
+      [ "${in_range}" == "true" ] && inspected+=("${str_int}") || inspected+=("${str_ext}")
 
 #cat <<EOF
 #RAW: ${interface}
@@ -165,8 +163,7 @@ for interface in ${interfaces[@]}; do
 
 #INRNGE: ${in_range}
 
-#OPTS: ${cnt}
-#$(in_array "${val_str}" "${errors[@]}")
+#EVAL: $(in_array "${val_str}" "${errors[@]}")
 #=================================
 #EOF
     done
@@ -174,7 +171,6 @@ for interface in ${interfaces[@]}; do
 
 done
 
-# Push offenders to ${errors[@]} array
 
 # Ensure ${hosts_deny} is indeed DENY by default
 
@@ -193,6 +189,7 @@ done
 errors=( $(remove_duplicates "${errors[@]}") )
 
 # Copy ${services[@]} array to ${inspected[@]}
+inspected=( $(remove_duplicates "${inspected[@]}") )
 inspected+=( $(remove_duplicates "${services[@]}") )
 
 
