@@ -97,7 +97,7 @@ bootenv_dir="${cwd}/.${appname}"
 read -r os version arch <<< $(set_env)
 
 # Whos is calling? 0 = singular, 1 is as group
-caller=$(ps $PPID | grep -c stigadm)
+caller=$(ps -p $PPID | grep -c stigadm)
 
 # Ensure path is robust
 PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
@@ -452,7 +452,7 @@ e_epoch="$(gen_epoch)"
 seconds=$(subtract ${s_epoch} ${e_epoch})
 
 # Generate a run time
-[ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
+[ ${seconds:=1} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
 
 
 ###############################################

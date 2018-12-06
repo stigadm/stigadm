@@ -46,7 +46,7 @@ s_epoch="$(gen_epoch)"
 timestamp="$(gen_date)"
 
 # Whos is calling? 0 = singular, 1 is from stigadm
-caller=$(ps $PPID | grep -c stigadm)
+caller=$(ps -p $PPID | grep -c stigadm)
 
 
 ###############################################
@@ -93,7 +93,7 @@ done
 interfaces=( $(get_ipv4) $(get_ipv6) )
 
 # Get array of current configurations from ${hosts_allow}
-curr_allow=( $(awk '$1 ~ /^[0-9|a-zA-Z]+\:|[ALL|LOCAL|*KNOWN|PARANOID]\:.*/{print}' ${hosts_allow}|tr ' ' '_') )
+curr_allow=( $(awk '$1 ~ /^[0-9|a-zA-Z]+\:|[ALL|LOCAL|*KNOWN|PARANOID]\:.*/{print}' ${hosts_allow} 2>/dev/null |tr ' ' '_') )
 
 # Iterate ${interfaces[@]}
 for interface in ${interfaces[@]}; do

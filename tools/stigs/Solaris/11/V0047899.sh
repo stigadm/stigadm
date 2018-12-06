@@ -119,7 +119,7 @@ s_epoch="$(gen_epoch)"
 timestamp="$(gen_date)"
 
 # Whos is calling? 0 = singular, 1 is as group
-caller=$(ps $PPID | grep -c stigadm)
+caller=$(ps -p $PPID | grep -c stigadm)
 
 
 ###############################################

@@ -116,7 +116,7 @@ function module_footer()
 
   # Generate a run time
   local run_time
-  [ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
+  [ ${seconds:=1} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
 
   footer="$(echo "${footer}" |
     sed "s|{START}|${s_epoch}|g" |
@@ -160,7 +160,7 @@ function report_footer()
 
   # Generate a run time
   local run_time
-  [ ${seconds} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
+  [ ${seconds:=1} -gt 60 ] && run_time="$(divide ${seconds} 60) Min." || run_time="${seconds} Sec."
 
   # Apply the meta data & report specifics
   report="$(echo "${report}" |
