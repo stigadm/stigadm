@@ -146,8 +146,8 @@ function hex2dec()
 # Convert decimal to binary for provided IPv4 octets
 function dec2bin4octet()
 {
-  local octets=( ${@} )
-  local bin=({0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1})
+  local -a octets=( ${@} )
+  local -a bin=({0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1}{0..1})
   local -a results
 
   # Iterate ${octets[@]}
@@ -171,7 +171,9 @@ function bitwise_or_calc()
 # Bitwise AND calculator
 function bitwise_and_calc()
 {
-  printf '%08X\n' "$(( 0x${1} & 0x${2} ))"
+  one="$(echo "${1}" | nawk '{gsub(/\(|\)/, "", $0);print}')"
+  two="$(echo "${1}" | nawk '{gsub(/\(|\)/, "", $0);print}')"
+  printf '%08X\n' "$(( 0x${one} & 0x${two} ))"
 }
 
 

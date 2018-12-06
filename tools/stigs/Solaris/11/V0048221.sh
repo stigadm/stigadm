@@ -95,6 +95,7 @@ interfaces=( $(get_ipv4) $(get_ipv6) )
 # Get array of current configurations from ${hosts_allow}
 curr_allow=( $(awk '$1 ~ /^[0-9|a-zA-Z]+\:|[ALL|LOCAL|*KNOWN|PARANOID]\:.*/{print}' ${hosts_allow} 2>/dev/null |tr ' ' '_') )
 
+
 # Iterate ${interfaces[@]}
 for interface in ${interfaces[@]}; do
 
@@ -149,26 +150,8 @@ for interface in ${interfaces[@]}; do
 
       # Mark evertyhing as inspected
       [ "${in_range}" == "true" ] && inspected+=("${str_int}") || inspected+=("${str_ext}")
-
-#cat <<EOF
-#RAW: ${interface}
-#IP: ${ip}
-#MASK ${mask}
-#RANGE: ${range}
-
-#RAW: ${current}
-#IP: ${parsed_ip}
-#NRML: ${normalized}
-#RANGE: ${cur_range}
-
-#INRNGE: ${in_range}
-
-#EVAL: $(in_array "${val_str}" "${errors[@]}")
-#=================================
-#EOF
     done
   fi
-
 done
 
 

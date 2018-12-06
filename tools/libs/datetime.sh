@@ -17,7 +17,10 @@ function get_day_of_year()
 # Get EPOCH (Time since 01/01/1970 in seconds)
 function gen_epoch()
 {
-  echo "$(date +%s)"
+  local epoch="$(date +%s)"
+  [ "${epoch}" == "%s" ] &&
+    epoch="$(nawk 'BEGIN{print srand}')"
+  echo "${epoch}"
 }
 
 
