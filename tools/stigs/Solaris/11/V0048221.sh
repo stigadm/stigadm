@@ -120,22 +120,18 @@ for interface in ${interfaces[@]}; do
       normalized="$(normalize_ipv4 "${parsed_ip}")"
 
       if [ $(echo "${normalized}" | grep -c ",") -gt 0 ]; then
-        acl_ip="$(echo "${normalized}" | cut -d, -f1)"
         acl_mask="$(echo "${normalized}" | cut -d, -f2)"
+        normalized="$(echo "${normalized}" | cut -d, -f1)"
 
         # Get the range from ${normalized}
         cur_range=$(calc_ipv4_hosts_per_subnet "${acl_mask}")
-
-        # Compare ${normalized} w/ ${ip} & ${mask} for range comparison
-        in_range=$(calc_ipv4_host_in_range "${ip}" "${mask}" "${acl_ip}" "${acl_mask}")
       else
         # Get the range from ${normalized}
         cur_range=$(calc_ipv4_hosts_per_subnet "${normalized}")
-
-        # Compare ${normalized} w/ ${ip} & ${mask} for range comparison
-        in_range=$(calc_ipv4_host_in_range "${ip}" "${mask}" "${normalized}")
       fi
 
+      # Compare ${normalized} w/ ${ip} & ${mask} for range comparison
+      in_range=$(calc_ipv4_host_in_range "${ip}" "${mask}" "${normalized}")
 
       str_int="Current:${parsed_ip}:${cur_range}:Proposed:${ip}/${cidr}:${range}"
       str_ext="External:${parsed_ip}:${cur_range}"
@@ -145,8 +141,18 @@ for interface in ${interfaces[@]}; do
         errors+=("${str_int}")
 
       # If ${in_range} is false and the current iteration matches the ${#curr_allow[@]}
-      [[ "${in_range}" == "false" ]] && [[ $(in_array "${val_str}" "${errors[@]}") -eq 1 ]] &&
+      [ "${in_range}" == "false" ] &&
         errors+=("${str_ext}")
+
+cat <<EOF
+RAW: ${interface}
+IP: ${ip}/${mask} ${range} ${cidr}
+
+RAW: ${current}
+IP: ${parsed_ip} ${normalized} ${cur_range} ${in_range}
+===========================================
+EOF
+
 
       # Mark evertyhing as inspected
       [ "${in_range}" == "true" ] && inspected+=("${str_int}") || inspected+=("${str_ext}")

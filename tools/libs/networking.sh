@@ -311,14 +311,8 @@ function calc_ipv4_host_in_range()
   local netmask="${2}"
 
   local -a net=( $(dec2bin4octet $(echo "${3}" | tr '.' ' ')) )
-  local -a mask=( $(dec2bin4octet $(echo "${4}" | tr '.' ' ')) )
 
   local -a host_addr=( $(dec2bin4octet $(echo $(calc_ipv4_host_addr "${ipv4}" "${netmask}") | tr '.' ' ')) )
-
-  if [ ${#mask[@]} -gt 0 ]; then
-    local -a net_host=( $(dec2bin4octet $(echo $(calc_ipv4_host_addr "${net}" "${mask}") | tr '.' ' ')) )
-    host_addr=( "${net_host[@]}" )
-  fi
 
   local -a t_net=( ${net[0]} ${net[1]} ${net[2]} ${net[3]:0:5} )
   local -a t_host_addr=( ${host_addr[0]} ${host_addr[1]} ${host_addr[2]} ${host_addr[3]:0:5} )
