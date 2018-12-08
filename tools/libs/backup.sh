@@ -1,8 +1,16 @@
 #!/bin/bash
 
-# Handle backup environment
-# Arguments:
-#  path [String]: Absolute path of directory
+# @file tools/libs/backup.sh
+# @brief Handle backup operations
+
+# @description Builds backup environment
+#
+# @arg ${1} Path to backup folder
+#
+# @example
+#   backup_setup_env /path/to/backup
+#
+# @exitcode 0 Success
 function backup_setup_env()
 {
   local path="${1}"
@@ -15,13 +23,20 @@ function backup_setup_env()
 }
 
 
-# Function to handle backups
-# Arguments:
-#  author [String]: Author of change; typically the users initials
-#  file [String]: File that is to be backed up (or created)
-#  user [String] (Optional): User ownership to associate with ${file}
-#  group [String] (Optional): Group ownership to associate with ${file}
-#  octal [Integer] (Optional): Permission mode to associate with ${file}
+# @description Backs up specified file while preserving permissions
+#
+# @arg ${1} Author of backup file
+# @arg ${2} File to be backed up
+# @arg ${3} Owner of file
+# @arg ${4} Group owner of file
+# @arg ${5} Permisison of file
+#
+# @example
+#   bu_file author /path/to/backup/file
+#   bu_file author /path/to/backup/file foo bar 640
+#
+# @exitcode 0 Success
+# @exitcode 1 Error
 function bu_file()
 {
   # Define some locally scoped vars
@@ -94,10 +109,15 @@ function bu_file()
 }
 
 
-# Get latest file created by bu_file()
-# Arguments:
-#  path [String]: Path to search for latest file created
-#  author [String]: Author of change; typically the users initials
+# @description Gets the name of the last backup
+#
+# @arg ${1} File to be backed up
+# @arg ${2} Author of backup file
+#
+# @example
+#   bu_file_last /path/to/backup/file author
+#
+# @stdout String path to file
 function bu_file_last()
 {
   local path="${1}"
@@ -107,12 +127,20 @@ function bu_file_last()
 }
 
 
-# Handle backup of passwd db
-# Arguments:
-#  author [String]: Author of change; typically the users initials
-#  passwd [String] (Optional): Path to passwd database file (ie. /etc/passwd)
-#  shadow [String] (Optional): Path to shadow database file (ie. /etc/shadow)
-#  group [String] (Optional): Path to group database file (ie. /etc/group)
+# @description Backs up local passwd database file(s)
+#
+# @arg ${1} Author of backup file
+# @arg ${2} File to be backed up
+# @arg ${3} Owner of file
+# @arg ${4} Group owner of file
+# @arg ${5} Permisison of file
+#
+# @example
+#   bu_file_db author /path/to/backup/file
+#   bu_file_db author /path/to/backup/file foo bar 640
+#
+# @exitcode 0 Success
+# @exitcode 1 Error
 function bu_passwd_db()
 {
   # Define some locally scoped vars
@@ -141,12 +169,23 @@ function bu_passwd_db()
 }
 
 
-# Creates snapshot of file/folder permissions
-# Arguments:
-#  path [String]: Path to use for snapshot of array of inodes supplied
-#  author [String]: Author of change; typically the users initials
-#  stigid [String]: STIG id associated with change
-#  inodes [Array]: Array of inodes that require a snapshot of permissions regarding user/group/mode
+# @description Backs up array of file/folder permissions
+#
+# @arg ${1} Author of backup file
+# @arg ${2} File to be backed up
+# @arg ${3} STIG module ID
+# @arg ${4} Array of files
+#
+# @example
+#   bu_inode_perms
+#   bu_inode_perms ${files[@]}
+#   bu_inode_perms /path/to/backup/file
+#   bu_inode_perms /path/to/backup/file author
+#   bu_inode_perms /path/to/backup/file author stigid
+#   bu_inode_perms /path/to/backup/file author stigid ${files[@]}
+#
+# @exitcode 0 Success
+# @exitcode 1 Error
 function bu_inode_perms()
 {
   # Define some locally scoped vars
@@ -179,7 +218,7 @@ function bu_inode_perms()
 
   # Get latest ${snapshot} from bu_file_last()
   snapshot="$(bu_file_last "${path}/${stigid}" "${author}")"
-  
+
   # Make sure ${snapshot} is a file
   [ ! -f ${snapshot} ] && return 1
 
@@ -206,7 +245,23 @@ function bu_inode_perms()
 }
 
 
-# Handle configuration parameter backups
+# @description Backs up array of configuration items
+#
+# @arg ${1} Author of backup file
+# @arg ${2} File to be backed up
+# @arg ${3} STIG module ID
+# @arg ${4} Array of configuration items
+#
+# @example
+#   bu_inode_perms
+#   bu_inode_perms ${configuration[@]}
+#   bu_inode_perms /path/to/backup/file
+#   bu_inode_perms /path/to/backup/file author
+#   bu_inode_perms /path/to/backup/file author stigid
+#   bu_inode_perms /path/to/backup/file author stigid ${configuration[@]}
+#
+# @exitcode 0 Success
+# @exitcode 1 Error
 function bu_configuration()
 {
   # Define some locally scoped vars
