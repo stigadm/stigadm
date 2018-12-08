@@ -71,7 +71,7 @@ Usage ./stigadm [options]
 
 ## examples ##
 Here are a few usage examples to get you started with the toolkit. If you are interested
-in the XML or JSON reporting that is generated see [here](https://gist.github.com/jas-/431d107d3d744ba7ba41bf3b8d5cbdcf)
+in the XML or JSON reporting that is generated see [here](https://gist.github.com/stigadm/431d107d3d744ba7ba41bf3b8d5cbdcf)
 
 ### Validation mode
 This is the default mode of the library. It evaluates each STIG rule and outputs the
@@ -133,9 +133,11 @@ $ ./stigadm.sh -C CAT-I -bca jlg
 
 
 ## contributing ##
-
-Contributions are welcome & appreciated. Refer to the [contributing document](https://github.com/jas-/stigadm/blob/master/CONTRIBUTING.md)
+Contributions are welcome & appreciated. Refer to the [contributing document](https://github.com/stigadm/stigadm/blob/master/CONTRIBUTING.md)
 to help facilitate pull requests.
+
+## API ##
+An [API](https://github.com/stigadm/stigadm/wiki/api) can be used for contibuting new modules of suggesting fixes etc.
 
 ## FAQ ##
 Pleae read the [FAQ](https://github.com/stigadm/stigadm/wiki/FAQ) to answer general questions about the project. Thanks.
@@ -143,6 +145,6 @@ Pleae read the [FAQ](https://github.com/stigadm/stigadm/wiki/FAQ) to answer gene
 
 ## license ##
 
-This software is licensed under the [MIT License](https://github.com/jas-/stigadm/blob/master/LICENSE).
+This software is licensed under the [MIT License](https://github.com/stigadm/stigadm/blob/master/LICENSE).
 
 Copyright Jason Gerfen, 2015-2018.

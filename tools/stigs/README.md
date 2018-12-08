@@ -31,17 +31,17 @@ Usage ./[STIG ID].sh [options]
 ```
 
 ## template ##
-It is encouraged to make use of the [available template](https://github.com/jas-/stigadm/blob/master/build/template.sh) if you wish to contribute. Each module should us each module should use the same formating.
+It is encouraged to make use of the [available template](https://github.com/stigadm/stigadm/blob/master/build/template.sh) if you wish to contribute. Each module should us each module should use the same formating.
 
 ## api ##
-An API for doing some heavy lifting is available but not yet documented. The [./tools/libs/](https://github.com/jas-/stigadm/blob/master/tools/libs) folder contains several scripts to assist with things like operating environment, disk I/O, permissions, needle/haystack searching arrays etc etc.
+An [API](https://github.com/stigadm/stigadm/wiki/api) for doing some heavy lifting is available. If contributing a new module or suggesting a patch please use these available functions.
 
 ## contributing ##
-Contributions are welcome & appreciated. Refer to the [contributing document](https://github.com/jas-/stigadm/blob/master/CONTRIBUTING.md)
+Contributions are welcome & appreciated. Refer to the [contributing document](https://github.com/stigadm/stigadm/blob/master/CONTRIBUTING.md)
 to help facilitate pull requests.
 
 ## license ##
 
-This software is licensed under the [MIT License](https://github.com/jas-/stigadm/blob/master/LICENSE).
+This software is licensed under the [MIT License](https://github.com/stigadm/stigadm/blob/master/LICENSE).
 
 Copyright Jason Gerfen, 2015-2018.
