@@ -10,6 +10,8 @@ build/migrate.sh;711;jas;jas
 build/stig-parser.awk;775;jas;jas
 build/stig-parser.sh;711;jas;jas
 build/template.sh;711;jas;jas
+docs/networking.md;644;jas;jas
+docs/shdoc.awk;775;jas;jas
 stigadm;777;jas;jas
 stigadm.sh;711;jas;jas
 tools/bootstrap.sh;711;jas;jas

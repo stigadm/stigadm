@@ -1,6 +1,19 @@
 #!/bin/bash
 
-# Function to obtain gateways
+# @file tools/libs/networking.sh
+# @brief Handle various networking operations
+
+# @description Obtain current gateways
+#
+# @noargs
+#
+# @example
+#   gateways=( $(get_gatways) )
+#
+# @stdout Array gateway IP's
+#
+# @exitcode 0 Success
+# @exitcode 1 Error
 function get_gateways()
 {
   # Populate an array of possible gateways
@@ -15,8 +28,18 @@ function get_gateways()
 }
 
 
-# Ensure DNS is working by resolving hosts
-#  ${@}: Array of hostnames
+# @description Resolve host via configured DNS
+#
+# @arg ${@} Array of hosts to resolve
+#
+# @example
+#   resolve_hosts host1 host2 host3
+#   resolve_hosts "${hosts[@]}"
+#
+# @stdout Array of resolved IP's
+#
+# @exitcode 0 Success
+# @exitcode >0 Error
 function resolve_hosts()
 {
   # Re-assign ${@} as local in scope
@@ -45,19 +68,20 @@ function resolve_hosts()
 }
 
 
-# Get the IPv4 CIDR
-function calc_ipv4_cidr()
-{
-  local ipv4=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
-
-
-}
-
-
-# Function to parse ifconfig output
+# @description Function to parse ifconfig output
+#
+# @noargs
+#
+# @example
+#   array_of_interfaces=( $(parse_ifconfig) )
+#
+# @stdout Array of interfaces and properties
+#
+# @exitcode >0 Success
+# @exitcode 0 Error
 function parse_ifconfig()
 {
-  echo "${1}" |
+  local -a configs=( $(echo "${1}" |
     nawk '$1 ~ /^[a-z0-9A-Z:]/{
       iface=$1;
       getline;
@@ -67,11 +91,24 @@ function parse_ifconfig()
       getline;
       if($1 == "ether"){mac=$2}
       gsub(/:/, ",", iface)
-      printf("%s%s,%s,%s,%s\n", iface, ip, nm, bc, mac)}'
+      printf("%s%s,%s,%s,%s\n", iface, ip, nm, bc, mac)}') )
+
+  echo "${configs[@]}" && return ${#configs[@]}
 }
 
 
-# Validate IPv4 addresses
+# @description Validate IPv4 addresses
+#
+# @arg ${1} IPv4 address
+#
+# @example
+#   is_ipv4 192.168.2.15 (true = 0)
+#   is_ipv4 192.168.2.256 (false = 1)
+#
+# @stdout boolean 1/0
+#
+# @exitcode 0 Success
+# @exitcode 1 Error
 function is_ipv4()
 {
   local  ip="${1}"
@@ -84,11 +121,23 @@ function is_ipv4()
     fi
   fi
 
-  echo ${stat}
+  echo ${stat} && return ${stat}
 }
 
 
-# Get IPv4 addresses & properties
+# @description Get IPv4 addresses & properties
+#
+# @noargs
+#
+# @see parse_ifconfig
+#
+# @example
+#   ipv4_interfaces=( $(get_ipv4) )
+#
+# @stdout Array of IPv4 addressed assigned interfaces and properties
+#
+# @exitcode >0 Success
+# @exitcode 0 Error
 function get_ipv4()
 {
   local -a obj
@@ -116,11 +165,23 @@ function get_ipv4()
     fi
   done
 
-  echo "${ifaces[@]}"
+  echo "${ifaces[@]}" && return ${#ifaces[@]}
 }
 
 
-# Get IPv6 addresses & properties
+# @description Get IPv6 addresses & properties
+#
+# @noargs
+#
+# @see parse_ifconfig
+#
+# @example
+#   ipv6_interfaces=( $(get_ipv6) )
+#
+# @stdout Array of IPv6 addressed assigned interfaces and properties
+#
+# @exitcode >0 Success
+# @exitcode 0 Error
 function get_ipv6()
 {
   local -a obj
@@ -129,14 +190,25 @@ function get_ipv6()
 
   local -a ifaces=( $(parse_ifconfig "${blob}") )
 
-  echo "${ifaces[@]}"
+  echo "${ifaces[@]}" && return ${#ifaces[@]}
 }
 
 
-# Determine IPv4 class (i.e. A, B, C, D or E)
+# @description Determine IPv4 class (i.e. A, B, C, D or E)
+#
+# @arg ${1} IPv4 address
+#
+# @example
+#   calc_ipv4_class 192.168.2.125
+#
+# @stdout String; A, B, C, D, E
+#
+# @exitcode 0 Success
+# @exitcode 1 Error
 function calc_ipv4_class()
 {
   local -a ipv4=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
+  local class
 
   [ $(echo "${ipv4[0]}" | grep -c "^0") -eq 1 ] && class="A"
   [ $(echo "${ipv4[0]}" | grep -c "^10") -eq 1 ] && class="B"
@@ -145,26 +217,55 @@ function calc_ipv4_class()
   [ $(echo "${ipv4[0]}" | grep -c "^1111") -eq 1 ] && class="E"
 
   echo "${class}"
+  [ "${class}" == "" ] return 1 || return 0
 }
 
 
-# Calculate the borrowed bits from CIDR & 32 (addr length)
+# @description Calculate the borrowed bits from CIDR & 32 (addr length)
+#
+# @arg ${1} CIDR
+#
+# @example
+#   calc_ipv4_bits 25
+#
+# @stdout Integer
+#
+# @exitcode >0 Success
+# @exitcode 0 Error
 function calc_ipv4_bits()
 {
-  echo $(subtract ${1} 32)
+  local bits=$(subtract ${1} 32)
+  echo ${bits} && return ${bits}
 }
 
 
-# Get the CIDR notation from the netmask
+# @description Get the CIDR notation from the netmask
+#
+# @arg ${1} IPv4 subnet mask
+#
+# @example
+#   calc_ipv4_cidr 255.255.255.128
+#
+# @stdout CIDR notation
+#
+# @exitcode >0 Success
+# @exitcode 1 Error
 function calc_ipv4_cidr()
 {
   local -a netmask=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
-
-  echo $(match_char_num $(echo "${netmask[@]}" | sed "s| ||g") 1)
+  local cidr=$(match_char_num $(echo "${netmask[@]}" | sed "s| ||g") 1)
+  echo ${cidr} && return ${cidr}
 }
 
 
-# CIDR to subnet
+# @description CIDR to subnet
+#
+# @arg ${1} CIDR notation
+#
+# @example
+#   calc_ipv4_cidr_subnet 25
+#
+# @stdout String Reversed CIDR to mapped netmask
 function calc_ipv4_cidr_subnet()
 {
   local cidr="${1}"
@@ -210,7 +311,15 @@ function calc_ipv4_cidr_subnet()
 }
 
 
-# Calculate the subnet host addr
+# @description Calculate the subnet host addr
+#
+# @arg ${1} IPv4 address
+# @arg ${2} Subnet mask
+#
+# @example
+#   calc_ipv4_host_addr 192.168.2.15 255.255.255.128
+#
+# @stdout String IPv4 host address
 function calc_ipv4_host_addr()
 {
   local -a ipv4=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
@@ -228,7 +337,15 @@ function calc_ipv4_host_addr()
 }
 
 
-# Get total number of subnets
+# @description Calculate number of subnets available
+#
+# @arg ${1} IPv4 address
+# @arg ${2} Subnet mask
+#
+# @example
+#   calc_ipv4_subnets 192.168.2.15 255.255.255.128
+#
+# @stdout Integer Number of subnets available
 function calc_ipv4_subnets()
 {
   local ipv4="${1}"
@@ -240,7 +357,14 @@ function calc_ipv4_subnets()
 }
 
 
-# Get the total number of subnets
+# @description Calculate the number of hosts in subnet
+#
+# @arg ${1} Subnet mask
+#
+# @example
+#   calc_ipv4_hosts_per_subnet 255.255.255.128
+#
+# @stdout Integer Number of available hosts
 function calc_ipv4_hosts_per_subnet()
 {
   local -a netmask=( $(dec2bin4octet $(echo "${1}" | tr '.' ' ')) )
@@ -250,7 +374,15 @@ function calc_ipv4_hosts_per_subnet()
 }
 
 
-# Get the IPv4 broadcast
+# @description Calculate broadcast address
+#
+# @arg ${1} IPv4 address
+# @arg ${2} Subnet mask
+#
+# @example
+#   calc_ipv4_broadcast 192.168.2.15 255.255.255.128
+#
+# @stdout String IPv4 broadcast address
 function calc_ipv4_broadcast()
 {
   local ipv4="${1}"
@@ -273,7 +405,15 @@ function calc_ipv4_broadcast()
 }
 
 
-# Returns start and end address for provided ipv4 and subnet
+# @description Get the start/stop IPv4 addresses available in provided subnet
+#
+# @arg ${1} IPv4 address
+# @arg ${2} Subnet mask
+#
+# @example
+#   calc_ipv4_host_addr 192.168.2.15 255.255.255.128
+#
+# @stdout String IPv4 host address
 function calc_ipv4_host_range()
 {
   local ipv4="${1}"
@@ -304,7 +444,17 @@ function calc_ipv4_host_range()
 }
 
 
-# Determine if IPv4 in a specific range
+# @description Determine if provided IPv4 is in subnet range
+#
+# @arg ${1} IPv4 comparison address
+# @arg ${2} Subnet comparison mask
+# @arg ${3} IPv4 target address
+#
+# @example
+#   calc_ipv4_host_in_range 192.168.2.15 255.255.255.128 192.168.15.67
+#   calc_ipv4_host_in_range 192.168.2.15 255.255.255.128 192.168.2.18
+#
+# @stdout String IPv4 host address
 function calc_ipv4_host_in_range()
 {
   local ipv4="${1}"
@@ -333,10 +483,19 @@ function calc_ipv4_host_in_range()
 }
 
 
-# Normalize IPv4 notations
-#  Useful for notation possibilities in /etc/hosts.allow
-#  i.e. 192.168., 192.168.2.0/24, 192.168.0/255.255.128.0, etc
-#  Returns subnet or a padded IPv4 where applicable
+# @description Normalize IPv4 combinations
+#  - Pad IPv4 if partial
+#  - Convert CIDR to subnet (if provided)
+#
+# @arg ${1} IPv4
+#
+# @example
+#   normalize_ipv4 192.168.
+#   normalize_ipv4 192.168./24
+#   normalize_ipv4 192.168./255.255.128.0
+#   normalize_ipv4 192.168.2.15/25
+#
+# @stdout String IPv4/Subnet
 function normalize_ipv4()
 {
   local blob="${1}"
