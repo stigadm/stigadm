@@ -1,7 +1,20 @@
 #!/bin/bash
 
 
-# Create new boot envrionment and handle errors
+# @file tools/libs/bootenv.sh
+# @brief Implements bootenv creation, mounting etc
+
+# @description Create a new boot environment
+#
+# @arg ${1} String; Name of new boot env.
+# @arg ${2} Integer; OS Version
+#
+# @example
+#   create_be foo 10
+#   create_be bar 11
+#
+# @exitcode 0 Success
+# @exitcode 1 Error
 function create_be()
 {
   local name="${1}"
@@ -18,7 +31,17 @@ function create_be()
 }
 
 
-# Activate boot environment
+# @description Activates the newly created boot env.
+#
+# @arg ${1} String; Name of new boot env.
+# @arg ${2} Integer; OS Version
+#
+# @example
+#   activate_be foo 10
+#   activate_be bar 11
+#
+# @exitcode 0 Success
+# @exitcode 1 Error
 function activate_be()
 {
   local name="${1}"
@@ -35,7 +58,17 @@ function activate_be()
 }
 
 
-# Validate boot environment is active now & on reboot
+# @description Validates new boot environment
+#
+# @arg ${1} String; Name of new boot env.
+# @arg ${2} Integer; OS Version
+#
+# @example
+#   validate_be foo 10
+#   validate_be bar 11
+#
+# @exitcode 0 Success
+# @exitcode 1 Error
 function validate_be()
 {
   local name="${1}"
@@ -56,7 +89,18 @@ function validate_be()
 }
 
 
-# Create & mount new boot environment
+# @description Mount the boot environment
+#
+# @arg ${1} String; Name of new boot env.
+# @arg ${2} Integer; OS Version
+# @arg ${3} String; Path of boot env. mount
+#
+# @example
+#   mount_be foo 10 /path/to/mount/
+#   mount_be bar 11 /path/to/mount/
+#
+# @exitcode 0 Success
+# @exitcode 1 Error
 function mount_be()
 {
   local name="${1}"
@@ -75,7 +119,17 @@ function mount_be()
 }
 
 
-# Handle creation, activation & validation of new boot environment
+# @description Create, activate & validate boot env.
+#
+# @arg ${1} String; Name of new boot env.
+# @arg ${2} Integer; OS Version
+#
+# @example
+#   bootenv foo 10
+#   bootenv bar 11
+#
+# @exitcode 0 Success
+# @exitcode 1 Error
 function bootenv()
 {
   local name="${1}"
