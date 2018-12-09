@@ -1,20 +1,44 @@
 #!/bin/bash
 
-# Handle date string creation
+# @file tools/libs/datetime.sh
+# @brief Handle date/time functionality
+
+# @description Return a uniform timestamp
+#
+# @noargs
+#
+# @example
+#   ts="$(get_date)"
+#
+# @stdout String Timestamp; YYYYmmdd-HHMMSS
 function gen_date()
 {
   echo "$(date +%Y%m%d-%H%M%S)"
 }
 
 
-# Get current day of year
+# @description Return the day of year
+#
+# @noargs
+#
+# @example
+#   doy="$(get_day_ofyear)"
+#
+# @stdout Integer Day between 1-367
 function get_day_of_year()
 {
   echo "$(date +%j)"
 }
 
 
-# Get EPOCH (Time since 01/01/1970 in seconds)
+# @description Return the current EPOCH
+#
+# @noargs
+#
+# @example
+#   epoch="$(gen_epoch)"
+#
+# @stdout Integer
 function gen_epoch()
 {
   local epoch="$(date +%s)"
@@ -24,11 +48,17 @@ function gen_epoch()
 }
 
 
-# Date to Julian Day of Year
-# Arguments:
-#  day [Integer]: Day of month
-#  mon [Integer]: Month
-#  year [Integer]: Year
+# @description Convert current/supplied date to Julian Day of Year
+#
+# @arg ${1} Day
+# @arg ${2} Month
+# @arg ${3} Year
+#
+# @example
+#   conv_date_jdoy
+#   conv_date_jdoy 27 6 1975
+#
+# @stdout Integer
 function conv_date_to_jdoy()
 {
   local dte="$(date +%d:%m:%Y)"
@@ -58,52 +88,65 @@ function conv_date_to_jdoy()
 }
 
 
-# Date comparison using Julian day of year
-# Arguments:
-#  current [Integer]: Current Julian Day Of Year
-#  compare [Integer]: Comparison Julian Day Of Year
-#  min [Integer]: Evaluated minimum between ${current} & ${compare}
+# @description Compare two Julian Dates
+#
+# @arg ${1} Current
+# @arg ${2} Compariative
+# @arg ${3} Minimum integer
+#
+# @example
+#   compare_jdoy_dates 2458461.5 2442590.5 30
+#   compare_jdoy_dates $(conv_date_to_jdoy) $(conv_date_to_jody 27 6 27) 365
+#
+# @stdout Integer true/false
 function compare_jdoy_dates()
 {
   local current="${1}"
   local compare="${2}"
   local min="${3}"
 
-  [ $(echo "${current} - ${compare}" | bc | cut -d. -f1) -ge ${min} ] && return 1 || return 0
+  [ $(echo "${current} - ${compare}" | bc | cut -d. -f1) -ge ${min} ] &&
+    echo 1 || echo 0
 }
 
 
-# Month to integer matrix
-# Arguments:
-#  month [String]: Supplied month to convert
+# @description Month string to integer conversion mapper
+#
+# @arg ${1} Month
+#
+# @example
+#   month_to_int Dec
+#   month_to_int january
+#
+# @stdout Integer 1-12
 function month_to_int()
 {
-  local month="${1}"
+  local month="$(echo "${1}" | nawk '{print tolower($0)}')"
 
-  case "${month}" in
-    [j|J]an)
+  case "${month:0:3}" in
+    jan)
       echo 1 ;;
-    [f|F]eb)
+    feb)
       echo 2 ;;
-    [m|M]ar)
+    mar)
       echo 3 ;;
-    [a|A]pr)
+    apr)
       echo 4 ;;
-    [m|M]ay)
+    may)
       echo 5 ;;
-    [j|J]un)
+    jun)
       echo 6 ;;
-    [j|J]ul)
+    jul)
       echo 7 ;;
-    [a|A]ug)
+    aug)
       echo 8 ;;
-    [s|S]ep)
+    sep)
       echo 9 ;;
-    [o|O]ct)
+    oct)
       echo 10 ;;
-    [n|N]ov)
+    nov)
       echo 11 ;;
-    [d|D]ec)
+    dec)
       echo 12 ;;
   esac
 }
