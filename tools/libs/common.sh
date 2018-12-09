@@ -1,8 +1,15 @@
 #!/bin/bash
 
-# Displays available arg list
-# Arguments:
-#  [String] (Optional): Error to display regarding usage of invoked tool
+# @file tools/libs/common.sh
+# @brief Common functions for various reasons
+
+# @description Universal API arg list
+#
+# @arg ${1} String; error message
+#
+# @example
+#   usage
+#   usage "An error occurred"
 function usage()
 {
   # Handle error if present
@@ -36,160 +43,21 @@ EOF
 }
 
 
-# Get the current hostname
-function get_hostname()
-{
-  local host="$(hostname)"
-
-  if [[ "${host}" == "" ]] || [[ "${host}" =~ localhost ]]; then
-    return 1
-  fi
-
-  echo "${host}" && return 0
-}
-
-
-# Function truncate output
-# Arguments:
-#  str [String]: String that requires truncation
-#  count [Integer] (Optional): Number of columns (characters) to limit
-function truncate_cols()
-{
-  local str="${1}"
-  local count=$([ ! -x ${2} ] && echo ${2} || echo 80)
-
-  echo "${str:0:${count}}..."
-}
-
-
-# Function to determine if path is on an NFS share
-# Arguments:
-#  str [String]: Path to validate as an NFS share
-function is_nfs_path()
-{
-  local path="${1}"
-
-  mounts=($(mount | nawk -v pat="${path}" '$1 ~ pat && $3 ~ /:/{split($3, obj, ":"); print obj[1]}'))
-  echo ${#mounts[@]}
-}
-
-
-# Function to get list of Operating systems supported
-function get_os()
-{
-  # Re-assign all arguments
-  local obj=( ${@} )
-
-  # If element 0 is = to 1 then change the return type from string to array
-  if [ "${obj[0]}" == 1 ]; then
-    retval=${obj[0]}
-    path="${obj[@]:1}"
-  else
-    retval=0
-    path="${obj[@]}"
-  fi
-
-  # Create a local array to handle directory list
-  local -a dirs
-  dirs=( $(find ${path}/* -type d -prune) )
-
-  if [ ${#dirs[@]} -eq 0 ]; then
-    echo "undefined"
-    return
-  fi
-
-  # Return only the directory names (strip out paths)
-  dirs=( $(echo "${dirs[@]}" | tr ' ' '\n' | sed "s|${path}||g" | sed "s|/||g") )
-
-  if [ ${retval} -eq 1 ]; then
-    echo "${dirs[@]}"
-    return 0
-  fi
-
-  echo "${dirs[@]}" | tr ' ' '|'
-}
-
-
-# Function to get list of versions (per os)
-function get_version()
-{
-  # Re-assign all arguments
-  local obj=( ${@} )
-
-  # If element 0 is = to 1 then change the return type from string to array
-  if [ "${obj[0]}" == 1 ]; then
-    retval=${obj[0]}
-    path="${obj[@]:1}"
-  else
-    retval=0
-    path="${obj[@]}"
-  fi
-
-
-  # Create a local array to handle directory list
-  local -a versions
-  versions=( $(find ${path}/*/* -type d -prune) )
-
-  if [ ${#versions[@]} -eq 0 ]; then
-    echo "undefined"
-    return
-  fi
-
-  # Return only the directory names (strip out paths)
-  versions=( $(echo "${versions[@]}" | tr ' ' '\n' | sed "s|${path}.*/||g" | sort -ru) )
-
-  if [ ${retval} -eq 1 ]; then
-    echo "${versions[@]}"
-    return 0
-  fi
-
-  echo "${versions[@]}" | tr ' ' '|'
-}
-
-
-# Function to get list of available severity levels
-function get_classification()
-{
-  # Re-assign all arguments
-  local obj=( ${@} )
-
-  # If element 0 is = to 1 then change the return type from string to array
-  if [ "${obj[0]}" == 1 ]; then
-    retval=${obj[0]}
-    path="${obj[@]:1}"
-  else
-    retval=0
-    path="${obj[@]}"
-  fi
-
-
-  # Create a local array to handle directory list
-  local -a classes
-  classes=( $(find ${path} -type f -prune -name "*.sh" -exec grep "^# Severity:" {} \;  | cut -d" " -f3) )
-
-  if [ ${#classes[@]} -eq 0 ]; then
-    echo "undefined"
-    return
-  fi
-
-  # Cut out & sort our classifications
-  classes=( $(echo "${classes[@]}" | tr ' ' '\n' | sort -u) )
-
-  if [ ${retval} -eq 1 ]; then
-    echo "${classes[@]}"
-    return 0
-  fi
-
-  echo "${classes[@]}" | tr ' ' '|'
-}
-
-
-# Print meta data
+# @description Meta data parser
+#
+# @arg ${1} String; Current working directory
+# @arg ${2} String; STIG V-ID to pluck meta data from
+#
+# @example
+#   get_meta_data
+#   declare -a meta_data=( $(get_meta_data) )
+#
+# @stdout Array Returns the STIG Date, Severity, Classification, V-ID, Version, Rule ID, OS, Title etc
 function get_meta_data()
 {
   local cwd="${1}"
   local stigid="${2}"
-  local template="${3}"
+
   local stigid_parsed="$(echo "${stigid}" | cut -d. -f1)"
   local blob="$(sed -n '/^# Date/,/^# Description/p' ${cwd}/${stigid} | sed "s|^[# |#$|  ]||g")"
   local -a obj
