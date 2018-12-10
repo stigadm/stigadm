@@ -2,7 +2,7 @@
 
 # Define an array of exceptions
 declare -a exceptions
-exceptions+=("127.0.0.1")
+exceptions+=("10.0.2.18")
 
 # Define the hosts.allow path
 hosts_allow=/etc/hosts.allow
@@ -133,29 +133,30 @@ for interface in ${interfaces[@]}; do
       # Compare ${normalized} w/ ${ip} & ${mask} for range comparison
       in_range=$(calc_ipv4_host_in_range "${ip}" "${mask}" "${normalized}")
 
-      str_int="Current:${parsed_ip}:${cur_range}:Proposed:${ip}/${cidr}:${range}"
+      str_int="Internal:${parsed_ip}:${cur_range}:Proposed:${ip}/${cidr}:${range}"
       str_ext="External:${parsed_ip}:${cur_range}"
+      str_excl="[Excluded]"
 
       # If ${in_range} & ${cur_range} > ${range} flag as an error
-      [[ "${in_range}" == "true" ]] && [[ ${cur_range} -gt ${range} ]] &&
-        errors+=("${str_int}")
+      if [[ "${in_range}" == "true" ]] && [[ ${cur_range} -gt ${range} ]]; then
+        [ $(in_array "${normalized}" "${exceptions[@]}") -eq 0 ] &&
+          errors+=("${str_excl}:${str_int}") || errors+=("${str_int}")
+      fi
 
-      # If ${in_range} is false and the current iteration matches the ${#curr_allow[@]}
-      [ "${in_range}" == "false" ] &&
-        errors+=("${str_ext}")
-
-cat <<EOF
-RAW: ${interface}
-IP: ${ip}/${mask} ${range} ${cidr}
-
-RAW: ${current}
-IP: ${parsed_ip} ${normalized} ${cur_range} ${in_range}
-===========================================
-EOF
-
+      # If ${in_range} is false
+      if [ "${in_range}" == "false" ]; then
+        [ $(in_array "${normalized}" "${exceptions[@]}") -eq 0 ] &&
+          errors+=("${str_excl}:${str_ext}") || errors+=("${str_ext}")
+      fi
 
       # Mark evertyhing as inspected
-      [ "${in_range}" == "true" ] && inspected+=("${str_int}") || inspected+=("${str_ext}")
+      if [ "${in_range}" == "true" ]; then
+        [ $(in_array "${normalized}" "${exceptions[@]}") -eq 0 ] &&
+          inspected+=("${str_excl}:${str_int}") || inspected+=("${str_int}")
+      else
+        [ $(in_array "${normalized}" "${exceptions[@]}") -eq 0 ] &&
+          inspected+=("${str_excl}:${str_ext}") || inspected+=("${str_ext}")
+      fi
     done
   fi
 done

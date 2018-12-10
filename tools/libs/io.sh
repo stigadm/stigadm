@@ -1,8 +1,16 @@
 #!/bin/bash
 
-# Function handle folder creation
-# Arguments:
-#  dir [String]: Supplied path for directory creation
+# @file tools/libs/io.sh
+# @brief I/O operations
+
+# @description Create directory
+#
+# @arg ${1} String path to directory
+#
+# @stdout Integer
+#
+# @return 1 Error
+# @return 0 Success
 function create_dir()
 {
   local dir="${1}"

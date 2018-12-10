@@ -1,27 +1,46 @@
 #!/bin/bash
 
-# Determine OS type
+# @file tools/libs/env.sh
+# @brief Set/Get environment specifics
+
+# @description Get the current OS name
+#
+# @noargs
+#
+# @stdout String
 function os()
 {
   uname -s | sed -e 's/SunOS/Solaris/g'
 }
 
 
-# Determine OS version
+# @description Get the current OS version
+#
+# @noargs
+#
+# @stdout String
 function version()
 {
   uname -v | cut -d. -f1
 }
 
 
-# Determine hw architecture
+# @description Get the current system architecture
+#
+# @noargs
+#
+# @stdout String
 function architecture()
 {
   uname -p | sed 's/i[3|4]86$/X86/g'
 }
 
 
-# Validate target OS & Version
+# @description Get all environment items
+#
+# @noargs
+#
+# @stdout Array
 function set_env()
 {
   # Get OS & Version
@@ -35,4 +54,3 @@ function set_env()
 
   echo "${os}" "${ver}" "${arch}" && return 0
 }
-
