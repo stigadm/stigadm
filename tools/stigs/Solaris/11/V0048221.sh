@@ -114,6 +114,7 @@ for interface in ${interfaces[@]}; do
     for current in ${curr_allow[@]}; do
 
       # Cut out possible IPv4 address
+      # FIX: Use REGEX to acquire possible IPv4/IPv6 or RFC based hostname
       parsed_ip="$(echo "${current}" | nawk -F: '{print $NF}')"
 
       # Normalize ${curr_ip}
