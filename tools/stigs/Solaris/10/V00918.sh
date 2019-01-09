@@ -114,13 +114,24 @@ if [ ${change} -eq 1 ]; then
     # Get the username from ${error}
     user="$(echo "${error}" | cut -d: -f1)"
 
+    # Get the last login date as well
+    lldate="$(echo "${error}" | cut -d: -f2)"
+
     # Lock account for ${user}
     passwd -l ${user} &> /dev/null
 
     # Get results
     locked=$(awk -F: '$2 !~ /^LK/{print 1}' /etc/shadow)
+
+    # If ${locked} > 0 flag it
+    [ ${locked:=0} -gt 0 ] &&
+      terrors+=("${user}:${lldate}")
   done
 fi
+
+# Replace ${errors[@]} if change occured
+[ ${#terrors[@]} -gt 0 ] &&
+  errors=( "${terrors[@]}" )
 
 
 ###############################################
