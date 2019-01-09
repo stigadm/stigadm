@@ -174,4 +174,3 @@ exit ${#errors[@]}
 #
 # Title: Unencrypted passwords for remote FTP servers may be stored in .netrc files.  Policy requires passwords be encrypted in storage and not used in access scripts.
 # Description: Unencrypted passwords for remote FTP servers may be stored in .netrc files.  Policy requires passwords be encrypted in storage and not used in access scripts.
-

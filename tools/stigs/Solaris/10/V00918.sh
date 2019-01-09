@@ -7,183 +7,74 @@ min_days=35
 # UID minimum as exclusionary for system/service accounts
 uid_min=100
 
-# UID exceptions (any UID within ${uid_min}...2147483647 to exclude)
-# Service/System account UID's
-declare -a uid_excp
-uid_excp+=(60001) # nobody
-uid_excp+=(60002) # nobody4
-uid_excp+=(65534) # noaccess
+# User exceptions (UID or name)
+declare -a exceptions
+exceptions+=("nobody")
+exceptions+=("nobody4")
+exceptions+=("noaccess")
+exceptions+=("acas")
 
 
-# Global defaults for tool
-author=
-change=0
-json=1
-meta=0
-restore=0
-interactive=0
-xml=0
+###############################################
+# Bootstrapping environment setup
+###############################################
 
+# Get our working directory
+cwd="$(pwd)"
 
-# Working directory
-cwd="$(dirname $0)"
+# Define our bootstrapper location
+bootstrap="${cwd}/tools/bootstrap.sh"
 
-# Tool name
-prog="$(basename $0)"
-
-
-# Copy ${prog} to DISA STIG ID this tool handles
-stigid="$(echo "${prog}" | cut -d. -f1)"
-
-
-# Ensure path is robust
-PATH=$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
-
-
-# Define the library include path
-lib_path=${cwd}/../../../libs
-
-# Define the tools include path
-tools_path=${cwd}/../../../stigs
-
-# Define the system backup path
-backup_path=${cwd}/../../../backups/$(uname -n | awk '{print tolower($0)}')
-
-
-# Robot, do work
-
-
-# Error if the ${inc_path} doesn't exist
-if [ ! -d ${lib_path} ] ; then
-  echo "Defined library path doesn't exist (${lib_path})" && exit 1
+# Bail if it cannot be found
+if [ ! -f ${bootstrap} ]; then
+  echo "Unable to locate bootstrap; ${bootstrap}" && exit 1
 fi
 
-
-# Include all .sh files found in ${lib_path}
-incs=($(ls ${lib_path}/*.sh))
-
-# Exit if nothing is found
-if [ ${#incs[@]} -eq 0 ]; then
-  echo "'${#incs[@]}' libraries found in '${lib_path}'" && exit 1
-fi
+# Load our bootstrap
+source ${bootstrap}
 
 
-# Iterate ${incs[@]}
-for src in ${incs[@]}; do
+###############################################
+# Metrics start
+###############################################
 
-  # Make sure ${src} exists
-  if [ ! -f ${src} ]; then
-    echo "Skipping '$(basename ${src})'; not a real file (block device, symlink etc)"
-    continue
-  fi
+# Get EPOCH
+s_epoch="$(gen_epoch)"
 
-  # Include $[src} making any defined functions available
-  source ${src}
+# Create a timestamp
+timestamp="$(gen_date)"
 
-done
-
-
-# Ensure we have permissions
-if [ $UID -ne 0 ] ; then
-  usage "Requires root privileges" && exit 1
-fi
+# Whos is calling? 0 = singular, 1 is from stigadm
+caller=$(ps -p $PPID | grep -c stigadm)
 
 
-# Set variables
-while getopts "ha:cjmvrix" OPTION ; do
-  case $OPTION in
-    h) usage && exit 1 ;;
-    a) author=$OPTARG ;;
-    c) change=1 ;;
-    j) json=1 ;;
-    m) meta=1 ;;
-    r) restore=1 ;;
-    i) interactive=1 ;;
-    x) xml=1 ;;
-    ?) usage && exit 1 ;;
-  esac
-done
+###############################################
+# STIG validation/remediation/restoration
+###############################################
 
+# Create an exclude pattern from ${exceptions[@]}
+pattern="$(echo "${exceptions[@]}" | tr ' ' '|')"
 
-# Make sure we have an author if we are not restoring or validating
-if [[ "${author}" == "" ]] && [[ ${restore} -ne 1 ]] && [[ ${change} -eq 1 ]]; then
-  usage "Must specify an author name (use -a <initials>)" && exit 1
-fi
-
-
-# If ${meta} is true
-if [ ${meta} -eq 1 ]; then
-
-  # Print meta data
-  get_meta_data "${cwd}" "${prog}"
-fi
-
-
-# If ${restore} = 1 go to restoration mode
-if [ ${restore} -eq 1 ]; then
-
-  # If ${interactive} = 1 go to interactive restoration mode
-  if [ ${interactive} -eq 1 ]; then
-
-    # Print friendly message regarding restoration mode
-    [ ${verbose} -eq 1 ] && print "Interactive restoration mode for '${file}'"
-
-  fi
-
-  # Print friendly message regarding restoration mode
-  [ ${verbose} -eq 1 ] && print "Restored '${file}'"
-
-  exit 0
-fi
-
-
-# If ${#uid_excl[@]} > 0 create a pattern
-pattern="$(echo "${uid_excp[@]}" | tr ' ' '|')"
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Created exclude pattern (${pattern})"
-
-
-# Get current list of users (greater than ${uid_min} & excluding ${uid_excl[@]})
-user_list=($(nawk -F: -v min="${uid_min}" -v pat="/${pattern}/" '$3 >= min && $3 !~ pat{print $1}' /etc/passwd 2>/dev/null))
-
-
-# If ${#user_list[@]} = 0 exit
-if [ ${#user_list[@]} -eq 0 ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "'${#user_list[@]}' users found meeting criteria for examination; exiting" 1
-
-  exit 1
-fi
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtained list of users to examine (Total: ${#user_list[@]})"
-
+# Get current list of users (greater than ${uid_min} & excluding ${exceptions[@]})
+user_list=($(getent passwd | egrep -v ${pattern} |
+  nawk -F: -v min="${uid_min}" '$3 >= min{print $1}' 2>/dev/null))
 
 # Iterate ${user_list[@]}
 for act in ${user_list[@]}; do
 
   # Get array of login history (ignores system accounts, removes dupes & ignores all but last login per user)
-  logins=($(last ${act} &>/dev/null | grep -v ^wtmp | nawk -v pat="/${pattern}/" '$1 != "" && $1 !~ pat{print $1":"$5":"$6}' 2>/dev/null | sort -urk2 | sort -k3))
+  logins=($(last ${act} 2>/dev/null |
+    nawk '{print $1":"$5":"$6}' 2>/dev/null | head -1))
 done
 
 
-# If ${#logins[@]} = 0 exit
-if [ ${#logins[@]} -eq 0 ]; then
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "'${#logins[@]}' logins found, exiting" 1
-  exit 1
-fi
-
-
-# Print friendly message
-[ ${verbose} -eq 1 ] && print "Obtained list of login activity"
-
+# Set current day, month and year
+cday=$(date +%d | sed "s/^0//g")
+cmonth=$(date +%m)
+cyear=$(date +%Y)
 
 # Get the current day of year (Current Julian Day Of Year)
-cjdoy=$(conv_date_to_jdoy $(date +%d) $(date +%m) $(date +%Y))
+cjdoy=$(conv_date_to_jdoy ${cday} ${cmonth} ${cyear})
 
 
 # Iterate ${logins[@]}
@@ -193,78 +84,115 @@ for lgn in ${logins[@]}; do
   user="$(echo "${lgn}" | cut -d: -f1)"
 
   # Convert ${month} to integer from ${lgn}
-  month="$(month_to_int $(echo "${lgn}" | cut -d: -f1))"
+  month="$(month_to_int $(echo "${lgn}" | cut -d: -f2))"
 
   # Set ${day} from ${lgn}
   day="$(echo "${lgn}" | cut -d: -f3)"
 
-  # Set ${year} to current year
-  year="$(date +%Y)"
+  # Set ${year} to current year or if ${month} and ${day} > today use last year
+  [ ${month} -gt ${cmonth} ] &&
+    year=$(subtract 1 ${cyear}) || year=${cyear}
 
   # Get the Julian Date from ${day}, ${month}, ${year}
   ucjdoy=$(conv_date_to_jdoy ${day} ${month} ${year})
 
+  # If ${user} has a ${ucjdoy} > ${min_days} when compared with ${cjdoy} flag
+  [ $(compare_jdoy_dates ${cjdoy} ${ucjdoy} ${min_days}) -gt 0 ] &&
+    errors+=("${user}:${year}-${month}-${day}")
 
-  # If ${change} = 1
-  if [ ${change} -eq 1]; then
-
-    # Determine if ${user} exceeds criteria specified with ${min_days}
-    if [ $(compare_jdoy_dates ${cjdoy} ${ucjdoy}) -ge ${min_days} ]; then
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Locking account for '${user}', exceeds '${min_days}'"
-
-      # Lock account for ${user}
-      passwd -l ${user} &> /dev/null
-
-      # IF an error occurred locking ${user} handle it
-      if [ $? -ne 0 ]; then
-
-        # Print friendly message
-        [ ${verbose} -eq 1 ] && print "An error occurred locking account for '${user}'" 1
-      fi
-    fi
-  fi
-
-
-  # Print friendly message
-  [ ${verbose} -eq 1 ] && print "Validating '${user}' last login compared to '${min_days}'"
-
-  # Determine if ${user} exceeds criteria specified with ${min_days}
-  if [ $(compare_jdoy_dates ${cjdoy} ${ucjdoy}) -ge ${min_days} ]; then
-
-    # Declare an array to handle accounts
-    errlgn=()
-
-    # Get current status of ${user}
-    if [ "$(awk -F: '$2 !~ /LK/{print 1}' /etc/shadow)" != "" ]; then
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Last login for '${user}' exceeds '${min_days}' and is NOT locked" 1
-      errlgn+=("${user}")
-    else
-
-      # Print friendly message
-      [ ${verbose} -eq 1 ] && print "Last login for '${user}' exceeds '${min_days}' and is locked" 1
-      errlgn+=("${user}")
-    fi
-  fi
+  # Mark all as inspected
+  inspected+=("${user}:${year}-${month}-${day}")
 done
 
 
-# Check to see if ${#errlgn[@]} > 0
-if [ ${#errlgn[@]} -gt 0 ]; then
+# If ${change} = 1
+if [ ${change} -eq 1 ]; then
 
-  # Print friendly success
-  [ ${verbose} -eq 1 ] && print "Error, host does not conform to '${stigid}'" 1
-  exit 1
+  # Iterate ${errors}
+  for error in ${errors[@]}; do
+
+    # Get the username from ${error}
+    user="$(echo "${error}" | cut -d: -f1)"
+
+    # Lock account for ${user}
+    passwd -l ${user} &> /dev/null
+
+    # Get results
+    locked=$(awk -F: '$2 !~ /^LK/{print 1}' /etc/shadow)
+  done
 fi
 
 
-# Print friendly success
-[ ${verbose} -eq 1 ] && print "Success, conforms to '${stigid}'"
+###############################################
+# Results for printable report
+###############################################
 
-exit 0
+# If ${#errors[@]} > 0
+if [ ${#errors[@]} -gt 0 ]; then
+
+  # Set ${results} error message
+  results="Failed validation"
+fi
+
+# Set ${results} passed message
+[ ${#errors[@]} -eq 0 ] && results="Passed validation"
+
+
+###############################################
+# Report generation specifics
+###############################################
+
+# Apply some values expected for report footer
+#[ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
+#[ ${#errors[@]} -gt 0 ] && failed=1 || failed=0
+
+# Calculate a percentage from applied modules & errors incurred
+percentage=$(percent ${passed} ${failed})
+
+# If the caller was only independant
+if [ ${caller} -eq 0 ]; then
+
+  # Show failures
+  [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Generate the report
+  report "${results}"
+
+  # Display the report
+  cat ${log}
+else
+
+  # Since we were called from stigadm
+  module_header "${results}"
+
+  # Show failures
+  [ ${#errors[@]} -gt 0 ] && print_array ${log} "errors" "${errors[@]}"
+
+  # Provide detailed results to ${log}
+  if [ ${verbose} -eq 1 ]; then
+
+    # Print array of failed & validated items
+    [ ${#inspected[@]} -gt 0 ] && print_array ${log} "validated" "${inspected[@]}"
+  fi
+
+  # Finish up the module specific report
+  module_footer
+fi
+
+
+###############################################
+# Return code for larger report
+###############################################
+
+# Return an error/success code (0/1)
+exit ${#errors[@]}
 
 
 # Date: 2018-06-29

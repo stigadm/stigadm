@@ -1,104 +1,176 @@
 #!/bin/bash
 
-# Test value for integer type
+# @file tools/libs/math.sh
+# @brief Various calculations
+
+# @description Test for integer
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
+#
+# @return 1 Success
+# @return 0 Error
 function is_int()
 {
-  echo "${1}" | awk '{if($0 ~ /^[0-9.]+$/){print 1}else{print 0}}'
+  local res=$(echo "${1}" | awk '{if($0 ~ /^[0-9.]+$/){print 1}else{print 0}}')
+  echo ${res} && return ${res}
 }
 
 
-# Calculate kilobytes to bytes
+# @description Kilobytes to bytes
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function kb2b()
 {
   echo "${1} * 1024" | bc 2>/dev/null
 }
 
 
-# Calculate mb2bytes to bytes
+# @description Megabytes to bytes
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function mb2b()
 {
   echo "${1} * 1024 * 1024" | bc 2>/dev/null
 }
 
 
-# Calculate gigabytes to bytes
+# @description Gigabytes to bytes
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function gb2b()
 {
   echo "${1} * 1024 * 1024 * 1024" | bc 2>/dev/null
 }
 
 
-# Calculate terrabytes to bytes
+# @description Terabytes to bytes
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function tb2b()
 {
   echo "${1} * 1024 * 1024 * 1024 * 1024" | bc 2>/dev/null
 }
 
 
-# Calculate petabytes to bytes
+# @description Petabytes to bytes
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function pb2b()
 {
   echo "${1} * 1024 * 1024 * 1024 * 1024 * 1024" | bc 2>/dev/null
 }
 
 
-# Calculate bytes to kilobytes
+# @description Bytes to kilobytes
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function b2kb()
 {
   echo "${1} / 1024" | bc 2>/dev/null
 }
 
 
-# Calculate bytes to megabytes
+# @description Bytes to megabytes
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function b2mb()
 {
   echo "${1} / 1024 / 1024" | bc 2>/dev/null
 }
 
 
-# Calculate bytes to gigabytes
+# @description Bytes to gigabytes
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function b2gb()
 {
   echo "${1} / 1024 / 1024 / 1024" | bc 2>/dev/null
 }
 
 
-# Calculate bytes to terrabytes
+# @description Bytes to terabytes
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function b2tb()
 {
   echo "${1} / 1024 / 1024 / 1024 / 1024" | bc 2>/dev/null
 }
 
 
-# Calculate bytes to petabytes
+# @description Bytes to petabytes
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function b2pb()
 {
   echo "${1} / 1024 / 1024 / 1024 / 1024 / 1024" | bc 2>/dev/null
 }
 
 
-# Add integers
+# @description Addition
+#
+# @arg ${1} Integer
+# @arg ${2} Integer
+#
+# @stdout Integer
 function add()
 {
   echo "${1} + ${2}" | bc 2>/dev/null
 }
 
 
-# Subtract integers
+# @description Subtraction
+#
+# @arg ${1} Integer
+# @arg ${2} Integer
+#
+# @stdout Integer
 function subtract()
 {
   echo "${2} - ${1}" | bc 2>/dev/null
 }
 
 
-# Multiply integers
+# @description Multiplication
+#
+# @arg ${1} Integer
+# @arg ${2} Integer
+#
+# @stdout Integer
 function multiply()
 {
   echo "${1} + ${2}" | bc 2>/dev/null
 }
 
 
-# Divide integers
+# @description Divide
+#
+# @arg ${1} Integer
+# @arg ${2} Integer
+# @arg ${3} Integer Rounding
+#
+# @stdout Integer
 function divide()
 {
   local scale=${3}
@@ -108,7 +180,13 @@ function divide()
 }
 
 
-# Return bytes based on % of total
+# @description Percentage
+#
+# @arg ${1} Integer
+# @arg ${2} Integer
+# @arg ${3} Integer Rounding
+#
+# @stdout Integer
 function percent()
 {
   local total=${1}
@@ -120,7 +198,11 @@ function percent()
 }
 
 
-# Convert decimal to fraction
+# @description Decimal to fraction
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function dec2frac()
 {
   local dec=${1}
@@ -129,21 +211,35 @@ function dec2frac()
 }
 
 
-# Convert binary to decimal
+# @description Binary to decimal
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function bin2dec()
 {
   printf '%d\n' "$(( 2#${1} ))"
 }
 
 
-# Convert hex to decimal
+# @description Hex to decimal
+#
+# @arg ${1} Integer
+#
+# @stdout Integer
 function hex2dec()
 {
   printf '%d\n' "0x${1}"
 }
 
 
-# Convert decimal to binary for provided IPv4 octets
+# @description Convert decimal to binary for provided IPv4 octets
+#
+# @arg ${1} Integer
+# @arg ${2} Integer
+# @arg ${3} Integer Rounding
+#
+# @stdout Integer
 function dec2bin4octet()
 {
   local -a octets=( ${@} )
