@@ -96,7 +96,7 @@ function conv_date_to_jdoy()
 #
 # @example
 #   compare_jdoy_dates 2458461.5 2442590.5 30
-#   compare_jdoy_dates $(conv_date_to_jdoy) $(conv_date_to_jody 27 6 27) 365
+#   compare_jdoy_dates $(conv_date_to_jdoy) $(conv_date_to_jody 27 6 27) 56
 #
 # @stdout Integer true/false
 function compare_jdoy_dates()
@@ -104,8 +104,9 @@ function compare_jdoy_dates()
   local current="${1}"
   local compare="${2}"
   local min="${3}"
+  local result=$(echo "${current} - ${compare}" | bc | cut -d. -f1)
 
-  [ $(echo "${current} - ${compare}" | bc | cut -d. -f1) -ge ${min} ] &&
+  [ ${result} -ge ${min} ] &&
     echo 1 || echo 0
 }
 

@@ -62,9 +62,17 @@ user_list=($(getent passwd | egrep -v ${pattern} |
 # Iterate ${user_list[@]}
 for act in ${user_list[@]}; do
 
-  # Get array of login history (ignores system accounts, removes dupes & ignores all but last login per user)
-  logins=($(last ${act} 2>/dev/null |
-    nawk '{print $1":"$5":"$6}' 2>/dev/null | head -1))
+  # If /usr/lib/acct/fwtmp exists use it
+  if [ -f /usr/lib/acct/fwtmp ]; then
+
+    # Get array of login history (ignores system accounts, removes dupes & ignores all but last login per user)
+    logins=( $(/usr/lib/acct/fwtmp < /var/adm/wtmpx | grep "${act}" | tail -1 |
+      awk '{d=$12;m=$11;if(NF==16){d=$14;m=$13};if(NF==17){d=$15;m=$14};printf("%s:%s:%s:%s\n", $1, m, d, $NF)}') )
+  else
+    # Rely on 'last' and we will extrapolate a year
+    logins=($(last ${act} 2>/dev/null |
+      nawk '{printf("%s:%s:%s:\n", $1, $5, $6}' 2>/dev/null | head -1))
+  fi
 done
 
 
@@ -89,9 +97,16 @@ for lgn in ${logins[@]}; do
   # Set ${day} from ${lgn}
   day="$(echo "${lgn}" | cut -d: -f3)"
 
-  # Set ${year} to current year or if ${month} and ${day} > today use last year
-  [ ${month} -gt ${cmonth} ] &&
-    year=$(subtract 1 ${cyear}) || year=${cyear}
+  # Set ${year} from ${lgn}
+  year="$(echo "${lgn}" | cut -d: -f4)"
+
+  # Extrapolate if ${year} is NULL
+  if [ ${year} == "" ]; then
+
+    # Set ${year} to current year or if ${month} and ${day} > today use last year
+    [[ ${month} -ge ${cmonth} ]] && [[ ${day} -gt ${day} ]] &&
+      [ ${year} -eq 12 ] && year=$(subtract 1 ${cyear}) || year=$(subtract 1 ${cyear})
+  fi
 
   # Get the Julian Date from ${day}, ${month}, ${year}
   ucjdoy=$(conv_date_to_jdoy ${day} ${month} ${year})
@@ -152,10 +167,6 @@ fi
 ###############################################
 # Report generation specifics
 ###############################################
-
-# Apply some values expected for report footer
-#[ ${#errors[@]} -eq 0 ] && passed=1 || passed=0
-#[ ${#errors[@]} -gt 0 ] && failed=1 || failed=0
 
 # Calculate a percentage from applied modules & errors incurred
 percentage=$(percent ${passed} ${failed})
