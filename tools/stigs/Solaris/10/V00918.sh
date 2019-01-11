@@ -65,13 +65,19 @@ for act in ${user_list[@]}; do
   # If /usr/lib/acct/fwtmp exists use it
   if [ -f /usr/lib/acct/fwtmp ]; then
 
-    # Get array of login history (ignores system accounts, removes dupes & ignores all but last login per user)
-    logins=( $(/usr/lib/acct/fwtmp < /var/adm/wtmpx | grep "${act}" | tail -1 |
-      awk '{d=$12;m=$11;if(NF==16){d=$14;m=$13};if(NF==17){d=$15;m=$14};printf("%s:%s:%s:%s\n", $1, m, d, $NF)}') )
+    # Get array of login history using fwtmp since it exists
+    logins+=( $(/usr/lib/acct/fwtmp < /var/adm/wtmpx | grep "${act}" | tail -1 | nawk '{m="";d=""; \
+      for(i=11;i<=NF;i++){
+        if(tolower($i) ~ /jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec/){m=$i;i++;d=$i}
+        if(m != "" && d != ""){
+          printf("%s:%s:%s:%s\n", $1, m, d, $NF)
+        }
+      }
+    }' | sort -u) )
   else
     # Rely on 'last' and we will extrapolate a year
-    logins=($(last ${act} 2>/dev/null |
-      nawk '{printf("%s:%s:%s:\n", $1, $5, $6}' 2>/dev/null | head -1))
+    logins+=($(last ${act} 2>/dev/null |
+      awk '{printf("%s:%s:%s:\n", $1, $5, $6}' 2>/dev/null | head -1))
   fi
 done
 
