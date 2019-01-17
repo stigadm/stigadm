@@ -73,11 +73,23 @@ for service in ${services[@]}; do
     awk '$1 ~ /wrappers$/{print}' | grep false |
     nawk -v svc="${service}" '{printf("%s:%s:%s\n", svc, $1, $3)}')"
 
+  # Bail if ${item} isn't null
+  if [ "${item}" != "" ]; then
+    errors+=("${item}")
+    continue
+  fi
+
   # If ${item} is null try ${service}:default configuration values
   [ "${item}" == "" ] &&
     item="$(svccfg -s ${service}:default listprop 2>/dev/null | grep tcp | grep boolean |
       awk '$1 ~ /wrappers$/{print}' | grep false |
       nawk -v svc="${service}" '{printf("%s:%s:%s\n", svc, $1, $3)}')"
+
+  # Bail if ${item} isn't null
+  if [ "${item}" != "" ]; then
+    errors+=("${item}")
+    continue
+  fi
 
   # If ${item} is still null assume legacy and switch to inetadm
   [ "${item}" == "" ] &&
